@@ -1,0 +1,1 @@
+# plugins-smart-wishlist-for-more-convert
