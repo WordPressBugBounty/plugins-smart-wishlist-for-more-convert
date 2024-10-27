@@ -8,7 +8,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.7.6
+ * @version 1.8.4
  */
 
 /*jshint esversion: 6 */
@@ -1773,8 +1773,16 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
 
     // fix with jet woo builder plugin.
     $(document).on('jet-filter-content-rendered', $.fn.WLFMC.reInit_wlfmc).on('jet-woo-builder-content-rendered', $.fn.WLFMC.reInit_wlfmc).on('jet-engine/listing-grid/after-load-more', $.fn.WLFMC.reInit_wlfmc).on('jet-engine/listing-grid/after-lazy-load', $.fn.WLFMC.reInit_wlfmc).on('jet-cw-loaded', $.fn.WLFMC.reInit_wlfmc);
-    $(document).on('ready', $.fn.WLFMC.load_fragments); // load fragment for fix filter everything ajax response.
-
+    // load fragment for fix filter everything ajax response.
+    $(document).on('ready', $.fn.WLFMC.load_fragments);
+    // load fragment for fix bug with ajax filter Destiny Elements plugin
+    $(document).on('deContentLoaded', $.fn.WLFMC.load_fragments);
+    // fix waitlist popup after wpc composite product gallery loaded in single product page
+    $(document).on('wooco_gallery_loaded', function (e, product_id) {
+      if (product_id) {
+        $('*[id^="add_to_waitlist_popup_' + product_id + '_"].popup_wrapper').remove();
+      }
+    });
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         if ($('.woocommerce-product-gallery__wrapper .wlfmc-top-of-image').length > 0) {

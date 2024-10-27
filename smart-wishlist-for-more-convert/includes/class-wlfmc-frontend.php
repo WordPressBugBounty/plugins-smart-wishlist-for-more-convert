@@ -494,7 +494,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * Add the "Add to Wishlist" button. Needed to use in wp_head hook.
 		 *
 		 * @return void
-		 * @version 1.3.0
+		 * @version 1.8.4
 		 */
 		public function add_button() {
 			$options = new MCT_Options( 'wlfmc_options' );
@@ -607,7 +607,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 									add_action( $v['hook'], array( $this, 'wlfmc_single_flex_' . $position ), $v['priority'] );
 								}
 							}
-							break;
+							//break;
 						}
 					}
 				}
@@ -689,7 +689,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 									add_action( $v['hook'], array( $this, 'wlfmc_loop_flex_' . $position ), $v['priority'] );
 								}
 							}
-							break;
+							//break;
 						}
 					}
 				}

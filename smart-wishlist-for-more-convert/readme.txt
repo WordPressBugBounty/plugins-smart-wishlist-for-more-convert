@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.6.2
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -296,6 +296,16 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.8.4 =
+
+* Tested: WC 9.3.3
+* Added: Integration with WPC Composite Product. (Premium Feature)
+* Added: Integration with Destiny Elements plugin.
+* Added: Add back in stock waitlist for backorder products. (Premium Feature)
+* Added: Add import wishlist from Yith woocommerce wishlist plugin. (Premium Feature)
+* Fixed: Fix stock limit reported bug. (Premium Feature)
+* Fixed: Fix back-in-stock reported bug. (Premium Feature)
 
 = 1.8.3 =
 
