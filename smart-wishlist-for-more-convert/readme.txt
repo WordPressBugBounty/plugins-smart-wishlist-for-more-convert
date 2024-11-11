@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.6.2
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -296,6 +296,19 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.8.5 =
+
+* Added: add "wlfmc_table_start_first_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_end_first_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_start_center_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_end_center_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_start_last_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_end_last_column" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_first_column_classes" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_center_column_classes" hook for third-party plugin to customize list view.
+* Added: add "wlfmc_table_last_column_classes" hook for third-party plugin to customize list view.
+* Added: Add black-friday notice.
 
 = 1.8.4 =
 

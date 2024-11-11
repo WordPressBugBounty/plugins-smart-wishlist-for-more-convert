@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.3
+ * @version 1.8.5
  */
 
 /**
@@ -173,7 +173,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<input type="hidden" name="items[<?php echo esc_attr( $item->get_product_id() ); ?>][position]" value="<?php echo esc_attr( $item->get_position() ); ?>"/>
 								</td>
 							<?php endif; ?>
-							<td class="first-column">
+							<td class="first-column <?php echo esc_attr( apply_filters( 'wlfmc_table_first_column_classes', '',  $wishlist, $atts ) ); ?>">
+								<?php do_action( 'wlfmc_table_start_first_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex f-center-items wlfmc-thumbnail-wrapper">
 									<div class="d-flex f-center-item wlfmc-action-icons">
 										<?php if ( in_array( 'product-checkbox', $items_show, true ) ) : ?>
@@ -221,8 +222,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<?php do_action( 'wlfmc_table_after_product_thumbnail', $item, $wishlist ); ?>
 									<?php endif; ?>
 								</div>
+								<?php do_action( 'wlfmc_table_end_first_column', $item, $wishlist, $atts ); ?>
 							</td>
-							<td class="center-column">
+							<td class="center-column <?php echo esc_attr( apply_filters( 'wlfmc_table_center_column_classes', '',  $wishlist, $atts ) ); ?>">
+                                <?php do_action( 'wlfmc_table_start_center_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex flex-column gap-5">
 									<?php do_action( 'wlfmc_table_product_details_start', $item, $wishlist, $atts ); ?>
 
@@ -317,8 +320,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 									<?php do_action( 'wlfmc_table_product_details_end', $item, $wishlist, $atts ); ?>
 								</div>
+								<?php do_action( 'wlfmc_table_end_center_column', $item, $wishlist, $atts ); ?>
 							</td>
-							<td class="last-column">
+							<td class="last-column <?php echo esc_attr( apply_filters( 'wlfmc_table_last_column_classes', '',  $wishlist, $atts ) ); ?>">
+								<?php do_action( 'wlfmc_table_start_last_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex flex-column gap-5">
 									<div
 										class="d-flex gap-5 f-center-item justify-center f-wrap-on-mobile f-wrap-on-grid">
@@ -456,6 +461,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php endif; ?>
 
 								</div>
+								<?php do_action( 'wlfmc_table_start_last_column', $item, $wishlist, $atts ); ?>
 							</td>
 						</tr>
 						<?php if ( '' !== $item_meta_date ) : ?>

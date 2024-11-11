@@ -3,7 +3,7 @@
  * Plugin Name: MC Woocommerce Wishlist
  * Plugin URI: https://moreconvert.com/smart-wishlist-for-more-convert
  * Description: With the MC Wishlist plugin, your website users can add their favorite products to the wishlist. Then you can persuade them to buy products on their wishlist through the magic of our Marketing Toolkits.
- * Version: 1.8.4
+ * Version: 1.8.5
  * Author: MoreConvert
  * Author URI: https://moreconvert.com
  * Text Domain: wc-wlfmc-wishlist
@@ -14,7 +14,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.4
+ * @version 1.8.5
  */
 
 /**
