@@ -3,13 +3,14 @@
  * WLFMC wishlist integration with Advanced Product Fields Pro for WooCommerce plugin
  *
  * @plugin_name Advanced Product Fields Pro for WooCommerce
- * @version  2.1.1
+ * @version  2.7.25
  * @slug advanced-product-fields-for-woocommerce-pro
  * @url https://www.studiowombat.com/plugin/advanced-product-fields-for-woocommerce/
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.8.6
  */
 
 use SW_WAPF_PRO\Includes\Classes\Cache;
@@ -126,8 +127,8 @@ function wlfmc_wapf_pro_get_item_data( $item_data, $cart_item ) {
 
 			$data = array(
 				'key'     => $field['label'],
-				'value'   => Helper::values_to_string( $field, true ),
-				'display' => Helper::values_to_string( $field, false, isset( $cart_item['wapf_item_price'] ) ? $cart_item['wapf_item_price']['options'] : array() ),
+				'value'   => method_exists( 'SW_WAPF_PRO\Includes\Classes\Helper', 'values_to_simple_string' ) ? Helper::values_to_simple_string( $field, 'cart' ) : Helper::values_to_string( $field, true ),
+				'display' => method_exists( 'SW_WAPF_PRO\Includes\Classes\Helper', 'values_to_display_string' ) ? Helper::values_to_display_string( $field, isset( $cart_item['wapf_item_price'] ) ? $cart_item['wapf_item_price']['options'] : array() ) : Helper::values_to_string( $field, false, isset( $cart_item['wapf_item_price'] ) ? $cart_item['wapf_item_price']['options'] : array() ),
 			);
 
 			$item_data[] = $data;

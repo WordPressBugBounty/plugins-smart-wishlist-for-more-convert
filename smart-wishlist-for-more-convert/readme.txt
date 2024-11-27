@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.6.2
-Stable tag: 1.8.5
+Tested up to: 6.7.1
+Stable tag: 1.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -297,6 +297,13 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.8.6 =
+
+* Tested: WP 6.7.1
+* Tested: WC 9.4.2
+* Fixed: fixed PHP Notice "Function _load_textdomain_just_in_time was called incorrectly".
+* Fixed: Fixed Some Reported Bugs with Advanced Product Fields Pro for WooCommerce plugin.
+
 = 1.8.5 =
 
 * Added: add "wlfmc_table_start_first_column" hook for third-party plugin to customize list view.
@@ -348,7 +355,7 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Fixed: Remove "Requires Plugins" from the plugin description for demo import bugs reported.
 * Fixed: Fix reported bug when Add a product to the wishlist in loops that have an input with the name "add-to-cart" instead of a button with the name "add-to-cart".
 
-= 1.8.0
+= 1.8.0 =
 
 * Tested: WC 8.8.3
 * Fixed: Fix loco translate bugs.
