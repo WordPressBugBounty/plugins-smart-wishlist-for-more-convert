@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.3
+ * @version 1.8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -196,14 +196,14 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 							if ( $wishlist ) {
 
 								// check offer email exists and conditions is true or not.
-								if ( isset( $options['min_count'] ) && $options['min_count'] <= $wishlist->count_items() && isset( $options['min_total'] ) && $options['min_total'] <= $wishlist->get_total() ) {
+								if ( isset( $options['minimum-wishlist-count'] ) && $options['minimum-wishlist-count'] <= $wishlist->count_items() && isset( $options['minimum-wishlist-total'] ) && $options['minimum-wishlist-total'] <= $wishlist->get_total() ) {
 
 									$is_canceled = false;
 
 									// Checked wishlist have one of the  product included or not.
-									if ( isset( $options['include_products'] ) && ! empty( $options['include_products'] ) && is_array( $options['include_products'] ) ) {
+									if ( isset( $options['include-product'] ) && ! empty( $options['include-product'] ) && is_array( $options['include-product'] ) ) {
 										$exists = false;
-										foreach ( $options['include_products'] as $product_id ) {
+										foreach ( $options['include-product'] as $product_id ) {
 											$product_id = wlfmc_object_id( $product_id, 'product', true, 'default' );
 
 											if ( array_key_exists( $product_id, $wishlist->get_items() ) ) {
@@ -406,7 +406,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @param object           $email_row Email data.
 		 *
 		 * @throws Exception When sending email.
-		 * @version 1.6.2
+		 * @version 1.8.7
 		 */
 		public function send_email( $automation, $email_row ) {
 

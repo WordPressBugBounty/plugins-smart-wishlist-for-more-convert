@@ -775,7 +775,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 
 				self::$email_footer = $email_footer;
 
-				add_filter( 'woocommerce_email_footer_text', array( 'WLFMC_Automation_Ajax_Handler_Premium', 'add_footer' ) );
+				add_filter( 'woocommerce_email_footer_text', array( 'WLFMC_Automation_Ajax_Handler', 'add_footer' ) );
 
 				wlfmc_get_template(
 					'emails/' . $template,
@@ -788,7 +788,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 						'wishlist_url'  => $wishlist_url,
 					)
 				);
-				remove_filter( 'woocommerce_email_footer_text', array( 'WLFMC_Automation_Ajax_Handler_Premium', 'add_footer' ) );
+				remove_filter( 'woocommerce_email_footer_text', array( 'WLFMC_Automation_Ajax_Handler', 'add_footer' ) );
 
 				die();
 			}

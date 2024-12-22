@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -601,7 +601,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 		 * Download wishlist as pdf file
 		 *
 		 * @return void
-		 * @version 1.7.6
+		 * @version 1.8.7
 		 * @since 1.4.4
 		 */
 		public static function download_pdf_file() {
@@ -625,14 +625,24 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 						'wishlist'               => $wishlist,
 						'wishlist_items'         => $wishlist->get_items(),
 						'page_title'             => $wishlist->get_formatted_name(),
-						'items_show'             => $options->get_option(
-							'wishlist_items_show',
-							array(
-								'product-stock-status',
-								'product-date-added',
-								'product-quantity',
-								'product-price',
-							)
+						'items_show'             => array(
+							'list-title',
+							'product-thumbnail',
+							'product-variation',
+							'product-name',
+							'product-stock-status',
+							'product-date-added',
+							'product-quantity',
+							'product-price',
+							'product-price-variation',
+						),
+						'column_widths'          => array(
+							'product-thumbnail'    => '65px',
+							'product-name'         => '340px',
+							'product-price'        => '120px',
+							'product-quantity'     => '65px',
+							'product-stock-status' => '75px',
+							'product-date-added'   => '75px',
 						),
 						'empty_wishlist_content' => $options->get_option( 'empty_wishlist_content', esc_html__( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ) ),
 					)

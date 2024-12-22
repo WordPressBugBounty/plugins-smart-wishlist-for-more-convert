@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.2
+ * @version 1.8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -308,7 +308,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 *
 		 * @return string
 		 *
-		 * @version 1.6.6
+		 * @version 1.8.7
 		 */
 		public function add_to_menu( string $nav_menu, stdClass $args ): string {
 			if ( strpos( $nav_menu, 'href="#wlfmc-wishlist"' ) !== false || strpos( $nav_menu, "href='#wlfmc-wishlist'" ) !== false ) {
@@ -320,7 +320,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				echo do_shortcode( "[wlfmc_wishlist_counter $shortcode_atts container_class='$container_class' link_class='$link_class' ]" );
 				$content = ob_get_clean();
 				if ( class_exists( 'DOMDocument' ) ) {
-					$use_mb = function_exists( 'mb_convert_encoding' );
+					$use_mb = function_exists( 'mb_convert_encoding' ) && PHP_VERSION_ID < 80200;
 					$dom    = new DOMDocument();
 					libxml_use_internal_errors( true );
 					if ( $use_mb ) {
@@ -931,6 +931,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * @param WLFMC_Wishlist_Item $item Wishlist item object.
 		 * @param array               $cart_item extra cart item data we want to pass into the item.
 		 *
+         * @version 1.8.7
 		 * @return mixed|void
 		 */
 		public function add_to_cart_validation( $passed, $product, $meta, $item, $cart_item ) {
@@ -965,7 +966,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				do_action( 'wlfmc_before_add_to_cart_validation' );
 
 				$passed = $product->is_purchasable() && ( $product->is_in_stock() || $product->backorders_allowed() ) && 'external' !== $product->get_type() && 'variable' !== $product->get_type();
-				$passed = apply_filters( 'woocommerce_add_to_cart_validation', $passed, $product_id, $quantity, $variation_id, $attributes, $cart_item );
+				$passed = is_null( WC()->cart ) ? $passed : apply_filters( 'woocommerce_add_to_cart_validation', $passed, $product_id, $quantity, $variation_id, $attributes, $cart_item );
 				$passed = apply_filters( 'wlfmc_add_to_cart_validation', $passed, $product_id, $quantity, $variation_id, $attributes, $cart_item, $item );
 
 				do_action( 'wlfmc_after_add_to_cart_validation' );

@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.7.1
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -266,6 +266,9 @@ If you encounter a 404 error for the wishlist page, try regenerating the wishlis
 = Have you encountered anomalies after the plugin update that did not exist in the previous version? =
 Anomalies might arise if your theme overrides plugin templates. If you use a popular theme, inform us to establish new compatibility. Alternatively, test the plugin in the WordPress default theme to rule out potential influences.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/wordpress/plugin/smart-wishlist-for-more-convert/vdp)
+
 = Where can I find documentation? =
 Comprehensive documentation is available online. Refer to our [online documentation](https://moreconvert.com/smart-wishlist-for-more-convert-documentation/) for assistance with setup and configuration.
 
@@ -297,6 +300,14 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.8.7 =
+
+* Tested: WC 9.5.1
+* Added: add customizable pdf columns with wlfmc_pdf_parameters filter.
+* Fixed: fix bug with woocommerce_add_to_cart_validation hook in the edit wishlist page.
+* Fixed: fix some reported bugs with preview and send automation email in free version.
+
+
 = 1.8.6 =
 
 * Tested: WP 6.7.1
@@ -315,7 +326,7 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Added: add "wlfmc_table_first_column_classes" hook for third-party plugin to customize list view.
 * Added: add "wlfmc_table_center_column_classes" hook for third-party plugin to customize list view.
 * Added: add "wlfmc_table_last_column_classes" hook for third-party plugin to customize list view.
-* Added: Add black-friday notice.
+
 
 = 1.8.4 =
 

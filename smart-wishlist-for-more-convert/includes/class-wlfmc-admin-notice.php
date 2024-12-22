@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 1.8.5
+ * @version 1.8.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		/**
 		 * Get Next black friday
 		 *
-         * @since 1.8.5
+         * @since 1.8.7
 		 * @return false|int
 		 */
 		private function get_next_black_friday() {
@@ -60,11 +60,11 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			$november     = strtotime( "November 1 $year" );
 			$black_friday = strtotime( 'fourth Friday', $november );
 			// If Black Friday has already passed this year, get it for next year.
-			if ( $black_friday < time() ) {
+			/*if ( $black_friday < time() ) {
 				$year++;
 				$november     = strtotime( "November 1 $year" );
 				$black_friday = strtotime( 'fourth Friday', $november );
-			}
+			}*/
 			return $black_friday;
 		}
 

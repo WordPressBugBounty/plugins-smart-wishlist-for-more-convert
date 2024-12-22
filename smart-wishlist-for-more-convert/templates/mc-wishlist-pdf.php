@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.4.3
+ * @version 1.8.7
  */
 
 /**
@@ -16,6 +16,7 @@
  * @var $items_show     array Array of items show
  * @var $page_title     string Page title
  * @var $empty_wishlist_content string string of no product in wishlist
+ * @var $column_widths  array Array of column width
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -89,20 +90,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 		tr .product-add-to-cart{
 			text-align: center;
 		}
+		td.product-stock-status, th.product-stock-status {
+			width:<?php echo esc_attr( $column_widths['product-stock-status'] ); ?>;
+		}
 		td.product-quantity, th.product-quantity {
-			width:65px;
+			width:<?php echo esc_attr( $column_widths['product-quantity'] ); ?>;
 		}
 		td.product-thumbnail, th.product-thumbnail {
-			width:65px;
+			width:<?php echo esc_attr( $column_widths['product-thumbnail'] ); ?>;
 		}
 		td.product-add-to-cart, th.product-add-to-cart {
-			width:75px;
+			width:<?php echo esc_attr( $column_widths['product-date-added'] ); ?>;
 		}
 		td.product-price, th.product-price {
-			width:85px;
+			width:<?php echo esc_attr( $column_widths['product-price'] ); ?>;
 		}
 		td.product-name, th.product-name {
-			width:340px;
+			width:<?php echo esc_attr( $column_widths['product-name'] ); ?>;
 		}
 		.price-variation {
 			display:none
@@ -116,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 do_action( 'wlfmc_before_pdf_wishlist_title', $wishlist );
 
-if ( ! empty( $page_title ) ) :
+if ( ! empty( $page_title ) && in_array( 'list-title', $items_show, true ) ) :
 	?>
 	<table border="0" cellpadding="0">
 		<tbody>
@@ -136,31 +140,42 @@ if ( ! empty( $page_title ) ) :
 <table class="wlfmc-wishlist-table" border="0" cellpadding="6" cellspacing="0">
 	<thead>
 		<tr>
-			<th class="product-thumbnail thWithOuterBorder"></th>
-			<th class="product-name thWithOuterBorder">
-				<span class="nobr">
-					<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_name_heading', __( 'Product Name', 'wc-wlfmc-wishlist' ) ) ); ?>
-				</span>
-			</th>
-			<th class="product-price thWithOuterBorder">
-				<span class="nobr">
-					<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_price_heading', __( 'Unit Price', 'wc-wlfmc-wishlist' ) ) ); ?>
-				</span>
-			</th>
-			<th class="product-quantity thWithOuterBorder">
-				<span class="nobr">
-					<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_quantity_heading', __( 'Quantity', 'wc-wlfmc-wishlist' ) ) ); ?>
-				</span>
-			</th>
-			<th class="product-stock-status thWithOuterBorder">
-				<span class="nobr">
-					<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_stock_heading', __( 'Stock status', 'wc-wlfmc-wishlist' ) ) ); ?>
-				</span>
-			</th>
-
-			<th class="product-add-to-cart thWithOuterBorder">
-				<?php esc_html_e( 'Added date', 'wc-wlfmc-wishlist' ); ?>
-			</th>
+			<?php if ( in_array( 'product-thumbnail', $items_show, true ) ) : ?>
+				<th class="product-thumbnail thWithOuterBorder"></th>
+			<?php endif; ?>
+			<?php if ( in_array( 'product-name', $items_show, true ) ) : ?>
+				<th class="product-name thWithOuterBorder">
+					<span class="nobr">
+						<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_name_heading', __( 'Product Name', 'wc-wlfmc-wishlist' ) ) ); ?>
+					</span>
+				</th>
+			<?php endif; ?>
+			<?php if ( in_array( 'product-price', $items_show, true ) ) : ?>
+				<th class="product-price thWithOuterBorder">
+					<span class="nobr">
+						<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_price_heading', __( 'Unit Price', 'wc-wlfmc-wishlist' ) ) ); ?>
+					</span>
+				</th>
+			<?php endif; ?>
+			<?php if ( in_array( 'product-quantity', $items_show, true ) ) : ?>
+				<th class="product-quantity thWithOuterBorder">
+					<span class="nobr">
+						<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_quantity_heading', __( 'Quantity', 'wc-wlfmc-wishlist' ) ) ); ?>
+					</span>
+				</th>
+			<?php endif; ?>
+			<?php if ( in_array( 'product-stock-status', $items_show, true ) ) : ?>
+				<th class="product-stock-status thWithOuterBorder">
+					<span class="nobr">
+						<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_stock_heading', __( 'Stock status', 'wc-wlfmc-wishlist' ) ) ); ?>
+					</span>
+				</th>
+			<?php endif; ?>
+			<?php if ( in_array( 'product-date-added', $items_show, true ) ) : ?>
+				<th class="product-add-to-cart thWithOuterBorder">
+					<?php esc_html_e( 'Added date', 'wc-wlfmc-wishlist' ); ?>
+				</th>
+			<?php endif; ?>
 		</tr>
 	</thead>
 	<tbody class="wishlist-items-wrapper <?php echo ( ! $wishlist || ! $wishlist->has_items() ) ? 'wishlist-empty' : ''; ?>">
@@ -182,74 +197,86 @@ if ( ! empty( $page_title ) ) :
 			if ( $product->exists() ) :
 				?>
 				<tr class="wlfmc-table-item" nobr="true">
-					<td class="product-thumbnail" align="center">
-						<a href="<?php echo esc_url( $permalink ); ?>" class="product-thumbnail-link">
-							<img src="<?php echo esc_url( $product->get_image_id() ? current( wp_get_attachment_image_src( $product->get_image_id(), 'full' ) ) : wc_placeholder_img_src() ); ?>" alt="<?php esc_attr_e( 'Product image', 'wc-wlfmc-wishlist' ); ?>" width="<?php echo esc_attr( $image_size[1] ); ?>" height="<?php echo esc_attr( $image_size[0] ); ?>" style="vertical-align:middle; " />
-						</a>
-					</td>
-					<td class="product-name">
-						<table border="0" cellpadding="0">
-							<tbody>
-								<tr><td>&nbsp;</td></tr>
-								<tr>
-									<td>
-										<a class="product-name" href="<?php echo esc_url( $permalink ); ?>">
-											<strong><?php echo wp_kses_post( apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ); ?></strong>
-										</a>
-									</td>
-								</tr>
-								<tr><td>&nbsp;</td></tr>
-							</tbody>
-						</table>
-						<?php if ( in_array( 'product-variation', $items_show, true ) && ( $product->is_type( 'variation' ) || ( isset( $meta['attributes'] ) && ! empty( $meta['attributes'] ) ) ) ) : ?>
-							<?php do_action( 'wlfmc_table_before_product_variation', $item, $wishlist ); ?>
+					<?php if ( in_array( 'product-thumbnail', $items_show, true ) ) : ?>
+						<td class="product-thumbnail" align="center">
+							<a href="<?php echo esc_url( $permalink ); ?>" class="product-thumbnail-link">
+								<img src="<?php echo esc_url( $product->get_image_id() ? current( wp_get_attachment_image_src( $product->get_image_id(), 'full' ) ) : wc_placeholder_img_src() ); ?>" alt="<?php esc_attr_e( 'Product image', 'wc-wlfmc-wishlist' ); ?>" width="<?php echo esc_attr( $image_size[1] ); ?>" height="<?php echo esc_attr( $image_size[0] ); ?>" style="vertical-align:middle; " />
+							</a>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-name', $items_show, true ) ) : ?>
+						<td class="product-name">
 							<table border="0" cellpadding="0">
 								<tbody>
-								<tr>
-									<td class="product-variation">
-										<?php
-										// phpcs:ignore Generic.Commenting.DocComment
-										/**
-										 * @var $product WC_Product_Variation
-										 */
-										echo wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-										?>
-									</td>
-								</tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td>
+											<a class="product-name" href="<?php echo esc_url( $permalink ); ?>">
+												<strong><?php echo wp_kses_post( apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product ) ); ?></strong>
+											</a>
+										</td>
+									</tr>
+									<tr><td>&nbsp;</td></tr>
 								</tbody>
 							</table>
-							<table border="0" cellpadding="0">
-								<tbody>
-								<tr>
-									<td>
-										<?php do_action( 'wlfmc_table_after_product_variation', $item, $wishlist ); ?>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						<?php endif; ?>
+							<?php if ( in_array( 'product-variation', $items_show, true ) && ( $product->is_type( 'variation' ) || ( isset( $meta['attributes'] ) && ! empty( $meta['attributes'] ) ) ) ) : ?>
+								<?php do_action( 'wlfmc_table_before_product_variation', $item, $wishlist ); ?>
+								<table border="0" cellpadding="0">
+									<tbody>
+									<tr>
+										<td class="product-variation">
+											<?php
+                                            // phpcs:ignore Generic.Commenting.DocComment
+											/**
+											 * @var $product WC_Product_Variation
+											 */
+											echo wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-						<?php do_action( 'wlfmc_pdf_table_meta_data', $meta, $cart_item, $wishlist ); ?>
-					</td>
-					<td class="product-price" align="center">
-						<?php
-						echo wp_kses_post( $item->get_formatted_product_price() );
-						echo wp_kses_post( $item->get_price_variation() );
-						?>
-					</td>
-					<td class="product-quantity" align="center">
-						<?php echo esc_html( $item->get_quantity() ); ?>
-					</td>
-					<td class="product-stock-status" align="center">
-						<?php echo 'out-of-stock' === $stock_status ? '<span class="wishlist-out-of-stock">' . esc_html__( 'Out of stock', 'wc-wlfmc-wishlist' ) . '</span>' : '<span class="wishlist-in-stock">' . esc_html__( 'In Stock', 'wc-wlfmc-wishlist' ) . '</span>'; ?>
-					</td>
-					<td class="product-add-to-cart" align="center">
-						<!-- Date added -->
-						<?php if ( $item->get_date_added() ) : ?>
-							<?php echo esc_html( $item->get_date_added_formatted() ); ?>
-						<?php endif; ?>
-					</td>
+											?>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+								<table border="0" cellpadding="0">
+									<tbody>
+									<tr>
+										<td>
+											<?php do_action( 'wlfmc_table_after_product_variation', $item, $wishlist ); ?>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							<?php endif; ?>
+
+							<?php do_action( 'wlfmc_pdf_table_meta_data', $meta, $cart_item, $wishlist ); ?>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-price', $items_show, true ) ) : ?>
+						<td class="product-price" align="center">
+							<?php
+							echo wp_kses_post( $item->get_formatted_product_price() );
+							echo in_array( 'product-price-variation', $items_show, true ) ? wp_kses_post( $item->get_price_variation() ) : '';
+							?>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-quantity', $items_show, true ) ) : ?>
+						<td class="product-quantity" align="center">
+							<?php echo esc_html( $item->get_quantity() ); ?>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-stock-status', $items_show, true ) ) : ?>
+						<td class="product-stock-status" align="center">
+							<?php echo 'out-of-stock' === $stock_status ? '<span class="wishlist-out-of-stock">' . esc_html__( 'Out of stock', 'wc-wlfmc-wishlist' ) . '</span>' : '<span class="wishlist-in-stock">' . esc_html__( 'In Stock', 'wc-wlfmc-wishlist' ) . '</span>'; ?>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-date-added', $items_show, true ) ) : ?>
+						<td class="product-add-to-cart" align="center">
+							<!-- Date added -->
+							<?php if ( $item->get_date_added() ) : ?>
+								<?php echo esc_html( $item->get_date_added_formatted() ); ?>
+							<?php endif; ?>
+						</td>
+					<?php endif; ?>
 				</tr>
 			<?php endif; ?>
 		<?php endforeach; ?>
