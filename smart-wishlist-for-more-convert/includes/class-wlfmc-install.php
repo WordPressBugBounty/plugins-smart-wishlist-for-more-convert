@@ -185,6 +185,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
     						lang VARCHAR( 7 ) DEFAULT '',
     						notes LONGTEXT,
     						customer_meta LONGTEXT,
+    						gdpr_status TINYINT( 1 ) NOT NULL DEFAULT 0,
     						unsubscribed TINYINT( 1 ) NOT NULL DEFAULT 0,
 							email_verified TINYINT( 1 ) NOT NULL DEFAULT 0,
     						phone_verified TINYINT( 1 ) NOT NULL DEFAULT 0,
@@ -512,6 +513,11 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			if ( version_compare( $current_version, '1.7.6', '<' ) ) {
 
 				$this->update_1_7_6();
+			}
+
+			if ( version_compare( $current_db_version, '1.3.2', '<' ) ) {
+
+				$this->update_1_8_8();
 			}
 
 			$this->register_current_version();
@@ -1534,6 +1540,22 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Update to 1.8.8
+		 *
+		 * @since 1.8.8
+		 */
+		private function update_1_8_8() {
+			global $wpdb;
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) {
+				if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `$wpdb->wlfmc_wishlist_customers` LIKE 'gdpr_status';" ) ) {
+					$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers ADD `gdpr_status` TINYINT( 1 ) NOT NULL DEFAULT 0;" );
+					wp_cache_flush_group( 'wlfmc-customers' );
+				}
+			}
+		}
+
 
 		/**
 		 * Add a page "Wishlist".

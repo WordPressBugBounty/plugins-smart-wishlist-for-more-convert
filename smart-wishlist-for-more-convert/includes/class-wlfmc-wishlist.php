@@ -524,10 +524,24 @@ if ( ! class_exists( 'WLFMC_Wishlist' ) ) {
 		 *
 		 * @return string Url to download
 		 * @since 1.4.4
-		 * @version 1.7.6
+		 * @version 1.8.8
 		 */
 		public function get_download_pdf_url(): string {
-			return apply_filters( 'wlfmc_wishlist_download_pdf_url', wp_nonce_url( add_query_arg( 'download_pdf_wishlist', $this->get_id(), home_url() ), 'wlfmc_download_pdf_wishlist', 'download_pdf_nonce' ), $this );
+			return apply_filters(
+				'wlfmc_wishlist_download_pdf_url',
+				wp_nonce_url(
+					add_query_arg(
+						array(
+							'download_pdf_wishlist' => $this->get_id(),
+							'wishlist_token'        => $this->get_token(),
+						),
+						home_url()
+					),
+					'wlfmc_download_pdf_wishlist',
+					'download_pdf_nonce'
+				),
+				$this
+			);
 		}
 
 		/* === SETTERS === */

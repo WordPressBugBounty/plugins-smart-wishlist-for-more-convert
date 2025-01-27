@@ -54,6 +54,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * @var false|mixed|void
 		 */
 		public $list_type;
+
 		/**
 		 * Constructor
 		 *
@@ -84,7 +85,10 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
             // wishlist view.
 			add_action( 'wlfmc_main_wishlist_content', array( $this, 'main_wishlist_content' ), 10, 1 );
 
-			// dashboard page.
+            // Subscribe setting.
+            add_action( 'wlfmc_table_after_share', array( $this, 'add_unsubscribe_notice' ) ,10 ,2 );
+            add_action( 'wlfmc_before_login_notice', array( $this, 'add_gdpr_notice' ), 10, 2 );
+            // dashboard page.
 			$options               = new MCT_Options( 'wlfmc_options' );
 			$enable_myaccount_link = $options->get_option( 'wishlist_enable_myaccount_link', false );
 			$wishlist_page_id      = get_option( 'wlfmc_wishlist_page_id' );
@@ -464,7 +468,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			}
 
 		}
-
 
 		/**
 		 * Add new query var.
@@ -1150,6 +1153,34 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		}
 
 		/**
+		 * Include add unsubscribe notice
+		 *
+		 * @param array $var Array of variables to pass to the template.
+		 * @param WLFMC_Wishlist $wishlist Current wishlist.
+         *
+		 * @return void
+		 */
+        public function add_unsubscribe_notice( $wishlist, $var ) {
+	        if ( wlfmc_is_true( $var['unsubscribed'] )  ) {
+		        wlfmc_get_template( 'mc-unsubscribed-notice.php', $var );
+	        }
+        }
+
+		/**
+		 * Include GDPR notice
+		 *
+		 * @param array $var Array of variables to pass to the template.
+		 * @param WLFMC_Wishlist $wishlist Current wishlist.
+		 *
+		 * @return void
+		 */
+		public function add_gdpr_notice( $wishlist, $var ) {
+            if ( wlfmc_is_true( $var['gdpr_enable'] ) ) {
+				wlfmc_get_template( 'mc-gdpr-notice.php', $var );
+			}
+		}
+
+		/**
 		 * Add specific body class when the Wishlist page is opened
 		 *
 		 * @param array $classes Existing boy classes.
@@ -1193,7 +1224,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 
 			return wp_robots_no_robots( $robots );
 		}
-
 
 		/**
 		 * Register scripts and styles required by the plugin
@@ -1349,6 +1379,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						'load_automations'            => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_automations' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_automations' : 'wlfmc_wp_rest_load_automations' ),
 						'update_item_quantity'        => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_update_item_quantity' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_update_item_quantity' : 'wlfmc_wp_rest_update_item_quantity' ),
 						'change_layout'               => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_layout' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_layout' : 'wlfmc_wp_rest_change_layout' ),
+                        'gdpr_action'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_gdpr_status' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_gdpr_status' : 'wlfmc_wp_rest_change_gdpr_status' ),
 					),
 					'ajax_nonce'            => array(),
 				),
@@ -1392,7 +1423,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		public function register_widget() {
 			register_widget( 'WLFMC_Counter_Widget' );
 		}
-
 
 		/* === UTILS === */
 
@@ -2740,7 +2770,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 
 			return $options;
 		}
-
 
 		/**
 		 * Destroy serialize cookies, to prevent major vulnerability

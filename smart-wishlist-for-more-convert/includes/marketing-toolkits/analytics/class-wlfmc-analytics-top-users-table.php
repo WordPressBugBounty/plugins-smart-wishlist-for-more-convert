@@ -121,15 +121,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 
 			global $wpdb;
 			// phpcs:disable WordPress.Security.NonceVerification
-			$purchased          = apply_filters( 'wlfmc_conditions_paid_order_statuses', wc_get_is_paid_statuses() );
-			$purchased          = array_map(
-				function( $product ) {
-					return 'wc-' . $product;
-				},
-				$purchased
-			);
-			$status_placeholder = implode( ',', array_fill( 0, count( $purchased ), '%s' ) );
-			$params             = $purchased;
 			$sql                = "SELECT 
                                     customers.customer_id, 
                                     customers.user_id, 
@@ -143,7 +134,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
                                     IFNULL( users.user_login, customers.email) AS username ,
                                     COUNT(DISTINCT items.wishlist_id) AS list_count,             
                                     COUNT(DISTINCT items.prod_id) AS total_product_lists,
-                                    os.total_sales AS total_payment,
                                     a.total_product_analytics, 
                                     a.total_lists_payment
                                     FROM $wpdb->wlfmc_wishlist_customers as customers
@@ -157,17 +147,10 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
                                                 SUM(IF(order_id IS NOT NULL AND datepurchased IS NOT NULL AND type IN ('buy-through-list', 'buy-through-coupon'), price * quantity, 0)) AS total_lists_payment
                                          FROM $wpdb->wlfmc_wishlist_analytics
                                          GROUP BY customer_id
-                                    ) as a on a.customer_id = customers.customer_id
-                                    LEFT JOIN (
-                                        SELECT cl.user_id,cl.customer_id, SUM(o.total_sales) AS total_sales 
-                                        FROM {$wpdb->prefix}wc_order_stats as o
-                                        JOIN {$wpdb->prefix}wc_customer_lookup as cl on cl.customer_id = o.customer_id
-                                        WHERE o.status IN ( $status_placeholder )
-                                        GROUP BY cl.customer_id
-                                    ) AS os ON customers.user_id = os.user_id OR FIND_IN_SET(os.customer_id, customers.order_customer_id) > 0";
+                                    ) as a on a.customer_id = customers.customer_id";
 			$sql               .= " WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) ";
 
-			$sql .= ' GROUP BY customers.customer_id,email,display_name,first_name,last_name,username ,os.total_sales ';
+			$sql .= ' GROUP BY customers.customer_id,email,display_name,first_name,last_name,username';
 			$sql .= ' HAVING ( total_product_lists > 0 OR total_product_analytics> 0 )';
 
 			$sql .= ' ORDER BY total_product_lists DESC ';
@@ -176,7 +159,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 			$sql .= " LIMIT $per_page";
 
 			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
-			return $wpdb->get_results( $wpdb->prepare( $sql, $params ), 'ARRAY_A' );  // phpcs:ignore WordPress.DB
+			return $wpdb->get_results( $sql, 'ARRAY_A' );  // phpcs:ignore WordPress.DB
 		}
 
 		/**

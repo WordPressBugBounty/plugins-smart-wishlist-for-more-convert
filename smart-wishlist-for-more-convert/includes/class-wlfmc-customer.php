@@ -69,6 +69,7 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 				'unsubscribe_expiration' => '',
 				'notes'                  => '',
 				'customer_meta'          => '',
+				'gdpr_status'            => 0
 			);
 
 			parent::__construct();
@@ -168,7 +169,35 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 			return (bool) $this->get_prop( 'unsubscribed', $context );
 		}
 
+		/* === GDPR === */
+		/**
+		 * Check whether the customer's GDPR status is in the "pending" state (value 0).
+		 *
+		 * This method retrieves the GDPR status of the customer and checks if it is in the "pending" state.
+		 * Note: Casting to (bool) will return `false` for `0` and `true` for any non-zero value.
+		 * If you specifically want to check for `0`, use `=== 0` instead of `(bool)`.
+		 *
+		 * @param string $context The context in which to retrieve the property (e.g., 'view', 'edit').
+		 * @return bool Returns `true` if the GDPR status is non-zero, `false` if it is `0`.
+		 */
+		public function is_gdpr_pending( $context = 'view' ) {
+			return 0 === $this->get_prop( 'gdpr_status', $context );
+		}
+
 		/* === GETTERS === */
+
+		/**
+		 * Retrieve the customer's GDPR status.
+		 *
+		 * This method fetches the GDPR status of the customer based on the provided context.
+		 * The context determines how the property should be retrieved (e.g., 'view' for display purposes or 'edit' for editing purposes).
+		 *
+		 * @param string $context The context in which to retrieve the property (e.g., 'view', 'edit').
+		 * @return int Returns the GDPR status of the customer. The value depends on the implementation of `get_prop`.
+		 */
+		public function get_gdpr_status( $context = 'view' ){
+			return (int) $this->get_prop( 'gdpr_status', $context );
+		}
 
 		/**
 		 * Get customer token
@@ -398,6 +427,15 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 		}
 
 		/* === SETTERS === */
+
+		/**
+		 * Set GDPR status.
+		 *
+		 * @param int $status new status
+		 */
+		public function set_gdpr_status( $status ){
+			$this->set_prop( 'gdpr_status', (int) $status );
+		}
 
 		/**
 		 * Set customer token

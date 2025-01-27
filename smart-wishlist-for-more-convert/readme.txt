@@ -30,7 +30,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Email Campaigns & Automation: Targeted emails, automated.
 - And over 47 other cool and useful options.
 
-🌟 [TRY MC Woocommerce Wishlist **PREMIUM** For **FREE** ](https://moreconvert.com/demo-signup/?utm_source=wordpressorg&utm_content=preview)
+🌟 [TRY MC Woocommerce Wishlist **PREMIUM** For **FREE** ](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)
 
 [youtube https://youtu.be/kFrdOcpZ8ZE]
 
@@ -175,7 +175,7 @@ More advanced features in the premium version include:
 - Optimized for seamless desktop and mobile viewing experiences.
 - Supports both simple and variable products.
 
-🌟 **[TRY THE FREE DEMO OF MC Wishlist PREMIUM](https://moreconvert.com/demo-signup/?utm_source=wordpressorg&utm_content=preview)**
+🌟 **[TRY THE FREE DEMO OF MC Wishlist PREMIUM](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 Why is **this one plugin** better than all those plugins out there?
 
@@ -228,7 +228,7 @@ Whether your customers are browsing on a desktop or a mobile device, the MoreCon
 
 Ready to supercharge your WooCommerce sales and provide an exceptional shopping experience for your customers? 🚀 **[Get the Premium Version Now!](https://moreconvert.com/pricing)**
 
-🔥 **[Try the Free Demo of MC Wishlist Premium](https://moreconvert.com/demo-signup/?utm_source=wordpressorg&utm_content=preview)**
+🔥 **[Try the Free Demo of MC Wishlist Premium](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 == Installation and use ==
 
@@ -299,6 +299,15 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.8.8 =
+
+* Tested: WC 9.6.0
+* Fixed: Fixing the vulnerability bug related to downloading PDF file lists that was reported.
+* Fixed: Fixing the reported bugs in the woocommerce-tm-extra-product-options plugin.
+* Fixed: Fixed reported bugs in the admin analytics pages.
+* Added: Add GDPR Compliance.
+* Updated : Changing the template of activation emails to user-selected templates(Premium Feature).
 
 = 1.8.7 =
 

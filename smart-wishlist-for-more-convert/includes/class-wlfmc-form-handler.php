@@ -605,14 +605,16 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 		 * @since 1.4.4
 		 */
 		public static function download_pdf_file() {
-			if ( ! isset( $_GET['download_pdf_wishlist'] ) || ! isset( $_GET['download_pdf_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['download_pdf_nonce'] ) ), 'wlfmc_download_pdf_wishlist' ) ) {
+			if ( ! isset( $_GET['wishlist_token'] ) || ! isset( $_GET['download_pdf_wishlist'] ) || ! isset( $_GET['download_pdf_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['download_pdf_nonce'] ) ), 'wlfmc_download_pdf_wishlist' ) ) {
 				return;
 			}
 
-			$wishlist_id = intval( $_GET['download_pdf_wishlist'] );
+			$wishlist_id    = intval( $_GET['download_pdf_wishlist'] );
+			$wishlist_token = sanitize_text_field( wp_unslash( $_GET['wishlist_token'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+
 			$wishlist    = wlfmc_get_wishlist( $wishlist_id );
 
-			if ( ! $wishlist || ! $wishlist->current_user_can( 'view' ) ) {
+			if ( ! $wishlist || $wishlist_token !== $wishlist->get_token() || ! $wishlist->current_user_can( 'view' ) ) {
 				return;
 			}
 

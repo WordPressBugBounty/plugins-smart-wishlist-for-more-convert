@@ -66,6 +66,12 @@
             <key name="counter_empty_wishlist_content"/>
             <key name="no_access_title"/>
             <key name="no_access_content"/>
+            <key name="gdpr_content"/>
+            <key name="unsubscribed_content"/>
+            <key name="unsubscribed_button_title"/>
+            <key name="gdpr_denied_button_title"/>
+            <key name="gdpr_accept_button_title"/>
+
         </key>
     </key>
   </admin-texts>

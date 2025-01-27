@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.5
+ * @version 1.8.8
  */
 
 /**
@@ -92,6 +92,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
     $notices = apply_filters( 'wlfmc_list_notices', false, $is_cache_enabled );
 	?>
+
+	<?php do_action( 'wlfmc_before_login_notice', $wishlist, $atts ); ?>
+
 	<?php if ( true === $login_notice ) : ?>
 		<div class="<?php echo esc_attr( $login_notice_class ); ?>">
 			<?php if ( isset( $login_notice_content ) && '' !== $login_notice_content ) : ?>
@@ -123,6 +126,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
+
+	<?php do_action( 'wlfmc_after_login_notice', $wishlist, $atts ); ?>
 
 	<div class="wlfmc-wishlist-table-wrapper">
 

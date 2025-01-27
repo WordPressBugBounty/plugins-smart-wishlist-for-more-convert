@@ -372,7 +372,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
         }
 
         /*const topOfImageElems = document.querySelectorAll( '.wlfmc-top-of-image' );
-        	for (let i = 0; i < topOfImageElems.length; i++) {
+        		for (let i = 0; i < topOfImageElems.length; i++) {
         	const currentElem = topOfImageElems[i];
         	// Set the margin top of the next sibling element to the height of the current element.
         	if (currentElem.nextElementSibling) {
@@ -1456,6 +1456,42 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
         $(this).addClass('nav-tab-active');
         $('.wlfmc_content_' + content).show();
         window.history.replaceState('', '', $.fn.WLFMC.updateURLParameter(window.location.href, "tab", content));
+        return false;
+      });
+
+      /* === GDPR === */
+      b.on('click', '.wlfmc-gdpr-btn', function (ev) {
+        ev.stopImmediatePropagation();
+        ev.preventDefault();
+        var elem = $(this),
+          action_type = elem.data('action'),
+          cid = elem.data('cid');
+        $.ajax({
+          url: wlfmc_l10n.ajax_url,
+          data: {
+            action: wlfmc_l10n.actions.gdpr_action,
+            nonce: elem.data('nonce'),
+            context: 'frontend',
+            'action_type': action_type,
+            'cid': cid
+          },
+          method: 'post',
+          beforeSend: function beforeSend(xhr) {
+            if (wlfmc_l10n.ajax_mode === 'rest_api') {
+              xhr.setRequestHeader('X-WP-Nonce', wlfmc_l10n.nonce);
+            }
+            $.fn.WLFMC.loading(elem);
+          },
+          complete: function complete() {
+            $.fn.WLFMC.unloading(elem);
+          },
+          success: function success(data) {
+            if (!data) {
+              return;
+            }
+            $('.wlfmc-gdpr-notice-wrapper, .wlfmc-unsubscribe-notice-wrapper').remove();
+          }
+        });
         return false;
       });
       t.on('click', 'body.elementor-editor-active .wlfmc-lists-header a,body.elementor-editor-active a.wlfmc-open-list-link', function (ev) {

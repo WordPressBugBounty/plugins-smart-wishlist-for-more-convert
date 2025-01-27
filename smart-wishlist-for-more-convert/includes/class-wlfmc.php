@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.7
+ * @version 1.8.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,14 +27,14 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.8.7';
+		public $version = '1.8.8';
 
 		/**
 		 * Plugin database version
 		 *
 		 * @var string
 		 */
-		public $db_version = '1.3.1';
+		public $db_version = '1.3.2';
 
 		/**
 		 * Store class WLFMC_Install.
@@ -195,6 +195,9 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				}
 			}
 
+			// load privacy
+			add_action( 'plugins_loaded', array( $this, 'privacy_loader' ), 20 );
+
 			// add rewrite rule.
 			add_action( 'init', array( $this, 'add_rewrite_rules' ), 0 );
 			add_filter( 'query_vars', array( $this, 'add_public_query_var' ) );
@@ -330,6 +333,18 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			if ( $customer_id > 0 ) {
 				WLFMC_Wishlist_Factory::delete_customer( $customer_id );
 			}
+		}
+
+		/* === PRIVACY LOADER === */
+
+		/**
+		 * Loads privacy class
+		 *
+		 * @return void
+		 * @since 1.8.8
+		 */
+		public function privacy_loader() {
+			new WLFMC_Privacy();
 		}
 
 		/* === ITEMS METHODS === */

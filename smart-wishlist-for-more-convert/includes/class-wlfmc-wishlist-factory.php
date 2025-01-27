@@ -76,6 +76,24 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 		}
 
 		/**
+		 * subscribe a Customer
+		 *
+		 * @param WLFMC_Customer $customer customer.
+		 *
+		 * @return void
+		 */
+		public static function subscribe_customer( $customer ) {
+			if ( ! $customer ) {
+				return;
+			}
+			try {
+				WC_Data_Store::load( 'wlfmc-customer' )->subscribe( $customer );
+			} catch ( Exception $e ) {
+				return;
+			}
+		}
+
+		/**
 		 * Get user data by customer ,for guest generate data from email or retrieve data from db.
 		 *
 		 * @param WLFMC_Customer|int $customer Customer or customer_id.

@@ -229,10 +229,14 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				'template_part'             => $template_part,
 				'additional_info'           => false,
 				'available_multi_list'      => false,
+				'gdpr_enable'               => false,
+				'unsubscribed'              => false,
 				'users_wishlists'           => array(),
 				'redirect_to_cart'          => $options->get_option( 'redirect_after_add_to_cart', true ),
 				'form_action'               => esc_url( WLFMC()->get_wishlist_url( 'wishlist', 'view' ) ),
 			);
+
+
 
 			$additional_params['wishlist_class'] .= $is_elementor ? ' is-elementor' : '';
 
@@ -424,8 +428,30 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 					$additional_params['login_notice_buttons'] = $options->get_option( 'login_notice_buttons', '' );
 					$additional_params['login_url']            = $options->get_option( 'login_url', wp_login_url(), true );
 					$additional_params['signup_url']           = $options->get_option( 'signup_url', wp_registration_url(), true );
-
 				}
+
+				$gdpr_enabled = $options->get_option( 'gdpr_enable', false );
+
+				if ( $gdpr_enabled && $is_user_owner && $wishlist->has_items() ) {
+					$customer = $wishlist->get_customer();
+					if ( $customer && ( is_user_logged_in() || $customer->is_email_verified() ) ) {
+						if ( $customer->is_gdpr_pending() ) {
+							// show gdpr notice
+							$additional_params['customer_id']              = $customer->get_id();
+							$additional_params['gdpr_enable']              = true;
+							$additional_params['gdpr_content']             = $options->get_option( 'gdpr_content', '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'We Value Your Privacy', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms.', 'wc-wlfmc-wishlist' ) . '</p>' );
+							$additional_params['gdpr_accept_button_title'] = $options->get_option( 'gdpr_accept_button_title', __( 'Accept', 'wc-wlfmc-wishlist' ) );
+							$additional_params['gdpr_denied_button_title'] = $options->get_option( 'gdpr_denied_button_title', __( 'Deny', 'wc-wlfmc-wishlist' ) );
+						}elseif( 1 === $customer->get_gdpr_status() || $customer->is_unsubscribed() || in_array( $customer->get_email(), get_option( 'wlfmc_unsubscribed_users', array() ), true ) ) {
+							// rejected gdpr and show unsubscribed notice
+							$additional_params['customer_id']               = $customer->get_id();
+							$additional_params['unsubscribed']              = true;
+							$additional_params['unsubscribed_content']      = $options->get_option( 'unsubscribed_content', __( 'Your email has been successfully UnSubscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) );
+							$additional_params['unsubscribed_button_title'] = $options->get_option( 'unsubscribed_button_title', __( 'Agree, Subscribe Me', 'wc-wlfmc-wishlist' ) );
+						}
+					}
+				}
+
 			} else {
 				$additional_params['enable_drag_n_drop'] = false;
 				$additional_params['show_total_price']   = false;

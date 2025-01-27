@@ -1158,6 +1158,8 @@ i.wlfmc-svg svg.e-font-icon-svg {
 .wlfmc-inline-buttons-no-mar,
 .wlfmc-wishlist-page .wlfmc-lists-header a,
 .wlfmc-guest-notice-wrapper .wlfmc-notice-buttons,
+.wlfmc-unsubscribe-notice-wrapper .wlfmc-notice-buttons,
+.wlfmc-gdpr-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-multi-list-guest-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-waitlist-guest-notice-wrapper .wlfmc-notice-buttons,
@@ -2949,6 +2951,8 @@ html.popup_visible body {
 /** ========================================= Login notice ======================================================*/
 
 .wlfmc-guest-notice-wrapper,
+.wlfmc-unsubscribe-notice-wrapper,
+.wlfmc-gdpr-notice-wrapper,
 .wlfmc-notice-wrapper,
 .wlfmc-multi-list-guest-notice-wrapper,
 .wlfmc-waitlist-guest-notice-wrapper {
@@ -2959,6 +2963,8 @@ html.popup_visible body {
 }
 
 .wlfmc-guest-notice-wrapper .wlfmc-notice-buttons,
+.wlfmc-unsubscribe-notice-wrapper .wlfmc-notice-buttons,
+.wlfmc-gdpr-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-multi-list-guest-notice-wrapper .wlfmc-notice-buttons,
 .wlfmc-waitlist-guest-notice-wrapper .wlfmc-notice-buttons {
@@ -2968,13 +2974,15 @@ html.popup_visible body {
 }
 
 .wlfmc-guest-notice-wrapper .wlfmc-notice-buttons a.button,
+.wlfmc-unsubscribe-notice-wrapper .wlfmc-notice-buttons a.button,
+.wlfmc-gdpr-notice-wrapper .wlfmc-notice-buttons a.button,
 .wlfmc-notice-wrapper .wlfmc-notice-buttons a.button,
 .wlfmc-multi-list-guest-notice-wrapper .wlfmc-notice-buttons a.button,
 .wlfmc-waitlist-guest-notice-wrapper .wlfmc-notice-buttons a.button {
   border: none !important;
   border-radius: 10px;
   margin: 5px;
-  padding: 5px 10px;
+  padding: 10px 20px;
 }
 
 .wlfmc-notice-wrapper {
@@ -4159,6 +4167,10 @@ input.wlfmc-dropdown-input {
   -webkit-transform: translateX(0.75rem);
   -ms-transform: translateX(0.75rem);
   transform: translateX(0.75rem);
+}
+
+.wlfmc-action.wlfmc-loading-alt.button > span {
+  display: inline-block;
 }
 
 .wlfmc-action.wlfmc-loading-alt.wlfmc-inverse:after {

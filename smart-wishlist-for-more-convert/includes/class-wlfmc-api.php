@@ -72,6 +72,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 					'wlfmc_wp_rest_load_fragments',
 					'wlfmc_wp_rest_load_automations',
 					'wlfmc_wp_rest_change_layout',
+					'wlfmc_wp_rest_change_gdpr_status',
 				),
 				true
 			) ) {
@@ -126,6 +127,30 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 
 			// stops ajax call from further execution (no return value expected on answer body).
 			die();
+		}
+
+		/**
+		 * Change GDPR Status.
+		 *
+		 * @param array $data $_POST data.
+		 *
+		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
+		 */
+		public static function change_gdpr_status( array $data ) {
+
+			$action      = isset( $data['action_type'] ) ? sanitize_key( $data['action_type'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
+			$customer_id = absint( wp_unslash( $data['cid'] ) );
+			if ( ! $customer_id > 0  || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
+				die();
+			}
+			$customer = wlfmc_get_customer( $customer_id );
+			if ( 'unsubscribe' === $action ) {
+				WLFMC_Wishlist_Factory::unsubscribe_customer( $customer );
+			} else {
+				WLFMC_Wishlist_Factory::subscribe_customer( $customer );
+			}
+
+			return rest_ensure_response( array( 'result' => true ) );
 		}
 
 		/**

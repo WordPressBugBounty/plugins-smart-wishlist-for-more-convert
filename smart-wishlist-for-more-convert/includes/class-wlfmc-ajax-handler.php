@@ -77,6 +77,11 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 
 			// update plugin tables.
 			add_action( 'wp_ajax_wlfmc_update_table_database', array( 'WLFMC_Ajax_Handler', 'ajax_update_table_database_callback' ) );
+
+			// Change layouts.
+			add_action( 'wp_ajax_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
+			add_action( 'wp_ajax_nopriv_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
+
 		}
 
 		/**
@@ -114,6 +119,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 					'wlfmc_wp_loaded_delete_item',
 					'wlfmc_wp_loaded_load_fragments',
 					'wlfmc_wp_loaded_change_layout',
+					'wlfmc_wp_loaded_change_gdpr_status',
 				),
 				true
 			) ) {
@@ -789,6 +795,33 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 				update_user_meta( get_current_user_id(), 'wlfmc_list_layout', $new_layout );
 			} else {
 				wlfmc_setcookie( 'wlfmc_list_layout', $new_layout );
+			}
+
+			// stops ajax call from further execution (no return value expected on answer body).
+			wp_send_json_success();
+		}
+
+		/**
+		 *  Change GDPR Status.
+		 *
+		 * @since 1.8.8
+		 * @return void
+		 */
+		public static function change_gdpr_status() {
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_change_gdpr_status' ) ) {
+				wp_send_json_error();
+			}
+			$action      = isset( $_POST['action_type'] ) ? sanitize_key( $_POST['action_type'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
+			$customer_id = absint( wp_unslash( $_POST['cid'] ) );
+			if ( ! $customer_id > 0  || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
+				die();
+			}
+
+			$customer = wlfmc_get_customer( $customer_id );
+			if ( 'unsubscribe' === $action ) {;
+				WLFMC_Wishlist_Factory::unsubscribe_customer( $customer );
+			} else {
+				WLFMC_Wishlist_Factory::subscribe_customer( $customer );
 			}
 
 			// stops ajax call from further execution (no return value expected on answer body).

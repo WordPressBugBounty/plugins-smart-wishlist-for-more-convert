@@ -3,18 +3,18 @@
  * Plugin Name: MC Woocommerce Wishlist
  * Plugin URI: https://moreconvert.com/smart-wishlist-for-more-convert
  * Description: With the MC Wishlist plugin, your website users can add their favorite products to the wishlist. Then you can persuade them to buy products on their wishlist through the magic of our Marketing Toolkits.
- * Version: 1.8.7
+ * Version: 1.8.8
  * Author: MoreConvert
  * Author URI: https://moreconvert.com
  * Text Domain: wc-wlfmc-wishlist
  * Domain Path: /languages/
  * Requires PHP: 7.2.5
  * WC requires at least: 5.8
- * WC tested up to: 9.5.1
+ * WC tested up to: 9.6.0
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.7
+ * @version 1.8.8
  */
 
 /**
@@ -99,6 +99,7 @@ if ( ! function_exists( 'wlfmc_load' ) ) {
 		require_once MC_WLFMC_INC . 'data-stores/class-wlfmc-customer-data-store.php';
 		require_once MC_WLFMC_INC . 'data-stores/class-wlfmc-wishlist-data-store.php';
 		require_once MC_WLFMC_INC . 'data-stores/class-wlfmc-wishlist-item-data-store.php';
+		require_once MC_WLFMC_INC . 'class-wlfmc-privacy.php';
 		require_once MC_WLFMC_INC . 'class-wlfmc-email.php';
 		require_once MC_WLFMC_INC . 'class-wlfmc-exception.php';
 		require_once MC_WLFMC_INC . 'class-wlfmc-form-handler.php';

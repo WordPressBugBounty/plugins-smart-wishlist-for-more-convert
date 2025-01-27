@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.8.8
  */
 
 /**
@@ -51,10 +51,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 															<?php endif; ?>
 														</a>
 													</td>
-													<td align="right">
-														<a href="<?php echo esc_url( $wishlist_url ); ?>"><?php esc_html_e( 'My Wishlist', 'wc-wlfmc-wishlist' ); ?></a>
-													</td>
-
+                                                    <?php if ( '' !== $wishlist_url ) : ?>
+                                                        <td align="right">
+                                                            <a href="<?php echo esc_url( $wishlist_url ); ?>"><?php esc_html_e( 'My Wishlist', 'wc-wlfmc-wishlist' ); ?></a>
+                                                        </td>
+                                                    <?php endif;?>
 												</tr>
 											</tbody>
 										</table>

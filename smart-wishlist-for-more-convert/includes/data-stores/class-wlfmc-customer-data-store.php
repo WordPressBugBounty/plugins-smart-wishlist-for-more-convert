@@ -55,6 +55,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				'customer_meta'     => '%s',
 				'order_customer_id' => '%s',
 				'lang'              => '%s',
+				'gdpr_status'       => '%d'
 			);
 			$values  = array(
 				apply_filters( 'wlfmc_add_customer_first_name', $customer->get_first_name() ),
@@ -68,6 +69,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				apply_filters( 'wlfmc_add_customer_meta', $customer->get_customer_meta( 'edit' ), $customer ),
 				apply_filters( 'wlfmc_add_customer_order_customer_id', $customer->get_order_customer_id() ),
 				apply_filters( 'wlfmc_add_customer_lang', $customer->get_lang() ),
+				apply_filters( 'wlfmc_add_customer_gdpr', $customer->get_gdpr_status() ),
 			);
 
 			$session_id = $customer->get_session_id();
@@ -183,6 +185,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					'notes'             => isset( $customer_data->notes ) && '' !== $customer_data->notes ? json_decode( $customer_data->notes, true ) : null,
 					'order_customer_id' => $customer_data->order_customer_id ?? '',
 					'lang'              => $customer_data->lang ?? '',
+					'gdpr_status'       => $customer_data->gdpr_status ?? 0,
 				)
 			);
 			$customer->set_object_read( true );
@@ -219,6 +222,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					'customer_meta',
 					'order_customer_id',
 					'lang',
+					'gdpr_status'
 				),
 				array_keys( $changes )
 			) ) {
@@ -234,6 +238,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					'notes'             => '%s',
 					'order_customer_id' => '%s',
 					'lang'              => '%s',
+					'gdpr_status'       => '%d',
 					'dateadded'         => 'FROM_UNIXTIME( %d )',
 				);
 				$values  = array(
@@ -248,6 +253,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					$customer->get_notes( 'edit' ),
 					$customer->get_order_customer_id(),
 					$customer->get_lang(),
+					$customer->get_gdpr_status(),
 					$customer->get_date_added( 'edit' ) ? $customer->get_date_added( 'edit' )->getTimestamp() : time(),
 				);
 
@@ -349,6 +355,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 			$this->update_raw(
 				array(
 					'unsubscribed'           => 1,
+					'gdpr_status'            => 1,
 					'unsubscribe_token'      => 'NULL',
 					'unsubscribe_expiration' => 'NULL',
 				),
@@ -366,6 +373,48 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 			}
 
 			do_action( 'wlfmc_unsubscribed_customer', $customer->get_id() );
+		}
+
+		/**
+		 * subscribe a customer
+		 *
+		 * @param WLFMC_Customer $customer Customer to Unsubscribe.
+		 *
+		 * @return void
+		 */
+		public function subscribe( $customer ) {
+
+			if ( ! $customer ) {
+				return;
+			}
+
+			$this->update_raw(
+				array(
+					'unsubscribed'           => 0,
+					'gdpr_status'            => 2,
+					'unsubscribe_token'      => 'NULL',
+					'unsubscribe_expiration' => 'NULL',
+				),
+				array(),
+				array( 'customer_id' => '%d' ),
+				array( $customer->get_id() ),
+				true
+			);
+
+			$unsubscribed_users = get_option( 'wlfmc_unsubscribed_users', array() );
+
+			$email_to_remove = $customer->get_email();
+			$key = array_search( $email_to_remove, $unsubscribed_users, true );
+
+			if ( $key !== false ) {
+				// Remove the email from the array
+				unset( $unsubscribed_users[$key] );
+
+				// Update the option with the new array
+				update_option( 'wlfmc_unsubscribed_users', $unsubscribed_users );
+			}
+
+			do_action( 'wlfmc_subscribe_customer', $customer->get_id() );
 		}
 
 		/**

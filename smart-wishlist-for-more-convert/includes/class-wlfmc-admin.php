@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.8.6
+ * @version 1.8.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.8.6';
+		public $rollback_version = '1.8.7';
 
 		/**
 		 * Minimum pro version
@@ -169,6 +169,19 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 	                                            ),
                                             ),
 											'end-article-wishlist-optimization-settings' => array(
+												'type' => 'end',
+											),
+											'start-article-gdpr-settings' => array(
+												'type'  => 'start',
+												'title' => __( 'GDPR settings', 'wc-wlfmc-wishlist' ),
+											),
+											'gdpr_enable' => array(
+												'label'   => __( 'Enable GDPR Compliance', 'wc-wlfmc-wishlist' ),
+												'type'    => 'switch',
+												'default' => '0',
+												'desc'    => __( 'When enabled, no emails will be sent until users agree to the GDPR terms.', 'wc-wlfmc-wishlist' ),
+											),
+											'end-article-gdpr-settings' => array(
 												'type' => 'end',
 											),
 											'start-article-wishlist-advanced-settings' => array(
@@ -3226,6 +3239,12 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 								                'remove_name'  => true,
 								                'default' => '0',
 							                ),
+							                'gdpr_enable'       => array(
+								                'parent_class' => 'hidden-option',
+								                'type'         => 'switch',
+								                'remove_name'  => true,
+								                'default' => '0',
+							                ),
 							                'multi_list_enable'       => array(
 								                'parent_class' => 'hidden-option',
 								                'type'         => 'switch',
@@ -3637,6 +3656,56 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 								                ),
 							                ),
 							                'end-article-share-text' => array(
+								                'type' => 'end',
+							                ),
+							                'start-article-gdpr-text' => array(
+								                'type'  => 'start',
+								                'title' => __( 'GDPR texts', 'wc-wlfmc-wishlist' ),
+							                ),
+							                'gdpr_content' => array(
+								                'label'   => __( 'GDPR Notice Text', 'wc-wlfmc-wishlist' ),
+								                'type'    => 'wp-editor',
+								                'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
+								                'custom_attributes' => array(
+									                'style' => 'max-width:100%;width:100%',
+									                'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+								                ),
+                                                'translatable' => true,
+								                'default'      => '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'We Value Your Privacy', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms.', 'wc-wlfmc-wishlist' ) . '</p>',
+							                ),
+							                'gdpr_accept_button_title' => array(
+								                'label'   => __( 'Accept Button Text', 'wc-wlfmc-wishlist' ),
+								                'default' => __( 'I Agree', 'wc-wlfmc-wishlist' ),
+								                'type'    => 'text',
+								                'translatable' => true,
+							                ),
+							                'gdpr_denied_button_title' => array(
+								                'label'   => __( 'Denied Button Text', 'wc-wlfmc-wishlist' ),
+								                'default' => __( 'Denied', 'wc-wlfmc-wishlist' ),
+								                'type'    => 'text',
+								                'translatable' => true,
+							                ),
+							                'separator'    => array(
+								                'type' => 'separator',
+							                ),
+							                'unsubscribed_content' => array(
+								                'label'   => __( 'UnSubscribed Notice Text', 'wc-wlfmc-wishlist' ),
+								                'type'    => 'wp-editor',
+								                'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
+								                'custom_attributes' => array(
+									                'style' => 'max-width:100%;width:100%',
+									                'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+								                ),
+								                'translatable' => true,
+								                'default' =>  '<p style="text-align: center;">' . __( 'Your email has been successfully subscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) . '</p>',
+							                ),
+							                'unsubscribed_button_title' => array(
+								                'label'   => __( 'Subscribe Button Text', 'wc-wlfmc-wishlist' ),
+								                'default' => __( 'Agree, Subscribe Me', 'wc-wlfmc-wishlist' ),
+								                'type'    => 'text',
+								                'translatable' => true,
+							                ),
+							                'end-article-gdpr-text' => array(
 								                'type' => 'end',
 							                ),
 							                'start-article-no-access-text' => array(

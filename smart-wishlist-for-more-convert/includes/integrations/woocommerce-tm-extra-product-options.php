@@ -3,13 +3,14 @@
  * WLFMC wishlist integration with WooCommerce TM Extra Product Options plugin
  *
  * @plugin_name WooCommerce TM Extra Product Options
- * @version 6.1.2
+ * @version 6.5.1
  * @slug woocommerce-tm-extra-product-options
  * @url  https://epo.themecomplete.com/
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.8.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -46,9 +47,10 @@ function wlfmc_woocommerce_tm_extra_product_options_wishlist_item_price( $price,
 
 	if ( is_object( $product ) && isset( $product_meta['tmdata'] ) && ( defined( 'THEMECOMPLETE_EPO_VERSION' ) || defined( 'TM_EPO_VERSION' ) ) ) {
 		$api     = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_API() : TM_EPO_API();
-		$core    = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO() : TM_EPO();
+		$core    = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? ( function_exists( 'THEMECOMPLETE_EPO_DATA_STORE' ) ? THEMECOMPLETE_EPO_DATA_STORE() : THEMECOMPLETE_EPO() ) : TM_EPO();
 		$version = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_VERSION : TM_EPO_VERSION;
-		if ( 'no' === $core->tm_epo_hide_options_in_cart ) {
+		$hide_options_in_cart = function_exists( 'THEMECOMPLETE_EPO_DATA_STORE' ) ? $core->get( 'tm_epo_hide_options_in_cart' ) : $core->tm_epo_hide_options_in_cart;
+		if ( 'no' === $hide_options_in_cart ) {
 			$product_id = $product_meta['tmdata']['product_id'];
 			$has_epo    = $api->has_options( $product_id );
 			if ( $api->is_valid_options( $has_epo ) ) {
