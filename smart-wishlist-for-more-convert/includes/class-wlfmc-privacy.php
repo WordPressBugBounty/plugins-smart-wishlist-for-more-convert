@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
+	/**
+	 * Plugin Privacy
+	 */
 	class Wlfmc_Privacy {
 
 		/**
@@ -30,7 +33,7 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 
 			add_action( 'admin_init', array( $this, 'add_privacy_message' ) );
 
-			// Add message in a specific section
+			// Add message in a specific section.
 			add_filter( 'wlfmc_privacy_guide_content', array( $this, 'add_content_in_section' ), 10, 2 );
 			// set up wishlist data exporter.
 			add_filter( 'wp_privacy_personal_data_exporters', array( $this, 'register_exporter' ) );
@@ -60,9 +63,13 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 		 */
 		public function get_privacy_html() {
 
-			$content = wlfmc_get_template( 'admin/mc-policy-content.php', array(
-				'sections' => $this->get_sections()
-			), true );
+			$content = wlfmc_get_template(
+				'admin/mc-policy-content.php',
+				array(
+					'sections' => $this->get_sections(),
+				),
+				true
+			);
 
 			return apply_filters( 'wlfmc_privacy_policy_content_html', $content );
 		}
@@ -99,8 +106,8 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 		/**
 		 * Retrieves privacy example text for wishlist plugin
 		 *
-		 * @param string $section Section of the message to retrieve.
 		 * @param string $content Content of the Section.
+		 * @param string $section Section of the message to retrieve.
 		 *
 		 * @return string Privacy message
 		 */
@@ -110,18 +117,18 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 			switch ( $section ) {
 				case 'collect_and_store':
 					$content = '<p>' . __( 'While you visit our site, we’ll track:', 'wc-wlfmc-wishlist' ) . '</p>' .
-					           '<ul>' .
-					           '<li>' . __( 'Products you’ve added to different lists: we’ll use this to show you and other users your favourite products, and to create targeted email campaigns.', 'wc-wlfmc-wishlist' ) . '</li>' .
-					           '<li>' . __( 'lists you’ve created: we’ll keep track of the lists you create, and make them visible to the store staff', 'wc-wlfmc-wishlist' ) . '</li>' .
-					           '</ul>' .
-					           '<p>' . __( 'We’ll also use cookies to keep track of list contents while you’re browsing our site.', 'wc-wlfmc-wishlist' ) . '</p>';
+								'<ul>' .
+									'<li>' . __( 'Products you’ve added to different lists: we’ll use this to show you and other users your favourite products, and to create targeted email campaigns.', 'wc-wlfmc-wishlist' ) . '</li>' .
+									'<li>' . __( 'lists you’ve created: we’ll keep track of the lists you create, and make them visible to the store staff', 'wc-wlfmc-wishlist' ) . '</li>' .
+								'</ul>' .
+								'<p>' . __( 'We’ll also use cookies to keep track of list contents while you’re browsing our site.', 'wc-wlfmc-wishlist' ) . '</p>';
 					break;
 				case 'has_access':
 					$content = '<p>' . __( 'Members of our team have access to the information you provide us with. For example, both Administrators and Shop Managers can access:', 'wc-wlfmc-wishlist' ) . '</p>' .
-					           '<ul>' .
-					           '<li>' . __( '    lists details, such as products added, date of addition, name and privacy settings of your lists', 'wc-wlfmc-wishlist' ) . '</li>' .
-					           '</ul>' .
-					           '<p>' . __( 'Our team members have access to this information to offer you better deals for the products you love.', 'wc-wlfmc-wishlist' ) . '</p>';
+								'<ul>' .
+									'<li>' . __( '    lists details, such as products added, date of addition, name and privacy settings of your lists', 'wc-wlfmc-wishlist' ) . '</li>' .
+								'</ul>' .
+								'<p>' . __( 'Our team members have access to this information to offer you better deals for the products you love.', 'wc-wlfmc-wishlist' ) . '</p>';
 					break;
 				case 'share':
 				case 'payments':
@@ -193,13 +200,13 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 			if ( $customer ) {
 				$wishlists = WLFMC_Wishlist_Factory::get_wishlists(
 					array(
-						'limit'   => 10,
-						'offset'  => $offset,
-						'show_empty' => false,
-						'customer_id' => $customer->get_id(),
-						'orderby' => 'ID',
-						'order'   => 'ASC',
-						'return_wishlists' => true
+						'limit'            => 10,
+						'offset'           => $offset,
+						'show_empty'       => false,
+						'customer_id'      => $customer->get_id(),
+						'orderby'          => 'ID',
+						'order'            => 'ASC',
+						'return_wishlists' => true,
 					)
 				);
 
@@ -234,9 +241,9 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 		public function wishlist_data_eraser( $email_address, $page ) {
 			global $wpdb;
 
-			$page     = (int) $page;
-			$offset   = 10 * ( $page - 1 );
-			$user     = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
+			$page   = (int) $page;
+			$offset = 10 * ( $page - 1 );
+			$user   = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
 			if ( $user instanceof WP_User ) {
 				$customer_id = wlfmc_get_customer_id_by_user( $user->ID );
 				$customer    = $customer_id ? wlfmc_get_customer( $customer_id ) : false;
@@ -266,13 +273,13 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 
 			$wishlists = WLFMC_Wishlist_Factory::get_wishlists(
 				array(
-					'limit'   => 10,
-					'offset'  => $offset,
-					'show_empty' => false,
-					'customer_id' => $customer_id,
-					'orderby' => 'ID',
-					'order'   => 'ASC',
-					'return_wishlists' => true
+					'limit'            => 10,
+					'offset'           => $offset,
+					'show_empty'       => false,
+					'customer_id'      => $customer_id,
+					'orderby'          => 'ID',
+					'order'            => 'ASC',
+					'return_wishlists' => true,
 				)
 			);
 
@@ -283,7 +290,6 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 						do_action( 'wlfmc_privacy_before_remove_wishlist_personal_data', $wishlist );
 
 						$wishlist->delete();
-
 
 						do_action( 'wlfmc_privacy_remove_wishlist_personal_data', $wishlist );
 
@@ -303,16 +309,16 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 			if ( $response['done'] ) {
 				if ( apply_filters( 'wlfmc_privacy_erase_analytics_personal_data', true, $customer ) ) {
 					$wpdb->delete( $wpdb->wlfmc_wishlist_analytics, array( 'customer_id' => $customer_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-					$response['messages'][]    = __( 'Removed Mc Wishlist Analytics data.', 'wc-wlfmc-wishlist' );
+					$response['messages'][] = __( 'Removed Mc Wishlist Analytics data.', 'wc-wlfmc-wishlist' );
 				} else {
-					$response['messages'][]    = __( 'Mc Wishlist Analytics data has been retained.', 'wc-wlfmc-wishlist' );
+					$response['messages'][]     = __( 'Mc Wishlist Analytics data has been retained.', 'wc-wlfmc-wishlist' );
 					$response['items_retained'] = true;
 				}
 				if ( apply_filters( 'wlfmc_privacy_erase_offers_personal_data', true, $customer ) ) {
 					$wpdb->delete( $wpdb->wlfmc_wishlist_offers, array( 'customer_id' => $customer_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-					$response['messages'][]    = __( 'Removed Mc Wishlist Offer & Automation data.', 'wc-wlfmc-wishlist' );
+					$response['messages'][] = __( 'Removed Mc Wishlist Offer & Automation data.', 'wc-wlfmc-wishlist' );
 				} else {
-					$response['messages'][]    = __( 'Mc Wishlist Offer & Automation data has been retained.', 'wc-wlfmc-wishlist' );
+					$response['messages'][]     = __( 'Mc Wishlist Offer & Automation data has been retained.', 'wc-wlfmc-wishlist' );
 					$response['items_retained'] = true;
 				}
 
@@ -320,10 +326,10 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 					if ( apply_filters( 'wlfmc_privacy_erase_campaign_personal_data', true, $customer ) ) {
 						$wpdb->delete( $wpdb->wlfmcpro_campaign_items, array( 'customer_id' => $customer_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 					}
-					$response['messages'][]    = __( 'Removed Mc Wishlist Campaign data.', 'wc-wlfmc-wishlist' );
+					$response['messages'][] = __( 'Removed Mc Wishlist Campaign data.', 'wc-wlfmc-wishlist' );
 
 				} else {
-					$response['messages'][]    = __( 'Mc Wishlist Campaign data has been retained.', 'wc-wlfmc-wishlist' );
+					$response['messages'][]     = __( 'Mc Wishlist Campaign data has been retained.', 'wc-wlfmc-wishlist' );
 					$response['items_retained'] = true;
 				}
 
@@ -332,9 +338,9 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 					if ( defined( 'MC_WLFMC_PREMIUM' ) ) {
 						$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->wlfmcpro_filters SET customer_ids = null , updated_at = null WHERE FIND_IN_SET( %d, customer_ids) > 0", $customer_id ) );// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 					}
-					$response['messages'][]    = __( 'Removed Mc Wishlist Customer.', 'wc-wlfmc-wishlist' );
+					$response['messages'][] = __( 'Removed Mc Wishlist Customer.', 'wc-wlfmc-wishlist' );
 				} else {
-					$response['messages'][]    = __( 'Mc Wishlist Customer data has been retained.', 'wc-wlfmc-wishlist' );
+					$response['messages'][]     = __( 'Mc Wishlist Customer data has been retained.', 'wc-wlfmc-wishlist' );
 					$response['items_retained'] = true;
 				}
 			}

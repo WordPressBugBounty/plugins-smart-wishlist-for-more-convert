@@ -55,7 +55,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				'customer_meta'     => '%s',
 				'order_customer_id' => '%s',
 				'lang'              => '%s',
-				'gdpr_status'       => '%d'
+				'gdpr_status'       => '%d',
 			);
 			$values  = array(
 				apply_filters( 'wlfmc_add_customer_first_name', $customer->get_first_name() ),
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					'customer_meta',
 					'order_customer_id',
 					'lang',
-					'gdpr_status'
+					'gdpr_status',
 				),
 				array_keys( $changes )
 			) ) {
@@ -404,11 +404,11 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 			$unsubscribed_users = get_option( 'wlfmc_unsubscribed_users', array() );
 
 			$email_to_remove = $customer->get_email();
-			$key = array_search( $email_to_remove, $unsubscribed_users, true );
+			$key             = array_search( $email_to_remove, $unsubscribed_users, true );
 
 			if ( $key !== false ) {
 				// Remove the email from the array
-				unset( $unsubscribed_users[$key] );
+				unset( $unsubscribed_users[ $key ] );
 
 				// Update the option with the new array
 				update_option( 'wlfmc_unsubscribed_users', $unsubscribed_users );

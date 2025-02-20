@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php
 	foreach ( $sections as $key => $section ) {
-		$privacy_action = "wlfmc_privacy_guide_content_{$key}";
+		$privacy_action = "wlfmc_privacy_guide_content_$key";
 		$content        = apply_filters( 'wlfmc_privacy_guide_content', '', $key );
 
 		if ( has_action( $privacy_action ) || ! empty( $section['tutorial'] ) || ! empty( $section['description'] ) || $content ) {

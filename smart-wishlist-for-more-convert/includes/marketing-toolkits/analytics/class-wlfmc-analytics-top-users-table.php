@@ -105,7 +105,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 			$hidden                = array();
 			$sortable              = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
-			$this->items           = self::get_items( 5, 1 );
+			$this->items           = self::get_items( 5 );
 
 		}
 
@@ -121,7 +121,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 
 			global $wpdb;
 			// phpcs:disable WordPress.Security.NonceVerification
-			$sql                = "SELECT 
+			$sql  = "SELECT 
                                     customers.customer_id, 
                                     customers.user_id, 
                                     customers.session_id,
@@ -148,7 +148,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
                                          FROM $wpdb->wlfmc_wishlist_analytics
                                          GROUP BY customer_id
                                     ) as a on a.customer_id = customers.customer_id";
-			$sql               .= " WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) ";
+			$sql .= " WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) ";
 
 			$sql .= ' GROUP BY customers.customer_id,email,display_name,first_name,last_name,username';
 			$sql .= ' HAVING ( total_product_lists > 0 OR total_product_analytics> 0 )';

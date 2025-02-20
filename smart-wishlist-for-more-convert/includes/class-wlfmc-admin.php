@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.8.8
+ * @version 1.8.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.8.7';
+		public $rollback_version = '1.8.8';
 
 		/**
 		 * Minimum pro version
@@ -3675,13 +3675,13 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 							                ),
 							                'gdpr_accept_button_title' => array(
 								                'label'   => __( 'Accept Button Text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'I Agree', 'wc-wlfmc-wishlist' ),
+								                'default' => __( 'Accept', 'wc-wlfmc-wishlist' ),
 								                'type'    => 'text',
 								                'translatable' => true,
 							                ),
 							                'gdpr_denied_button_title' => array(
-								                'label'   => __( 'Denied Button Text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Denied', 'wc-wlfmc-wishlist' ),
+								                'label'   => __( 'Decline Button Text', 'wc-wlfmc-wishlist' ),
+								                'default' => __( 'Decline', 'wc-wlfmc-wishlist' ),
 								                'type'    => 'text',
 								                'translatable' => true,
 							                ),
@@ -3697,7 +3697,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 									                'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
 								                ),
 								                'translatable' => true,
-								                'default' =>  '<p style="text-align: center;">' . __( 'Your email has been successfully subscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) . '</p>',
+								                'default' =>  '<p style="text-align: center;">' . __( 'Your email has been successfully unsubscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) . '</p>',
 							                ),
 							                'unsubscribed_button_title' => array(
 								                'label'   => __( 'Subscribe Button Text', 'wc-wlfmc-wishlist' ),

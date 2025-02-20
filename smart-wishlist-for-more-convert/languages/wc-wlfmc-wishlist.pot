@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: MoreConvert\n"
 "Last-Translator: MoreConvert\n"
-"POT-Creation-Date: 2025-01-27 07:06+0000\n"
+"POT-Creation-Date: 2025-02-19 06:40+0000\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -1598,19 +1598,19 @@ msgstr ""
 msgid "Accept Button Text"
 msgstr ""
 
-msgid "I Agree"
+msgid "Accept"
 msgstr ""
 
-msgid "Denied Button Text"
+msgid "Decline Button Text"
 msgstr ""
 
-msgid "Denied"
+msgid "Decline"
 msgstr ""
 
 msgid "UnSubscribed Notice Text"
 msgstr ""
 
-msgid "Your email has been successfully subscribed! To receive exclusive discounts and amazing offers, please subscribe now."
+msgid "Your email has been successfully unsubscribed! To receive exclusive discounts and amazing offers, please subscribe now."
 msgstr ""
 
 msgid "Subscribe Button Text"
@@ -2411,9 +2411,6 @@ msgid "Total Price:"
 msgstr ""
 
 msgid "Your email has been successfully UnSubscribed! To receive exclusive discounts and amazing offers, please subscribe now."
-msgstr ""
-
-msgid "Accept"
 msgstr ""
 
 msgid "Deny"
@@ -3517,9 +3514,9 @@ msgid "We couldn't add %1$s to the cart because: %2$s"
 msgstr ""
 
 msgid ""
-"{site_name}\n"
-"{site_description}\n"
-"If you have any questions, feel free to contact us at <a href=\"{shop_url}\">Shop</a>\n"
+"{site_name}\n"
+"{site_description}\n"
+"If you have any questions, feel free to contact us at <a href=\"{shop_url}\">Shop</a>\n"
 "<a href=\"{unsubscribe_url}\">Unsubscribe here</a>"
 msgstr ""
 
@@ -3527,21 +3524,21 @@ msgid "{product_name} - A Deal You Can't Miss!"
 msgstr ""
 
 msgid ""
-"Hey {user_first_name},\n"
-"\n"
-"We've got something exciting just for you. Our {product_name} is now on sale, and the price won't stay this low for long! Don't miss out on this fantastic opportunity to own the {product_name}.\n"
-"\n"
-"**Regular Price:** {regular_price}\n"
-"**Sale Price:** {sale_price}\n"
-"\n"
-"<a href=\"{product_url}\">{product_image}</a>\n"
-"\n"
-"Ready to seize the deal? <a href=\"{add_to_cart_url}\">Click here to Shop Now</a>\n"
-"\n"
-"Don't hesitate! Act fast and be the first to grab this incredible offer.\n"
-"\n"
-"Happy shopping!\n"
-"The {site_name} Team\n"
+"Hey {user_first_name},\n"
+"\n"
+"We've got something exciting just for you. Our {product_name} is now on sale, and the price won't stay this low for long! Don't miss out on this fantastic opportunity to own the {product_name}.\n"
+"\n"
+"**Regular Price:** {regular_price}\n"
+"**Sale Price:** {sale_price}\n"
+"\n"
+"<a href=\"{product_url}\">{product_image}</a>\n"
+"\n"
+"Ready to seize the deal? <a href=\"{add_to_cart_url}\">Click here to Shop Now</a>\n"
+"\n"
+"Don't hesitate! Act fast and be the first to grab this incredible offer.\n"
+"\n"
+"Happy shopping!\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3549,23 +3546,23 @@ msgid "Exclusive Offer: {product_name} is Waiting for You!"
 msgstr ""
 
 msgid ""
-"Hello {user_first_name},\n"
-"\n"
-"We noticed you're eyeing our amazing {product_name}. Good news - it's on sale now!\n"
-"\n"
-"**Regular Price:** {regular_price}\n"
-"**Sale Price:** {sale_price}\n"
-"\n"
-"[View Product]({product_link})\n"
-"\n"
-"Don't miss your chance to save big on this fantastic deal. It's too good to last forever. Shop now and treat yourself to something special.\n"
-"\n"
-"Ready to make your purchase? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
-"\n"
-"We can't wait to see you enjoy your new {product_name}!\n"
-"\n"
-"Warm regards,\n"
-"The {site_name} Team\n"
+"Hello {user_first_name},\n"
+"\n"
+"We noticed you're eyeing our amazing {product_name}. Good news - it's on sale now!\n"
+"\n"
+"**Regular Price:** {regular_price}\n"
+"**Sale Price:** {sale_price}\n"
+"\n"
+"[View Product]({product_link})\n"
+"\n"
+"Don't miss your chance to save big on this fantastic deal. It's too good to last forever. Shop now and treat yourself to something special.\n"
+"\n"
+"Ready to make your purchase? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
+"\n"
+"We can't wait to see you enjoy your new {product_name}!\n"
+"\n"
+"Warm regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3573,23 +3570,23 @@ msgid "Hurry! Last Chance to Grab {product_name} on Sale"
 msgstr ""
 
 msgid ""
-"Hey {user_first_name},\n"
-"\n"
-"Time is running out! Our {product_name} is still on sale, but the clock is ticking.\n"
-"\n"
-"**Regular Price:** {regular_price}\n"
-"**Sale Price:** {sale_price}\n"
-"\n"
-"[View Product](<a href=\"{product_url}\">{product_name}</a>)\n"
-"\n"
-"This is your final reminder. Don't let this opportunity slip away. Make your purchase now before the sale ends!\n"
-"\n"
-"Ready to take action? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
-"\n"
-"Hurry, we don't want you to miss out!\n"
-"\n"
-"Best regards,\n"
-"The {site_name} Team\n"
+"Hey {user_first_name},\n"
+"\n"
+"Time is running out! Our {product_name} is still on sale, but the clock is ticking.\n"
+"\n"
+"**Regular Price:** {regular_price}\n"
+"**Sale Price:** {sale_price}\n"
+"\n"
+"[View Product](<a href=\"{product_url}\">{product_name}</a>)\n"
+"\n"
+"This is your final reminder. Don't let this opportunity slip away. Make your purchase now before the sale ends!\n"
+"\n"
+"Ready to take action? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
+"\n"
+"Hurry, we don't want you to miss out!\n"
+"\n"
+"Best regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3597,23 +3594,23 @@ msgid "Don't Regret It! {product_name} Sale Ending Soon"
 msgstr ""
 
 msgid ""
-"Hello {user_first_name},\n"
-"\n"
-"We hate to break it to you, but our {product_name} sale is about to end.\n"
-"\n"
-"**Regular Price:** {regular_price}\n"
-"**Sale Price:** {sale_price}\n"
-"\n"
-"[View Product]({product_link})\n"
-"\n"
-"You don't want to look back and wish you had acted sooner. Seize this opportunity and make your purchase now!\n"
-"\n"
-"Ready to shop? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
-"\n"
-"Time is of the essence. Don't miss out on owning the {product_name}!\n"
-"\n"
-"Sincerely,\n"
-"The {site_name} Team\n"
+"Hello {user_first_name},\n"
+"\n"
+"We hate to break it to you, but our {product_name} sale is about to end.\n"
+"\n"
+"**Regular Price:** {regular_price}\n"
+"**Sale Price:** {sale_price}\n"
+"\n"
+"[View Product]({product_link})\n"
+"\n"
+"You don't want to look back and wish you had acted sooner. Seize this opportunity and make your purchase now!\n"
+"\n"
+"Ready to shop? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
+"\n"
+"Time is of the essence. Don't miss out on owning the {product_name}!\n"
+"\n"
+"Sincerely,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3621,23 +3618,23 @@ msgid "{product_name} Sale Ends Today"
 msgstr ""
 
 msgid ""
-"Hey {user_first_name},\n"
-"\n"
-"Today is your last chance to get the {product_name} at an incredible price.\n"
-"\n"
-"**Regular Price:** {regular_price}\n"
-"**Sale Price:** {sale_price}\n"
-"\n"
-"[View Product](<a href=\"{product_url}\">{product_name}</a>)\n"
-"\n"
-"Don't let this fantastic deal slip through your fingers. Act now before the sale is over!\n"
-"\n"
-"Ready to take action? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
-"\n"
-"We don't want you to have regrets, so hurry and make your purchase!\n"
-"\n"
-"Warmest wishes,\n"
-"The {site_name} Team\n"
+"Hey {user_first_name},\n"
+"\n"
+"Today is your last chance to get the {product_name} at an incredible price.\n"
+"\n"
+"**Regular Price:** {regular_price}\n"
+"**Sale Price:** {sale_price}\n"
+"\n"
+"[View Product](<a href=\"{product_url}\">{product_name}</a>)\n"
+"\n"
+"Don't let this fantastic deal slip through your fingers. Act now before the sale is over!\n"
+"\n"
+"Ready to take action? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
+"\n"
+"We don't want you to have regrets, so hurry and make your purchase!\n"
+"\n"
+"Warmest wishes,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3645,18 +3642,18 @@ msgid "Exciting News! {product_name} is back in stock!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"We've got some fantastic news for you! Your favorite product, {product_name}, is back in stock. Our inventory was running low, but we've managed to restock it just for you.\n"
-"\n"
-"Here's a sneak peek of {product_name}:\n"
-"{product_image}\n"
-"\n"
-"Click here to check it out <a href=\"{product_url}\">{product_name}</a>\n"
-"Hurry, this product tends to sell out quickly! Don't miss out on the chance to get your hands on it.\n"
-"\n"
-"Best regards,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"We've got some fantastic news for you! Your favorite product, {product_name}, is back in stock. Our inventory was running low, but we've managed to restock it just for you.\n"
+"\n"
+"Here's a sneak peek of {product_name}:\n"
+"{product_image}\n"
+"\n"
+"Click here to check it out <a href=\"{product_url}\">{product_name}</a>\n"
+"Hurry, this product tends to sell out quickly! Don't miss out on the chance to get your hands on it.\n"
+"\n"
+"Best regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3664,17 +3661,17 @@ msgid "{user_first_name}, don't miss out on {product_name}!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"Just a quick reminder that {product_name} is now back in stock. It's a customer favorite, and we don't want you to miss out on it.\n"
-"\n"
-"Here's a glimpse of {product_name}:\n"
-"{product_image}\n"
-"\n"
-"Check it out here <a href=\"{product_url}\">{product_name}</a>This is your chance to grab it before it's gone again.\n"
-"\n"
-"Warm regards,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"Just a quick reminder that {product_name} is now back in stock. It's a customer favorite, and we don't want you to miss out on it.\n"
+"\n"
+"Here's a glimpse of {product_name}:\n"
+"{product_image}\n"
+"\n"
+"Check it out here <a href=\"{product_url}\">{product_name}</a>This is your chance to grab it before it's gone again.\n"
+"\n"
+"Warm regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3682,19 +3679,19 @@ msgid "Exclusive Offer: {product_name} + {coupon_amount} Off Just for You!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"We know you've been eyeing {product_name}, and we've got something special for you. As a token of our appreciation, here's an exclusive {coupon_amount} discount on {product_name} just for you.\n"
-"\n"
-"Your exclusive coupon code: {coupon_code}\n"
-"Expires on: {expiry_date}\n"
-"\n"
-"Ready to grab {product_name} at a discounted price? Click here <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Don't miss out on this limited-time offer! We hope to see you soon.\n"
-"\n"
-"Warmly,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"We know you've been eyeing {product_name}, and we've got something special for you. As a token of our appreciation, here's an exclusive {coupon_amount} discount on {product_name} just for you.\n"
+"\n"
+"Your exclusive coupon code: {coupon_code}\n"
+"Expires on: {expiry_date}\n"
+"\n"
+"Ready to grab {product_name} at a discounted price? Click here <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Don't miss out on this limited-time offer! We hope to see you soon.\n"
+"\n"
+"Warmly,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3702,36 +3699,36 @@ msgid "Grab {product_name} Before It's Gone Again!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"Time is running out! {product_name} is flying off the shelves, and we'd hate for you to miss out.\n"
-"\n"
-"Here's a final look at {product_name}:\n"
-"{product_image}\n"
-"\n"
-"Secure your {coupon_amount} discount with code {coupon_code} before it's too late. Click here <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Don't let this opportunity slip through your fingers. Act fast, and make {product_name} yours today.\n"
-"\n"
-"Best regards,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"Time is running out! {product_name} is flying off the shelves, and we'd hate for you to miss out.\n"
+"\n"
+"Here's a final look at {product_name}:\n"
+"{product_image}\n"
+"\n"
+"Secure your {coupon_amount} discount with code {coupon_code} before it's too late. Click here <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Don't let this opportunity slip through your fingers. Act fast, and make {product_name} yours today.\n"
+"\n"
+"Best regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"This is your last reminder that {product_name} is on the verge of selling out once again. We hate to see you miss out on it.\n"
-"\n"
-"Take one last look at {product_name}:\n"
-"{product_image}\n"
-"\n"
-"Shop now before it's too late! Click here <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Thank you for considering this opportunity. We look forward to serving you soon.\n"
-"\n"
-"Warmly,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"This is your last reminder that {product_name} is on the verge of selling out once again. We hate to see you miss out on it.\n"
+"\n"
+"Take one last look at {product_name}:\n"
+"{product_image}\n"
+"\n"
+"Shop now before it's too late! Click here <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Thank you for considering this opportunity. We look forward to serving you soon.\n"
+"\n"
+"Warmly,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3739,18 +3736,18 @@ msgid "Act Fast to Get Your {product_name}!"
 msgstr ""
 
 msgid ""
-"Dear {user_first_name},\n"
-"\n"
-"We noticed that one of your favorite items, {product_name}, is running low in stock on {site_name}.\n"
-"\n"
-"With only a limited quantity left, you don't want to miss out on the chance to own this fantastic product. It's a must-have for {product_link}.\n"
-"\n"
-"Go to checkout: {checkout_url}\n"
-"\n"
-"Remember, it's your last chance to purchase at the regular price of {regular_price}. Don't let it slip away! Stay tuned for more updates about {product_name}.\n"
-"\n"
-"Stay trendy,\n"
-"{site_name}\n"
+"Dear {user_first_name},\n"
+"\n"
+"We noticed that one of your favorite items, {product_name}, is running low in stock on {site_name}.\n"
+"\n"
+"With only a limited quantity left, you don't want to miss out on the chance to own this fantastic product. It's a must-have for {product_link}.\n"
+"\n"
+"Go to checkout: {checkout_url}\n"
+"\n"
+"Remember, it's your last chance to purchase at the regular price of {regular_price}. Don't let it slip away! Stay tuned for more updates about {product_name}.\n"
+"\n"
+"Stay trendy,\n"
+"{site_name}\n"
 ""
 msgstr ""
 
@@ -3758,16 +3755,16 @@ msgid "Last Few {product_name} Items Left!"
 msgstr ""
 
 msgid ""
-"Hey {user_first_name},\n"
-"\n"
-"We hope you're having an amazing day! We wanted to remind you that {product_name} is flying off the shelves on {site_name}. There are only a few left, and they're going fast!\n"
-"\n"
-"Don't miss out on this opportunity. These items are still available at their regular price of {regular_price}. You can get yours now at {checkout_url}.\n"
-"\n"
-"Your support means the world to us, and we can't wait for you to enjoy your new {product_name}.\n"
-"\n"
-"Warm regards,\n"
-"{site_name}\n"
+"Hey {user_first_name},\n"
+"\n"
+"We hope you're having an amazing day! We wanted to remind you that {product_name} is flying off the shelves on {site_name}. There are only a few left, and they're going fast!\n"
+"\n"
+"Don't miss out on this opportunity. These items are still available at their regular price of {regular_price}. You can get yours now at {checkout_url}.\n"
+"\n"
+"Your support means the world to us, and we can't wait for you to enjoy your new {product_name}.\n"
+"\n"
+"Warm regards,\n"
+"{site_name}\n"
 ""
 msgstr ""
 
@@ -3775,18 +3772,18 @@ msgid "Your {product_name} Awaits You!"
 msgstr ""
 
 msgid ""
-"Hello {user_first_name},\n"
-"\n"
-"We're excited to update you about {product_name}. They're almost gone, and we don't want you to miss out!\n"
-"\n"
-"The {product_name} is now available at {sale_price}, but you have to act quickly. Grab yours before they're all gone!\n"
-"\n"
-"Hurry to checkout now: {checkout_url}\n"
-"\n"
-"Thanks for being a loyal {site_name} customer. We appreciate your support.\n"
-"\n"
-"Best wishes,\n"
-"{site_name}\n"
+"Hello {user_first_name},\n"
+"\n"
+"We're excited to update you about {product_name}. They're almost gone, and we don't want you to miss out!\n"
+"\n"
+"The {product_name} is now available at {sale_price}, but you have to act quickly. Grab yours before they're all gone!\n"
+"\n"
+"Hurry to checkout now: {checkout_url}\n"
+"\n"
+"Thanks for being a loyal {site_name} customer. We appreciate your support.\n"
+"\n"
+"Best wishes,\n"
+"{site_name}\n"
 ""
 msgstr ""
 
@@ -3794,18 +3791,18 @@ msgid "Exclusive {product_name} Discount Inside!"
 msgstr ""
 
 msgid ""
-"Hello {user_first_name},\n"
-"\n"
-"Time is running out, and we want to make sure you don't miss out on {product_name}! We're offering you an exclusive {coupon_amount} discount for your loyalty.\n"
-"\n"
-"Use code {coupon_code} at checkout to get your {product_name} at an incredible price of {new_price}. Don't let this deal slip away!\n"
-"\n"
-"Get your {product_name} now: {checkout_url}\n"
-"\n"
-"Thanks for choosing {site_name} for your shopping needs!\n"
-"\n"
-"Happy shopping,\n"
-"{site_name}\n"
+"Hello {user_first_name},\n"
+"\n"
+"Time is running out, and we want to make sure you don't miss out on {product_name}! We're offering you an exclusive {coupon_amount} discount for your loyalty.\n"
+"\n"
+"Use code {coupon_code} at checkout to get your {product_name} at an incredible price of {new_price}. Don't let this deal slip away!\n"
+"\n"
+"Get your {product_name} now: {checkout_url}\n"
+"\n"
+"Thanks for choosing {site_name} for your shopping needs!\n"
+"\n"
+"Happy shopping,\n"
+"{site_name}\n"
 ""
 msgstr ""
 
@@ -3813,18 +3810,18 @@ msgid "Last Chance to Save on {product_name}!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"This is your last chance to snag a great deal on {product_name}! With just a few left in stock, you don't want to miss out.\n"
-"\n"
-"Use code {coupon_code} to enjoy a {coupon_amount} discount on {product_name} before it's too late. Your friends will envy your style!\n"
-"\n"
-"Grab your {product_name} at the discounted price now: {checkout_url}\n"
-"\n"
-"Thank you for being a part of {site_name}. We look forward to serving you again soon.\n"
-"\n"
-"Warm regards,\n"
-"{site_name}\n"
+"Hi {user_first_name},\n"
+"\n"
+"This is your last chance to snag a great deal on {product_name}! With just a few left in stock, you don't want to miss out.\n"
+"\n"
+"Use code {coupon_code} to enjoy a {coupon_amount} discount on {product_name} before it's too late. Your friends will envy your style!\n"
+"\n"
+"Grab your {product_name} at the discounted price now: {checkout_url}\n"
+"\n"
+"Thank you for being a part of {site_name}. We look forward to serving you again soon.\n"
+"\n"
+"Warm regards,\n"
+"{site_name}\n"
 ""
 msgstr ""
 
@@ -3832,21 +3829,21 @@ msgid "Exciting News About {product_name}"
 msgstr ""
 
 msgid ""
-"Hey there, {user_first_name}!\n"
-"\n"
-"We've got some fantastic news for you. We've recently adjusted the price of {product_name}, and we couldn't wait to share it with you.\n"
-"\n"
-"<a href=\"{product_url}\">{product_image}</a>\n"
-"\n"
-"**Old Price:** {old_price}\n"
-"**New Price:** {new_price}\n"
-"\n"
-"Ready to make it yours? <a href=\"{product_url}\">Check it out now</a>\n"
-"\n"
-"Stay tuned for more exciting updates!\n"
-"\n"
-"Warm regards,\n"
-"The {site_name} Team\n"
+"Hey there, {user_first_name}!\n"
+"\n"
+"We've got some fantastic news for you. We've recently adjusted the price of {product_name}, and we couldn't wait to share it with you.\n"
+"\n"
+"<a href=\"{product_url}\">{product_image}</a>\n"
+"\n"
+"**Old Price:** {old_price}\n"
+"**New Price:** {new_price}\n"
+"\n"
+"Ready to make it yours? <a href=\"{product_url}\">Check it out now</a>\n"
+"\n"
+"Stay tuned for more exciting updates!\n"
+"\n"
+"Warm regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3854,18 +3851,18 @@ msgid "Last Chance: Grab {product_name} Before It's Gone!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"We noticed you've been eyeing {product_name}, and we don't want you to miss out on this fantastic deal. The clock is ticking, and stock is limited!\n"
-"\n"
-"<a href=\"{product_url}\">{product_image}</a>\n"
-"\n"
-"**New Price:** {new_price}\n"
-"\n"
-"Don't wait, act now! <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Best wishes,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"We noticed you've been eyeing {product_name}, and we don't want you to miss out on this fantastic deal. The clock is ticking, and stock is limited!\n"
+"\n"
+"<a href=\"{product_url}\">{product_image}</a>\n"
+"\n"
+"**New Price:** {new_price}\n"
+"\n"
+"Don't wait, act now! <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Best wishes,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3873,21 +3870,21 @@ msgid "{user_first_name}, See Why Others Love {product_name}!"
 msgstr ""
 
 msgid ""
-"Hey {user_first_name},\n"
-"\n"
-"The excitement around {product_name} is growing, and we wanted to share what our happy customers are saying:\n"
-"\n"
-"\"I can't believe I got {product_name} at this price! It's a game-changer.\"\n"
-"- Jerry Montum\n"
-"\n"
-"<a href=\"{product_url}\">{product_image}</a>\n"
-"\n"
-"**New Price:** {new_price}\n"
-"\n"
-"Ready to join the delighted customers? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
-"\n"
-"Sincerely,\n"
-"The {site_name} Team\n"
+"Hey {user_first_name},\n"
+"\n"
+"The excitement around {product_name} is growing, and we wanted to share what our happy customers are saying:\n"
+"\n"
+"\"I can't believe I got {product_name} at this price! It's a game-changer.\"\n"
+"- Jerry Montum\n"
+"\n"
+"<a href=\"{product_url}\">{product_image}</a>\n"
+"\n"
+"**New Price:** {new_price}\n"
+"\n"
+"Ready to join the delighted customers? <a href=\"{add_to_cart_url}\">Shop Now</a>\n"
+"\n"
+"Sincerely,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3895,18 +3892,18 @@ msgid "Exclusive Offer: Save Extra on {product_name} Today!"
 msgstr ""
 
 msgid ""
-"Hello {user_first_name},\n"
-"\n"
-"We know you've been considering {product_name}, and we appreciate your interest. As a token of our appreciation, here's an exclusive discount just for you:\n"
-"\n"
-"**Use Code:** {coupon_code}\n"
-"**Discount:** {coupon_amount}\n"
-"**Expires:** {expiry_date}\n"
-"\n"
-"Hurry and grab this special offer now: <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Warm regards,\n"
-"The {site_name} Team\n"
+"Hello {user_first_name},\n"
+"\n"
+"We know you've been considering {product_name}, and we appreciate your interest. As a token of our appreciation, here's an exclusive discount just for you:\n"
+"\n"
+"**Use Code:** {coupon_code}\n"
+"**Discount:** {coupon_amount}\n"
+"**Expires:** {expiry_date}\n"
+"\n"
+"Hurry and grab this special offer now: <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Warm regards,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 
@@ -3914,20 +3911,20 @@ msgid "Last Chance! Don't Miss Out on {product_name} Savings!"
 msgstr ""
 
 msgid ""
-"Hi {user_first_name},\n"
-"\n"
-"This is it – your last opportunity to save big on {product_name}. Time is running out, and stock is limited. Don't let this deal slip away!\n"
-"\n"
-"{product_image}\n"
-"\n"
-"**New Price:** {sale_price}\n"
-"\n"
-"Claim your savings now: <a href=\"{product_url}\">{product_name}</a>\n"
-"\n"
-"Your satisfaction is our priority!\n"
-"\n"
-"Best wishes,\n"
-"The {site_name} Team\n"
+"Hi {user_first_name},\n"
+"\n"
+"This is it – your last opportunity to save big on {product_name}. Time is running out, and stock is limited. Don't let this deal slip away!\n"
+"\n"
+"{product_image}\n"
+"\n"
+"**New Price:** {sale_price}\n"
+"\n"
+"Claim your savings now: <a href=\"{product_url}\">{product_name}</a>\n"
+"\n"
+"Your satisfaction is our priority!\n"
+"\n"
+"Best wishes,\n"
+"The {site_name} Team\n"
 ""
 msgstr ""
 

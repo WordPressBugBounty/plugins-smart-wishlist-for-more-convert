@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.7.1
-Stable tag: 1.8.7
+Tested up to: 6.7.2
+Stable tag: 1.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,16 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+
+= 1.8.9 =
+
+* Tested: WP 6.7.2
+* Tested: WC 9.6.2
+* Fixed: Improve integrity with burn2 woocommerce product table.
+* Fixed: fix some reported bugs.
+* Fixed: fix jquery event deprecated.
+* Updated: Change default value for some options.
 
 = 1.8.8 =
 

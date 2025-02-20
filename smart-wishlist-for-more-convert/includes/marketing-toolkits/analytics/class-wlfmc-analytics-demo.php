@@ -535,8 +535,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Admin_Demo' ) ) {
 			            document.querySelectorAll('.modal-toggle').forEach(function(element) {
 				            element.addEventListener('click', function(event) {
 					            event.preventDefault();
-					            var videoUrl = this.getAttribute('href');
-					            document.getElementById('youtubeIframe').src = videoUrl;
+					            document.getElementById('youtubeIframe').src = this.getAttribute('href');
 				            });
 			            });
 

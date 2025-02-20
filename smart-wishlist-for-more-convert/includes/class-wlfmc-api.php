@@ -140,7 +140,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 
 			$action      = isset( $data['action_type'] ) ? sanitize_key( $data['action_type'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			$customer_id = absint( wp_unslash( $data['cid'] ) );
-			if ( ! $customer_id > 0  || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
+			if ( ! $customer_id > 0 || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
 				die();
 			}
 			$customer = wlfmc_get_customer( $customer_id );

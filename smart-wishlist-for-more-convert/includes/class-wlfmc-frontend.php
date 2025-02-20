@@ -881,7 +881,10 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 							continue;
 						}
 						$product = wc_get_product( isset( $meta_row['variation_id'] ) && '' !== $meta_row['variation_id'] ? $meta_row['variation_id'] : $meta_row['product_id'] );
-						if ( ! $product || ( isset( $meta_row['quantity'] ) && ! floatval( $meta_row['quantity'] ) > 0 ) ) {
+						/*if ( ! $product || ( isset( $meta_row['quantity'] ) && ! floatval( $meta_row['quantity'] ) > 0 ) ) {
+							continue;
+						}*/
+						if ( ! $product || ! isset( $meta_row['quantity'] ) || ! floatval( $meta_row['quantity'] ) > 0 ) {
 							continue;
 						}
 

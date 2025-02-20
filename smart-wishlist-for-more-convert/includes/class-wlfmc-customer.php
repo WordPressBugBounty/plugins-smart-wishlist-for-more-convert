@@ -69,7 +69,7 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 				'unsubscribe_expiration' => '',
 				'notes'                  => '',
 				'customer_meta'          => '',
-				'gdpr_status'            => 0
+				'gdpr_status'            => 0,
 			);
 
 			parent::__construct();
@@ -195,7 +195,7 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 		 * @param string $context The context in which to retrieve the property (e.g., 'view', 'edit').
 		 * @return int Returns the GDPR status of the customer. The value depends on the implementation of `get_prop`.
 		 */
-		public function get_gdpr_status( $context = 'view' ){
+		public function get_gdpr_status( $context = 'view' ) {
 			return (int) $this->get_prop( 'gdpr_status', $context );
 		}
 
@@ -431,9 +431,9 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 		/**
 		 * Set GDPR status.
 		 *
-		 * @param int $status new status
+		 * @param int $status new status.
 		 */
-		public function set_gdpr_status( $status ){
+		public function set_gdpr_status( $status ) {
 			$this->set_prop( 'gdpr_status', (int) $status );
 		}
 

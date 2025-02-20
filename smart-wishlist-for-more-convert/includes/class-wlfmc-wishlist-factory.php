@@ -76,7 +76,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 		}
 
 		/**
-		 * subscribe a Customer
+		 * Subscribe a Customer
 		 *
 		 * @param WLFMC_Customer $customer customer.
 		 *

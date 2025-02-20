@@ -299,7 +299,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
         }
 
         /*const topOfImageElems = document.querySelectorAll( '.wlfmc-top-of-image' );
-        		for (let i = 0; i < topOfImageElems.length; i++) {
+        	for (let i = 0; i < topOfImageElems.length; i++) {
         	const currentElem = topOfImageElems[i];
         	// Set the margin top of the next sibling element to the height of the current element.
         	if (currentElem.nextElementSibling) {
@@ -1810,7 +1810,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
     // fix with jet woo builder plugin.
     $(document).on('jet-filter-content-rendered', $.fn.WLFMC.reInit_wlfmc).on('jet-woo-builder-content-rendered', $.fn.WLFMC.reInit_wlfmc).on('jet-engine/listing-grid/after-load-more', $.fn.WLFMC.reInit_wlfmc).on('jet-engine/listing-grid/after-lazy-load', $.fn.WLFMC.reInit_wlfmc).on('jet-cw-loaded', $.fn.WLFMC.reInit_wlfmc);
     // load fragment for fix filter everything ajax response.
-    $(document).on('ready', $.fn.WLFMC.load_fragments);
+    $(document).ready($.fn.WLFMC.load_fragments);
     // load fragment for fix bug with ajax filter Destiny Elements plugin
     $(document).on('deContentLoaded', $.fn.WLFMC.load_fragments);
     // fix waitlist popup after wpc composite product gallery loaded in single product page

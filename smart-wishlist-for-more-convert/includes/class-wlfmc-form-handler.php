@@ -612,7 +612,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 			$wishlist_id    = intval( $_GET['download_pdf_wishlist'] );
 			$wishlist_token = sanitize_text_field( wp_unslash( $_GET['wishlist_token'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
 
-			$wishlist    = wlfmc_get_wishlist( $wishlist_id );
+			$wishlist = wlfmc_get_wishlist( $wishlist_id );
 
 			if ( ! $wishlist || $wishlist_token !== $wishlist->get_token() || ! $wishlist->current_user_can( 'view' ) ) {
 				return;

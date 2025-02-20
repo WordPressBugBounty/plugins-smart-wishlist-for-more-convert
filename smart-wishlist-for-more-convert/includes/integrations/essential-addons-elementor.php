@@ -37,7 +37,7 @@ function wlfmc_essential_addons_elementor_integrate() {
 		);
 		add_action( 'eael_woo_before_product_loop', 'wlfmc_add_essential_addons_elementor_loop_position' );
 		if ( wp_doing_ajax() && isset( $_REQUEST['class'] ) && in_array( sanitize_text_field( wp_unslash( $_REQUEST['class'] ) ), array( 'Essential_Addons_Elementor\Elements\Product_Grid', 'Essential_Addons_Elementor\Elements\Woo_Product_Gallery' ), true ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			add_filter( 'woocommerce_loop_add_to_cart_link', 'wlfmc_loop_add_to_cart_link', 10, 3 );
+			add_filter( 'woocommerce_loop_add_to_cart_link', 'wlfmc_loop_add_to_cart_link', 10, 2 );
 		}
 	}
 }
@@ -61,7 +61,7 @@ function wlfmc_essential_addons_after_render( $content, $widget ) {
  * @return void
  */
 function wlfmc_add_essential_addons_elementor_loop_position() {
-	add_filter( 'woocommerce_loop_add_to_cart_link', 'wlfmc_loop_add_to_cart_link', 10, 3 );
+	add_filter( 'woocommerce_loop_add_to_cart_link', 'wlfmc_loop_add_to_cart_link', 10, 2 );
 }
 
 /**
@@ -69,11 +69,10 @@ function wlfmc_add_essential_addons_elementor_loop_position() {
  *
  * @param string                $add_to_cart_html add to cart html.
  * @param WC_Product|null|false $product Product.
- * @param array                 $args arguments.
  *
  * @return string
  */
-function wlfmc_loop_add_to_cart_link( $add_to_cart_html, $product, $args = array() ) {
+function wlfmc_loop_add_to_cart_link( $add_to_cart_html, $product ) {
 	ob_start();
 	do_action( 'wlfmc_before_add_to_cart_link', $product );
 	$before = ob_get_clean();
