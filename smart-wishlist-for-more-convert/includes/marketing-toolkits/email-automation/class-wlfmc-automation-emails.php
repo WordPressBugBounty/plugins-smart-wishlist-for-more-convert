@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.7
+ * @version 1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -406,7 +406,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @param object           $email_row Email data.
 		 *
 		 * @throws Exception When sending email.
-		 * @version 1.8.7
+		 * @version 1.9.0
 		 */
 		public function send_email( $automation, $email_row ) {
 
@@ -503,7 +503,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 					$item_template = 'plain/email-list-items.php';
 					break;
 			}
-			$headers       = "Content-Type: $content_type\r\n";
+			$headers       = apply_filters( 'wlfmc_email_headers', "Content-Type: $content_type\r\n", 'automation', $automation, $email_row );
 			$email_content = $this->prepare_content( $email_content, $email_options['mail_type'] );
 			$email_footer  = $this->prepare_content( $email_footer, $email_options['mail_type'] );
 

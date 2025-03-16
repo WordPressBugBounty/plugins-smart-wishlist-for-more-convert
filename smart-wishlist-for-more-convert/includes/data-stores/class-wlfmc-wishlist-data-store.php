@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -145,6 +145,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Data_Store' ) ) {
 		 * @param WLFMC_Wishlist $wishlist Wishlist to read from db.
 		 *
 		 * @throws Exception When cannot retrieve specified wishlist.
+		 * @version 1.9.0
 		 */
 		public function read( &$wishlist ) {
 			global $wpdb;
@@ -188,7 +189,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Data_Store' ) ) {
 					'customer_id' => $wishlist_data->customer_id,
 					'session_id'  => $wishlist_data->session_id ?? '',
 					'name'        => wc_clean( stripslashes( $wishlist_data->wishlist_name ) ),
-					'description' => wc_clean( stripslashes( $wishlist_data->wishlist_desc ) ),
+					'description' => wc_clean( stripslashes( $wishlist_data->wishlist_desc ?? '' ) ),
 					'slug'        => $wishlist_data->wishlist_slug,
 					'token'       => $wishlist_data->wishlist_token,
 					'is_default'  => $wishlist_data->is_default,

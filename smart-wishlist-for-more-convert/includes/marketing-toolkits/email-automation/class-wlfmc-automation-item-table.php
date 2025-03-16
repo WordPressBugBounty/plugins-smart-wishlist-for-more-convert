@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -281,8 +281,8 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 		public static function record_count() {
 			global $wpdb;
 			// phpcs:disable WordPress.Security.NonceVerification.Recommended
-			$automation_id = isset( $_GET['automation_id'] ) ? absint( $_GET['automation_id'] ) : 0;
-			$sql           = "SELECT COUNT(items.ID) as count
+			$automation_id  = isset( $_GET['automation_id'] ) ? absint( $_GET['automation_id'] ) : 0;
+			$sql            = "SELECT COUNT(items.ID) as count
                     FROM $wpdb->wlfmc_wishlist_offers AS items
                         INNER JOIN $wpdb->wlfmc_wishlist_customers AS customers ON customers.customer_id = items.customer_id
                         LEFT JOIN $wpdb->users AS users ON customers.user_id = users.ID
@@ -290,46 +290,38 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
                         LEFT JOIN $wpdb->usermeta AS m2 ON users.ID = m2.user_id AND m2.meta_key = 'last_name'
                         LEFT JOIN $wpdb->usermeta AS m3 ON users.ID = m3.user_id AND m3.meta_key = 'billing_phone'
                         LEFT JOIN $wpdb->posts AS posts ON items.coupon_id = posts.ID
-                        WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) AND items.automation_id=$automation_id";
-
-			if ( ! empty( $_REQUEST['status'] ) && in_array(
-				sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ),
-				array(
-					'sending',
-					'not-send',
-					'sent',
-					'opened',
-					'clicked',
-					'coupon-used',
-				),
-				true
-			) ) {
-				$sql .= ' AND  items.status="' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) ) . '"';
+                        WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) AND items.automation_id=%d";
+			$params         = array( $automation_id );
+			$valid_statuses = array( 'sending', 'not-send', 'sent', 'opened', 'clicked', 'coupon-used' );
+			if ( ! empty( $_REQUEST['status'] ) && in_array( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ), $valid_statuses, true ) ) {
+				$sql     .= ' AND items.status = %s';
+				$params[] = sanitize_text_field( wp_unslash( $_REQUEST['status'] ) );
 			}
 
 			if ( ! empty( $_REQUEST['email_key'] ) ) {
-				$email_key = absint( wp_unslash( $_REQUEST['email_key'] ) );
-				$sql      .= " AND items.email_key = $email_key";
+				$sql     .= ' AND items.email_key = %d';
+				$params[] = absint( wp_unslash( $_REQUEST['email_key'] ) );
 			}
 
 			if ( ! empty( $_REQUEST['s'] ) ) {
-				$query_var = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
-				$sql      .= ' AND (
-                         users.user_login LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR users.user_email LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.email LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.first_name LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.last_name LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.phone LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m1.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m2.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m3.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR posts.post_name LIKE "%' . esc_sql( $query_var ) . '%"
-                    )';
+				$search_term = '%' . $wpdb->esc_like( sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) . '%';
+				$sql        .= ' AND (
+                            users.user_login LIKE %s
+                            OR users.user_email LIKE %s
+                            OR customers.email LIKE %s
+                            OR customers.first_name LIKE %s
+                            OR customers.last_name LIKE %s
+                            OR customers.phone LIKE %s
+                            OR m1.meta_value LIKE %s
+                            OR m2.meta_value LIKE %s
+                            OR m3.meta_value LIKE %s
+                            OR posts.post_name LIKE %s
+                        )';
+				$params      = array_merge( $params, array_fill( 0, 10, $search_term ) );
 			}
 
 			// phpcs:enable WordPress.Security.NonceVerification.Recommended
-			return $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB
+			return $wpdb->get_var( $wpdb->prepare( $sql, $params ) );// phpcs:ignore WordPress.DB
 		}
 
 		/**
@@ -360,55 +352,50 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
                         LEFT JOIN $wpdb->usermeta AS m2 ON users.ID = m2.user_id AND m2.meta_key = 'last_name'
                         LEFT JOIN $wpdb->usermeta AS m3 ON users.ID = m3.user_id AND m3.meta_key = 'billing_phone'
                         LEFT JOIN $wpdb->posts AS posts ON items.coupon_id = posts.ID
-                        WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) AND items.automation_id=$automation_id";
+                        WHERE ( ( users.user_email IS NOT NULL AND users.user_email  != '' ) OR  customers.email != '' ) AND items.automation_id=%d";
 
-			if ( ! empty( $_REQUEST['status'] ) && in_array(
-				sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ),
-				array(
-					'sending',
-					'not-send',
-					'sent',
-					'opened',
-					'clicked',
-					'coupon-used',
-				),
-				true
-			) ) {
-				$sql .= ' AND  items.status="' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) ) . '"';
+			$params = array( $automation_id );
+
+			$valid_statuses = array( 'sending', 'not-send', 'sent', 'opened', 'clicked', 'coupon-used' );
+			if ( ! empty( $_REQUEST['status'] ) && in_array( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ), $valid_statuses, true ) ) {
+				$sql     .= ' AND items.status = %s';
+				$params[] = sanitize_text_field( wp_unslash( $_REQUEST['status'] ) );
 			}
 
 			if ( ! empty( $_REQUEST['email_key'] ) ) {
-				$email_key = absint( wp_unslash( $_REQUEST['email_key'] ) );
-				$sql      .= " AND items.email_key = $email_key";
+				$sql     .= ' AND items.email_key = %d';
+				$params[] = absint( wp_unslash( $_REQUEST['email_key'] ) );
 			}
 
 			if ( ! empty( $_REQUEST['s'] ) ) {
-				$query_var = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
-				$sql      .= ' AND (
-                         users.user_login LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR users.user_email LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.email LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.first_name LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.last_name LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR customers.phone LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m1.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m2.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR m3.meta_value LIKE "%' . esc_sql( $query_var ) . '%"
-                        OR posts.post_name LIKE "%' . esc_sql( $query_var ) . '%"
-                    )';
+				$search_term = '%' . $wpdb->esc_like( sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) . '%';
+				$sql        .= ' AND (
+                            users.user_login LIKE %s
+                            OR users.user_email LIKE %s
+                            OR customers.email LIKE %s
+                            OR customers.first_name LIKE %s
+                            OR customers.last_name LIKE %s
+                            OR customers.phone LIKE %s
+                            OR m1.meta_value LIKE %s
+                            OR m2.meta_value LIKE %s
+                            OR m3.meta_value LIKE %s
+                            OR posts.post_name LIKE %s
+                        )';
+				$params      = array_merge( $params, array_fill( 0, 10, $search_term ) );
 			}
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				$sql .= ' ORDER BY ' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) );
-				$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : ' ASC';
+				$sql     .= ' ORDER BY %s %s';
+				$params[] = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
+				$params[] = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
 			}
 
-			// phpcs:enable WordPress.Security.NonceVerification.Recommended
-			$sql .= " LIMIT $per_page";
+			$sql     .= ' LIMIT %d OFFSET %d';
+			$offset   = ( $page_number - 1 ) * $per_page;
+			$params[] = $per_page;
+			$params[] = $offset;
 
-			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
-
-			return $wpdb->get_results( $sql, 'ARRAY_A' ); // phpcs:ignore WordPress.DB
+			return $wpdb->get_results( $wpdb->prepare( $sql, $params ), 'ARRAY_A' ); // phpcs:ignore WordPress.DB
 		}
 
 		/**

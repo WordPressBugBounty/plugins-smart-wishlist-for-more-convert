@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.7.2
-Stable tag: 1.8.9
+Stable tag: 1.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -300,6 +300,12 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.9.0 =
+
+* Tested: WC 9.7.1
+* Added: `wlfmc_email_headers` filter to allow modification of email headers, including support for adding BCC and CC.
+* Fixed: resolved data-store issues.
+* Fixed: security by fixing SQL injection vulnerabilities.
 
 = 1.8.9 =
 
@@ -310,85 +316,5 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Fixed: fix jquery event deprecated.
 * Updated: Change default value for some options.
 
-= 1.8.8 =
-
-* Tested: WC 9.6.0
-* Fixed: Fixing the vulnerability bug related to downloading PDF file lists that was reported.
-* Fixed: Fixing the reported bugs in the woocommerce-tm-extra-product-options plugin.
-* Fixed: Fixed reported bugs in the admin analytics pages.
-* Added: Add GDPR Compliance.
-* Updated : Changing the template of activation emails to user-selected templates(Premium Feature).
-
-= 1.8.7 =
-
-* Tested: WC 9.5.1
-* Added: add customizable pdf columns with wlfmc_pdf_parameters filter.
-* Fixed: fix bug with woocommerce_add_to_cart_validation hook in the edit wishlist page.
-* Fixed: fix some reported bugs with preview and send automation email in free version.
-
-
-= 1.8.6 =
-
-* Tested: WP 6.7.1
-* Tested: WC 9.4.2
-* Fixed: fixed PHP Notice "Function _load_textdomain_just_in_time was called incorrectly".
-* Fixed: Fixed Some Reported Bugs with Advanced Product Fields Pro for WooCommerce plugin.
-
-= 1.8.5 =
-
-* Added: add "wlfmc_table_start_first_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_end_first_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_start_center_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_end_center_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_start_last_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_end_last_column" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_first_column_classes" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_center_column_classes" hook for third-party plugin to customize list view.
-* Added: add "wlfmc_table_last_column_classes" hook for third-party plugin to customize list view.
-
-
-= 1.8.4 =
-
-* Tested: WC 9.3.3
-* Added: Integration with WPC Composite Product. (Premium Feature)
-* Added: Integration with Destiny Elements plugin.
-* Added: Add back in stock waitlist for backorder products. (Premium Feature)
-* Added: Add import wishlist from Yith woocommerce wishlist plugin. (Premium Feature)
-* Fixed: Fix stock limit reported bug. (Premium Feature)
-* Fixed: Fix back-in-stock reported bug. (Premium Feature)
-
-= 1.8.3 =
-
-* Tested: WP 6.6.2
-* Tested: WC 9.3.1
-* Added: Added "aria-label" attributes for improved accessibility.
-* Fixed: Fix reported javascript bug.
-
-= 1.8.2 =
-
-* Tested: WP 6.6.1
-* Tested: WC 9.1.4
-* Added: Add new setting for Set Default Privacy on Create New List Popup.(Premium Feature)
-* Added: Add new setting for show reference wishlist on cart, checkout and order.(Premium feature)
-* Added: Integration with WooCommerce Product Add-Ons Ultimate to Display Edit Options in Wishlist Table.(Premium feature)
-* Fixed: Resolved Some JavaScript Bugs Reported on Tablet and Mobile Devices.
-* Improvement: Share a List with Guests.
-* Enhancement: Enhanced Guest Access on Lists Page.
-* Improvement: Improved "Copy Product" Access for Guests.
-* Fixed: Fix Some Reported Bugs with Shoptimizer Theme.
-* Improvement: Display Login Notice Just if Lists Are Not Empty.
-
-= 1.8.1 =
-
-* Tested: WP 6.5.4
-* Tested: WC 8.9.3
-* Fixed: Remove "Requires Plugins" from the plugin description for demo import bugs reported.
-* Fixed: Fix reported bug when Add a product to the wishlist in loops that have an input with the name "add-to-cart" instead of a button with the name "add-to-cart".
-
-= 1.8.0 =
-
-* Tested: WC 8.8.3
-* Fixed: Fix loco translate bugs.
-* Fixed: Fix The Save button in the multilist popup bugs.(Premium feature)
 
 [See changelog for all versions](https://moreconvert.com/changelog/).

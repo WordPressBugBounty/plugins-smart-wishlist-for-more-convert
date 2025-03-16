@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.3
+ * @version 1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -339,19 +339,21 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 			global $wpdb;
 
 			$sql = "SELECT COUNT(ID) as count FROM $wpdb->wlfmc_wishlist_automations ";
-			if ( isset( $_REQUEST['status'] ) && in_array( // phpcs:ignore WordPress.Security.NonceVerification
-				$_REQUEST['status'], // phpcs:ignore WordPress.Security.NonceVerification
+			// phpcs:disable WordPress.Security.NonceVerification
+			if ( isset( $_REQUEST['status'] ) && in_array(
+				$_REQUEST['status'],
 				array(
 					'1',
 					'0',
 				),
 				true
 			) ) {
-				$sql .= ' WHERE is_pro = 0 AND is_active="' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) ) . '"'; // phpcs:ignore WordPress.Security.NonceVerification
+				$status = sanitize_text_field( wp_unslash( $_REQUEST['status'] ) );
+				$sql   .= $wpdb->prepare( ' WHERE is_pro = 0 AND is_active = %s', $status );
 			} else {
 				$sql .= ' WHERE is_pro = 0';
 			}
-
+            // phpcs:enable WordPress.Security.NonceVerification
 			return $wpdb->get_var( $sql );// phpcs:ignore WordPress.DB
 		}
 
@@ -384,21 +386,24 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 				),
 				true
 			) ) {
-				$sql .= ' AND  automation.is_active="' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) ) . '"';
+				$status = sanitize_text_field( wp_unslash( $_REQUEST['status'] ) );
+				$sql   .= $wpdb->prepare( ' AND automation.is_active = %s', $status );
 			}
 			if ( ! empty( $_REQUEST['s'] ) ) {
-				$sql .= ' AND  automation.automation_name LIKE "%' . $wpdb->esc_like( sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) . '%"';
+				$search = '%' . $wpdb->esc_like( sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) ) . '%';
+				$sql   .= $wpdb->prepare( ' AND automation.automation_name LIKE %s', $search );
 			}
 			$sql .= ' GROUP BY automation.ID';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				$sql .= ' ORDER BY ' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) );
-				$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : ' ASC';
+				$orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
+				$order   = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
+				$sql    .= $wpdb->prepare( ' ORDER BY %s %s', $orderby, $order );
 			}
 			// phpcs:enable WordPress.Security.NonceVerification
-			$sql .= " LIMIT $per_page";
 
-			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
+			$offset = ( $page_number - 1 ) * $per_page;
+			$sql   .= $wpdb->prepare( ' LIMIT %d OFFSET %d', $per_page, $offset );
 
 			return $wpdb->get_results( $sql, 'ARRAY_A' ); // phpcs:ignore WordPress.DB
 		}

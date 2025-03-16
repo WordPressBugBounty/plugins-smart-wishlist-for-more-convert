@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.8.9
+ * @version 1.9.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,14 +30,14 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.8.8';
+		public $rollback_version = '1.8.9';
 
 		/**
 		 * Minimum pro version
 		 *
 		 * @var string
 		 */
-		public $minimum_pro_version = '1.8.0';
+		public $minimum_pro_version = '1.8.7';
 
 		/**
 		 * Main panel
@@ -4625,7 +4625,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 * @param string $file file name.
 		 *
 		 * @return array
-		 * @since 1.0.1
+		 * @since 1.9.0
 		 */
 		public function plugin_row_meta( $links, $file ): array {
 			$plugin = plugin_basename( MC_WLFMC_MAIN_FILE );
@@ -4636,7 +4636,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 					'support' => '<a href="' . esc_url( 'https://moreconvert.com/xmj7' ) . '" target="_blank" aria-label="' . esc_attr__( 'Support', 'wc-wlfmc-wishlist' ) . '" style="color:green;">' . esc_html__( 'Support', 'wc-wlfmc-wishlist' ) . '</a>',
 					'pro'     => '<a href="' . esc_url( 'https://moreconvert.com/vxhv' ) . '" target="_blank" aria-label="' . esc_attr__( 'Get Pro', 'wc-wlfmc-wishlist' ) . '" style="color:orange;font-weight:bold">' . esc_html__( 'Get Pro', 'wc-wlfmc-wishlist' ) . '</a>',
 				);
-				if ( is_plugin_active( 'smart-wishlist-for-more-convert-premium/smart-wishlist-for-more-convert-premium.php' ) ) {
+				if ( defined( 'MC_WLFMC_PREMIUM' ) || is_plugin_active( 'smart-wishlist-for-more-convert-premium/smart-wishlist-for-more-convert-premium.php' ) ) {
 					unset( $row_meta['pro'] );
 				}
 
