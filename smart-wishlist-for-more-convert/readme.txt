@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.7.2
-Stable tag: 1.9.0
+Tested up to: 6.8
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,15 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.1 =
+
+* Tested: WP 6.8
+* Tested: WC 9.8.1
+* Added: `wlfmc_before_automation_insert_emails` filter to allow trigger third-party plugins.
+* Fixed: duplicated `wlfmc_table_start_last_column` hook and replace second hook with `wlfmc_table_end_last_column` hook.
+* Added: add new hooks for change shop_url and checkout_url and list_url in campaigns and automations.
+* Updated: integrate with new version of advanced-product-fields-for-woocommerce-pro version 3.0.5.
 
 = 1.9.0 =
 

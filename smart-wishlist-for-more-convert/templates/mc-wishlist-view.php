@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.8
+ * @version 1.9.1
  */
 
 /**
@@ -466,7 +466,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php endif; ?>
 
 								</div>
-								<?php do_action( 'wlfmc_table_start_last_column', $item, $wishlist, $atts ); ?>
+								<?php do_action( 'wlfmc_table_end_last_column', $item, $wishlist, $atts ); ?>
 							</td>
 						</tr>
 						<?php if ( '' !== $item_meta_date ) : ?>

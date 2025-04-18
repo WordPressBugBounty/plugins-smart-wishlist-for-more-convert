@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.0
+ * @version 1.9.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -406,7 +406,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @param object           $email_row Email data.
 		 *
 		 * @throws Exception When sending email.
-		 * @version 1.9.0
+		 * @version 1.9.1
 		 */
 		public function send_email( $automation, $email_row ) {
 
@@ -554,9 +554,9 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				'{coupon_code}'      => $coupon_code,
 				'{coupon_amount}'    => $coupon_amount,
 				'{expiry_date}'      => $coupon_expiry_date,
-				'{shop_url}'         => esc_url( $shop_url ),
-				'{checkout_url}'     => esc_url( $checkout_url ),
-				'{wishlist_url}'     => esc_url( $wishlist_url ),
+				'{shop_url}'         => esc_url( apply_filters( 'wlfmc_automation_emails_shop_url', $shop_url, $automation ) ),
+				'{checkout_url}'     => esc_url( apply_filters( 'wlfmc_automation_emails_checkout_url', $checkout_url, $automation ) ),
+				'{wishlist_url}'     => esc_url( apply_filters( 'wlfmc_automation_emails_list_url', $wishlist_url, $wishlist, $automation ) ),
 				'{wishlist_items}'   => $wishlist_items,
 				'{site_name}'        => get_bloginfo( 'name' ),
 				'{site_description}' => get_bloginfo( 'description' ),

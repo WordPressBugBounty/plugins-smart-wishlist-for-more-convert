@@ -3,14 +3,14 @@
  * WLFMC wishlist integration with Advanced Product Fields Pro for WooCommerce plugin
  *
  * @plugin_name Advanced Product Fields Pro for WooCommerce
- * @version  2.7.25
+ * @version  3.0.5
  * @slug advanced-product-fields-for-woocommerce-pro
  * @url https://www.studiowombat.com/plugin/advanced-product-fields-for-woocommerce/
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
- * @version 1.8.6
+ * @version 1.9.1
  */
 
 use SW_WAPF_PRO\Includes\Classes\Cache;
@@ -41,7 +41,12 @@ function wlfmc_wapf_pro_integrate() {
 		add_action( 'wlfmc_added_to_wishlist', 'wlfmc_fix_wapf_pro_added_to_wishlist' );
 		add_action( 'wlfmc_before_add_to_cart_validation', 'wlfmc_fix_wapf_pro_post_data' );
 		add_filter( 'wlfmc_add_to_cart_validation', 'wlfmc_wapf_pro_add_to_cart_validation', 10, 7 );
-		add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_wapf_pro_wishlist_item_price', 9, 4 );
+		if ( apply_filters( 'wlfmc_waps_pro_load_new_version', true ) ) {
+			add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_wapf_pro_wishlist_item_price', 9, 4 );
+		} else {
+			add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_wapf_pro_wishlist_item_price_old', 9, 4 );
+		}
+
 	}
 }
 
@@ -246,7 +251,7 @@ function wlfmc_create_uploaded_file_array( $files ) {
  * @throws Exception Exception.
  * @return float|int|mixed
  */
-function wlfmc_wapf_pro_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_wapf_pro_wishlist_item_price_old( $price, $product_meta, $product, $item ) {
 	if ( ! empty( $product_meta['wapf'] ) ) {
 		$base          = Cart::get_cart_item_base_price( $product, $item->get_quantity(), $item->get_cart_item() );
 		$options_total = 0;
@@ -257,10 +262,41 @@ function wlfmc_wapf_pro_wishlist_item_price( $price, $product_meta, $product, $i
 						continue;
 					}
 
-					$v         = isset( $value['slug'] ) ? $value['label'] : $field['raw'];
+					$v         = $value['label'] ?? $field['raw'];
 					$qty_based = ( isset( $field['clone_type'] ) && 'qty' === $field['clone_type'] ) || ! empty( $field['qty_based'] );
 
 					$_price        = Fields::do_pricing( $qty_based, $value['price_type'], $value['price'], $base, $item->get_quantity(), $v, $product->get_id(), $product_meta['wapf'], $product_meta['wapf_field_groups'], $product_meta['wapf_clone'] ?? 0 );
+					$options_total = $options_total + $_price;
+				}
+			}
+		}
+		if ( $options_total > 0 ) {
+			$price = $base + $options_total;
+		}
+	}
+	return $price;
+}
+
+
+function wlfmc_wapf_pro_wishlist_item_price( $price, $product_meta, $product, $item ) {
+	if ( ! empty( $product_meta['wapf'] ) ) {
+		$base          = Cart::get_cart_item_base_price( $product, $item->get_quantity(), $item->get_cart_item() );
+		$cart_item         = $item->get_cart_item();
+		$cart_item['data'] = $product;
+		$formula_base      = apply_filters('wapf/pricing/cart_item_base_for_formulas', $base, $product, $item->get_quantity(), $cart_item );
+
+		$options_total = 0;
+		foreach ( $product_meta['wapf'] as $field ) {
+			if ( ! empty( $field['values'] ) ) {
+				foreach ( $field['values'] as $value ) {
+					if ( 0 === $value['price'] || 'none' === $value['price_type'] ) {
+						continue;
+					}
+
+					$qty_based = ( isset( $field['clone_type'] ) && 'qty' === $field['clone_type'] ) || ! empty( $field['qty_based'] );
+					$v         = $value['label'] ?? $field['raw'];
+
+					$_price = Fields::do_pricing( $qty_based, $value['price_type'], $value['price'], $base, $formula_base, $item->get_quantity(), $v, $product->get_id(), $product_meta['wapf'], $product_meta['wapf_field_groups'], $product_meta['wapf_clone'] ?? 0 );
 					$options_total = $options_total + $_price;
 				}
 			}
