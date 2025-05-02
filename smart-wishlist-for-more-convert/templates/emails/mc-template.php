@@ -51,11 +51,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 															<?php endif; ?>
 														</a>
 													</td>
-                                                    <?php if ( '' !== $wishlist_url ) : ?>
-                                                        <td align="right">
-                                                            <a href="<?php echo esc_url( $wishlist_url ); ?>"><?php esc_html_e( 'My Wishlist', 'wc-wlfmc-wishlist' ); ?></a>
-                                                        </td>
-                                                    <?php endif;?>
+													<?php if ( '' !== $wishlist_url ) : ?>
+														<td align="right">
+															<a href="<?php echo esc_url( $wishlist_url ); ?>"><?php esc_html_e( 'My Wishlist', 'wc-wlfmc-wishlist' ); ?></a>
+														</td>
+													<?php endif; ?>
 												</tr>
 											</tbody>
 										</table>

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.7
+ * @version 1.9.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * Constructor
 		 *
 		 * @return void
-		 * @version 1.7.6
+		 * @version 1.9.2
 		 */
 		public function __construct() {
 
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 					'endpoint'   => $options->get_option( 'wishlist_endpoint', 'wlfmc-wishlist' ),
 					'custom_url' => $options->get_option( 'wishlist_custom_url', '' ),
 					'page_id'    => $wishlist_page_id,
-					'page_title' => $options->get_option( 'wishlist_page_title', esc_html__( 'Wishlist', 'wc-wlfmc-wishlist' ) ),
+					'page_title' => $options->get_option( 'wishlist_page_title', 'Wishlist' ),
 					'list_type'  => 'wishlist',
 				),
 				$options

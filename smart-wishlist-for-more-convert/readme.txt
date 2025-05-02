@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.8
-Stable tag: 1.9.1
+Tested up to: 6.8.1
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,14 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.2 =
+
+* Tested: WP 6.8.1
+* Tested: WC 9.8.3
+* Added: add product sku to pdf.
+* Fixed: fixed reported vulnerabilities.
+* Fixed: fixed PHP Notice "Function _load_textdomain_just_in_time was called incorrectly".
 
 = 1.9.1 =
 

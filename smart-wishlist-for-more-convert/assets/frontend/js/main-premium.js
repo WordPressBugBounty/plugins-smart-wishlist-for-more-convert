@@ -372,7 +372,7 @@ function _typeof2(o) { "@babel/helpers - typeof"; return _typeof2 = "function" =
         }
 
         /*const topOfImageElems = document.querySelectorAll( '.wlfmc-top-of-image' );
-        		for (let i = 0; i < topOfImageElems.length; i++) {
+        	for (let i = 0; i < topOfImageElems.length; i++) {
         	const currentElem = topOfImageElems[i];
         	// Set the margin top of the next sibling element to the height of the current element.
         	if (currentElem.nextElementSibling) {

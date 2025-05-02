@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.7
+ * @version 1.9.2
  */
 
 /**
@@ -150,6 +150,13 @@ if ( ! empty( $page_title ) && in_array( 'list-title', $items_show, true ) ) :
 					</span>
 				</th>
 			<?php endif; ?>
+			<?php if ( in_array( 'product-sku', $items_show, true ) ) : ?>
+				<th class="product-sku thWithOuterBorder">
+					<span class="nobr">
+						<?php echo esc_html( apply_filters( 'wlfmc_wishlist_pdf_view_sku_heading', __( 'Product SKU', 'wc-wlfmc-wishlist' ) ) ); ?>
+					</span>
+				</th>
+			<?php endif; ?>
 			<?php if ( in_array( 'product-price', $items_show, true ) ) : ?>
 				<th class="product-price thWithOuterBorder">
 					<span class="nobr">
@@ -249,6 +256,11 @@ if ( ! empty( $page_title ) && in_array( 'list-title', $items_show, true ) ) :
 							<?php endif; ?>
 
 							<?php do_action( 'wlfmc_pdf_table_meta_data', $meta, $cart_item, $wishlist ); ?>
+						</td>
+					<?php endif; ?>
+					<?php if ( in_array( 'product-sku', $items_show, true ) ) : ?>
+						<td class="product-sku">
+							<?php echo esc_html( $product->get_sku() ); ?>
 						</td>
 					<?php endif; ?>
 					<?php if ( in_array( 'product-price', $items_show, true ) ) : ?>

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.0
+ * @version 1.9.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -460,21 +460,21 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 			if ( $count['all_status'] > 0 ) {
 				$class        = ( 'all' === $current ? ' class="current"' : '' );
 				$url          = esc_url( remove_query_arg( 'status', $current_url ) );
-				$views['all'] = "<a href='$url' $class >" . __( 'All', 'wc-wlfmc-wishlist' ) . ' (' . $count['all_status'] . ')</a>';
+				$views['all'] = "<a href='" . esc_url( $url ) . "' $class >" . __( 'All', 'wc-wlfmc-wishlist' ) . ' (' . $count['all_status'] . ')</a>';
 
 			}
 			if ( $count['is_active'] > 0 ) {
 				$url                = esc_url( add_query_arg( 'status', '1', $current_url ) );
 				$label              = __( 'Active', 'wc-wlfmc-wishlist' );
 				$class              = ( '1' === $current ? ' class="current"' : '' );
-				$views['is_active'] = "<a href='$url' $class >" . $label . ' (' . $count['is_active'] . ')</a>';
+				$views['is_active'] = "<a href='" . esc_url( $url ) . "' $class >" . $label . ' (' . $count['is_active'] . ')</a>';
 
 			}
 			if ( $count['paused'] > 0 ) {
 				$label           = __( 'Paused', 'wc-wlfmc-wishlist' );
 				$url             = esc_url( add_query_arg( 'status', '0', $current_url ) );
 				$class           = ( '0' === $current ? ' class="current"' : '' );
-				$views['paused'] = "<a href='$url' $class >" . $label . ' (' . $count['paused'] . ')</a>';
+				$views['paused'] = "<a href='" . esc_url( $url ) . "' $class >" . $label . ' (' . $count['paused'] . ')</a>';
 
 			}
 

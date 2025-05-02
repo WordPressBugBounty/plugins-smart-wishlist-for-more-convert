@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.0
+ * @version 1.9.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -338,11 +338,11 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 			// phpcs:disable WordPress.Security.NonceVerification.Recommended
 			$automation_id = isset( $_GET['automation_id'] ) ? absint( $_GET['automation_id'] ) : 0;
 
-			$sql = "SELECT items.* , 
+			$sql = "SELECT items.* ,
                         IFNULL( users.user_email, customers.email) AS email ,
                         CONCAT_WS( ' ', IFNULL( m1.meta_value, customers.first_name),  IFNULL( m2.meta_value, customers.last_name) ) as display_name,
                         IFNULL( m1.meta_value, customers.first_name) AS first_name ,
-                        IFNULL( m2.meta_value, customers.last_name) AS last_name, 
+                        IFNULL( m2.meta_value, customers.last_name) AS last_name,
                         IFNULL( m3.meta_value, customers.phone) AS phone,
                         posts.post_name  AS coupon_code
                     FROM $wpdb->wlfmc_wishlist_offers AS items
@@ -465,55 +465,55 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 			if ( $count['all_status'] > 0 ) {
 				$class        = ( 'all' === $current ? ' class="current"' : '' );
 				$url          = remove_query_arg( 'status' );
-				$views['all'] = "<a href='$url' $class >" . esc_html__( 'All', 'wc-wlfmc-wishlist' ) . ' (' . $count['all_status'] . ')</a>';
+				$views['all'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'All', 'wc-wlfmc-wishlist' ) . ' (' . $count['all_status'] . ')</a>';
 
 			}
 			if ( $count['sending'] > 0 ) {
 				$url              = add_query_arg( 'status', 'sending' );
 				$class            = ( 'sending' === $current ? ' class="current"' : '' );
-				$views['sending'] = "<a href='$url' $class >" . esc_html__( 'Sending', 'wc-wlfmc-wishlist' ) . ' (' . $count['sending'] . ')</a>';
+				$views['sending'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Sending', 'wc-wlfmc-wishlist' ) . ' (' . $count['sending'] . ')</a>';
 
 			}
 			if ( $count['not_send'] > 0 ) {
 				$url               = add_query_arg( 'status', 'not-send' );
 				$class             = ( 'not-send' === $current ? ' class="current"' : '' );
-				$views['not_send'] = "<a href='$url' $class >" . esc_html__( 'Not Send', 'wc-wlfmc-wishlist' ) . ' (' . $count['not_send'] . ')</a>';
+				$views['not_send'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Not Send', 'wc-wlfmc-wishlist' ) . ' (' . $count['not_send'] . ')</a>';
 
 			}
 			if ( $count['clicked'] > 0 ) {
 				$url              = add_query_arg( 'status', 'clicked' );
 				$class            = ( 'clicked' === $current ? ' class="current"' : '' );
-				$views['clicked'] = "<a href='$url' $class >" . esc_html__( 'Clicked', 'wc-wlfmc-wishlist' ) . ' (' . $count['clicked'] . ')</a>';
+				$views['clicked'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Clicked', 'wc-wlfmc-wishlist' ) . ' (' . $count['clicked'] . ')</a>';
 
 			}
 			if ( $count['sent'] > 0 ) {
 				$url           = add_query_arg( 'status', 'sent' );
 				$class         = ( 'sent' === $current ? ' class="current"' : '' );
-				$views['sent'] = "<a href='$url' $class >" . esc_html__( 'Sent', 'wc-wlfmc-wishlist' ) . ' (' . $count['sent'] . ')</a>';
+				$views['sent'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Sent', 'wc-wlfmc-wishlist' ) . ' (' . $count['sent'] . ')</a>';
 
 			}
 			if ( $count['coupon_used'] > 0 ) {
 				$url                  = add_query_arg( 'status', 'coupon-used' );
 				$class                = ( 'coupon-used' === $current ? ' class="current"' : '' );
-				$views['coupon_used'] = "<a href='$url' $class >" . esc_html__( 'Coupon used', 'wc-wlfmc-wishlist' ) . ' (' . $count['coupon_used'] . ')</a>';
+				$views['coupon_used'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Coupon used', 'wc-wlfmc-wishlist' ) . ' (' . $count['coupon_used'] . ')</a>';
 
 			}
 			if ( $count['opened'] > 0 ) {
 				$url             = add_query_arg( 'status', 'opened' );
 				$class           = ( 'opened' === $current ? ' class="current"' : '' );
-				$views['opened'] = "<a href='$url' $class >" . esc_html__( 'Opened', 'wc-wlfmc-wishlist' ) . ' (' . $count['opened'] . ')</a>';
+				$views['opened'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Opened', 'wc-wlfmc-wishlist' ) . ' (' . $count['opened'] . ')</a>';
 
 			}
 			if ( $count['canceled'] > 0 ) {
 				$url               = add_query_arg( 'status', 'canceled' );
 				$class             = ( 'canceled' === $current ? ' class="current"' : '' );
-				$views['canceled'] = "<a href='$url' $class >" . esc_html__( 'Canceled', 'wc-wlfmc-wishlist' ) . ' (' . $count['canceled'] . ')</a>';
+				$views['canceled'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Canceled', 'wc-wlfmc-wishlist' ) . ' (' . $count['canceled'] . ')</a>';
 
 			}
 			if ( $count['unsubscribed'] > 0 ) {
 				$url                   = add_query_arg( 'status', 'unsubscribed' );
 				$class                 = ( 'unsubscribed' === $current ? ' class="current"' : '' );
-				$views['unsubscribed'] = "<a href='$url' $class >" . esc_html__( 'Unsubscribed', 'wc-wlfmc-wishlist' ) . ' (' . $count['unsubscribed'] . ')</a>';
+				$views['unsubscribed'] = "<a href='" . esc_url( $url ) . "' $class >" . esc_html__( 'Unsubscribed', 'wc-wlfmc-wishlist' ) . ' (' . $count['unsubscribed'] . ')</a>';
 
 			}
 			// phpcs:enable WordPress.Security.NonceVerification.Recommended
