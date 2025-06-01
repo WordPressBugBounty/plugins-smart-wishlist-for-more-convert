@@ -616,23 +616,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return false;
     }); // The "Upload" button.
 
-    $('.mct_upload_file_button').on('click', function () {
+    $('.mct_upload_file_button').on('click', function (e) {
+      e.preventDefault();
       var button = $(this);
       var mimetypes = button.closest('.upload-file').data('mimetypes') || '';
       var title = button.closest('.upload-file').data('title');
       var button_text = button.closest('.upload-file').data('button-text');
+      var mimeTypeArray = mimetypes.split(',').map(function (type) {
+        return type.trim();
+      });
       var media_frame = wp.media({
         title: title,
         button: {
           text: button_text
         },
         library: {
-          post_mime_type: '[' + mimetypes.split(',') + ']'
+          post_mime_type: mimeTypeArray
         },
         multiple: false
       });
       media_frame.on('select', function () {
         var attachment = media_frame.state().get('selection').first().toJSON();
+
+        if (!mimeTypeArray.includes(attachment.mime)) {
+          console.error('Invalid file type selected:', attachment.mime);
+          return;
+        }
+
         $(button).text(attachment.filename);
         $(button).parent().find('input').val(attachment.id);
         $(button).parent().find('.mct_remove_file_button, .mct_import_file_button,.mct_action_file_button').show();

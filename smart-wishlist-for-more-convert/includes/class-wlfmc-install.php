@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -170,6 +170,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 *
 		 * @return void
 		 * @access private
+		 * @version 1.9.3
 		 */
 		private function add_customer_table() {
 			$sql = "CREATE TABLE IF NOT EXISTS $this->table_customers (
@@ -197,7 +198,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							UNIQUE KEY user_id (user_id),
     						UNIQUE KEY session_id (session_id),
 							KEY token (token)
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
@@ -375,7 +376,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * @param string $current_db_version Version from which we're updating.
 		 *
 		 * @since 1.0.1
-		 * @version 1.7.6
+		 * @version 1.9.3
 		 */
 		public function update( string $current_version, string $current_db_version ) {
 
@@ -518,6 +519,11 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			if ( version_compare( $current_db_version, '1.3.2', '<' ) ) {
 
 				$this->update_1_8_8();
+			}
+
+			if ( version_compare( $current_db_version, '1.3.3', '<' ) ) {
+
+				$this->update_1_9_3();
 			}
 
 			$this->register_current_version();
@@ -1553,6 +1559,19 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 					$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers ADD `gdpr_status` TINYINT( 1 ) NOT NULL DEFAULT 0;" );
 					wp_cache_flush_group( 'wlfmc-customers' );
 				}
+			}
+		}
+
+		/**
+		 * Update to 1.9.3
+		 *
+		 * @since 1.9.3
+		 */
+		private function update_1_9_3() {
+			global $wpdb;
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) {
+				$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci" );
+				wp_cache_flush_group( 'wlfmc-customers' );
 			}
 		}
 

@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.8.1
-Stable tag: 1.9.2
+Stable tag: 1.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,14 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.3 =
+
+* Tested: WC 9.8.5
+* Fixed: Fix astra theme loop position bugs.
+* Fixed: Fix ObjectCache reported bugs.
+* Fixed: Fix reported analytics table bugs.
+* Added: Add import waitlist by csv (Premium feature).
 
 = 1.9.2 =
 

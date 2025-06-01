@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.1
+ * @version 1.9.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,6 +21,7 @@ add_action( 'init', 'wlfmc_astra_integrate' );
  */
 function wlfmc_astra_integrate() {
 	add_filter( 'wlfmc_loop_positions', 'wlfmc_astra_fix_loop_position' );
+	add_filter( 'wlfmc_button_positions', 'wlfmc_astra_fix_single_position' );
 	add_filter( 'wlfmc_custom_css_output', 'wlfmc_astra_fix_css' );
 }
 
@@ -41,6 +43,32 @@ function wlfmc_astra_fix_css( string $generated_css ) {
 	return $generated_css;
 }
 
+
+/**
+ * Fix single position
+ *
+ * @param array $positions all single positions.
+ *
+ * @return array
+ */
+function wlfmc_astra_fix_single_position( array $positions ): array {
+
+	$positions['before_add_to_cart_button'] = array(
+		array(
+			'hook'     => 'astra_woo_single_add_to_cart_before',
+			'priority' => 20,
+		),
+	);
+	$positions['after_add_to_cart_button']  = array(
+		array(
+			'hook'     => 'astra_woo_single_add_to_cart_after',
+			'priority' => 20,
+		),
+	);
+
+	return $positions;
+}
+
 /**
  * Fix loop position
  *
@@ -49,12 +77,19 @@ function wlfmc_astra_fix_css( string $generated_css ) {
  * @return array
  */
 function wlfmc_astra_fix_loop_position( array $positions ): array {
-
-	$positions['image_top_left']  = array(
+	$positions['before_add_to_cart'] = array(
+		'hook'     => 'astra_woo_shop_add_to_cart_before',
+		'priority' => 10,
+	);
+	$positions['after_add_to_cart']  = array(
+		'hook'     => 'astra_woo_shop_add_to_cart_after',
+		'priority' => 10,
+	);
+	$positions['image_top_left']     = array(
 		'hook'     => 'woocommerce_before_shop_loop_item',
 		'priority' => 7,
 	);
-	$positions['image_top_right'] = array(
+	$positions['image_top_right']    = array(
 		'hook'     => 'woocommerce_before_shop_loop_item',
 		'priority' => 7,
 	);

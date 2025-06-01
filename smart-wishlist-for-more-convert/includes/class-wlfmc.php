@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.2
+ * @version 1.9.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,14 +27,14 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.9.2';
+		public $version = '1.9.3';
 
 		/**
 		 * Plugin database version
 		 *
 		 * @var string
 		 */
-		public $db_version = '1.3.2';
+		public $db_version = '1.3.3';
 
 		/**
 		 * Store class WLFMC_Install.
@@ -147,10 +147,6 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 * @version 1.7.6
 		 */
 		public function __construct() {
-			if ( function_exists('wp_cache_add_global_groups') && apply_filters( 'wlfmc_add_non_persistent_groups', false ) ) {
-				// Make the cache groups, non-persistent.
-				wp_cache_add_non_persistent_groups( array( 'wlfmc-wishlist-items', 'wlfmc-customers', 'wlfmc-wishlists', 'wlfmc-filters', 'wlfmc-cache' ) );
-			}
 
 			// register data stores.
 			add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
@@ -1505,7 +1501,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 * @param bool $exclude_default exclude default wishlist.
 		 *
 		 * @return WLFMC_Wishlist[]
-		 * @version 1.6.8
+		 * @version 1.9.3
 		 */
 		public function get_current_user_wishlists( $return_wishlists = false, $exclude_default = true ) {
 			$customer = WLFMC_Wishlist_Factory::get_current_customer( false );
@@ -1531,7 +1527,8 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				wp_cache_set( 'user-wishlists-' . $customer->get_id() . '-' . $list_type, $lists, 'wlfmc-wishlists' );
 			}
 
-			return $lists;
+			return is_array( $lists ) ? $lists : ( $lists instanceof WLFMC_Wishlist ? [ $lists ] : [] );
+
 		}
 
 		/**

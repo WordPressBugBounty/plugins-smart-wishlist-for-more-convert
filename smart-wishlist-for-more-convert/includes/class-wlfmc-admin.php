@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.9.1
+ * @version 1.9.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,14 +30,14 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.9.1';
+		public $rollback_version = '1.9.2';
 
 		/**
 		 * Minimum pro version
 		 *
 		 * @var string
 		 */
-		public $minimum_pro_version = '1.8.7';
+		public $minimum_pro_version = '1.9.0';
 
 		/**
 		 * Main panel
