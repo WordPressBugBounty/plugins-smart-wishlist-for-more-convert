@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.1
+ * @version 1.9.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -146,12 +146,13 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 *
 		 * @param array $crons Crons.
 		 *
+		 * @version 1.9.4
 		 * @return array
 		 */
 		public function cron( array $crons ): array {
 			$crons['wlfmc_send_automation_emails'] =
 				array(
-					'schedule' => 'hourly',
+					'schedule' => apply_filters( 'wlfmc_send_automation_emails_schedule', 'hourly' ),
 					'callback' => array( $this, 'send_emails' ),
 				);
 
@@ -243,7 +244,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @param int    $customer_id customer id.
 		 * @param string $current_list_type list type.
 		 *
-		 * @version 1.6.2
+		 * @version 1.9.4
 		 */
 		public function add_emails( $prod_id, $wishlist_id, $customer_id, $current_list_type ) {
 			global $wpdb;
@@ -284,7 +285,10 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			$include_products   = $options['include-product'];
 			$period_days        = (int) $options['period-days'];
 			$offer_emails       = $options['offer_emails'];
-			$current_time       = strtotime( current_time( 'mysql' ) );
+			$current_time       = time(); // Use time() and ensure UTC
+			if ( 'UTC' !== date_default_timezone_get() ) {
+				$current_time = strtotime( gmdate( 'Y-m-d H:i:s', $current_time ) ); // Force UTC
+			}
 			$last_time_added    = is_array( $user_meta ) ? ( $user_meta['last_period_days'] ?? '' ) : '';
 			$exists             = true;
 			$can_add_after_date = '' === $last_time_added ? $current_time : strtotime( '+' . $period_days . ' days', $last_time_added );

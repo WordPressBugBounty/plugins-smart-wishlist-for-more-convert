@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.8.1
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -299,6 +299,19 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.4 =
+
+* Tested: WC 9.9.5
+* Added: added `wlfmc_send_automation_emails_schedule` filter for change automation cron schedule.
+* Added: added `wlfmc_send_campaign_emails_schedule` filter for change campaign cron schedule (Premium feature).
+* Added: added `wlfmc_automation_trigger_emails_schedule` filter for change waitlist cron schedule (Premium feature).
+* Fixed: fix user phone field in analytics page.
+* Added: added `wlfmc_waitlist_change_on_sale_state_after_trigger` filter for disable change on_sale state after trigger event.
+* Added: added `wlfmc_waitlist_change_price_change_state_after_trigger` filter for disable change price_change state after trigger event.
+* Added: added `wlfmc_waitlist_change_low_stock_state_after_trigger` filter for disable change low_stock state after trigger event.
+* Added: added `wlfmc_waitlist_change_back_in_stock_state_after_trigger` filter for disable change back_in_stock state after trigger event.
+* Fixed: fix Email Automation timezone mismatch
 
 = 1.9.3 =
 

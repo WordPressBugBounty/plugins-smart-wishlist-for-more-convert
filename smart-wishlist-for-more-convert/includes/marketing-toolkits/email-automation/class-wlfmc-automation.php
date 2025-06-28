@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
+ * @version 1.9.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -501,12 +502,13 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 		 *
 		 * @param int $limit limit.
 		 *
+		 * @verison 1.9.4
 		 * @return array|object|stdClass[]|null
 		 */
 		public function get_email_queue( int $limit ) {
 			global $wpdb;
 
-			return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->wlfmc_wishlist_offers WHERE automation_id=%d AND status in ('sending' , 'not-send') AND  `datesend` < NOW() LIMIT %d", $this->get_id(), $limit ) );//phpcs:ignore WordPress.DB
+			return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->wlfmc_wishlist_offers WHERE automation_id=%d AND status in ('sending' , 'not-send') AND  `datesend` < UTC_TIMESTAMP() LIMIT %d", $this->get_id(), $limit ) );//phpcs:ignore WordPress.DB
 		}
 
 		/**

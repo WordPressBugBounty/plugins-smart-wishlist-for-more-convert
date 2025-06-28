@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.2
+ * @verison 1.9.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -422,6 +423,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 		 *
 		 * @param WLFMC_Customer|int $customer Customer or customer_id.
 		 *
+		 * @version 1.9.4
 		 * @return array|false
 		 */
 		public function get_customer_data( $customer ) {
@@ -470,7 +472,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 					'user_name'  => $user->user_login,
 					'first_name' => $user->user_firstname,
 					'last_name'  => $user->user_lastname,
-					'user_phone' => get_user_meta( $user->ID, '_billing_phone', true ),
+					'user_phone' => get_user_meta( $user->ID, 'billing_phone', true ),
 					'lang'       => $customer->get_lang(),
 				);
 			}
@@ -569,7 +571,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 							l.first_name LIKE %s OR
 							l.last_name LIKE %s OR
 							l.email LIKE %s OR
-							l.phone LIKE %s 
+							l.phone LIKE %s
 						)';
 
 				$search_value = '%' . esc_sql( $user_search ) . '%';
@@ -1032,17 +1034,17 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				if ( ! empty( $items_ids ) ) {
 					$where .= "AND i.ID IN( $items_ids )";
 					$wpdb->query(
-						"INSERT INTO $wpdb->wlfmc_wishlist_analytics 
-	                   ( prod_id , quantity, wishlist_id, customer_id, list_type, price, currency ) 
+						"INSERT INTO $wpdb->wlfmc_wishlist_analytics
+	                   ( prod_id , quantity, wishlist_id, customer_id, list_type, price, currency )
 						SELECT i.prod_id, 1 as quantity ,i.wishlist_id,i.customer_id,
-					       	CASE 
+					       	CASE
 						    WHEN w.is_default=1 THEN 'wishlist'
 						    WHEN w.wishlist_slug='waitlist' THEN 'waitlist'
 						    WHEN w.wishlist_slug='save-for-later' THEN 'save-for-later'
-						    ELSE 'lists' END AS list_type, 
-						    i.original_price, i.original_currency 
+						    ELSE 'lists' END AS list_type,
+						    i.original_price, i.original_currency
 						FROM $wpdb->wlfmc_wishlist_items as i
-						INNER JOIN $wpdb->wlfmc_wishlists as w ON i.wishlist_id = w.ID 
+						INNER JOIN $wpdb->wlfmc_wishlists as w ON i.wishlist_id = w.ID
 						WHERE $where "
 					);// phpcs:ignore WordPress.DB
 				}
