@@ -1,10 +1,10 @@
-=== WooCommerce Wishlist (High customization, fast setup,Free Elementor Wishlist, most features) ===
+=== MoreConvert Wishlist for WooCommerce ===
 
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.8.1
-Stable tag: 1.9.4
+Stable tag: 1.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Email Campaigns & Automation: Targeted emails, automated.
 - And over 47 other cool and useful options.
 
-🌟 [TRY MC Woocommerce Wishlist **PREMIUM** For **FREE** ](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)
+🌟 [TRY MC Woocommerce Wishlist **PREMIUM** For **FREE** ](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)
 
 [youtube https://youtu.be/kFrdOcpZ8ZE]
 
@@ -175,7 +175,7 @@ More advanced features in the premium version include:
 - Optimized for seamless desktop and mobile viewing experiences.
 - Supports both simple and variable products.
 
-🌟 **[TRY THE FREE DEMO OF MC Wishlist PREMIUM](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
+🌟 **[TRY THE FREE DEMO OF MC Wishlist PREMIUM](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 Why is **this one plugin** better than all those plugins out there?
 
@@ -228,7 +228,7 @@ Whether your customers are browsing on a desktop or a mobile device, the MoreCon
 
 Ready to supercharge your WooCommerce sales and provide an exceptional shopping experience for your customers? 🚀 **[Get the Premium Version Now!](https://moreconvert.com/pricing)**
 
-🔥 **[Try the Free Demo of MC Wishlist Premium](https://demo5.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
+🔥 **[Try the Free Demo of MC Wishlist Premium](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 == Installation and use ==
 
@@ -300,6 +300,10 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.9.5 =
+
+* Fixed: fix option framework.
+
 = 1.9.4 =
 
 * Tested: WC 9.9.5
@@ -344,15 +348,6 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Added: `wlfmc_email_headers` filter to allow modification of email headers, including support for adding BCC and CC.
 * Fixed: resolved data-store issues.
 * Fixed: security by fixing SQL injection vulnerabilities.
-
-= 1.8.9 =
-
-* Tested: WP 6.7.2
-* Tested: WC 9.6.2
-* Fixed: Improve integrity with burn2 woocommerce product table.
-* Fixed: fix some reported bugs.
-* Fixed: fix jquery event deprecated.
-* Updated: Change default value for some options.
 
 
 [See changelog for all versions](https://moreconvert.com/changelog/).

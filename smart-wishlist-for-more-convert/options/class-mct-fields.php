@@ -802,18 +802,20 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					?>
 					<div class="mct-wizard">
 						<div class="mct-options ">
-							<ul class="steps">
-								<?php foreach ( $this->steps as $k => $step ) : ?>
-									<li class="step step-<?php echo esc_attr( $k ); ?> <?php echo $current_step === $k ? 'step-success' : ''; ?> "
-										data-step="<?php echo esc_attr( $k ); ?>">
-										<div class="step-content">
-											<span class="step-circle"><span
-													class="dashicons dashicons-yes"></span></span>
-											<span class="step-text"><?php echo esc_attr( $step['steptitle'] ); ?></span>
-										</div>
-									</li>
-								<?php endforeach; ?>
-							</ul>
+							<?php if ( count( $this->steps ) > 1 ) : ?>
+								<ul class="steps">
+									<?php foreach ( $this->steps as $k => $step ) : ?>
+										<li class="step step-<?php echo esc_attr( $k ); ?> <?php echo $current_step === $k ? 'step-success' : ''; ?> "
+											data-step="<?php echo esc_attr( $k ); ?>">
+											<div class="step-content">
+												<span class="step-circle"><span
+														class="dashicons dashicons-yes"></span></span>
+												<span class="step-text"><?php echo esc_attr( $step['steptitle'] ); ?></span>
+											</div>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+							<?php endif;?>
 							<div class="ajax-message-holder"></div>
 							<form id="<?php echo esc_attr( $this->id ); ?>_form" class="ajax-wizard-form mct-form <?php echo $this->ajax_saving ? 'mc-ajax-saving' : ''; ?>" method="post"  action="">
 								<?php foreach ( $this->steps as $k => $step ) : ?>
