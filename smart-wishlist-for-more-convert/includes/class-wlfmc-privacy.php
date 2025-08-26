@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.8
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -220,8 +220,6 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 						);
 					}
 					$done = 10 > count( $wishlists );
-				} else {
-					$done = true;
 				}
 			}
 
@@ -427,9 +425,7 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 				}
 			}
 
-			$personal_data = apply_filters( 'wlfmc_privacy_export_wishlist_personal_data', $personal_data, $wishlist );
-
-			return $personal_data;
+			return apply_filters( 'wlfmc_privacy_export_wishlist_personal_data', $personal_data, $wishlist );
 		}
 
 
@@ -445,7 +441,6 @@ if ( ! class_exists( 'Wlfmc_Privacy' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 }
 

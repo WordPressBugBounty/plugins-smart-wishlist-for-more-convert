@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -216,7 +216,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 		 * @param mixed $args Array of valid arguments<br/>
 		 *              [<br/>
 		 *              'id'                  // Wishlist id to search, if any<br/>
-		 *              'customer_id'         // customer Id<br/>
+		 *              'customer_id'         // customer id<br/>
 		 *              'user_id'             // User owner<br/>
 		 *              'wishlist_slug'       // Slug of the wishlist to search<br/>
 		 *              'wishlist_name'       // Name of the wishlist to search<br/>

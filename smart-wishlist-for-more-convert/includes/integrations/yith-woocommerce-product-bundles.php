@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +27,6 @@ function wlfmc_yith_woocommerce_product_bundles_integrate() {
 	if ( defined( 'YITH_WCPB_PREMIUM' ) ) {
 		add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_yith_woocommerce_product_bundles_wishlist_item_price', 9, 4 );
 	}
-
 }
 
 /**
@@ -74,7 +74,7 @@ function wlfmc_yith_woocommerce_product_bundles_wishlist_item_price( $price, $pr
 					} else {
 						$array_var[ $loop ] = '';
 					}
-					$loop++;
+					++$loop;
 				}
 				$price = $product->get_per_item_price_tot_with_params( $array_quantity, $array_opt, $array_var, false );
 			}

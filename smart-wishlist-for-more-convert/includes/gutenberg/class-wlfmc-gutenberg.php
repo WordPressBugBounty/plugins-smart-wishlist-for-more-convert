@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @since 1.2.0
+ * @since 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,7 +52,6 @@ if ( ! class_exists( 'WLFMC_Gutenberg' ) ) {
 
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_style' ) );
 			add_filter( 'woocommerce_blocks_product_grid_item_html', array( $this, 'render_product_block' ), 10, 3 );
-
 		}
 
 
@@ -64,7 +63,6 @@ if ( ! class_exists( 'WLFMC_Gutenberg' ) ) {
 		public function enqueue_style() {
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			wp_enqueue_style( 'wlfmc-blocks', MC_WLFMC_URL . 'assets/frontend/css/style' . $suffix . '.css', false, WLFMC_VERSION );
-
 		}
 
 
@@ -107,8 +105,6 @@ if ( ! class_exists( 'WLFMC_Gutenberg' ) ) {
 
 			return $html;
 		}
-
-
 	}
 
 }

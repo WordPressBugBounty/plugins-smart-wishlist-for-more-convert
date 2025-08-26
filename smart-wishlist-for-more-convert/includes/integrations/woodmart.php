@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.1
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +29,6 @@ function wlfmc_woodmart_integrate() {
 		add_filter( 'wlfmc_add_to_wishlist_params', 'wlfmc_woodmart_change_container_class', 10, 2 );
 		add_filter( 'wlfmc_admin_steps', 'wlfmc_woodmart_wizard_steps' );
 	}
-
 }
 
 /**
@@ -39,7 +39,7 @@ function wlfmc_woodmart_integrate() {
  *
  * @return array
  */
-function wlfmc_woodmart_change_container_class( $params, $atts ) {
+function wlfmc_woodmart_change_container_class( $params, $atts ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( $params['container_classes'] && wlfmc_str_contains( $params['container_classes'], 'wlfmc_position_woodmart' ) ) {
 		$params['container_classes'] = str_replace( 'wlfmc-single-btn', 'wlfmc-single-btn wd-action-btn', $params['container_classes'] );
 	}

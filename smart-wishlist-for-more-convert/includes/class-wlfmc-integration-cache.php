@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @since 1.7.6
+ * @since 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WLFMC_Integration_Cache' ) ) {
 			$ids = array_map( 'absint', $ids );
 			$ids = array_filter(
 				$ids,
-				function( $a ) {
+				function ( $a ) {
 					return ( 0 !== $a );
 				}
 			);
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WLFMC_Integration_Cache' ) ) {
 				$ids        = array_map( 'absint', $ids );
 				$ids        = array_filter(
 					$ids,
-					function( $a ) {
+					function ( $a ) {
 						return ( 0 !== $a );
 					}
 				);

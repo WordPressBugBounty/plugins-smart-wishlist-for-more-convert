@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.2
- * @verison 1.9.4
+ * @verison 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -351,7 +351,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				return;
 			}
 
-			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->wlfmc_wishlist_offers SET status = 'unsubscribed' WHERE customer_id = %d AND status IN ('sending' ,'not-send') ", $customer->get_id() ) );// db call ok; no-cache ok.
+			$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->wlfmc_wishlist_offers SET status = 'unsubscribed' WHERE customer_id = %d AND status IN ('sending' ,'not-send') ", $customer->get_id() ) );// phpcs:ignore WordPress.DB
 
 			$this->update_raw(
 				array(
@@ -366,18 +366,13 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				true
 			);
 
-			$unsubscribed_users = get_option( 'wlfmc_unsubscribed_users', array() );
-
-			if ( ! in_array( $customer->get_email(), $unsubscribed_users, true ) ) {
-				$unsubscribed_users[] = $customer->get_email();
-				update_option( 'wlfmc_unsubscribed_users', $unsubscribed_users );
-			}
+			wlfmc_add_email_to_unsubscribed( $customer->get_email() );
 
 			do_action( 'wlfmc_unsubscribed_customer', $customer->get_id() );
 		}
 
 		/**
-		 * subscribe a customer
+		 * Subscribe a customer
 		 *
 		 * @param WLFMC_Customer $customer Customer to Unsubscribe.
 		 *
@@ -402,18 +397,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				true
 			);
 
-			$unsubscribed_users = get_option( 'wlfmc_unsubscribed_users', array() );
-
-			$email_to_remove = $customer->get_email();
-			$key             = array_search( $email_to_remove, $unsubscribed_users, true );
-
-			if ( $key !== false ) {
-				// Remove the email from the array
-				unset( $unsubscribed_users[ $key ] );
-
-				// Update the option with the new array
-				update_option( 'wlfmc_unsubscribed_users', $unsubscribed_users );
-			}
+			wlfmc_remove_email_from_unsubscribed( $customer->get_email() );
 
 			do_action( 'wlfmc_subscribe_customer', $customer->get_id() );
 		}
@@ -808,7 +792,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				$nchars     = 12;
 				$token      = '';
 
-				for ( $i = 0; $i <= $nchars - 1; $i ++ ) {
+				for ( $i = 0; $i <= $nchars - 1; $i++ ) {
 					$token .= $dictionary[ wp_rand( 0, strlen( $dictionary ) - 1 ) ];
 				}
 
@@ -867,10 +851,8 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 							$main_customer->set_email( $merged_customer->get_email() );
 							$main_customer->set_email_verified( 1 );
 						}
-					} else {
-						if ( ! empty( $merged_customer->get_email() ) && $change_email ) {
+					} elseif ( ! empty( $merged_customer->get_email() ) && $change_email ) {
 							$main_customer->set_email( $merged_customer->get_email() );
-						}
 					}
 
 					if ( ! empty( $merged_customer->get_notes() ) && empty( $main_customer->get_notes() ) ) {

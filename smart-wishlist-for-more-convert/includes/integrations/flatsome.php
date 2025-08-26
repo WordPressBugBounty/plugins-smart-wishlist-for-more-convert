@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +45,7 @@ function wlfmc_flatsome() {
                                     wp.customize.section(a) && wp.customize.section(a).focus(), t.preventDefault();
                                 });
                             }
-                            
+
                             if (multiList.length) {
                                 multiList.attr("data-section", "header_multi_list_counter");
                                 multiList.on("click", function (t) {
@@ -53,7 +53,7 @@ function wlfmc_flatsome() {
                                     wp.customize.section(a) && wp.customize.section(a).focus(), t.preventDefault();
                                 });
                             }
-                            
+
                              if (wishlist.length) {
                                 wishlist.attr("data-section", "header_wishlist_counter");
                                 wishlist.on("click", function (t) {
@@ -545,7 +545,6 @@ function wlfmc_flatsome_integrate() {
 		}
 		add_filter( 'wlfmc_custom_css_output', 'wlfmc_flatsome_fix_css' );
 	}
-
 }
 
 /**

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -246,6 +247,5 @@ if ( ! class_exists( 'WLFMC_THWEPO_Price' ) ) {
 
 			return $price_props;
 		}
-
 	}
 }

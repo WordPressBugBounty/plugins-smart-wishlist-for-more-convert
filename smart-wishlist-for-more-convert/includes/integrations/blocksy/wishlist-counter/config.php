@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.6
+ * @version 1.9.6
  */
 
 $config = array(
@@ -20,4 +21,3 @@ $config = array(
 		array( 'key' => 'wishlist_counter_text' ),
 	),
 );
-

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.8.9
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +31,6 @@ if ( class_exists( 'Barn2\Plugin\WC_Product_Table\Data\Abstract_Product_Data' ) 
 		public function get_data() {
 			return apply_filters( 'wc_product_table_data_wishlist', do_shortcode( '[wlfmc_add_to_wishlist position="shortcode" is_single=""]' ), $this->product );
 		}
-
 	}
 
 	class WLFMC_Product_Table_Data_CFWishlist extends \Barn2\Plugin\WC_Product_Table\Data\Abstract_Product_Data {
@@ -43,12 +43,11 @@ if ( class_exists( 'Barn2\Plugin\WC_Product_Table\Data\Abstract_Product_Data' ) 
 		public function get_data() {
 			return apply_filters( 'wc_product_table_data_cf:wishlist', do_shortcode( '[wlfmc_add_to_wishlist position="shortcode" is_single=""]' ), $this->product );
 		}
-
 	}
 
 	add_filter(
 		'wc_product_table_custom_table_data_wishlist',
-		function ( $data_obj, $product, $args ) {
+		function ( $data_obj, $product, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			return new WLFMC_Product_Table_Data_Wishlist( $product );
 		},
 		10,
@@ -56,12 +55,10 @@ if ( class_exists( 'Barn2\Plugin\WC_Product_Table\Data\Abstract_Product_Data' ) 
 	);
 	add_filter(
 		'wc_product_table_custom_table_data_cf:wishlist',
-		function ( $data_obj, $product, $args ) {
+		function ( $data_obj, $product, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			return new WLFMC_Product_Table_Data_CFWishlist( $product );
 		},
 		10,
 		3
 	);
 }
-
-

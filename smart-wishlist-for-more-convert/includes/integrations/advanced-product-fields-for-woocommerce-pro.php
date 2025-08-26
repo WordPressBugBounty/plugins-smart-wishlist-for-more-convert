@@ -10,7 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
- * @version 1.9.1
+ * @version 1.9.6
  */
 
 use SW_WAPF_PRO\Includes\Classes\Cache;
@@ -46,7 +46,6 @@ function wlfmc_wapf_pro_integrate() {
 		} else {
 			add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_wapf_pro_wishlist_item_price_old', 9, 4 );
 		}
-
 	}
 }
 
@@ -125,7 +124,7 @@ function wlfmc_wapf_pro_get_item_data( $item_data, $cart_item ) {
 		}
 
 		if ( Enumerable::from( $field['values'] )->any(
-			function( $x ) use ( $cart_item ) {
+			function ( $x ) use ( $cart_item ) {
 				return isset( $x['label'] ) && strlen( $x['label'] ) > 0;
 			}
 		) ) {
@@ -237,7 +236,6 @@ function wlfmc_create_uploaded_file_array( $files ) {
 	}
 
 	return $result;
-
 }
 
 /**
@@ -277,13 +275,22 @@ function wlfmc_wapf_pro_wishlist_item_price_old( $price, $product_meta, $product
 	return $price;
 }
 
-
+/**
+ * Calculate item price.
+ *
+ * @param float|int $price Price.
+ * @param array     $product_meta Product meta.
+ * @param object    $product Product.
+ * @param object    $item Wishlist item.
+ *
+ * @return int|mixed
+ */
 function wlfmc_wapf_pro_wishlist_item_price( $price, $product_meta, $product, $item ) {
 	if ( ! empty( $product_meta['wapf'] ) ) {
-		$base          = Cart::get_cart_item_base_price( $product, $item->get_quantity(), $item->get_cart_item() );
+		$base              = Cart::get_cart_item_base_price( $product, $item->get_quantity(), $item->get_cart_item() );
 		$cart_item         = $item->get_cart_item();
 		$cart_item['data'] = $product;
-		$formula_base      = apply_filters('wapf/pricing/cart_item_base_for_formulas', $base, $product, $item->get_quantity(), $cart_item );
+		$formula_base      = apply_filters( 'wapf/pricing/cart_item_base_for_formulas', $base, $product, $item->get_quantity(), $cart_item ); // phpcs:ignore WordPress.NamingConventions.ValidHookName
 
 		$options_total = 0;
 		foreach ( $product_meta['wapf'] as $field ) {
@@ -296,7 +303,7 @@ function wlfmc_wapf_pro_wishlist_item_price( $price, $product_meta, $product, $i
 					$qty_based = ( isset( $field['clone_type'] ) && 'qty' === $field['clone_type'] ) || ! empty( $field['qty_based'] );
 					$v         = $value['label'] ?? $field['raw'];
 
-					$_price = Fields::do_pricing( $qty_based, $value['price_type'], $value['price'], $base, $formula_base, $item->get_quantity(), $v, $product->get_id(), $product_meta['wapf'], $product_meta['wapf_field_groups'], $product_meta['wapf_clone'] ?? 0 );
+					$_price        = Fields::do_pricing( $qty_based, $value['price_type'], $value['price'], $base, $formula_base, $item->get_quantity(), $v, $product->get_id(), $product_meta['wapf'], $product_meta['wapf_field_groups'], $product_meta['wapf_clone'] ?? 0 );
 					$options_total = $options_total + $_price;
 				}
 			}

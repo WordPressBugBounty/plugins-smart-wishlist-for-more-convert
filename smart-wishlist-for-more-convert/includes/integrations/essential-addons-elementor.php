@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.5.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -50,7 +51,7 @@ function wlfmc_essential_addons_elementor_integrate() {
  *
  * @return string
  */
-function wlfmc_essential_addons_after_render( $content, $widget ) {
+function wlfmc_essential_addons_after_render( $content, $widget ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	remove_filter( 'woocommerce_loop_add_to_cart_link', 'wlfmc_loop_add_to_cart_link', 10 );
 	return $content;
 }

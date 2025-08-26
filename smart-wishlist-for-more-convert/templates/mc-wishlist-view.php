@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.1
+ * @version 1.9.6
  */
 
 /**
@@ -595,8 +595,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 										<?php if ( 'twitter' === $share_item ) : ?>
 											<li class="share-item">
-												<a target="_blank" rel="noopener" class="twitter <?php echo '' !== $share_on_twitter_tooltip_label ? esc_attr( $tooltip_class ) : ''; ?>" data-tooltip-type="<?php echo esc_attr( $tooltip_type ); ?>" href="https://twitter.com/share?url=<?php echo rawurlencode( $share_atts['share_link_url'] ); ?>&amp;text=<?php echo esc_attr( $share_atts['share_socials_title'] ); ?>"  data-tooltip-text="<?php echo esc_attr( $share_on_twitter_tooltip_label ); ?>">
-													<?php echo $share_atts['share_twitter_icon'] ? wp_kses_post( $share_atts['share_twitter_icon'] ) : esc_html__( 'Twitter', 'wc-wlfmc-wishlist' ); ?>
+												<a target="_blank" rel="noopener" class="twitter <?php echo '' !== $share_on_twitter_tooltip_label ? esc_attr( $tooltip_class ) : ''; ?>" data-tooltip-type="<?php echo esc_attr( $tooltip_type ); ?>" href="https://x.com/intent/tweet?url=<?php echo rawurlencode( $share_atts['share_link_url'] ); ?>&amp;text=<?php echo esc_attr( $share_atts['share_socials_title'] ); ?>"  data-tooltip-text="<?php echo esc_attr( $share_on_twitter_tooltip_label ); ?>">
+													<?php echo $share_atts['share_twitter_icon'] ? wp_kses_post( $share_atts['share_twitter_icon'] ) : esc_html__( 'Twitter(X)', 'wc-wlfmc-wishlist' ); ?>
 												</a>
 											</li>
 										<?php endif; ?>

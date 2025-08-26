@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.6.5
+ * @version 1.9.6
  */
 
 namespace Kadence_Wlfmc;
@@ -171,7 +171,7 @@ class Header_Wishlist {
 	 * @param object $wp_customize the customizer object.
 	 * @return void
 	 */
-	public function create_wlfmc_settings_array( $wp_customize ) {
+	public function create_wlfmc_settings_array( $wp_customize ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 		// Load Settings files.
 		foreach ( self::$settings_sections as $key ) {
 			require_once MC_WLFMC_INC . 'integrations/kadence/' . $key . '-options.php'; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound

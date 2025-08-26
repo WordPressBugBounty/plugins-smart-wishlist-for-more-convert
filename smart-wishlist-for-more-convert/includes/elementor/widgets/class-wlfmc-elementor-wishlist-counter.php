@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 // Don't load directly.
@@ -92,7 +92,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			$this->counter_settings_controls( $options );
 			$this->mini_wishlist_settings_controls( $options );
 			$this->style_controls( $options );
-
 		}
 
 		/**
@@ -315,7 +314,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -426,7 +424,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 		/**
 		 * Counter Styling Controls
@@ -442,7 +439,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			$this->text_styles( $options );
 			$this->dropdown_styles( $options );
 			$this->button_styles( $options );
-
 		}
 
 		/**
@@ -661,7 +657,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -801,7 +796,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1077,7 +1071,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1129,7 +1122,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 					) ) {
 						$icon              = htmlspecialchars( Icons_Manager::try_get_icon_html( $value, array( 'aria-hidden' => 'true' ) ) );
 						$attribute_string .= ' icon_prefix_class="" is_svg_icon="true" ';
-						$attribute_string .= " $key='{$icon}'";
+						$attribute_string .= " $key='$icon'";
 
 					} elseif ( 'icon_name' === $key && 'custom' !== $value ) {
 						$icon_added        = $value . '-o';
@@ -1163,4 +1156,3 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 		}
 	}
 }
-

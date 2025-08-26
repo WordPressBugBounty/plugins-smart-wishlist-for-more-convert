@@ -205,7 +205,9 @@ if ( ! class_exists( 'MCT_Admin' ) ) {
 					array(
 						'ajax_url'                     => admin_url( 'admin-ajax.php' ),
 						'search_post_url'              => esc_url_raw( rest_url( 'mct-options/v1/search-posts' ) ),
+						'search_user_url'              => esc_url_raw( rest_url( 'mct-options/v1/search-users' ) ),
 						'ajax_nonce'                   => wp_create_nonce( 'ajax-nonce' ),
+						'nonce'                        => wp_create_nonce( 'wp_rest' ),
 						'i18n_delete_image_confirm'    => esc_html__( 'Are you sure?', 'mct-options' ),
 						'i18n_delete_file_confirm'     => esc_html__( 'Are you sure?', 'mct-options' ),
 						'i18n_limit_repeater_alert'    => esc_html__( 'You can not add more items.', 'mct-options' ),

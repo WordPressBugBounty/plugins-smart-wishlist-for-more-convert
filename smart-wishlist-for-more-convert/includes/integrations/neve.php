@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.1
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -74,7 +75,6 @@ function wlfmc_neve_integrate() {
 	if ( class_exists( '\\Neve_Pro\\Core\\Loader' ) ) {
 		add_filter( 'wlfmc_loop_positions', 'wlfmc_neve_pro_fix_loop_position' );
 	}
-
 }
 /**
  * Fix loop position

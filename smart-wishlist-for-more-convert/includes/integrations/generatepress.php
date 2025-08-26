@@ -4,6 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +25,6 @@ function wlfmc_after_setup_generatepress() {
 		add_action( 'customize_register', 'wlfmc_generatepress_customizer', 20 );
 		add_filter( 'wlfmc_custom_css_output', 'wlfmc_generatepress_custom_css' );
 	}
-
 }
 
 /**

@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.8.1
-Stable tag: 1.9.5
+Tested up to: 6.8.2
+Stable tag: 1.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - [**Over 100 integrations** with plugins and themes.](https://moreconvert.com/integrations//?utm_source=wordpressorg&utm_content=preview)
 - High customization and fast setup.
 
-📚 **[DOCUMENTATION](https://moreconvert.com/docs/wishlist/?utm_source=wordpressorg&utm_content=documentation)** |✨ 23 Significant Update in 2023 |⚡ Swift and Attentive Support Team
+📚 **[DOCUMENTATION](https://moreconvert.com/docs/wishlist/?utm_source=wordpressorg&utm_content=documentation)** |✨ 12 Significant Update in 2025 |⚡ Swift and Attentive Support Team
 
 **Premium Version:**
 - Back-in-Stock Notifier: Alert when items return.
@@ -30,7 +30,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - Email Campaigns & Automation: Targeted emails, automated.
 - And over 47 other cool and useful options.
 
-🌟 [TRY MC Woocommerce Wishlist **PREMIUM** For **FREE** ](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)
+🌟 [TRY MoreConvert Wishlist for WooCommerce **PREMIUM** For **FREE** ](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)
 
 [youtube https://youtu.be/kFrdOcpZ8ZE]
 
@@ -63,6 +63,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 - **Shortcodes and widgets** available for the counter.
 - **Customizable counter** (text, icon, color) for the add to menu feature.
 - **Automation emails for wishlist**: status updates and purchase invites.
+- **WooCommerce price format in email templates** for consistent branding across store emails.
 - **Set conditions** based on WooCommerce Wishlist status, products, or prices for email automation.
 - **Schedule five customizable emails** with different templates to boost sales.
 - **Define automatic discount coupons** with expiration dates and auto-deletion.
@@ -106,7 +107,8 @@ All Advanced and free WooCommerce Wishlist features plus:
 
 🔒 WooCommerce Waitlist options
 - **All WooCommerce Wishlist Features**
-- **Dedicated Waitlist Button**, **Wishlist Page** and **Counter** for Woocommerce
+- **Dedicated Waitlist Button**, **Wishlist Page** and **Counter** for WooCommerce
+- **Centralized Subscribe Waitlist:** All subscribers are organized in one place for easier management.
 - **Email Notifier** for Back in Stock, Limited Stock, Price Changes, and Special Sales
 - **Email Automation** with Five Follow-ups
 - **Product-Specific Email Automation** for Variable Products in All Modes (Back in Stock, Limited Stock, Price Change, Special Sale)
@@ -131,10 +133,9 @@ All Advanced and free WooCommerce Wishlist features plus:
 
 🔒 Comprehensive analytics
 - **Analyze Individual User Behavior**
-- **Filter, View and export Users** based on Various Conditions (List
-
- Status, List Ownership, User Status, Previous Purchases, Combined Conditions)
+- **Filter, View and export Users** based on Various Conditions (List Status, List Ownership, User Status, Previous Purchases, Combined Conditions)
 - **Save User Segments** based on Categories
+- **Edit guest user profiles** directly in analytics for better data accuracy and targeting.
 - **Send Email Campaigns** to Users with Category-based Filtering
 - **Check Users** based on Lists and Previous Purchases
 - **Add Notes** to Users for CRM Purposes
@@ -168,6 +169,8 @@ All Advanced and free WooCommerce Wishlist features plus:
 
 More advanced features in the premium version include:
 
+- **Full email log:** Track and review every email sent through the plugin.
+- **Unsubscribed email management:** Dedicated table to add, remove, and view unsubscribed contacts.
 - **Display all lists** on one page using tabs or different pages.
 - **Enhanced settings for email marketing.**
 - **Priority support and faster, comprehensive updates.**
@@ -175,7 +178,7 @@ More advanced features in the premium version include:
 - Optimized for seamless desktop and mobile viewing experiences.
 - Supports both simple and variable products.
 
-🌟 **[TRY THE FREE DEMO OF MC Wishlist PREMIUM](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
+🌟 **[TRY THE FREE DEMO OF MoreConvert Wishlist for WooCommerce PREMIUM](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 Why is **this one plugin** better than all those plugins out there?
 
@@ -228,7 +231,7 @@ Whether your customers are browsing on a desktop or a mobile device, the MoreCon
 
 Ready to supercharge your WooCommerce sales and provide an exceptional shopping experience for your customers? 🚀 **[Get the Premium Version Now!](https://moreconvert.com/pricing)**
 
-🔥 **[Try the Free Demo of MC Wishlist Premium](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
+🔥 **[Try the Free Demo of MoreConvert Wishlist for WooCommerce Premium](https://demo10.moreconvert.com/?utm_source=wordpressorg&utm_content=preview)**
 
 == Installation and use ==
 
@@ -248,7 +251,7 @@ The MoreConvert WooCommerce Wishlist plugin enables you to increase sales by sen
 = Can my customers share their Wishlists on social media? =
 Absolutely! Customers can share their wishlists on social media platforms. They can even customize the title of their link before posting, adding a personal touch to their sharing experience.
 
-= Does MC WooCommerce Wishlist plugin allow adding an "add to wishlist" button on the products on the shop page and archive pages? =
+= Does MoreConvert Wishlist for WooCommerce plugin allow adding an "add to wishlist" button on the products on the shop page and archive pages? =
 Yes, you can showcase the "Add to Wishlist" button on various pages, including the shop page, category pages, product shortcodes, and product sliders. The flexibility extends to all locations where the WooCommerce products' loop is utilized.
 
 = Can I customize the wishlist page? =
@@ -288,7 +291,7 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 8. Change the wishlist counter and mini Wishlist display.
 9. No need to pay for email marketing service for retargeting automation.
 10. Includes social media sharing options.
-11. MC Wishlist comes with speed optimization management.
+11. MoreConvert Wishlist for WooCommerce comes with speed optimization management.
 12. Add different buttons to your product page with one plugin.
 13. Customize popup share options and layouts.
 14. Advanced "Save For Later" options.
@@ -299,6 +302,23 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.6 =
+
+* Tested: WP 6.8.2
+* Tested: WC 10.1.1
+* Added: added subscribe waitlist as a separate list and all in one place.
+* Added: added email log for all emails sent in the plugin.
+* Added: added ability to edit guest user details in user profile in analytics.
+* Added: added replace Twitter icon with X icon.
+* Added: added table for unsubscribed emails with ability to add and remove emails.
+* Added: added wooCommerce price format in email template placeholders.
+* Fixed: fix bug in _load_textdomain_just_in_time.
+* Fixed: fix timezone in front-end and back-end.
+* Fixed: fix sort and screen options in admin tables.
+* Fixed: fix drafting campaigns and sending campaigns from inside analytics sections.
+* Fixed: fix bug related to filter in analytics.
+* Fixed: fix reported bugs.
 
 = 1.9.5 =
 

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 // Don't load directly.
@@ -96,7 +96,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 
 			// Styling Controls.
 			$this->styling_controls( $options );
-
 		}
 
 		/**
@@ -329,7 +328,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -824,7 +822,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -877,7 +874,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 
 						$icon              = Icons_Manager::try_get_icon_html( $value, array( 'aria-hidden' => 'true' ) );
 						$attribute_string .= ' icon_prefix_class="" is_svg_icon="true" ';
-						$attribute_string .= " $key='{$icon}'";
+						$attribute_string .= " $key='$icon'";
 					} elseif ( 'icon_name' === $key && 'custom' !== $value ) {
 						$icon_added        = $value . '-o';
 						$attribute_string .= " icon=\"$value\"";
@@ -898,4 +895,3 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 		}
 	}
 }
-

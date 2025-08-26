@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.5
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,14 +27,14 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.9.5';
+		public $version = '1.9.6';
 
 		/**
 		 * Plugin database version
 		 *
 		 * @var string
 		 */
-		public $db_version = '1.3.3';
+		public $db_version = '1.3.4';
 
 		/**
 		 * Store class WLFMC_Install.
@@ -186,12 +186,10 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				$this->wlfmc_admin            = WLFMC_Admin();
 				$this->wlfmc_admin_notice     = WLFMC_Admin_Notice();
 				$this->wlfmc_automation_admin = WLFMC_Automation_Admin();
-				if ( ! defined( 'MC_WLFMC_PREMIUM' ) ) {
-					WLFMC_Analytics_Admin_Demo();
-				}
+				WLFMC_Analytics_Admin_Demo();
 			}
 
-			// load privacy
+			// load privacy.
 			add_action( 'plugins_loaded', array( $this, 'privacy_loader' ), 20 );
 
 			// add rewrite rule.
@@ -222,7 +220,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			add_action( 'wlfmc_add_customer_lang', array( $this, 'add_language' ) );
 			add_action( 'wpml_language_has_switched', array( $this, 'save_language' ) );
 			// add args to url.
-			add_filter('icl_lang_sel_copy_parameters', array( $this, 'preserve_query_args_in_translated_url' ));
+			add_filter( 'icl_lang_sel_copy_parameters', array( $this, 'preserve_query_args_in_translated_url' ) );
 			// disable change Settings adn automation and campaign on different current language with default language.
 			add_filter( 'mct_options_can_update', array( $this, 'has_access' ), 0 );
 			add_filter( 'mct_options_can_set_default_values', array( $this, 'has_access' ), 0 );
@@ -239,7 +237,6 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			add_filter( 'wlfmc_can_delete_campaign_item', array( $this, 'has_access' ), 0 );
 			add_filter( 'wlfmc_can_delete_automation_item', array( $this, 'has_access' ), 0 );
 			add_filter( 'wlfmc_can_duplicate_automation', array( $this, 'has_access' ), 0 );
-
 		}
 
 		/**
@@ -270,10 +267,11 @@ if ( ! class_exists( 'WLFMC' ) ) {
 
 		/**
 		 * Preserve query arguments in translated URL
-		 * @param array $args copy parameters
+		 *
+		 * @param array $args copy parameters.
 		 * @return array
 		 */
-		public function preserve_query_args_in_translated_url($args) {
+		public function preserve_query_args_in_translated_url( $args ) {
 			return array_unique( array_merge( $args, array( $this->wishlist_param, 'wishlist_id', 'pagenum' ) ) );
 		}
 
@@ -378,23 +376,23 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			do_action( 'wlfmc_adding_to_wishlist', $prod_id, $wishlist_id, $user_id );
 
 			if ( ! $this->can_user_add_to_wishlist() ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_wishlist_message', esc_html__( 'The item cannot be added to this wishlist', 'wc-wlfmc-wishlist' ) ), 1 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_wishlist_message', esc_html__( 'The item cannot be added to this wishlist', 'wc-wlfmc-wishlist' ) ) ), 1 );
 			}
 
 			if ( ! $prod_id ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			$wishlist = WLFMC_Wishlist_Factory::get_wishlist( $wishlist_id, 'edit' );
 
 			if ( ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'add_to_wishlist' ) ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			$this->last_operation_token = $wishlist->get_token();
 
 			if ( $wishlist->has_product( $prod_id ) ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_product_already_in_wishlist_message', wlfmc_get_option( 'already_in_wishlist_text', __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ) ) ), 1 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_product_already_in_wishlist_message', wlfmc_get_option( 'already_in_wishlist_text', __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ) ) ) ), 1 );
 			}
 			$result       = wlfmc_process_product_data( $product_type, $atts, $prod_id, $quantity );
 			$posted_data  = $result['posted_data'];
@@ -475,15 +473,16 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			if ( $save_cart && ! empty( $wishlist_ids ) ) {
 
 				if ( ! $this->can_user_add_to_list() ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_list_message', esc_html__( 'The item cannot be added to this lists', 'wc-wlfmc-wishlist' ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_list_message', esc_html__( 'The item cannot be added to this lists', 'wc-wlfmc-wishlist' ) ) ), 1 );
 				}
 
 				$items = WC()->cart->get_cart();
 				if ( ! $items ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_no_product_in_cart_message', esc_html__( 'There are no products in the shopping cart', 'wc-wlfmc-wishlist' ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_no_product_in_cart_message', esc_html__( 'There are no products in the shopping cart', 'wc-wlfmc-wishlist' ) ) ), 1 );
 				}
 
-				$keys_to_unset = apply_filters( 'wlfmc_remove_cart_keys',
+				$keys_to_unset = apply_filters(
+					'wlfmc_remove_cart_keys',
 					array(
 						'key',
 						'quantity',
@@ -496,14 +495,14 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						'product_id',
 						'variation_id',
 						'variation',
-						'data'
+						'data',
 					)
 				);
-				$errors       = array();
-				$exists       = array();
-				$action_count = 0;
-				$last_list_id = false;
-				$customer_id  = false;
+				$errors        = array();
+				$exists        = array();
+				$action_count  = 0;
+				$last_list_id  = false;
+				$customer_id   = false;
 				foreach ( $items as $cart_key => $cart_item ) {
 					if ( isset( $cart_item['composite_parent'] ) ) {
 						continue;
@@ -515,9 +514,9 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						$cart_item['attributes'] = $cart_item['variation'];
 					}
 
-					foreach ($keys_to_unset as $key) {
-						if (isset($cart_item[$key])) {
-							unset($cart_item[$key]);
+					foreach ( $keys_to_unset as $key ) {
+						if ( isset( $cart_item[ $key ] ) ) {
+							unset( $cart_item[ $key ] );
 						}
 					}
 
@@ -534,7 +533,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						$wishlist = WLFMC_Wishlist_Factory::get_wishlist( $wishlist_id, 'edit' );
 						if ( $wishlist instanceof WLFMC_Wishlist ) {
 							if ( $wishlist->has_product( $prod_id ) ) {
-								$product = $wishlist->get_product( $prod_id );
+								$product  = $wishlist->get_product( $prod_id );
 								$exists[] = wp_strip_all_tags( $product->get_formatted_product_name() );
 								continue;
 							}
@@ -567,19 +566,19 @@ if ( ! class_exists( 'WLFMC' ) ) {
 								$last_list_id        = $wishlist->get_id();
 								$default_wishlist_id = $wishlist->is_default() ? $wishlist->get_id() : $default_wishlist_id;
 								$customer_id         = $wishlist->get_customer_id();
-								$action_count++;
+								++$action_count;
 								$added_to_list = true;
 							} else {
-								/* translators: %s wishlist name */
 								$error_message = $wishlist->is_default()
-									? __('An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist')
-									: sprintf(__('An error occurred while adding the products to the %s list.', 'wc-wlfmc-wishlist'), $wishlist->get_formatted_name() );
+									? __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' )
+									/* translators: %s wishlist name */
+									: sprintf( __( 'An error occurred while adding the products to the %s list.', 'wc-wlfmc-wishlist' ), $wishlist->get_formatted_name() );
 								$errors[] = $error_message;
 							}
 						}
 					}
 
-					if( $added_to_list && $remove_from_cart_all && $cart_key ) {
+					if ( $added_to_list && $remove_from_cart_all && $cart_key ) {
 						WC()->cart->remove_cart_item( $cart_key );
 						$update_cart = true;
 					}
@@ -592,7 +591,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 					'customer_id'         => $customer_id,
 					'update_cart'         => $update_cart,
 					'errors'              => array_unique( $errors ),
-					'exists'              => ! empty( $exists ) ? sprintf( '%s Product(s) already in your list' , implode( ',', $exists ) ) : '',
+					'exists'              => ! empty( $exists ) ? sprintf( '%s Product(s) already in your list', implode( ',', $exists ) ) : '',
 				);
 
 			}
@@ -600,7 +599,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				$cart_item = WC()->cart->get_cart_item( $cart_item_key );
 
 				if ( empty( $cart_item ) ) {
-					throw new WLFMC_Exception( __( 'An error occurred while saving the products for later(code:1).', 'wc-wlfmc-wishlist' ), 0 );
+					throw new WLFMC_Exception( esc_attr__( 'An error occurred while saving the products for later(code:1).', 'wc-wlfmc-wishlist' ), 0 );
 				}
 
 				$atts['add_to_list']    = intval( $cart_item['variation_id'] ) > 0 ? $cart_item['variation_id'] : $cart_item['product_id'];
@@ -609,29 +608,29 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				if ( isset( $cart_item['variation'] ) && ! empty( $cart_item['variation'] ) ) {
 					$cart_item['attributes'] = $cart_item['variation'];
 				}
-				$keys_to_unset = apply_filters( 'wlfmc_remove_cart_keys',
+				$keys_to_unset = apply_filters(
+					'wlfmc_remove_cart_keys',
 					array(
-					'key',
-					'quantity',
-					'data_hash',
-					'line_tax_data',
-					'line_total',
-					'line_tax',
-					'line_subtotal',
-					'line_subtotal_tax',
-					'product_id',
-					'variation_id',
-					'variation',
-					'data'
+						'key',
+						'quantity',
+						'data_hash',
+						'line_tax_data',
+						'line_total',
+						'line_tax',
+						'line_subtotal',
+						'line_subtotal_tax',
+						'product_id',
+						'variation_id',
+						'variation',
+						'data',
 					)
 				);
 
-				foreach ($keys_to_unset as $key) {
-					if (isset($cart_item[$key])) {
-						unset($cart_item[$key]);
+				foreach ( $keys_to_unset as $key ) {
+					if ( isset( $cart_item[ $key ] ) ) {
+						unset( $cart_item[ $key ] );
 					}
 				}
-
 			}
 			// filtering params.
 			$prod_id       = apply_filters( 'wlfmc_adding_to_wishlist_prod_id', intval( $atts['add_to_list'] ) );
@@ -644,11 +643,11 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			do_action( 'wlfmc_adding_to_wishlist', $prod_id, $wishlist_ids, $user_id );
 
 			if ( ! $this->can_user_add_to_list() ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_list_message', esc_html__( 'The item cannot be added to this lists', 'wc-wlfmc-wishlist' ) ), 1 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_list_message', esc_html__( 'The item cannot be added to this lists', 'wc-wlfmc-wishlist' ) ) ), 1 );
 			}
 
 			if ( ! $prod_id ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the list.', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the list.', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			// Remove the product from its current wishlists.
@@ -660,7 +659,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				foreach ( $current_lists as $wishlist_id ) {
 					$wishlist = WLFMC_Wishlist_Factory::get_wishlist( $wishlist_id, 'edit' );
 					if ( $wishlist instanceof WLFMC_Wishlist && $wishlist->has_product( $prod_id ) ) {
-						if ( $wishlist->current_user_can( 'remove_from_wishlist' ) || $wishlist->current_user_can( 'remove_from_list') ) {
+						if ( $wishlist->current_user_can( 'remove_from_wishlist' ) || $wishlist->current_user_can( 'remove_from_list' ) ) {
 							$wishlist->remove_product( $prod_id );
 							$wishlist->save();
 							wp_cache_delete( 'wishlist-count-' . $wishlist->get_token(), 'wlfmc-wishlists' );
@@ -670,12 +669,12 @@ if ( ! class_exists( 'WLFMC' ) ) {
 							if ( $user_id ) {
 								wp_cache_delete( 'wishlist-user-total-count-' . $user_id, 'wlfmc-wishlists' );
 							}
-							$action_count++;
+							++$action_count;
 						} else {
-							/* translators: %s wishlist name */
 							$error_message = $wishlist->is_default()
-								? __('Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist')
-								: sprintf(__('Error. Unable to remove the product from the %s list.', 'wc-wlfmc-wishlist'), $wishlist->get_formatted_name() );
+								? __( 'Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist' )
+								/* translators: %s wishlist name */
+								: sprintf( __( 'Error. Unable to remove the product from the %s list.', 'wc-wlfmc-wishlist' ), $wishlist->get_formatted_name() );
 
 							$errors[] = $error_message;
 						}
@@ -724,20 +723,18 @@ if ( ! class_exists( 'WLFMC' ) ) {
 							$last_list_id        = $wishlist->get_id();
 							$default_wishlist_id = $wishlist->is_default() ? $wishlist->get_id() : $default_wishlist_id;
 							$customer_id         = $wishlist->get_customer_id();
-							$action_count++;
+							++$action_count;
 						} else {
-							/* translators: %s wishlist name */
 							$error_message = $wishlist->is_default()
-								? __('An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist')
-								: sprintf(__('An error occurred while adding the products to the %s list.', 'wc-wlfmc-wishlist'), $wishlist->get_formatted_name() );
+								? __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' )
+								/* translators: %s wishlist name */
+								: sprintf( __( 'An error occurred while adding the products to the %s list.', 'wc-wlfmc-wishlist' ), $wishlist->get_formatted_name() );
 							$errors[] = $error_message;
 						}
-
-
 					}
 				}
 			}
-			if( $action_count > 0 && $remove_cart_item && $cart_item_key ) {
+			if ( $action_count > 0 && $remove_cart_item && $cart_item_key ) {
 				WC()->cart->remove_cart_item( $cart_item_key );
 				$update_cart = true;
 			}
@@ -748,9 +745,8 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				'default_wishlist_id' => $default_wishlist_id,
 				'customer_id'         => $customer_id,
 				'errors'              => $errors,
-				'update_cart'          => $update_cart,
+				'update_cart'         => $update_cart,
 			);
-
 		}
 
 		/**
@@ -779,7 +775,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			$cart_item        = WC()->cart->get_cart_item( $cart_item_key );
 
 			if ( empty( $cart_item ) ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the next purchase cart(code:1).', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the next purchase cart(code:1).', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			$atts = array(
@@ -790,37 +786,38 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			);
 
 			// filtering params.
-			$wishlist_id      = apply_filters( 'wlfmc_adding_to_wishlist_wishlist_id', 0 );
-			$prod_id          = apply_filters( 'wlfmc_adding_to_wishlist_prod_id', intval( $atts['add_to_wishlist'] ) );
-			$quantity         = apply_filters( 'wlfmc_adding_to_wishlist_quantity', intval( $atts['quantity'] ) );
-			$user_id          = apply_filters( 'wlfmc_adding_to_wishlist_user_id', intval( $atts['user_id'] ) );
-			$dateadded        = apply_filters( 'wlfmc_adding_to_wishlist_dateadded', $atts['dateadded'] );
-			$original_price   = (float) $cart_item['line_subtotal'] / (float) $cart_item['quantity'];
+			$wishlist_id    = apply_filters( 'wlfmc_adding_to_wishlist_wishlist_id', 0 );
+			$prod_id        = apply_filters( 'wlfmc_adding_to_wishlist_prod_id', intval( $atts['add_to_wishlist'] ) );
+			$quantity       = apply_filters( 'wlfmc_adding_to_wishlist_quantity', intval( $atts['quantity'] ) );
+			$user_id        = apply_filters( 'wlfmc_adding_to_wishlist_user_id', intval( $atts['user_id'] ) );
+			$dateadded      = apply_filters( 'wlfmc_adding_to_wishlist_dateadded', $atts['dateadded'] );
+			$original_price = (float) $cart_item['line_subtotal'] / (float) $cart_item['quantity'];
 			if ( $merged ) {
 				do_action( 'wlfmc_adding_to_wishlist', $prod_id, $wishlist_id, $user_id );
 
 				if ( ! $this->can_user_add_to_wishlist() ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_wishlist_message', esc_html__( 'The item cannot be added to this wishlist', 'wc-wlfmc-wishlist' ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_wishlist_message', esc_html__( 'The item cannot be added to this wishlist', 'wc-wlfmc-wishlist' ) ) ), 1 );
 				}
 
 				if ( ! $prod_id ) {
-					throw new WLFMC_Exception( __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
+					throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
 				}
 				$wishlist = WLFMC_Wishlist_Factory::get_wishlist( $wishlist_id, 'edit' );
 
 				if ( ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'add_to_wishlist' ) ) {
-					throw new WLFMC_Exception( __( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
+					throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the wishlist.', 'wc-wlfmc-wishlist' ), 0 );
 				}
 
 				$this->last_operation_token = $wishlist->get_token();
 
 				if ( $wishlist->has_product( $prod_id ) ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_product_already_in_wishlist_message', wlfmc_get_option( 'already_in_wishlist_text', __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ) ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_product_already_in_wishlist_message', wlfmc_get_option( 'already_in_wishlist_text', __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ) ) ) ), 1 );
 				}
 				if ( isset( $cart_item['variation'] ) && ! empty( $cart_item['variation'] ) ) {
 					$cart_item['attributes'] = $cart_item['variation'];
 				}
-				$keys_to_unset = apply_filters( 'wlfmc_remove_cart_keys',
+				$keys_to_unset = apply_filters(
+					'wlfmc_remove_cart_keys',
 					array(
 						'key',
 						'quantity',
@@ -833,40 +830,38 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						'product_id',
 						'variation_id',
 						'variation',
-						'data'
+						'data',
 					)
 				);
 
-				foreach ($keys_to_unset as $key) {
-					if (isset($cart_item[$key])) {
-						unset($cart_item[$key]);
+				foreach ( $keys_to_unset as $key ) {
+					if ( isset( $cart_item[ $key ] ) ) {
+						unset( $cart_item[ $key ] );
 					}
 				}
 			} else {
 				do_action( 'wlfmc_adding_to_save_for_later', $prod_id, $user_id );
 
 				if ( ! $this->can_user_add_to_save_for_later() ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_save_for_later_message', esc_html__( 'The item cannot be added to next purchase cart', 'wc-wlfmc-wishlist' ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_save_for_later_message', esc_html__( 'The item cannot be added to next purchase cart', 'wc-wlfmc-wishlist' ) ) ), 1 );
 				}
 
 				if ( ! $prod_id ) {
-					throw new WLFMC_Exception( __( 'An error occurred while adding the products to the next purchase cart.(code:2)', 'wc-wlfmc-wishlist' ), 0 );
+					throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the next purchase cart.(code:2)', 'wc-wlfmc-wishlist' ), 0 );
 				}
 
 				$wishlist = WLFMC_Wishlist_Factory::get_wishlist_by_slug( 'save-for-later', 'edit' );
 
 				if ( ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'add_to_save_for_later' ) ) {
-					throw new WLFMC_Exception( __( 'An error occurred while adding the products to the next purchase cart.(code:3)', 'wc-wlfmc-wishlist' ), 0 );
+					throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the next purchase cart.(code:3)', 'wc-wlfmc-wishlist' ), 0 );
 				}
 
 				$this->last_operation_token = $wishlist->get_token();
 
 				if ( $wishlist->has_cart_item_key( $cart_item_key ) ) {
-					throw new WLFMC_Exception( apply_filters( 'wlfmc_product_already_in_save_for_later_message', wlfmc_get_option( 'sfl_already_in_text', __( 'The product is already in your Save for later!', 'wc-wlfmc-wishlist' ) ) ), 1 );
+					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_product_already_in_save_for_later_message', wlfmc_get_option( 'sfl_already_in_text', __( 'The product is already in your Save for later!', 'wc-wlfmc-wishlist' ) ) ) ), 1 );
 				}
 			}
-
-
 
 			$item = new WLFMC_Wishlist_Item();
 			$item->set_cart_item_key( $cart_item_key );
@@ -922,7 +917,6 @@ if ( ! class_exists( 'WLFMC' ) ) {
 					'count'       => $wishlist->count_items(),
 				);
 			}
-
 		}
 
 		/**
@@ -961,23 +955,23 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			$product_type  = apply_filters( 'wlfmc_adding_to_waitlist_product_type', $atts['product_type'] );
 
 			if ( in_array( $product_type, apply_filters( 'wlfmc_waitlist_not_supported_product_types', array( 'grouped' ) ), true ) ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_waitlist_not_supported_product_types_message', esc_html__( 'This product type not supported', 'wc-wlfmc-wishlist' ) ), 1 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_waitlist_not_supported_product_types_message', esc_html__( 'This product type not supported', 'wc-wlfmc-wishlist' ) ) ), 1 );
 			}
 
 			do_action( 'wlfmc_adding_to_waitlist', $prod_id, $user_id );
 
 			if ( ! $this->can_user_add_to_waitlist() ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_user_cannot_add_to_waitlist_message', esc_html__( 'The item cannot be added to waitlist', 'wc-wlfmc-wishlist' ) ), 1 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_user_cannot_add_to_waitlist_message', esc_html__( 'The item cannot be added to waitlist', 'wc-wlfmc-wishlist' ) ) ), 1 );
 			}
 
 			if ( ! $prod_id ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the waitlist.(code:2)', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the waitlist.(code:2)', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			$wishlist = WLFMC_Wishlist_Factory::get_wishlist_by_slug( 'waitlist', 'edit' );
 
 			if ( ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'add_to_waitlist' ) ) {
-				throw new WLFMC_Exception( __( 'An error occurred while adding the products to the waitlist.(code:3)', 'wc-wlfmc-wishlist' ), 0 );
+				throw new WLFMC_Exception( esc_attr__( 'An error occurred while adding the products to the waitlist.(code:3)', 'wc-wlfmc-wishlist' ), 0 );
 			}
 
 			$this->last_operation_token = $wishlist->get_token();
@@ -1086,13 +1080,13 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			do_action( 'wlfmc_removing_from_save_for_later', $item_id );
 
 			if ( ! $item_id ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_unable_to_remove_product_from_save_for_later_message', esc_html__( 'Error. Unable to remove the product from the next purchase cart.', 'wc-wlfmc-wishlist' ) ), 0 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_unable_to_remove_product_from_save_for_later_message', esc_html__( 'Error. Unable to remove the product from the next purchase cart.', 'wc-wlfmc-wishlist' ) ) ), 0 );
 			}
 
 			$wishlist = apply_filters( 'wlfmc_get_save_for_later_on_remove', WLFMC_Wishlist_Factory::get_wishlist_by_slug( 'save-for-later' ), $atts );
 
 			if ( apply_filters( 'wlfmc_allow_remove_after_add_to_cart', ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'remove_from_save_for_later' ), $wishlist ) ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_unable_to_remove_product_from_save_for_later_message', esc_html__( 'Error. Unable to remove the product from the next purchase cart.', 'wc-wlfmc-wishlist' ) ), 0 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_unable_to_remove_product_from_save_for_later_message', esc_html__( 'Error. Unable to remove the product from the next purchase cart.', 'wc-wlfmc-wishlist' ) ) ), 0 );
 			}
 
 			$wishlist->remove_item( $item_id );
@@ -1144,13 +1138,13 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			do_action( 'wlfmc_removing_from_wishlist', $prod_id, $wishlist_id, $user_id );
 
 			if ( ! $prod_id ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_unable_to_remove_product_message', esc_html__( 'Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist' ) ), 0 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_unable_to_remove_product_message', esc_html__( 'Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist' ) ) ), 0 );
 			}
 
 			$wishlist = apply_filters( 'wlfmc_get_wishlist_on_remove', WLFMC_Wishlist_Factory::get_wishlist( $wishlist_id ), $atts );
 
 			if ( apply_filters( 'wlfmc_allow_remove_after_add_to_cart', ! $wishlist instanceof WLFMC_Wishlist || ! $wishlist->current_user_can( 'remove_from_wishlist' ), $wishlist ) ) {
-				throw new WLFMC_Exception( apply_filters( 'wlfmc_unable_to_remove_product_message', esc_html__( 'Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist' ) ), 0 );
+				throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_unable_to_remove_product_message', esc_html__( 'Error. Unable to remove the product from the wishlist.', 'wc-wlfmc-wishlist' ) ) ), 0 );
 			}
 
 			$wishlist->remove_product( $prod_id );
@@ -1169,10 +1163,12 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			return array(
 				'wishlist_id' => $wishlist->get_id(),
 				'customer_id' => $wishlist->get_customer_id(),
-				'count'       => $merge_lists && defined( 'MC_WLFMC_PREMIUM' ) ?  WLFMC_Wishlist_Factory::get_wishlist_items_count( array(
-					'list_type' => array( 'wishlist', 'lists' ),
-					'wishlist_id' => 'all',
-				) ) : $wishlist->count_items(),
+				'count'       => $merge_lists && defined( 'MC_WLFMC_PREMIUM' ) ? WLFMC_Wishlist_Factory::get_wishlist_items_count(
+					array(
+						'list_type'   => array( 'wishlist', 'lists' ),
+						'wishlist_id' => 'all',
+					)
+				) : $wishlist->count_items(),
 			);
 		}
 
@@ -1267,7 +1263,6 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				$wishlist->save();
 
 			}
-
 		}
 
 		/**
@@ -1461,9 +1456,8 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			// Delete rows from wishlist items table with product ID or children IDs.
 			$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->wlfmc_wishlist_items WHERE prod_id = %d OR parent_id = %d", $product_id, $product_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			if ( ! empty( $children_ids_sql ) ) {
-				$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->wlfmc_wishlist_analytics WHERE prod_id = %d OR prod_id IN ( $children_ids_sql )", $product_id ) );// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->wlfmc_wishlist_analytics WHERE prod_id = %d OR prod_id IN ( $children_ids_sql )", $product_id ) );// phpcs:ignore WordPress.DB
 			}
-
 		}
 
 		/* === WISHLISTS METHODS === */
@@ -1520,15 +1514,14 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						'exclude_slugs'    => wlfmc_reserved_slugs(),
 						'exclude_default'  => $exclude_default,
 						'return_wishlists' => $return_wishlists,
-						'orderby'          => 'dateadded'
+						'orderby'          => 'dateadded',
 					)
 				);
 
 				wp_cache_set( 'user-wishlists-' . $customer->get_id() . '-' . $list_type, $lists, 'wlfmc-wishlists' );
 			}
 
-			return is_array( $lists ) ? $lists : ( $lists instanceof WLFMC_Wishlist ? [ $lists ] : [] );
-
+			return is_array( $lists ) ? $lists : ( $lists instanceof WLFMC_Wishlist ? array( $lists ) : array() );
 		}
 
 		/**
@@ -1771,7 +1764,6 @@ if ( ! class_exists( 'WLFMC' ) ) {
 			if ( $flush_rewrite ) {
 				flush_rewrite_rules();
 			}
-
 		}
 
 		/**
@@ -1998,8 +1990,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				}
 			} elseif ( 'last_operation' === $action ) {
 				$wishlist_url = $this->get_last_operation_url( $list_type );
-			} else {
-				if ( 'view' === $view && ! empty( $data ) ) {
+			} elseif ( 'view' === $view && ! empty( $data ) ) {
 					$wishlist_url = add_query_arg(
 						array(
 							$this->wishlist_param => 'view',
@@ -2007,9 +1998,8 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						),
 						$this->get_wishlist_url( $list_type )
 					);
-				} else {
-					$wishlist_url = $this->get_wishlist_url( $list_type, $action );
-				}
+			} else {
+				$wishlist_url = $this->get_wishlist_url( $list_type, $action );
 			}
 
 			if ( $request_list !== $args['list_type'] && 'tabbed' === $args['list_type'] && 'view' !== $view ) {

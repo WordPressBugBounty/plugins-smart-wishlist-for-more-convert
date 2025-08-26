@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert Premium
  * @since 1.7.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +36,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Products_Table' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -128,13 +128,12 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Products_Table' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-
-			$columns               = $this->get_columns();
-			$hidden                = array();
-			$sortable              = $this->get_sortable_columns();
-			$this->_column_headers = array( $columns, $hidden, $sortable );
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			$this->items           = self::get_items( 5, 1 );
-
 		}
 
 
@@ -152,17 +151,17 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Products_Table' ) ) {
 
 			$sql  = "SELECT DISTINCT( posts.ID ) AS prod_id,
                        IFNULL( items.user_count, 0 ) AS user_count,
-                       IFNULL( ol.product_qty, 0 ) AS items_sold, 
+                       IFNULL( ol.product_qty, 0 ) AS items_sold,
                        IFNULL( ol.product_net_revenue, 0 ) AS total_sales,
                        SUM( IF(a.type  IN ('buy-through-list', 'buy-through-coupon'),a.quantity, 0  ) ) as item_purchased,
                        SUM( IF(a.type  IN ('buy-through-list', 'buy-through-coupon'),a.quantity * a.price, 0  ) ) as sales_in_period,
                        COUNT( DISTINCT CASE WHEN ( a.type IN ('add-to-list', 'buy-through-list') ) OR ( a.type = 'buy-through-coupon' AND a.wishlist_id = 0 ) THEN a.ID END ) AS added_to_list,
                        IFNULL( items.quantity, 0 ) AS list_quantity,
                        IFNULL( items.guest_count, 0 ) AS guest_count
-                    FROM $wpdb->posts as posts 
+                    FROM $wpdb->posts as posts
                     LEFT JOIN $wpdb->wlfmc_wishlist_analytics AS a ON a.prod_id = posts.ID
                     LEFT JOIN (
-                        SELECT items.prod_id, 
+                        SELECT items.prod_id,
                         SUM(IFNULL(items.quantity, 0)) AS quantity ,
                         COUNT( DISTINCT items.user_id ) AS user_count,
                         COUNT( DISTINCT IFNULL(w.session_id, NULL) ) AS guest_count
@@ -173,11 +172,11 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Products_Table' ) ) {
                     ) as items ON items.prod_id = posts.ID
                     LEFT JOIN (
                         SELECT IF(o.variation_id = 0,o.product_id ,o.variation_id )as prod_id,
-                               sum( o.product_qty ) as product_qty , 
+                               sum( o.product_qty ) as product_qty ,
                                sum( o.product_net_revenue ) as product_net_revenue,
-                               '' as list_type 
+                               '' as list_type
                         FROM  {$wpdb->prefix}wc_order_product_lookup as o
-                        LEFT JOIN {$wpdb->prefix}wc_customer_lookup as cl on cl.customer_id = o.customer_id 
+                        LEFT JOIN {$wpdb->prefix}wc_customer_lookup as cl on cl.customer_id = o.customer_id
                         GROUP BY prod_id
                     ) as ol ON ol.prod_id = posts.ID
                     WHERE posts.post_type IN( 'product', 'product_variation' ) AND ( posts.ID = items.prod_id OR posts.ID = a.prod_id  OR ol.prod_id = posts.ID)
@@ -218,7 +217,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Products_Table' ) ) {
 			</table>
 			<?php
 		}
-
 	}
 }
 

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,7 +42,7 @@ function wlfmc_woo_custom_product_addons_integrate() {
  *
  * @return float
  */
-function wlfmc_wcpa_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_wcpa_wishlist_item_price( $price, $product_meta, $product, $item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( defined( 'WCPA_ITEM_ID' ) && class_exists( 'WCPA_Form' ) && class_exists( 'WCPA_MC' ) ) {
 
 		if ( ! empty( $product_meta['wcpa_data'] ) ) {

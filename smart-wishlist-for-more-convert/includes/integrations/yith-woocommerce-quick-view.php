@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,6 +65,4 @@ function yith_woocommerce_quick_view_wlfmc_wishlist() {
 	if ( in_array( $single_position, array( 'image_top_left', 'image_top_right', 'image_bottom_left', 'image_bottom_right' ), true ) ) {
 		echo do_shortcode( '[wlfmc_add_to_wishlist is_single="true"]' );
 	}
-
 }
-

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,6 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -70,7 +69,11 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 				case 'net':
 					return wc_price( $item[ $column_name ] );
 				case 'dateadded':
-					return '' !== $item[ $column_name ] && null !== $item[ $column_name ] ? gmdate( 'Y-m-d', strtotime( $item[ $column_name ] ) ) : '-';
+					return '' !== $item[ $column_name ] && null !== $item[ $column_name ] ? wlfmc_format_datetime( $item[ $column_name ] ) : '-';
+				case 'datesend':
+				case 'datesent':
+					return '' !== $item[ $column_name ] && null !== $item[ $column_name ] ? wlfmc_format_utc_date( $item[ $column_name ] ) : '-';
+
 				case 'email':
 				case 'display_name':
 				case 'coupon_code':
@@ -85,7 +88,7 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get_columns():array {
+		public function get_columns(): array {
 			return array(
 				'cb'           => '<input type="checkbox" />',
 				'subject'      => esc_html__( 'Subject', 'wc-wlfmc-wishlist' ),
@@ -95,7 +98,9 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 				'coupon_code'  => esc_html__( 'Coupon', 'wc-wlfmc-wishlist' ),
 				'status'       => esc_html__( 'Status', 'wc-wlfmc-wishlist' ),
 				'net'          => esc_html__( 'NET', 'wc-wlfmc-wishlist' ),
-				'dateadded'    => esc_html__( 'Date', 'wc-wlfmc-wishlist' ),
+				'dateadded'    => esc_html__( 'Date Added', 'wc-wlfmc-wishlist' ),
+				'datesend'     => esc_html__( 'Scheduled Date', 'wc-wlfmc-wishlist' ),
+				'datesent'     => esc_html__( 'Sent Date', 'wc-wlfmc-wishlist' ),
 			);
 		}
 
@@ -164,9 +169,11 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-
-			$this->_column_headers = $this->get_column_info();
-
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			/** Process bulk action */
 			$this->process_bulk_action();
 
@@ -183,7 +190,6 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 					'total_pages' => ceil( $total_items / $per_page ),
 				)
 			);
-
 		}
 
 		/**
@@ -252,11 +258,10 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 
 				}
 			}
-
 		}
 
 		/**
-		 * Delete a order record.
+		 * Delete an order record.
 		 *
 		 * @param int $automation_id automation id.
 		 * @param int $id item ID.
@@ -385,9 +390,9 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 			}
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				$sql     .= ' ORDER BY %s %s';
-				$params[] = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
-				$params[] = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
+				$orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
+				$order   = ! empty( $_REQUEST['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : 'ASC';
+				$sql    .= sprintf( ' ORDER BY %s %s', esc_sql( $orderby ), esc_sql( $order ) );
 			}
 
 			$sql     .= ' LIMIT %d OFFSET %d';
@@ -559,13 +564,13 @@ if ( ! class_exists( 'WLFMC_Automation_Item_Table' ) ) {
 		 *
 		 * @param string $message The message.
 		 * @param string $type The type of message (can be 'error' or 'updated').
-		 * @param bool   $echo Set to true if you want to print the message.
+		 * @param bool   $should_print Set to true if you want to print the message.
 		 *
 		 * @return string
 		 */
-		public function get_message( $message, $type = 'error', $echo = true ) {
+		public function get_message( $message, $type = 'error', $should_print = true ) {
 			$message = '<div id="message" class="' . esc_attr( $type ) . ' fade"><p>' . wp_kses_post( $message ) . '</p></div>';
-			if ( $echo ) {
+			if ( $should_print ) {
 				echo wp_kses_post( $message );
 			}
 

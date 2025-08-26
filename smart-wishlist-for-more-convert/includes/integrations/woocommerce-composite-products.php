@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -98,5 +99,3 @@ function wlfmc_wccp_wishlist_item_price( $price, $product_meta, $product, $item 
 	}
 	return $price;
 }
-
-

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,6 @@ function wlfmc_after_setup_oceanwp() {
 		add_filter( 'wlfmc_custom_css_output', 'wlfmc_oceanwp_custom_css' );
 		add_filter( 'wp_nav_menu_items', 'wlfmc_oceanwp_menu_counter_icons', 10, 2 );
 	}
-
 }
 
 
@@ -285,7 +284,6 @@ function wlfmc_oceanwp_integrate() {
 
 		}
 	}
-
 }
 
 /**

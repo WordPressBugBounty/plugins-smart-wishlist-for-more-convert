@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -61,5 +62,3 @@ function wlfmc_woocommerce_bookings_cart_item_data( $cart_item_data, $product_id
 	}
 	return (array) apply_filters( 'wlfmc_woocommerce_bookings_add_cart_item_data', $cart_item_data, $product_id );
 }
-
-

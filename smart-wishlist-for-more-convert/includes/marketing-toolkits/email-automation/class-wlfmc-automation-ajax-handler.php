@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -196,7 +196,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 					$template     = 'mc-template.php';
 					add_filter(
 						'woocommerce_email_styles',
-						function() {
+						function () {
 							ob_start();
 							wlfmc_get_template( 'emails/mc-styles.php' );
 							return ob_get_clean();
@@ -214,7 +214,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 						'customer-job'           => $options['email-template-customer-job'],
 						'social-size'            => $social_size,
 						'social-link-in-new-tab' => $social_link_in_new_tab,
-						'socials'                => $socials,
+						'socials'                => apply_filters( 'wlfmc_email_socials', $socials ),
 					);
 					break;
 				case 'simple-template':
@@ -294,7 +294,19 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 			add_filter( 'woocommerce_email_content_type', array( $automation, 'get_content_type' ), 10 );
 
 			$send_state = $mailer->send( $to, apply_filters( 'wlfmc_automation_email_subject_test', $email_subject ), $message, $headers, '' );
-
+			// Log email content.
+			do_action(
+				'wlfmc_log_email_sent',
+				array(
+					'email_row_id' => 0,
+					'log_type'     => 'automation_test',
+					'recipient'    => $to,
+					'subject'      => $email_subject,
+					'content'      => $message,
+					'headers'      => $headers,
+					'status'       => $send_state ? 'sent' : 'failed',
+				)
+			);
 			remove_filter( 'woocommerce_email_from_name', array( $automation, 'get_from_name' ), 10 );
 			remove_filter( 'woocommerce_email_from_address', array( $automation, 'get_from_address' ), 10 );
 			remove_filter( 'woocommerce_email_content_type', array( $automation, 'get_content_type' ), 10 );
@@ -364,7 +376,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 					$avatar   = wp_get_attachment_image_src( $email_avatar );
 					add_filter(
 						'woocommerce_email_styles',
-						function() {
+						function () {
 							ob_start();
 							wlfmc_get_template( 'emails/mc-styles.php' );
 							return ob_get_clean();
@@ -377,7 +389,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 						'customer-job'           => $email_customer_job,
 						'social-size'            => $social_size,
 						'social-link-in-new-tab' => $social_link_in_new_tab,
-						'socials'                => $socials,
+						'socials'                => apply_filters( 'wlfmc_email_socials', $socials ),
 					);
 					break;
 				case 'simple-template':
@@ -520,7 +532,6 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 				}
 			}
 			wp_send_json( apply_filters( 'wlfmc_ajax_new_automation', $data, $options ) );
-
 		}
 
 		/**
@@ -572,7 +583,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 
 			foreach ( $required_fields as $field_key => $field_name ) {
 				if ( empty( $options[ $field_key ] ) ) {
-					/* translators: %s: field name'*/
+					/* translators: %s: field name */
 					$data['errors'][] = sprintf( __( '%s is a required field.', 'wc-wlfmc-wishlist' ), '<strong>' . esc_html( $field_name ) . '</strong>' );
 				}
 			}
@@ -596,7 +607,6 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 				}
 			}
 			wp_send_json( apply_filters( 'wlfmc_ajax_save_automation', $data, $options ) );
-
 		}
 
 		/**
@@ -671,7 +681,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 						$template = 'mc-template.php';
 						add_filter(
 							'woocommerce_email_styles',
-							function() {
+							function () {
 								ob_start();
 								wlfmc_get_template( 'emails/mc-styles.php' );
 								return ob_get_clean();
@@ -686,7 +696,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 							'customer-job'           => $options['email-template-customer-job'],
 							'social-size'            => $social_size,
 							'social-link-in-new-tab' => $social_link_in_new_tab,
-							'socials'                => $socials,
+							'socials'                => apply_filters( 'wlfmc_email_socials', $socials ),
 						);
 
 						break;
@@ -793,7 +803,6 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 				die();
 			}
 		}
-
 	}
 }
 
@@ -806,4 +815,3 @@ if ( defined( 'MC_WLFMC_PREMIUM' ) ) {
 	WLFMC_Automation_Ajax_Handler::init();
 
 }
-

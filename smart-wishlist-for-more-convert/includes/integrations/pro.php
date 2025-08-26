@@ -8,6 +8,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +29,6 @@ function wlfmc_after_setup_pro() {
 		add_action( 'woocommerce_after_shop_loop_item_title', 'wlfmc_x_woocommerce_after_shop_loop_item_title', 10 );
 		add_filter( 'wlfmc_custom_css_output', 'wlfmc_pro_fix_css' );
 	}
-
 }
 
 /**

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @return void
 		 */
 		public function track_emails() {
-			global $wpdb ,$wp;
+			global $wpdb, $wp;
 
 			if ( array_key_exists( 'wlfmc_ae_track_c', $wp->query_vars ) ) {
 				$key = sanitize_text_field( $wp->query_vars['wlfmc_ae_track_c'] );
@@ -110,7 +110,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				echo base64_decode( 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAFoEvQfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NUQ4RTg0RkQxQjZBMTFFM0EyMjZEMEI1RDQxQTNEODgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NUQ4RTg0RkUxQjZBMTFFM0EyMjZEMEI1RDQxQTNEODgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1RDhFODRGQjFCNkExMUUzQTIyNkQwQjVENDFBM0Q4OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1RDhFODRGQzFCNkExMUUzQTIyNkQwQjVENDFBM0Q4OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmpagdgAAAANSURBVHjaY/7//z8DAAkLAwFJ9B4LAAAAAElFTkSuQmCC' );  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 				die;
 			}
-
 		}
 
 		/**
@@ -175,7 +174,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				$execution_limit = apply_filters( 'wlfmc_automation_email_execution_limit', $wlfmc_options->get_option( 'email_per_hours', '20' ) );
 				$options         = $automation->get_options();
 				$queue           = $automation->get_email_queue( $execution_limit );
-				$unsubscribed    = get_option( 'wlfmc_unsubscribed_users', array() );
 				if ( ! empty( $queue ) ) {
 					foreach ( $queue as $item ) {
 						$customer = wlfmc_get_customer( $item->customer_id );
@@ -183,7 +181,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 							$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->wlfmc_wishlist_offers SET status = 'canceled' WHERE customer_id = %d AND status IN ('sending' ,'not-send')", $item->customer_id ) ); // phpcs:ignore WordPress.DB
 							continue;
 						}
-						if ( $customer->is_unsubscribed() || in_array( $customer->get_email(), $unsubscribed, true ) ) {
+						if ( $customer->is_unsubscribed() || wlfmc_is_email_unsubscribed( $customer->get_email() ) ) {
 							WLFMC_Wishlist_Factory::unsubscribe_customer( $customer );
 							continue;
 						}
@@ -277,17 +275,17 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				return;
 			}
 
-			$automation         = new WLFMC_Automation( $automation_id );
-			$options            = $automation->get_options();
-			$min_total          = round( (float) $options['minimum-wishlist-total'], 3 );
-			$min_count          = (int) $options['minimum-wishlist-count'];
-			$email_type         = $options['mail-type'];
-			$include_products   = $options['include-product'];
-			$period_days        = (int) $options['period-days'];
-			$offer_emails       = $options['offer_emails'];
-			$current_time       = time(); // Use time() and ensure UTC
+			$automation       = new WLFMC_Automation( $automation_id );
+			$options          = $automation->get_options();
+			$min_total        = round( (float) $options['minimum-wishlist-total'], 3 );
+			$min_count        = (int) $options['minimum-wishlist-count'];
+			$email_type       = $options['mail-type'];
+			$include_products = $options['include-product'];
+			$period_days      = (int) $options['period-days'];
+			$offer_emails     = $options['offer_emails'];
+			$current_time     = time(); // Use time() and ensure UTC.
 			if ( 'UTC' !== date_default_timezone_get() ) {
-				$current_time = strtotime( gmdate( 'Y-m-d H:i:s', $current_time ) ); // Force UTC
+				$current_time = strtotime( gmdate( 'Y-m-d H:i:s', $current_time ) ); // Force UTC.
 			}
 			$last_time_added    = is_array( $user_meta ) ? ( $user_meta['last_period_days'] ?? '' ) : '';
 			$exists             = true;
@@ -470,7 +468,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 					$template     = 'mc-template.php';
 					add_filter(
 						'woocommerce_email_styles',
-						function() {
+						function () {
 							ob_start();
 							wlfmc_get_template( 'emails/mc-styles.php' );
 							return ob_get_clean();
@@ -485,7 +483,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 						'customer-job'           => $automation['email-template-customer-job'],
 						'social-size'            => $social_size,
 						'social-link-in-new-tab' => $social_link_in_new_tab,
-						'socials'                => $socials,
+						'socials'                => apply_filters( 'wlfmc_email_socials', $socials ),
 					);
 
 					break;
@@ -605,6 +603,19 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			add_filter( 'woocommerce_email_content_type', array( $automation, 'get_content_type' ), 10 );
 
 			$send_state = $mailer->send( $to, apply_filters( 'wlfmc_automation_email_subject', $email_subject ), $message, $headers, '' );
+			// Log email content.
+			do_action(
+				'wlfmc_log_email_sent',
+				array(
+					'email_row_id' => $email_row->ID,
+					'log_type'     => 'automation',
+					'recipient'    => $to,
+					'subject'      => $email_subject,
+					'content'      => $message,
+					'headers'      => $headers,
+					'status'       => $send_state ? 'sent' : 'failed',
+				)
+			);
 
 			remove_filter( 'woocommerce_email_from_name', array( $automation, 'get_from_name' ), 10 );
 			remove_filter( 'woocommerce_email_from_address', array( $automation, 'get_from_address' ), 10 );
@@ -615,7 +626,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			} else {
 				$this->set_notsent( $email_row->ID );
 			}
-
 		}
 
 
@@ -672,7 +682,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			);
 
 			return $wpdb->insert_id;
-
 		}
 
 		/**
@@ -690,7 +699,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				$nchars     = 8;
 				$code       = '';
 
-				for ( $i = 0; $i <= $nchars - 1; $i ++ ) {
+				for ( $i = 0; $i <= $nchars - 1; $i++ ) {
 					$code .= $dictionary[ wp_rand( 0, strlen( $dictionary ) - 1 ) ];
 				}
 				$count = $wpdb->get_var( $wpdb->prepare( $sql, $code ) ); // phpcs:disable WordPress.DB
@@ -794,7 +803,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			$coupon->save();
 
 			return $coupon->get_id();
-
 		}
 
 
@@ -878,7 +886,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 				}
 				// phpcs:enable WordPress.DB
 			}
-
 		}
 
 
@@ -894,7 +901,6 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 }
 /**
@@ -913,5 +919,4 @@ function WLFMC_Automation_Emails() { // phpcs:ignore WordPress.NamingConventions
 		return WLFMC_Automation_Emails::get_instance();
 
 	}
-
 }

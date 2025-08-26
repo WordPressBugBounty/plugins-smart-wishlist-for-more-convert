@@ -5,8 +5,8 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.4.4
  * @since 1.3.3
+ * @version 1.9.6
  */
 
 use Pelago\Emogrifier\CssInliner;
@@ -242,8 +242,5 @@ if ( ! class_exists( 'WLFMC_Email' ) ) {
 
 			return self::$instance;
 		}
-
 	}
 }
-
-

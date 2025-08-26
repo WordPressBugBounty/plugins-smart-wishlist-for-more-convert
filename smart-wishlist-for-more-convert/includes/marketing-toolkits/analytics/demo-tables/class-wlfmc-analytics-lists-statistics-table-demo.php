@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert Premium
- * @version 1.7.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +35,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Statistics_Table_Demo' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -143,11 +142,11 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Statistics_Table_Demo' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-			// sets pagination arguments.
-
-			// sets columns headers.
-			$columns               = $this->get_columns();
-			$this->_column_headers = array( $columns, array(), array() );
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			// retrieve data for table.
 			$this->items = array(
 				array(
@@ -179,10 +178,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Statistics_Table_Demo' ) ) {
 					'total'         => 1518.000,
 				),
 			);
-
 		}
-
-
 	}
 
 }

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 // Don't load directly.
@@ -96,7 +96,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 
 			// Table Styling Controls.
 			$this->table_styling_controls( $options );
-
 		}
 
 		/**
@@ -189,27 +188,27 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				$this->add_control(
 					'total_price_mode',
 					array(
-						'label'   => esc_html__( 'Total Price Mode', 'wc-wlfmc-wishlist' ),
-						'type'    => Controls_Manager::SELECT,
-						'options' =>  array(
+						'label'     => esc_html__( 'Total Price Mode', 'wc-wlfmc-wishlist' ),
+						'type'      => Controls_Manager::SELECT,
+						'options'   => array(
 							'marketing' => esc_html__( 'Marketing', 'wc-wlfmc-wishlist' ),
-							'modern'  => esc_html__( 'Modern', 'wc-wlfmc-wishlist' ),
-							'classic' => esc_html__( 'Classic', 'wc-wlfmc-wishlist' ),
+							'modern'    => esc_html__( 'Modern', 'wc-wlfmc-wishlist' ),
+							'classic'   => esc_html__( 'Classic', 'wc-wlfmc-wishlist' ),
 						),
-						'default' => $options->get_option( 'wishlist_total_price_mode', 'classic' ),
+						'default'   => $options->get_option( 'wishlist_total_price_mode', 'classic' ),
 						'condition' => array( 'show_total_price' => 'true' ),
 					)
 				);
 				$this->add_control(
 					'total_position',
 					array(
-						'label'   => esc_html__( 'Total Price Position', 'wc-wlfmc-wishlist' ),
-						'type'    => Controls_Manager::SELECT,
-						'options' =>  array(
+						'label'     => esc_html__( 'Total Price Position', 'wc-wlfmc-wishlist' ),
+						'type'      => Controls_Manager::SELECT,
+						'options'   => array(
 							'above-action-bar' => esc_html__( 'Above Action Bar', 'wc-wlfmc-wishlist' ),
 							'below-action-bar' => esc_html__( 'Below Action Bar', 'wc-wlfmc-wishlist' ),
 						),
-						'default' => $options->get_option( 'wishlist_total_position', 'below-action-bar' ),
+						'default'   => $options->get_option( 'wishlist_total_position', 'below-action-bar' ),
 						'condition' => array( 'show_total_price' => 'true' ),
 					)
 				);
@@ -306,7 +305,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'options'  => array(
 						'facebook'  => esc_html__( 'Facebook', 'wc-wlfmc-wishlist' ),
 						'messenger' => esc_html__( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
-						'twitter'   => esc_html__( 'Twitter', 'wc-wlfmc-wishlist' ),
+						'twitter'   => esc_html__( 'Twitter(X)', 'wc-wlfmc-wishlist' ),
 						'whatsapp'  => esc_html__( 'Whatsapp', 'wc-wlfmc-wishlist' ),
 						'telegram'  => esc_html__( 'Telegram', 'wc-wlfmc-wishlist' ),
 						'email'     => esc_html__( 'Email', 'wc-wlfmc-wishlist' ),
@@ -339,7 +338,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -359,8 +357,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				$this->table_header_dropdown_list_style( $options );
 			}
 
-
-
 			$this->table_footer_button_style( $options );
 
 			$this->table_footer_select_style( $options );
@@ -372,13 +368,12 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			$this->table_pagination_style( $options );
 
 			$this->table_item_style( $options );
-
 		}
 
 		/**
 		 * Search List styling controls
 		 *
-		 * @param MCT_Options $options
+		 * @param MCT_Options $options Options.
 		 * @since 1.7.6
 		 * @return void
 		 */
@@ -570,13 +565,12 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
 		 * Dropdown List styling controls
 		 *
-		 * @param MCT_Options $options
+		 * @param MCT_Options $options Options.
 		 * @since 1.7.6
 		 * @return void
 		 */
@@ -683,7 +677,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'dropdown_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-wishlist-table-header  .wlfmc-dropdown-content',
-					//'exclude'        => array( 'color' ),
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -727,7 +720,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -934,7 +926,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1135,7 +1126,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1381,7 +1371,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				)
 			);
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1607,7 +1596,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -1904,7 +1892,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -2168,36 +2155,34 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				Group_Control_Border::get_type(),
 				array(
 					'name'           => 'item_border',
-					/*'selector'       => '
-						{{WRAPPER}} .wlfmc-default-table .wishlist-items-wrapper tr,
-						{{WRAPPER}} .wlfmc-wishlist-footer tr.actions,
-						{{WRAPPER}} .wlfmc-default-table .wlfmc-total-row:not(.total-mode-classic) .wlfmc-total-td',*/
 					'separator'      => 'before',
 					'exclude'        => array( 'color' ),
 					'fields_options' => array(
 						'border' => array(
-							'default' => 'solid',
-							'selectors' => array( '
+							'default'   => 'solid',
+							'selectors' => array(
+								'
 								{{WRAPPER}} .wlfmc-default-table .wishlist-items-wrapper tr,
 								{{WRAPPER}} .wlfmc-wishlist-footer tr.actions,
 								{{WRAPPER}} .wlfmc-default-table-header,
-								{{WRAPPER}} .wlfmc-default-table .wlfmc-total-row:not(.total-mode-classic) .wlfmc-total-td' => "border-style: {{VALUE}} !important;"
+								{{WRAPPER}} .wlfmc-default-table .wlfmc-total-row:not(.total-mode-classic) .wlfmc-total-td' => 'border-style: {{VALUE}} !important;',
 							),
 						),
 						'width'  => array(
-							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
-							'default' => array(
+							'label'     => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
+							'default'   => array(
 								'top'      => '1',
 								'right'    => '1',
 								'bottom'   => '1',
 								'left'     => '1',
 								'isLinked' => true,
 							),
-							'selectors' => array( '
+							'selectors' => array(
+								'
 								{{WRAPPER}} .wlfmc-default-table .wishlist-items-wrapper tr,
 								{{WRAPPER}} .wlfmc-wishlist-footer tr.actions,
 								{{WRAPPER}} .wlfmc-default-table-header,
-								{{WRAPPER}} .wlfmc-default-table .wlfmc-total-row:not(.total-mode-classic) .wlfmc-total-td' => "border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;"
+								{{WRAPPER}} .wlfmc-default-table .wlfmc-total-row:not(.total-mode-classic) .wlfmc-total-td' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
 							),
 						),
 					),
@@ -2241,7 +2226,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 			);
 
 			$this->end_controls_section();
-
 		}
 
 		/**
@@ -2295,4 +2279,3 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 		}
 	}
 }
-

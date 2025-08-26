@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
- * @version 1.9.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -144,7 +144,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 			if ( array_key_exists( $key, $this->data ) ) {
 				$this->data[ $key ] = $value;
 			}
-
 		}
 
 		/**
@@ -244,7 +243,7 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 
 
 		/**
-		 * Save a automation.
+		 * Save an automation.
 		 *
 		 * @return mixed
 		 */
@@ -295,7 +294,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 		public function get_from_name(): string {
 
 			return $this->data['options']['email-from-name'] ?? '';
-
 		}
 
 		/**
@@ -306,7 +304,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 		public function get_from_address(): string {
 
 			return $this->data['options']['email-from-address'] ?? '';
-
 		}
 
 		/**
@@ -317,7 +314,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 		public function get_mail_type(): string {
 
 			return $this->data['options']['mail-type'] ?? '';
-
 		}
 
 		/**
@@ -365,7 +361,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 			}
 
 			return $value;
-
 		}
 
 
@@ -393,7 +388,6 @@ if ( ! class_exists( 'WLFMC_Automation' ) ) {
 				),
 				ARRAY_A
 			);
-
 		}
 
 
@@ -746,7 +740,6 @@ to get an amazing discount!',
 						);
 					}
 			}
-
 		}
 
 
@@ -784,7 +777,6 @@ to get an amazing discount!',
 			$this->data['options']                    = $options;
 			$this->data['options']['automation_name'] = $this->get_name();
 			$this->data['options']['is_active']       = $this->is_active();
-
 		}
 
 		/**
@@ -832,8 +824,5 @@ to get an amazing discount!',
 
 			return self::$instance;
 		}
-
-
 	}
 }
-

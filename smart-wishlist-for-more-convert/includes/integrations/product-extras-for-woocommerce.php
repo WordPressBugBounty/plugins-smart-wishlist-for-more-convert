@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -70,12 +71,11 @@ function wlfmc_pewc_fix_cart_settings() {
  * @return float
  * @throws Exception Exception.
  */
-function wlfmc_pewc_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_pewc_wishlist_item_price( $price, $product_meta, $product, $item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( ! empty( $product_meta['product_extras'] ) && isset( $product_meta['product_extras']['price_with_extras'] ) ) {
 		$price = (float) $product_meta['product_extras']['price_with_extras'];
 	}
 	return $price;
-
 }
 
 /**
@@ -105,5 +105,4 @@ function wlfmc_pewc_replace_child_ids_with_titles( $value, $field ) {
 	}
 
 	return $value;
-
 }

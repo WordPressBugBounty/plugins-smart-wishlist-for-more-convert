@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +29,6 @@ function wlfmc_yayextra_integrate() {
 	if ( defined( 'YAYE_VERSION' ) ) {
 		add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_yayextra_item_price', 9, 4 );
 	}
-
 }
 
 /**
@@ -42,7 +42,7 @@ function wlfmc_yayextra_integrate() {
  * @throws Exception Exception.
  * @return float|int|mixed
  */
-function wlfmc_yayextra_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_yayextra_item_price( $price, $product_meta, $product, $item ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( is_object( $product ) && isset( $product_meta['yaye_custom_option'] ) && isset( $product_meta['yaye_total_option_cost'] ) ) {
 		$price += floatval( $product_meta['yaye_total_option_cost'] );
 	}

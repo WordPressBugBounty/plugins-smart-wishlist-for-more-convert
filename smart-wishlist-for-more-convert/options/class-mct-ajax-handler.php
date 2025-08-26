@@ -177,10 +177,26 @@ if ( ! class_exists( 'MCT_Ajax_Handler' ) ) {
 				'/search-posts',
 				array(
 					'methods'             => 'GET',
-					'callback'            => array( 'MCT_Ajax_Handler', 'search_posts' ),
-					'permission_callback' => '__return_true',
+					'callback'            => array( 'MCT_Ajax_Handler', 'search_posts' ),// TODO: FIX permission6
+					'permission_callback' => array( 'MCT_Ajax_Handler', 'get_rest_permission' ),
 				)
 			);
+			register_rest_route(
+				'mct-options/v1',
+				'/search-users',
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( 'MCT_Ajax_Handler', 'search_users' ), // TODO: FIX permission
+					'permission_callback' => array( 'MCT_Ajax_Handler', 'get_rest_permission' ),
+				)
+			);
+		}
+
+		public static function get_rest_permission() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return false;
+			}
+			return true;
 		}
 
 		/**
@@ -213,6 +229,33 @@ if ( ! class_exists( 'MCT_Ajax_Handler' ) ) {
 			}
 
 			wp_reset_postdata();
+
+			return $results;
+		}
+
+		/**
+		 * Search users
+		 *
+		 * @param WP_REST_Request $request  The request object.
+		 *
+		 * @return array
+		 */
+		public static function search_users( $request ) {
+			$search_term = isset( $request['search_term'] ) ? sanitize_text_field( $request['search_term'] ) : '';
+
+			$users = get_users( array(
+				'search' => "*{$search_term}*",
+				'fields' => array( 'ID', 'user_login', 'user_email' ),
+				'number' => 20,
+			));
+
+			$results = array();
+			foreach ( $users as $user ) {
+				$results[] = array(
+					'id' => $user->ID,
+					'text' => $user->user_login . ' (' . $user->user_email . ')',
+				);
+			}
 
 			return $results;
 		}

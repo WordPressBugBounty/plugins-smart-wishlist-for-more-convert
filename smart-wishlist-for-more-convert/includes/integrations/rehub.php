@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,6 @@ function wlfmc_rehub_integrate() {
 
 		add_filter( 'wlfmc_button_positions', 'wlfmc_rehub_fix_single_position' );
 	}
-
 }
 
 /**
@@ -61,4 +60,3 @@ function wlfmc_rehub_fix_loop_position( array $positions ): array {
 
 	return $positions;
 }
-

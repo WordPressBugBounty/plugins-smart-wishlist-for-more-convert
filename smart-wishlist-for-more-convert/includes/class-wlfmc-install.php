@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,6 +72,13 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		private $table_analytics;
 
 		/**
+		 * Unsubscribed table name
+		 *
+		 * @var string
+		 */
+		private $table_unsubscribed;
+
+		/**
 		 * Returns single instance of the class
 		 *
 		 * @return WLFMC_Install
@@ -93,12 +100,13 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			global $wpdb;
 
 			// define local private attribute.
-			$this->table_customers   = $wpdb->prefix . 'wlfmc_wishlist_customers';
-			$this->table_items       = $wpdb->prefix . 'wlfmc_wishlist_items';
-			$this->table_wishlists   = $wpdb->prefix . 'wlfmc_wishlists';
-			$this->table_automations = $wpdb->prefix . 'wlfmc_wishlist_automations';
-			$this->table_offers      = $wpdb->prefix . 'wlfmc_wishlist_offers';
-			$this->table_analytics   = $wpdb->prefix . 'wlfmc_wishlist_analytics';
+			$this->table_customers    = $wpdb->prefix . 'wlfmc_wishlist_customers';
+			$this->table_items        = $wpdb->prefix . 'wlfmc_wishlist_items';
+			$this->table_wishlists    = $wpdb->prefix . 'wlfmc_wishlists';
+			$this->table_automations  = $wpdb->prefix . 'wlfmc_wishlist_automations';
+			$this->table_offers       = $wpdb->prefix . 'wlfmc_wishlist_offers';
+			$this->table_analytics    = $wpdb->prefix . 'wlfmc_wishlist_analytics';
+			$this->table_unsubscribed = $wpdb->prefix . 'wlfmc_unsubscribed_emails';
 
 			// add custom field to global $wpdb.
 			$wpdb->wlfmc_wishlist_customers   = $this->table_customers;
@@ -107,7 +115,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			$wpdb->wlfmc_wishlist_automations = $this->table_automations;
 			$wpdb->wlfmc_wishlist_offers      = $this->table_offers;
 			$wpdb->wlfmc_wishlist_analytics   = $this->table_analytics;
-
+			$wpdb->wlfmc_unsubscribed_emails  = $this->table_unsubscribed;
 		}
 
 		/**
@@ -162,9 +170,28 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 				$this->add_automations_table();
 				$this->add_offer_table();
 				$this->add_analytics_table();
+				$this->add_unsubscribed_table();
 			}
 		}
+		/**
+		 * Add the Unsubscribed table to the database.
+		 *
+		 * @return void
+		 * @access private
+		 * @since 1.9.6
+		 */
+		private function add_unsubscribed_table() {
+			$sql = "CREATE TABLE IF NOT EXISTS $this->table_unsubscribed (
+							id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+					        email varchar(255) NOT NULL,
+					        date_unsubscribed datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+					        PRIMARY KEY (id),
+        					UNIQUE KEY email (email)
+						) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;";
 
+			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+			dbDelta( $sql );
+		}
 		/**
 		 * Add the customer table to the database.
 		 *
@@ -231,7 +258,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
-
 		}
 
 		/**
@@ -269,7 +295,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
-
 		}
 
 
@@ -297,7 +322,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
-
 		}
 
 		/**
@@ -334,7 +358,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
-
 		}
 
 
@@ -366,7 +389,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
-
 		}
 
 		/**
@@ -524,6 +546,11 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			if ( version_compare( $current_db_version, '1.3.3', '<' ) ) {
 
 				$this->update_1_9_3();
+			}
+
+			if ( version_compare( $current_db_version, '1.3.4', '<' ) ) {
+
+				$this->update_1_9_6();
 			}
 
 			$this->register_current_version();
@@ -850,7 +877,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 				$wpdb->query( "TRUNCATE TABLE $wpdb->wlfmc_wishlist_offers" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
 			}
-
 		}
 
 		/**
@@ -989,7 +1015,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 					$data = Elementor\Plugin::instance()->db->iterate_data(
 						$data,
-						function( $element ) use ( &$do_update ) {
+						function ( $element ) use ( &$do_update ) {
 
 							if ( empty( $element['widgetType'] ) || 'wlfmc-wishlist-counter' !== $element['widgetType'] ) {
 								return $element;
@@ -1203,6 +1229,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * Update Db from 1.2.9 to 1.3.0
 		 *
 		 * @since 1.6.3
+		 * @throws Exception Exception on update/insert to table.
 		 */
 		private function update_1_6_3() {
 			global $wpdb;
@@ -1352,7 +1379,6 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 					update_option( 'wlfmc_need_update_tables', '1.7.0' );
 				}
 			}
-
 		}
 
 		/**
@@ -1538,7 +1564,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			$table_name = $wpdb->prefix . 'icl_string_translations';
 
 			// Check if the table exists.
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) === $table_name ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) === $table_name ) { // phpcs:ignore WordPress.DB
 				// Table exists, proceed with the update.
 				if ( ! get_option( 'wlfmc_need_update_tables', false ) ) {
 					update_option( 'wlfmc_need_update_tables', '1.7.6' );
@@ -1554,9 +1580,9 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 */
 		private function update_1_8_8() {
 			global $wpdb;
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) {
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) { // phpcs:ignore WordPress.DB
 				if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `$wpdb->wlfmc_wishlist_customers` LIKE 'gdpr_status';" ) ) {
-					$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers ADD `gdpr_status` TINYINT( 1 ) NOT NULL DEFAULT 0;" );
+					$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers ADD `gdpr_status` TINYINT( 1 ) NOT NULL DEFAULT 0;" ); // phpcs:ignore WordPress.DB
 					wp_cache_flush_group( 'wlfmc-customers' );
 				}
 			}
@@ -1569,9 +1595,37 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 */
 		private function update_1_9_3() {
 			global $wpdb;
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) {
-				$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci" );
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->wlfmc_wishlist_customers';" ) ) { // phpcs:ignore WordPress.DB
+				$wpdb->query( "ALTER TABLE $wpdb->wlfmc_wishlist_customers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci" ); // phpcs:ignore WordPress.DB
 				wp_cache_flush_group( 'wlfmc-customers' );
+			}
+		}
+
+		/**
+		 * Update to 1.9.6
+		 *
+		 * @since 1.9.6
+		 */
+		private function update_1_9_6() {
+			global $wpdb;
+
+			$this->add_unsubscribed_table();
+
+			$unsubscribed_users = get_option( 'wlfmc_unsubscribed_users', array() );
+
+			if ( ! empty( $unsubscribed_users ) ) {
+				foreach ( $unsubscribed_users as $email ) {
+					$wpdb->insert( // phpcs:ignore WordPress.DB
+						$wpdb->wlfmc_unsubscribed_emails,
+						array(
+							'email'             => sanitize_email( $email ),
+							'date_unsubscribed' => gmdate( 'Y-m-d H:i:s', time() ),
+						),
+						array( '%s', '%s' )
+					);
+				}
+				// Delete the old option after migration.
+				delete_option( 'wlfmc_unsubscribed_users' );
 			}
 		}
 

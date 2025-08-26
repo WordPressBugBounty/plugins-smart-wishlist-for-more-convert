@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -45,7 +45,6 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 
 			add_action( 'init', array( 'WLFMC_Form_Handler', 'unsubscribe' ) );
 			add_action( 'wp_loaded', array( 'WLFMC_Form_Handler', 'download_pdf_file' ), 1000 );
-
 		}
 
 		/**
@@ -488,7 +487,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 		 *
 		 * @return void
 		 */
-		public static function wlfmc_after_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, $variation, array $cart_item_data ) {
+		public static function wlfmc_after_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, $variation, array $cart_item_data ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			// phpcs:disable WordPress.Security.NonceVerification
 			$wishlist_id   = isset( $_REQUEST['wishlist_id'] ) ? absint( wp_unslash( $_REQUEST['wishlist_id'] ) ) : 0;
 			$wishlist_type = isset( $_REQUEST['wishlist_type'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['wishlist_type'] ) ) : '';
@@ -704,7 +703,6 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 
 			die();
 		}
-
 	}
 }
 

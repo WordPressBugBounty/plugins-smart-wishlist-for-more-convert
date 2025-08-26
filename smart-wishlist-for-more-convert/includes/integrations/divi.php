@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.6.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,7 +63,7 @@ function wlfmc_divi_fix_css( string $generated_css ) {
 			@media all and (max-width: 980px) {
 				.et_header_style_centered .et-wlfmc-counters{
 					display:none !important}
-			}	
+			}
 			/** header */
 			.et-wlfmc-counters {
 				float: right;
@@ -77,7 +77,7 @@ function wlfmc_divi_fix_css( string $generated_css ) {
 				}
 			}
 			/** slide in, fullscreen */
-			.et_header_style_fullscreen .et-wlfmc-counters,.et_header_style_slide .et-wlfmc-counters { 
+			.et_header_style_fullscreen .et-wlfmc-counters,.et_header_style_slide .et-wlfmc-counters {
 				display: inline-block !important;
 				float: none;
 				margin: 0;
@@ -109,10 +109,10 @@ function wlfmc_divi_fix_css( string $generated_css ) {
 				}
 				.et_vertical_nav .et_pb_menu_hidden .et-wlfmc-counters {
 					opacity: 0;
-			
+
 				}
 			}
-		
+
 			/** rtl */
 			.rtl .et-wlfmc-counters {
 				float: left;
@@ -167,7 +167,7 @@ function wlfmc_divi_customizer_scripts() {
 							e ? o.removeClass("et_hide_wishlist_counter") : o.addClass("et_hide_wishlist_counter");
 						});
 					});
-			
+
                     });
                 })(jQuery);'
 	);
@@ -246,7 +246,6 @@ function wlfmc_divi_integrate() {
 		add_filter( 'wlfmc_loop_positions', 'wlfmc_divi_fix_loop_position' );
 
 	}
-
 }
 
 /**
@@ -263,4 +262,3 @@ function wlfmc_divi_fix_loop_position( array $positions ): array {
 
 	return $positions;
 }
-

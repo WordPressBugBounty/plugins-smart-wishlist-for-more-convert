@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert Premium
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,7 +32,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Users_Table_Demo' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -60,7 +59,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Users_Table_Demo' ) ) {
 						)
 					) . '">' . esc_attr( $item['username'] ) . $badge . '</a><br>' . $formatted_name;
 				case 'datepurchased':
-					return '' !== $item[ $column_name ] ? date_i18n( 'Y-m-d H:i:s', strtotime( $item[ $column_name ] ) ) : '-';
+					return '' !== $item[ $column_name ] ? wlfmc_format_utc_date( $item[ $column_name ] ) : '-';
 				case 'type':
 					return 'buy-through-coupon' === $item[ $column_name ] ? __( 'Coupons', 'wc-wlfmc-wishlist' ) : __( 'Directly via Lists', 'wc-wlfmc-wishlist' );
 				case 'prod_id':
@@ -155,17 +154,14 @@ if ( ! class_exists( 'WLFMC_Analytics_Users_Table_Demo' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 
-			$this->_column_headers = $this->get_column_info();
-			/** Process bulk action */
-			$this->process_bulk_action();
-
-			// sets columns headers.
-			$columns               = $this->get_columns();
-			$this->_column_headers = array( $columns, array(), array() );
 			// retrieve data for table.
 			$this->items = self::get_items( 5, 1 );
-
 		}
 
 		/**

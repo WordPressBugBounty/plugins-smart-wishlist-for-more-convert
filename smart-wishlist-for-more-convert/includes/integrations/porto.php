@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.1
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +27,6 @@ function wlfmc_porto_integrate() {
 		add_filter( 'woocommerce_single_product_image_html', 'wlfmc_porto_fix_single_on_image_positions', 9999, 2 );
 
 	}
-
 }
 
 /**

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +32,6 @@ function wlfmc_flexible_product_fields_integrate() {
 		add_filter( 'wlfmc_wishlist_item_price', 'wlfmc_flexible_product_fields_wishlist_item_price', 9, 4 );
 		add_filter( 'wlfmc_woocommerce_add_to_cart_validation', 'wlfmc_flexible_product_add_to_cart_validation', 10, 5 );
 	}
-
 }
 
 /**

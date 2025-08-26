@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
+ * @version 1.9.6
  */
 
 use ShopEngine\Core\Register\Model;
@@ -35,7 +36,7 @@ function wlfmc_shopengine_admin_notice() {
 	$is_dashboard   = ! empty( $current_screen ) && $current_screen->base && 'dashboard' === $current_screen->base;
 	if ( ( ( $is_dashboard || 'plugins.php' === $pagenow ) && class_exists( 'ShopEngine' ) ) || ( 'admin.php' === $pagenow && class_exists( 'ShopEngine' ) && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], array( 'mc-wishlist-dashboard', 'mc-features', 'mc-email-automations', 'mc-email-campaigns', 'mc-analytics', 'mc-global-settings', 'mc-wishlist-settings', 'mc-multi-list', 'mc-save-for-later', 'mc-ask-for-estimate' ), true ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 		$user_id = get_current_user_id();
-		if ( ! get_user_meta( $user_id, 'wlfmc_shopengine_dismissed' ) ) {
+		if ( ! get_user_meta( $user_id, 'wlfmc_shopengine_dismissed', true ) ) {
 			$m_settings = Model::source( 'settings' )->get_option( 'modules', array() );
 			if ( ! empty( $m_settings['wishlist']['status'] ) && 'active' === $m_settings['wishlist']['status'] && true === apply_filters( 'wlfmc_override_shopengine_wishlist', true ) ) {
 				$nonce = wp_create_nonce( 'wlfmc_shopengine_dismiss' );
@@ -172,7 +173,7 @@ function wlfmc_shopengine_integrate() {
  *
  * @return string|void
  */
-function wlfmc_shopengine_print_button_in_shop( $add_to_cart_html, $product ) {
+function wlfmc_shopengine_print_button_in_shop( $add_to_cart_html, $product ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	$m_settings = Model::source( 'settings' )->get_option( 'modules', array() );
 
 	if ( ! empty( $m_settings['wishlist']['status'] ) && 'active' === $m_settings['wishlist']['status'] && true === apply_filters( 'wlfmc_override_shopengine_wishlist', true ) ) {
@@ -193,7 +194,6 @@ function wlfmc_shopengine_print_button_in_shop( $add_to_cart_html, $product ) {
 			return $before . $add_to_cart_html . $after;
 		}
 	}
-
 }
 
 
@@ -205,11 +205,10 @@ function wlfmc_shopengine_print_button_in_shop( $add_to_cart_html, $product ) {
  *
  * @return string
  */
-function wlfmc_shopengine_print_button_in_shop_after( $add_to_cart_html, $product ): string {
+function wlfmc_shopengine_print_button_in_shop_after( $add_to_cart_html, $product ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	$after = do_shortcode( '[wlfmc_add_to_wishlist is_single="false"]' );
 	return $add_to_cart_html . $after;
-
 }
 /**
  * Wishlist loop add to wishlist link.
@@ -219,10 +218,9 @@ function wlfmc_shopengine_print_button_in_shop_after( $add_to_cart_html, $produc
  *
  * @return string
  */
-function wlfmc_shopengine_print_button_in_shop_before( $add_to_cart_html, $product ): string {
+function wlfmc_shopengine_print_button_in_shop_before( $add_to_cart_html, $product ): string {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	$before = do_shortcode( '[wlfmc_add_to_wishlist is_single="false"]' );
 	return $before . $add_to_cart_html;
-
 }
 
 

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +28,6 @@ function wlfmc_yith_woocommerce_product_addons_integrate() {
 	if ( defined( 'YITH_WAPO' ) ) {
 		add_action( 'wlfmc_before_add_to_cart_validation', 'wlfmc_yith_woocommerce_product_addons_disable_validation' );
 	}
-
 }
 
 /**
@@ -55,7 +55,7 @@ add_filter( 'wlfmc_add_to_cart_validation', 'wlfmc_yith_woocommerce_product_addo
  * @version 1.7.6
  * @return bool
  */
-function wlfmc_yith_woocommerce_product_addons_validation( $passed, $product_id, $quantity, $variation_id, $attributes, $cart_item, $item ) {
+function wlfmc_yith_woocommerce_product_addons_validation( $passed, $product_id, $quantity, $variation_id, $attributes, $cart_item, $item ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( defined( 'YITH_WAPO' ) && isset( $cart_item['yith_wapo_options'] ) ) {
 		try {
 			foreach ( $cart_item['yith_wapo_options'] as $index => $option ) {

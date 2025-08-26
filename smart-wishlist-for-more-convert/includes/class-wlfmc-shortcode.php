@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,14 +34,13 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 		/**
 		 * Print the wishlist HTML.
 		 *
-		 * @param array  $atts Array of attributes for the shortcode.
-		 * @param string $content Shortcode content (none expected).
+		 * @param array $atts Array of attributes for the shortcode.
 		 *
 		 * @return string Rendered shortcode
 		 *
 		 * @version 1.8.2
 		 */
-		public static function wishlist( $atts, $content = null ) {
+		public static function wishlist( $atts ) {
 
 			if ( defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE ) && ! current_user_can( 'manage_options' ) ) {
 				return '';
@@ -54,9 +53,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 			}
 
 			$who_can_see_wishlist_options = $options->get_option( 'who_can_see_wishlist_options', 'all' );
-			/*if ( ( 'users' === $who_can_see_wishlist_options && ! is_user_logged_in() ) ) {
-				return '';
-			}*/
 
 			$wishlist_under_table = $options->get_option(
 				'wishlist_under_table',
@@ -236,8 +232,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				'form_action'               => esc_url( WLFMC()->get_wishlist_url( 'wishlist', 'view' ) ),
 			);
 
-
-
 			$additional_params['wishlist_class'] .= $is_elementor ? ' is-elementor' : '';
 
 			if ( $custom_template ) {
@@ -255,22 +249,12 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				$additional_params['wishlist_pagination_class'] = 'wishlist-pagination';
 			}
 
-			$wishlist = apply_filters( 'wlfmc_current_wishlist' , WLFMC_Wishlist_Factory::get_current_wishlist( $atts ), $additional_params, $atts, $options );
-			/*if ( 'users' === $who_can_see_wishlist_options ) {
-				if ( ! is_user_logged_in() ) {
-					$has_access = $wishlist && ! $wishlist->is_current_user_owner() && $wishlist->has_privacy('public');
-				} else {
-					$has_access = true;
-				}
-			} else {
-				$has_access = true;
-			}*/
-			$has_access  = ( 'users' !== $who_can_see_wishlist_options ) || is_user_logged_in() || ( $wishlist && ! $wishlist->is_current_user_owner() && $wishlist->has_privacy('public') );
+			$wishlist    = apply_filters( 'wlfmc_current_wishlist', WLFMC_Wishlist_Factory::get_current_wishlist( $atts ), $additional_params, $atts, $options );
+			$has_access  = ( 'users' !== $who_can_see_wishlist_options ) || is_user_logged_in() || ( $wishlist && ! $wishlist->is_current_user_owner() && $wishlist->has_privacy( 'public' ) );
 			$copy_access = ( is_user_logged_in() || 'all' === $who_can_see_wishlist_options ) ?? false;
 
-			//$has_access = is_user_logged_in() || (  $wishlist && ! $wishlist->is_current_user_owner() && $wishlist->has_privacy('public') && 'users' === $who_can_see_wishlist_options );
 			if ( ! $has_access ) {
-				$wishlist = false;
+				$wishlist                               = false;
 				$additional_params['has_access']        = false;
 				$additional_params['no_access_title']   = $options->get_option( 'no_access_title', esc_html__( 'Access Denied', 'wc-wlfmc-wishlist' ) );
 				$additional_params['no_access_content'] = $options->get_option( 'no_access_content', esc_html__( 'You do not have permission. Please log in or signup to access this content', 'wc-wlfmc-wishlist' ) );
@@ -303,7 +287,7 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 						$current_page = $pages;
 					}
 
-					$offset      = ( $current_page - 1 ) * $per_page;
+					$offset = ( $current_page - 1 ) * $per_page;
 					if ( $pages > 1 ) {
 						$base       = $is_user_owner ? esc_url_raw( add_query_arg( array( 'pagenum' => '%#%' ), WLFMC()->get_wc_wishlist_url( 'wishlist', $form_action ) ) ) : esc_url_raw( add_query_arg( array( 'pagenum' => '%#%' ), $wishlist->get_share_url() ) );
 						$page_links = paginate_links(
@@ -381,15 +365,14 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 						'nochange_total_price_marketing_title' => $options->get_option( 'nochange_total_price_marketing_title', __( 'You\'ve lost 5 days without these products.', 'wc-wlfmc-wishlist' ) ),
 						'increase_total_price_marketing_desc' => $options->get_option( 'increase_total_price_marketing_desc', __( 'This is your total profit of this list if you buy this right now.', 'wc-wlfmc-wishlist' ) ),
 						'increase_total_price_marketing_title' => $options->get_option( 'increase_total_price_marketing_title', __( 'Your profit if you buy now.', 'wc-wlfmc-wishlist' ) ),
-						'total_current_price_text' => $options->get_option( 'total_current_price_text', __( 'Total Current Price:', 'wc-wlfmc-wishlist' ) ),
-						'total_added_price_text'   => $options->get_option( 'total_added_price_text', __( 'Total Added Price:', 'wc-wlfmc-wishlist' ) ),
-						'total_price_text'         => $options->get_option( 'total_price_text', __( 'Total Price:', 'wc-wlfmc-wishlist' ) ),
+						'total_current_price_text'         => $options->get_option( 'total_current_price_text', __( 'Total Current Price:', 'wc-wlfmc-wishlist' ) ),
+						'total_added_price_text'           => $options->get_option( 'total_added_price_text', __( 'Total Added Price:', 'wc-wlfmc-wishlist' ) ),
+						'total_price_text'                 => $options->get_option( 'total_price_text', __( 'Total Price:', 'wc-wlfmc-wishlist' ) ),
 					),
 					$additional_params
 				);
 				// share options.
-				//$enable_share = $enable_share && ! $wishlist->has_privacy( 'private' );
-				$share_items  = ! is_array( $share_items ) ? array_map( 'trim', explode( ',', $share_items ) ) : $share_items;
+				$share_items = ! is_array( $share_items ) ? array_map( 'trim', explode( ',', $share_items ) ) : $share_items;
 				// phpcs:disable WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode
 				if ( ! $no_interactions && $enable_share && is_array( $share_items ) && ! empty( $share_items ) ) {
 					$share_link_url = apply_filters( 'wlfmc_shortcode_share_link_url', $wishlist->get_share_url(), $wishlist );
@@ -436,14 +419,14 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 					$customer = $wishlist->get_customer();
 					if ( $customer && ( is_user_logged_in() || $customer->is_email_verified() ) ) {
 						if ( $customer->is_gdpr_pending() ) {
-							// show gdpr notice
+							// show gdpr notice.
 							$additional_params['customer_id']              = $customer->get_id();
 							$additional_params['gdpr_enable']              = true;
 							$additional_params['gdpr_content']             = $options->get_option( 'gdpr_content', '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'We Value Your Privacy', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms.', 'wc-wlfmc-wishlist' ) . '</p>' );
 							$additional_params['gdpr_accept_button_title'] = $options->get_option( 'gdpr_accept_button_title', __( 'Accept', 'wc-wlfmc-wishlist' ) );
 							$additional_params['gdpr_denied_button_title'] = $options->get_option( 'gdpr_denied_button_title', __( 'Deny', 'wc-wlfmc-wishlist' ) );
-						}elseif( 1 === $customer->get_gdpr_status() || $customer->is_unsubscribed() || in_array( $customer->get_email(), get_option( 'wlfmc_unsubscribed_users', array() ), true ) ) {
-							// rejected gdpr and show unsubscribed notice
+						} elseif ( 1 === $customer->get_gdpr_status() || $customer->is_unsubscribed() || wlfmc_is_email_unsubscribed( $customer->get_email() ) ) {
+							// rejected gdpr and show unsubscribed notice.
 							$additional_params['customer_id']               = $customer->get_id();
 							$additional_params['unsubscribed']              = true;
 							$additional_params['unsubscribed_content']      = $options->get_option( 'unsubscribed_content', __( 'Your email has been successfully UnSubscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) );
@@ -451,7 +434,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 						}
 					}
 				}
-
 			} else {
 				$additional_params['enable_drag_n_drop'] = false;
 				$additional_params['show_total_price']   = false;
@@ -465,7 +447,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 			$additional_params['enable_drag_n_drop'] = defined( 'MC_WLFMC_PREMIUM' ) && $is_user_owner && wlfmc_is_true( $additional_params['enable_drag_n_drop'] );
 			$additional_params['product_move']       = defined( 'MC_WLFMC_PREMIUM' ) && $is_user_owner && wlfmc_is_true( $additional_params['product_move'] );
 			$additional_params['product_copy']       = defined( 'MC_WLFMC_PREMIUM' ) && ! $is_user_owner && wlfmc_is_true( $additional_params['product_copy'] ) && $copy_access;
-			//$additional_params['merge_lists']        = defined( 'MC_WLFMC_PREMIUM' ) && $is_user_owner && wlfmc_is_true( $additional_params['merge_lists'] );
 			$additional_params['merge_lists']        = defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_is_true( $additional_params['merge_lists'] );
 
 			$atts = array_merge(
@@ -500,14 +481,13 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 		/**
 		 * Return "Add to Wishlist" button.
 		 *
-		 * @param array  $atts Array of parameters for the shortcode.
-		 * @param string $content Shortcode content (usually empty).
+		 * @param array $atts Array of parameters for the shortcode.
 		 *
 		 * @return string  Rendered shortcode
 		 *
 		 * @version 1.7.6
 		 */
-		public static function add_to_wishlist( $atts, $content = null ) {
+		public static function add_to_wishlist( $atts ) {
 			global $post, $product;
 			if ( defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE ) && ! current_user_can( 'manage_options' ) ) {
 				return '';
@@ -650,7 +630,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 						break;
 				}
 			}
-
 
 			if ( ! $button_theme ) {
 				$classes = str_replace( 'button', 'wlfmc-custom-btn', $classes );
@@ -799,15 +778,14 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 		/**
 		 * Return "wishlist" product counter.
 		 *
-		 * @param array  $atts Array of parameters for the shortcode.
-		 * @param string $content Shortcode content (usually empty).
+		 * @param array $atts Array of parameters for the shortcode.
 		 *
 		 * @return string  Rendered shortcode
 		 *
 		 * @since 1.4.0
 		 * @version 1.7.9
 		 */
-		public static function wishlist_counter( $atts, $content = null ) {
+		public static function wishlist_counter( $atts ) {
 			if ( defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE ) && ! current_user_can( 'manage_options' ) ) {
 				return '';
 			}
@@ -840,7 +818,6 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				'wishlist_token'            => '',
 				'wishlist_id'               => false,
 				'wishlist_items'            => array(),
-				//'is_private'                => false,
 				'merge_lists'               => false,
 				'has_items'                 => false,
 				'count_items'               => 0,
@@ -888,44 +865,44 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				$atts['wishlist_items'] = array();
 				$atts['wishlist']       = false;
 				$atts['wishlist_token'] = '';
-				$atts['wishlist_id' ]   = false;
-			} else {
-				if ( $merge_lists ) {
-					if ( ! is_array( $atts ) ) {
-						$atts = array();
-					}
+				$atts['wishlist_id']    = false;
+			} elseif ( $merge_lists ) {
+				if ( ! is_array( $atts ) ) {
+					$atts = array();
+				}
 					$items = WLFMC()->get_products(
 						array(
-							'list_type' => array( 'wishlist', 'lists' ),
+							'list_type'   => array( 'wishlist', 'lists' ),
 							'wishlist_id' => 'all',
-							'limit'       => $atts['per_page'] ?? $options->get_option( 'counter_per_page_products_count', '4' )
+							'limit'       => $atts['per_page'] ?? $options->get_option( 'counter_per_page_products_count', '4' ),
 						)
 					);
 
-					$atts['count_items']    = WLFMC_Wishlist_Factory::get_wishlist_items_count( array(
-						'list_type' => array( 'wishlist', 'lists' ),
-						'wishlist_id' => 'all',
-					) );
+					$atts['count_items']    = WLFMC_Wishlist_Factory::get_wishlist_items_count(
+						array(
+							'list_type'   => array( 'wishlist', 'lists' ),
+							'wishlist_id' => 'all',
+						)
+					);
 					$atts['merge_lists']    = true;
 					$atts['has_items']      = ! empty( $items );
 					$atts['wishlist_items'] = $items;
+			} else {
+				$wishlist = WLFMC_Wishlist_Factory::get_default_wishlist();
+				if ( $wishlist && $wishlist->current_user_can( 'view' ) ) {
+					$atts['wishlist']       = $wishlist;
+					$atts['wishlist_token'] = $wishlist->get_token();
+					$atts['wishlist_id']    = $wishlist->get_id();
+					$atts['count_items']    = $wishlist->count_items();
+					$atts['has_items']      = $wishlist->has_items();
+					$atts['wishlist_items'] = $wishlist->get_items( $atts['per_page'] ?? $options->get_option( 'counter_per_page_products_count', '4' ), 0 );
 				} else {
-					$wishlist = WLFMC_Wishlist_Factory::get_default_wishlist();
-					if ( $wishlist && $wishlist->current_user_can( 'view' ) ) {
-						$atts['wishlist']       = $wishlist;
-						$atts['wishlist_token'] = $wishlist->get_token();
-						$atts['wishlist_id']    = $wishlist->get_id();
-						$atts['count_items']    = $wishlist->count_items();
-						$atts['has_items']      = $wishlist->has_items();
-						$atts['wishlist_items'] = $wishlist->get_items( $atts['per_page'] ?? $options->get_option( 'counter_per_page_products_count', '4' ), 0 );
-					} else {
-						$atts['count_items']    = 0;
-						$atts['has_items']      = false;
-						$atts['wishlist_items'] = array();
-						$atts['wishlist']       = false;
-						$atts['wishlist_token'] = '';
-						$atts['wishlist_id' ]   = false;
-					}
+					$atts['count_items']    = 0;
+					$atts['has_items']      = false;
+					$atts['wishlist_items'] = array();
+					$atts['wishlist']       = false;
+					$atts['wishlist_token'] = '';
+					$atts['wishlist_id']    = false;
 				}
 			}
 
@@ -970,9 +947,7 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 			WLFMC_Frontend()->enqueue_scripts();
 
 			return apply_filters( 'wlfmc_wishlist_counter_html', $template, $atts );
-
 		}
-
 	}
 }
 

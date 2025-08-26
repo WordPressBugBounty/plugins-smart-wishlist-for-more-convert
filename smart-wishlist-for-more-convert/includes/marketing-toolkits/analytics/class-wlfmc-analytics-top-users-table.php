@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert Premium
- * @version 1.7.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,7 +32,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -100,13 +99,12 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-
-			$columns               = $this->get_columns();
-			$hidden                = array();
-			$sortable              = $this->get_sortable_columns();
-			$this->_column_headers = array( $columns, $hidden, $sortable );
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			$this->items           = self::get_items( 5 );
-
 		}
 
 		/**
@@ -121,20 +119,20 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
 
 			global $wpdb;
 			// phpcs:disable WordPress.Security.NonceVerification
-			$sql  = "SELECT 
-                                    customers.customer_id, 
-                                    customers.user_id, 
+			$sql  = "SELECT
+                                    customers.customer_id,
+                                    customers.user_id,
                                     customers.session_id,
                                     customers.email_verified,
                                     customers.phone_verified,
                                     IFNULL( users.user_email, customers.email) AS email ,
                                     CONCAT_WS( ' ', IFNULL( m1.meta_value, customers.first_name),  IFNULL( m2.meta_value, customers.last_name) ) as display_name,
                                     IFNULL( m1.meta_value, customers.first_name) AS first_name ,
-                                    IFNULL( m2.meta_value, customers.last_name) AS last_name, 
+                                    IFNULL( m2.meta_value, customers.last_name) AS last_name,
                                     IFNULL( users.user_login, customers.email) AS username ,
-                                    COUNT(DISTINCT items.wishlist_id) AS list_count,             
+                                    COUNT(DISTINCT items.wishlist_id) AS list_count,
                                     COUNT(DISTINCT items.prod_id) AS total_product_lists,
-                                    a.total_product_analytics, 
+                                    a.total_product_analytics,
                                     a.total_lists_payment
                                     FROM $wpdb->wlfmc_wishlist_customers as customers
                                     LEFT JOIN $wpdb->users AS users ON customers.user_id = users.ID
@@ -142,7 +140,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Top_Users_Table' ) ) {
                                     LEFT JOIN $wpdb->usermeta AS m2 ON users.ID = m2.user_id AND m2.meta_key = 'last_name'
                                     LEFT JOIN $wpdb->wlfmc_wishlist_items as items ON items.customer_id  = customers.customer_id
                                     LEFT JOIN (
-                                         SELECT customer_id, 
+                                         SELECT customer_id,
                                                 COUNT(DISTINCT prod_id) AS total_product_analytics ,
                                                 SUM(IF(order_id IS NOT NULL AND datepurchased IS NOT NULL AND type IN ('buy-through-list', 'buy-through-coupon'), price * quantity, 0)) AS total_lists_payment
                                          FROM $wpdb->wlfmc_wishlist_analytics

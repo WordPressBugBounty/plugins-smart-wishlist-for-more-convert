@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.3
+ * @version 1.9.6
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
@@ -64,7 +64,6 @@ function wlfmc_uninstall() {
 		wp_cache_flush();
 
 	}
-
 }
 
 if ( ! is_multisite() ) {

@@ -3341,21 +3341,21 @@ html[lang=en-US] .mct-wrapper table.form-table tr.row-options th[scope=row] {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(232px, 232px));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 180px));
   grid-gap: 30px;
 }
 
 .mct-wrapper ul.mct-tools li {
-  min-width: 170px;
-  min-height: 145px;
+  min-width: 120px;
+  min-height: 120px;
   margin: 0;
   -webkit-border-radius: 16px;
   border-radius: 16px;
   background: #fff;
   border: 1px solid #DCDCDC;
-  -webkit-box-shadow: 0px 10px 10px rgba(141, 124, 107, 0.16);
-  box-shadow: 0px 10px 10px rgba(141, 124, 107, 0.16);
-  padding: 30px;
+  -webkit-box-shadow: 0 10px 10px rgba(141, 124, 107, 0.16);
+  box-shadow: 0 10px 10px rgba(141, 124, 107, 0.16);
+  padding: 20px;
   text-align: center;
   font-size: 12px;
   line-height: 21px;
@@ -3438,6 +3438,16 @@ html[lang=en-US] .mct-wrapper table.form-table tr.row-options th[scope=row] {
   top: -5px;
   right: -25px;
   z-index: -1;
+}
+
+.mct-wrapper ul.mct-tools.mct-large-tools {
+  grid-template-columns: repeat(auto-fit, minmax(232px, 232px)) !important;
+}
+
+.mct-wrapper ul.mct-tools.mct-large-tools li {
+  min-width: 170px !important;
+  min-height: 145px !important;
+  padding: 30px !important;
 }
 
 .mct-wrapper .mct-404-page {

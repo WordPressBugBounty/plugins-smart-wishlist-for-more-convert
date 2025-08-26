@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert Premium
- * @version 1.7.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,7 +35,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Table_Demo' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 
 		/**
@@ -96,14 +95,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Table_Demo' ) ) {
 			$row = '';
 
 			if ( isset( $item['dateadded'] ) ) {
-				$time_diff = time() - $item['dateadded'];
-
-				if ( $time_diff < DAY_IN_SECONDS ) {
-					// translators: 1. Date diff since wishlist creation (EG: 1 hour, 2 seconds, etc...).
-					$row = sprintf( __( '%s ago', 'wc-wlfmc-wishlist' ), human_time_diff( $item['dateadded'] ) );
-				} else {
-					$row = date_i18n( wc_date_format(), $item['dateadded'] );
-				}
+				$row = wlfmc_format_datetime( $item['dateadded'] );
 			}
 
 			return $row;
@@ -227,22 +219,17 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Table_Demo' ) ) {
 					WLFMC()->get_wishlist_url( $item['type'], 'view/' . $item['wishlist_token'] )
 				); // phpcs:ignore WordPress.Security.NonceVerification;
 			}
-
 		}
 
 		/**
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-			// sets columns headers.
-			$columns               = $this->get_columns();
-			$hidden                = array();
-			$sortable              = $this->get_sortable_columns();
-			$this->_column_headers = array( $columns, $hidden, $sortable );
-
-			// process bulk actions.
-			$this->process_bulk_action();
-
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			// retrieve data for table.
 			$dump_array = array();
 
@@ -268,7 +255,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Table_Demo' ) ) {
 				);
 			}
 			$this->items = $dump_array;
-
 		}
 
 		/**
@@ -329,8 +315,6 @@ if ( ! class_exists( 'WLFMC_Analytics_Lists_Table_Demo' ) ) {
 				<?php
 			endif;
 		}
-
-
 	}
 
 }

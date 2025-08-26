@@ -3,18 +3,18 @@
  * Plugin Name: MoreConvert Wishlist for WooCommerce
  * Plugin URI: https://moreconvert.com/smart-wishlist-for-more-convert
  * Description: With the MoreConvert Wishlist for WooCommerce plugin, your website users can add their favorite products to the wishlist. Then you can persuade them to buy products on their wishlist through the magic of our Marketing Toolkits.
- * Version: 1.9.5
+ * Version: 1.9.6
  * Author: MoreConvert
  * Author URI: https://moreconvert.com
  * Text Domain: wc-wlfmc-wishlist
  * Domain Path: /languages/
  * Requires PHP: 7.2.5
  * WC requires at least: 5.8
- * WC tested up to: 9.9.5
+ * WC tested up to: 10.1.1
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.5
+ * @version 1.9.6
  */
 
 /**
@@ -116,6 +116,7 @@ if ( ! function_exists( 'wlfmc_load' ) ) {
 		require_once MC_WLFMC_INC . 'class-wlfmc-frontend.php';
 		require_once MC_WLFMC_INC . 'class-wlfmc-install.php';
 		require_once MC_WLFMC_INC . 'class-wlfmc-shortcode.php';
+		require_once MC_WLFMC_INC . 'class-wlfmc-date-formatter.php';
 		require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/class-wlfmc-analytics.php';
 		require_once MC_WLFMC_INC . 'elementor/class-wlfmc-elementor.php';
 		require_once MC_WLFMC_INC . 'gutenberg/class-wlfmc-gutenberg.php';
@@ -130,8 +131,8 @@ if ( ! function_exists( 'wlfmc_load' ) ) {
 			require_once MC_WLFMC_INC . 'marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php';
 			require_once MC_WLFMC_INC . 'marketing-toolkits/email-automation/class-wlfmc-automation-table.php';
 			require_once MC_WLFMC_INC . 'marketing-toolkits/email-automation/class-wlfmc-automation-item-table.php';
+			require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php';
 			if ( ! defined( 'MC_WLFMC_PREMIUM' ) ) {
-				require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/class-wlfmc-analytics-demo.php';
 				require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-users-table-demo.php';
 				require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php';
 				require_once MC_WLFMC_INC . 'marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php';
@@ -232,7 +233,6 @@ if ( ! function_exists( 'wlfmc_load' ) ) {
 		// Let's start!
 
 		WLFMC();
-
 	}
 }
 
@@ -325,7 +325,6 @@ if ( ! function_exists( 'log_me' ) ) {
 		} else {
 			error_log( $message ); // @codingStandardsIgnoreLine.
 		}
-
 	}
 }
 if ( ! function_exists( 'wlfmc_log' ) ) {
@@ -373,7 +372,6 @@ function appsero_init_tracker_smart_wishlist_for_more_convert() {
 
 	// Active insights.
 	$client->insights()->add_plugin_data()->init();
-
 }
 
 appsero_init_tracker_smart_wishlist_for_more_convert();

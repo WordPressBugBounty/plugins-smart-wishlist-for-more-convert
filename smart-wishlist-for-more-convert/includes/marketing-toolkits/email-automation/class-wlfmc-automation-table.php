@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,6 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 					'ajax'     => false, // should this table support ajax?
 				)
 			);
-
 		}
 		/**
 		 * Handles the default column output.
@@ -169,9 +168,11 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 		 * Prepares the list of items for displaying.
 		 */
 		public function prepare_items() {
-
-			$this->_column_headers = $this->get_column_info();
-
+			$this->_column_headers = array(
+				$this->get_columns(),
+				get_hidden_columns( $this->screen ),
+				$this->get_sortable_columns(),
+			);
 			/** Process bulk action */
 			$this->process_bulk_action();
 
@@ -188,7 +189,6 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 					'total_pages' => ceil( $total_items / $per_page ),
 				)
 			);
-
 		}
 
 		/**
@@ -228,11 +228,10 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 
 				}
 			}
-
 		}
 
 		/**
-		 * Delete a automation record.
+		 * Delete an automation record.
 		 *
 		 * @param int $id automation ID.
 		 */
@@ -397,8 +396,8 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
 				$orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
-				$order   = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
-				$sql    .= $wpdb->prepare( ' ORDER BY %s %s', $orderby, $order );
+				$order   = ! empty( $_REQUEST['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : 'ASC';
+				$sql    .= sprintf( ' ORDER BY %s %s', esc_sql( $orderby ), esc_sql( $order ) );
 			}
 			// phpcs:enable WordPress.Security.NonceVerification
 
@@ -513,20 +512,18 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 		 *
 		 * @param string $message The message.
 		 * @param string $type The type of message (can be 'error' or 'updated').
-		 * @param bool   $echo Set to true if you want to print the message.
+		 * @param bool   $should_print Set to true if you want to print the message.
 		 *
 		 * @return string
 		 */
-		public function get_message( $message, $type = 'error', $echo = true ) {
+		public function get_message( $message, $type = 'error', $should_print = true ) {
 			$message = '<div id="message" class="' . esc_attr( $type ) . ' fade"><p>' . wp_kses_post( $message ) . '</p></div>';
-			if ( $echo ) {
+			if ( $should_print ) {
 				echo wp_kses_post( $message );
 			}
 
 			return $message;
 		}
-
-
 	}
 }
 

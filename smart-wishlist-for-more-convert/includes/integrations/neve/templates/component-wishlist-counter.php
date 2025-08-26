@@ -21,4 +21,3 @@ if ( 'counter-only' === $enable_mini_wishlist ) {
 	$add_link_title = component_setting( Wishlist_Counter::ADD_LINK_TITLE );
 }
 echo do_shortcode( "[wlfmc_wishlist_counter add_link_title='$add_link_title' $title_shortcode show_products='$show_products' show_list_on_hover='$show_list_on_hover' ]" );
-

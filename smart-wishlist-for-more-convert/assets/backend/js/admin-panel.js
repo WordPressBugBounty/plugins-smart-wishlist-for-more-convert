@@ -387,6 +387,57 @@ jQuery(function ($) {
     });
     return false;
   });
+  $(document.body).on('click', '.wlfmc-save-customer', function () {
+    var element = $(this);
+    var customerId = $(this).data('customer-id');
+    var modalId = $(this).data('modal-id');
+    var fields = {
+      first_name: $('#' + modalId + '_first_name').val(),
+      last_name: $('#' + modalId + '_last_name').val(),
+      email: $('#' + modalId + '_email').val(),
+      phone: $('#' + modalId + '_phone').val()
+    };
+
+    // Only include non-disabled fields
+    var dataToSend = {
+      action: 'wlfmc_update_customer_fields',
+      customer_id: customerId,
+      key: wlfmc_wishlist_admin.ajax_nonce
+    };
+    if (!$('#' + modalId + '_email').prop('disabled')) {
+      dataToSend.email = fields.email;
+    }
+    if (!$('#' + modalId + '_phone').prop('disabled')) {
+      dataToSend.phone = fields.phone;
+    }
+    dataToSend.first_name = fields.first_name;
+    dataToSend.last_name = fields.last_name;
+    $.ajax({
+      url: wlfmc_wishlist_admin.ajax_url,
+      type: 'POST',
+      data: dataToSend,
+      beforeSend: function beforeSend() {
+        element.addClass('loading');
+      },
+      success: function success(response) {
+        element.removeClass('loading');
+        if (response.success) {
+          $('#' + modalId).removeAttr('style').toggleClass('is-visible');
+          $('#customer_' + customerId + '_first_name').text(fields.first_name);
+          $('#customer_' + customerId + '_last_name').text(fields.last_name);
+          $('#customer_' + customerId + '_email').text(fields.email);
+          $('#customer_' + customerId + '_phone').text(fields.phone);
+          $(document).trigger('wlfmc_customer_updated', [customerId, fields]);
+        } else {
+          show_message(response.data.message, 'mct-error');
+        }
+      },
+      error: function error() {
+        element.removeClass('loading');
+        show_message('An error occurred while saving.', 'mct-error');
+      }
+    });
+  });
   $(document.body).on('click', '.wlfmc-built-tabbed-page:not(.disabled)', function (e) {
     e.preventDefault();
     var elem = $(this),

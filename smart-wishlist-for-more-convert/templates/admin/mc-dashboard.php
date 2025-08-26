@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.5.5
+ * @version 1.9.6
  */
 
 /**
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<h2><?php esc_html_e( 'Reports', 'wc-wlfmc-wishlist' ); ?></h2>
 			<div class="description"><?php esc_html_e( 'This is a summary of what is currently happening on your website’s wishlist.', 'wc-wlfmc-wishlist' ); ?></div>
 		</div>
-		<ul class="mct-tools mc-row">
+		<ul class="mct-tools mct-large-tools mc-row">
 			<?php foreach ( $reports as $k => $tool ) : ?>
 				<li>
 					<a href="<?php echo '' !== $tool['url'] ? esc_url( $tool['url'] ) : ''; ?>" class="<?php echo esc_attr( $tool['link_class'] ); ?>" data-modal="modal_analytics">
@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</a>
 			<?php endif; ?>
 		</div>
-		<ul class="mct-tools">
+		<ul class="mct-tools mct-large-tools">
 			<?php foreach ( $lists as $k => $tool ) : ?>
 				<li class="<?php echo isset( $tool['container_class'] ) ? esc_attr( $tool['container_class'] ) : ''; ?>">
 					<a href="<?php echo isset( $tool['url'] ) ? esc_url( $tool['url'] ) : ''; ?>" data-modal="modal_<?php echo esc_attr( $k ); ?>" class="<?php echo isset( $tool['popup'] ) ? 'modal-toggle' : ''; ?>">
@@ -230,7 +230,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</a>
 			<?php endif; ?>
 		</div>
-		<ul class="mct-tools">
+		<ul class="mct-tools mct-large-tools">
 			<?php foreach ( $marketing as $k => $tool ) : ?>
 				<li class="<?php echo isset( $tool['container_class'] ) ? esc_attr( $tool['container_class'] ) : ''; ?>">
 					<a href="<?php echo isset( $tool['url'] ) ? esc_url( $tool['url'] ) : ''; ?>" data-modal="modal_<?php echo esc_attr( $k ); ?>" class="<?php echo isset( $tool['popup'] ) ? 'modal-toggle' : ''; ?>">

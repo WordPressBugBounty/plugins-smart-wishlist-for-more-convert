@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -411,13 +411,12 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item' ) ) {
 			$date_added = $this->get_date_added( 'edit' );
 
 			if ( $date_added ) {
-				$format = $format ? $format : get_option( 'date_format' );
-
-				return $date_added->date_i18n( $format );
+				return wlfmc_format_datetime( $date_added, $format );
 			}
 
 			return '';
 		}
+
 
 		/**
 		 * Get related wishlist

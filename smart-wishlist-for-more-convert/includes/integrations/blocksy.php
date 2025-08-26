@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @since 1.6.6
+ * @since 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,7 +32,7 @@ add_filter(
 add_filter(
 	'blocksy:header:items-paths',
 	function ( $paths ) {
-		$paths[] = dirname( __FILE__ ) . '/blocksy';
+		$paths[] = __DIR__ . '/blocksy';
 		return $paths;
 	}
 );

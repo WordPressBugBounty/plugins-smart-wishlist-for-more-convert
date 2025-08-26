@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.9
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -81,7 +81,6 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 			// Change layouts.
 			add_action( 'wp_ajax_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
 			add_action( 'wp_ajax_nopriv_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
-
 		}
 
 		/**
@@ -130,7 +129,6 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 
 			$action = str_replace( 'wlfmc_wp_loaded_', '', $action );
 			self::$action();
-
 		}
 
 		/**
@@ -808,17 +806,17 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * @return void
 		 */
 		public static function change_gdpr_status() {
-			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_change_gdpr_status' ) ) {
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wlfmc_change_gdpr_status' ) ) {
 				wp_send_json_error();
 			}
 			$action      = isset( $_POST['action_type'] ) ? sanitize_key( $_POST['action_type'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$customer_id = absint( wp_unslash( $_POST['cid'] ) );
-			if ( ! $customer_id > 0  || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
+			$customer_id = isset( $_POST['cid'] ) ? absint( wp_unslash( $_POST['cid'] ) ) : false;
+			if ( ! $customer_id > 0 || ! in_array( $action, array( 'subscribe', 'unsubscribe' ), true ) ) {
 				die();
 			}
 
 			$customer = wlfmc_get_customer( $customer_id );
-			if ( 'unsubscribe' === $action ) {;
+			if ( 'unsubscribe' === $action ) {
 				WLFMC_Wishlist_Factory::unsubscribe_customer( $customer );
 			} else {
 				WLFMC_Wishlist_Factory::subscribe_customer( $customer );

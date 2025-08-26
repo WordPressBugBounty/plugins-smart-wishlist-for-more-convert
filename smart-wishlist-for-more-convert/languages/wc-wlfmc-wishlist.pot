@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: MoreConvert\n"
 "Last-Translator: MoreConvert\n"
-"POT-Creation-Date: 2025-07-06 13:12+0000\n"
+"POT-Creation-Date: 2025-08-24 21:41+0000\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -16,6 +16,9 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "is enabled but not effective. It requires WooCommerce to work."
+msgstr ""
 
 msgid "Don't Miss MoreConvert Exclusive <span class='yellow-text'>Black Friday Deals!</span>"
 msgstr ""
@@ -386,7 +389,7 @@ msgstr ""
 msgid "Facebook messenger"
 msgstr ""
 
-msgid "Twitter"
+msgid "Twitter(X)"
 msgstr ""
 
 msgid "Whatsapp"
@@ -557,7 +560,7 @@ msgstr ""
 msgid "linkedin"
 msgstr ""
 
-msgid "twitter"
+msgid "twitter(X)"
 msgstr ""
 
 msgid "facebook"
@@ -803,6 +806,7 @@ msgstr ""
 msgid "Change appearance"
 msgstr ""
 
+#. translators: 1: single product page text
 msgid "\"Add to wishlist\" Button %s"
 msgstr ""
 
@@ -944,9 +948,11 @@ msgstr ""
 msgid "Button tooltip styles"
 msgstr ""
 
+#. translators: %s is a placeholder for a link to global settings.
 msgid "Modify the tooltip style from %s."
 msgstr ""
 
+#. translators: The text for the link to global settings.
 msgid "global settings"
 msgstr ""
 
@@ -1547,10 +1553,10 @@ msgstr ""
 msgid "Share with messenger"
 msgstr ""
 
-msgid "\"Share on twitter\" text"
+msgid "\"Share on twitter(X)\" text"
 msgstr ""
 
-msgid "Share on Twitter"
+msgid "Share on Twitter(X)"
 msgstr ""
 
 msgid "\"Share on whatsApp\" text"
@@ -2216,6 +2222,43 @@ msgstr ""
 msgid "you didn't select a variation for it"
 msgstr ""
 
+#. translators: %d is the number of year.
+msgid "%d year ago"
+msgid_plural "%d years ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d month ago"
+msgid_plural "%d months ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d week ago"
+msgid_plural "%d weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "yesterday"
+msgstr ""
+
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "just now"
+msgstr ""
+
 msgid "You have to select at least one product"
 msgstr ""
 
@@ -2436,7 +2479,6 @@ msgstr ""
 msgid "The item cannot be added to this wishlist"
 msgstr ""
 
-#. translators: %s wishlist name
 msgid "An error occurred while adding the products to the wishlist."
 msgstr ""
 
@@ -2446,6 +2488,7 @@ msgstr ""
 msgid "There are no products in the shopping cart"
 msgstr ""
 
+#. translators: %s wishlist name
 msgid "An error occurred while adding the products to the %s list."
 msgstr ""
 
@@ -2455,10 +2498,10 @@ msgstr ""
 msgid "An error occurred while adding the products to the list."
 msgstr ""
 
-#. translators: %s wishlist name
 msgid "Error. Unable to remove the product from the wishlist."
 msgstr ""
 
+#. translators: %s wishlist name
 msgid "Error. Unable to remove the product from the %s list."
 msgstr ""
 
@@ -2492,357 +2535,6 @@ msgstr ""
 msgid "Error. Unable to remove the product from the next purchase cart."
 msgstr ""
 
-msgid "Invalid Customer."
-msgstr ""
-
-msgid "Invalid customer Data."
-msgstr ""
-
-msgid "Invalid wishlist."
-msgstr ""
-
-msgid "Invalid wishlist item."
-msgstr ""
-
-msgid "Add To Lists"
-msgstr ""
-
-msgid "All Button Add To Lists"
-msgstr ""
-
-msgid "Mini Lists and Counter"
-msgstr ""
-
-msgid "Tabbed Lists"
-msgstr ""
-
-msgid "Multi List"
-msgstr ""
-
-msgid "OutOfStock Box"
-msgstr ""
-
-msgid "Mini Waitlist and Counter"
-msgstr ""
-
-msgid "Product ID"
-msgstr ""
-
-msgid "You can add custom product id or leave empty."
-msgstr ""
-
-msgid "Is product single page"
-msgstr ""
-
-msgid "You should install custom skin plugin and create a loop for editing product listing on the Elementor editor or you can design listings from wishlist setting > wishlist button"
-msgstr ""
-
-msgid "Button Type"
-msgstr ""
-
-msgid "Button Icon"
-msgstr ""
-
-msgid "Icon"
-msgstr ""
-
-msgid "Icon Added"
-msgstr ""
-
-msgid "Tooltip"
-msgstr ""
-
-msgid "Tooltip direction"
-msgstr ""
-
-msgid "Already in Wishlist"
-msgstr ""
-
-msgid "Custom Style"
-msgstr ""
-
-msgid "Inline Font Icon"
-msgstr ""
-
-msgid "Text Typography"
-msgstr ""
-
-msgid "Icon font size"
-msgstr ""
-
-msgid "Icon Size"
-msgstr ""
-
-msgid "Normal"
-msgstr ""
-
-msgid "Text Color"
-msgstr ""
-
-msgid "Icon Color"
-msgstr ""
-
-msgid "Border Color"
-msgstr ""
-
-msgid "Background Color"
-msgstr ""
-
-msgid "Hover"
-msgstr ""
-
-msgid "Border Width"
-msgstr ""
-
-msgid "Border Radius"
-msgstr ""
-
-msgid "Button height"
-msgstr ""
-
-msgid "Button width"
-msgstr ""
-
-msgid "Button Width Type"
-msgstr ""
-
-msgid "Full Width"
-msgstr ""
-
-msgid "Inline"
-msgstr ""
-
-msgid "Button margin"
-msgstr ""
-
-msgid "Mini Wishlist & Counter"
-msgstr ""
-
-msgid "General Settings"
-msgstr ""
-
-msgid "Display Mode"
-msgstr ""
-
-msgid "Mini Wishlist"
-msgstr ""
-
-msgid "Counter Only"
-msgstr ""
-
-msgid "Counter & Mini Wishlist (show on-hover)"
-msgstr ""
-
-msgid "Counter & Mini Wishlist (show on-click)"
-msgstr ""
-
-msgid "Counter Settings"
-msgstr ""
-
-msgid "Show icon"
-msgstr ""
-
-msgid "Counter icon"
-msgstr ""
-
-msgid "Show counter text"
-msgstr ""
-
-msgid "Counter text"
-msgstr ""
-
-msgid "Show counter"
-msgstr ""
-
-msgid "Mini wishlist Settings"
-msgstr ""
-
-msgid "Show Button"
-msgstr ""
-
-msgid "Wishlist button position"
-msgstr ""
-
-msgid "Button text"
-msgstr ""
-
-msgid "Show totals"
-msgstr ""
-
-msgid "Products Per Page"
-msgstr ""
-
-msgid "Mini Wishlist Button"
-msgstr ""
-
-msgid "Button Typography"
-msgstr ""
-
-msgid "Mini Wishlist Product list"
-msgstr ""
-
-msgid "Product title Typography"
-msgstr ""
-
-msgid "Total products Typography"
-msgstr ""
-
-msgid "Product title Color"
-msgstr ""
-
-msgid "Counter Text & Icon"
-msgstr ""
-
-msgid "Count background Color"
-msgstr ""
-
-msgid "Count Color"
-msgstr ""
-
-msgid "WishList"
-msgstr ""
-
-msgid "Table Settings"
-msgstr ""
-
-msgid "Items show"
-msgstr ""
-
-msgid "Product stock"
-msgstr ""
-
-msgid "Date added"
-msgstr ""
-
-msgid "Add to cart button"
-msgstr ""
-
-msgid "Button to remove the product"
-msgstr ""
-
-msgid "Merge Lists"
-msgstr ""
-
-msgid "Total Price Mode"
-msgstr ""
-
-msgid "Modern"
-msgstr ""
-
-msgid "Classic"
-msgstr ""
-
-msgid "Total Price Position"
-msgstr ""
-
-msgid "Above Action Bar"
-msgstr ""
-
-msgid "Below Action Bar"
-msgstr ""
-
-msgid "Both( Default Grid )"
-msgstr ""
-
-msgid "Both( Default List )"
-msgstr ""
-
-msgid "Header Search List Style"
-msgstr ""
-
-msgid "Custom styles for search list"
-msgstr ""
-
-msgid "Typography"
-msgstr ""
-
-msgid "Focus"
-msgstr ""
-
-msgid "Header Dropdown List Style"
-msgstr ""
-
-msgid "Custom styles for dropdown list"
-msgstr ""
-
-msgid "Hover or Selected List Background Color"
-msgstr ""
-
-msgid "Footer Button"
-msgstr ""
-
-msgid "Select"
-msgstr ""
-
-msgid "Custom styles for select field"
-msgstr ""
-
-msgid "َAdd to cart Button"
-msgstr ""
-
-msgid "Custom styles for add to cart button"
-msgstr ""
-
-msgid "Qty input"
-msgstr ""
-
-msgid "Custom styles for qty field"
-msgstr ""
-
-msgid "Pagination"
-msgstr ""
-
-msgid "Custom styles for pagination"
-msgstr ""
-
-msgid "Active"
-msgstr ""
-
-msgid "Padding"
-msgstr ""
-
-msgid "Items"
-msgstr ""
-
-msgid "Product title typography"
-msgstr ""
-
-msgid "Date added typography"
-msgstr ""
-
-msgid "Out-of-stock typography"
-msgstr ""
-
-msgid "Variation title typography"
-msgstr ""
-
-msgid "Variation value typography"
-msgstr ""
-
-msgid "Date added Color"
-msgstr ""
-
-msgid "Out-of-stock  Color"
-msgstr ""
-
-msgid "Variation title Color"
-msgstr ""
-
-msgid "Variation value Color"
-msgstr ""
-
-msgid "Thumbnail background Color"
-msgstr ""
-
-msgid "Your image must be SVG or png for this section to be effective."
-msgstr ""
-
-msgid "Item background Color"
-msgstr ""
-
-msgid "Item border Color"
-msgstr ""
-
 msgid "Private"
 msgstr ""
 
@@ -2864,7 +2556,8 @@ msgstr ""
 msgid "Get Premium"
 msgstr ""
 
-msgid "Test Mode %s %s"
+#. translators: %1$s is a help text or tooltip, %2$s is an HTML span indicating if .
+msgid "Test Mode %1$s %2$s"
 msgstr ""
 
 msgid "Enabled"
@@ -2945,7 +2638,7 @@ msgstr ""
 msgid "Read reviews from real users:"
 msgstr ""
 
-msgid "Rated 5.0 • by 65+ Users"
+msgid "Rated 5.0 • by 110+ Users"
 msgstr ""
 
 msgid "FAQs"
@@ -3928,6 +3621,129 @@ msgid ""
 ""
 msgstr ""
 
+msgctxt "aria-label text"
+msgid "Add to wishlist"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Already in wishlist"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "View My Wishlist"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Remove from wishlist"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Close"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Wishlist Counter"
+msgstr ""
+
+msgid "Remove this product"
+msgstr ""
+
+msgid "Product Name"
+msgstr ""
+
+msgid "Product SKU"
+msgstr ""
+
+msgid "Unit Price"
+msgstr ""
+
+msgid "Stock status"
+msgstr ""
+
+msgid "Added date"
+msgstr ""
+
+msgid "Out of stock"
+msgstr ""
+
+msgid "In Stock"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Sort"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Select Product"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Move Product"
+msgstr ""
+
+msgid "Product Move"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Copy Product"
+msgstr ""
+
+msgid "Product Copy"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Product Components"
+msgstr ""
+
+msgid "Product components"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Remove Product"
+msgstr ""
+
+#. translators: date added label: 1 date added.
+#. translators: %s is date added label.
+msgid "Added on: %s"
+msgstr ""
+
+msgctxt "aria-label text"
+msgid "Select All Product"
+msgstr ""
+
+msgid "Invalid Customer."
+msgstr ""
+
+msgid "Invalid customer Data."
+msgstr ""
+
+msgid "Invalid wishlist."
+msgstr ""
+
+msgid "Invalid wishlist item."
+msgstr ""
+
+msgid "Add To Lists"
+msgstr ""
+
+msgid "All Button Add To Lists"
+msgstr ""
+
+msgid "Mini Lists and Counter"
+msgstr ""
+
+msgid "Tabbed Lists"
+msgstr ""
+
+msgid "Multi List"
+msgstr ""
+
+msgid "OutOfStock Box"
+msgstr ""
+
+msgid "Mini Waitlist and Counter"
+msgstr ""
+
 msgid "Wishlist Counter"
 msgstr ""
 
@@ -3953,12 +3769,6 @@ msgid "Multi-List Counter"
 msgstr ""
 
 msgid "multi-list counter page"
-msgstr ""
-
-msgid "Custom Wishlist Text"
-msgstr ""
-
-msgid "Other Settings"
 msgstr ""
 
 msgid "Show Wishlist Counter"
@@ -4010,12 +3820,6 @@ msgid "Mc Multi-List Counter"
 msgstr ""
 
 msgid "Wishlist Button"
-msgstr ""
-
-msgid "Mobile Wishlist Counter"
-msgstr ""
-
-msgid "Custom title"
 msgstr ""
 
 msgid "MC Wishlist Counters"
@@ -4099,7 +3903,478 @@ msgstr ""
 msgid "Please fill required fields."
 msgstr ""
 
+msgid "MC Wishlist counters"
+msgstr ""
+
+msgid "A list of products in the user's wishlists"
+msgstr ""
+
+msgid "Show counter icon"
+msgstr ""
+
+msgid "Show counter text"
+msgstr ""
+
+msgid "Counter text:"
+msgstr ""
+
+msgid "Show products as a list"
+msgstr ""
+
+msgid "Show wishlist button"
+msgstr ""
+
+msgid "Show products total"
+msgstr ""
+
+msgid "Welcome to MoreConvert 🎉"
+msgstr ""
+
+msgid "You made the best decision by choosing the MoreConvert; our goal is you can sell more,not to entertain your user with some buttons and lists!"
+msgstr ""
+
+msgid "Getting Started"
+msgstr ""
+
+msgid "Ready to have some simple settings together?"
+msgstr ""
+
+msgid "Full setup wizard guide"
+msgstr ""
+
+msgid "Learn how to setup MoreConvert."
+msgstr ""
+
 msgid "Reports"
+msgstr ""
+
+msgid "This is a summary of what is currently happening on your website’s wishlist."
+msgstr ""
+
+msgid "Lists Setting"
+msgstr ""
+
+msgid "Marketing Toolkit"
+msgstr ""
+
+msgid "Select A Tool To Increase Your Sale"
+msgstr ""
+
+msgid "Marketing Settings"
+msgstr ""
+
+msgid "Blog and Article"
+msgstr ""
+
+msgid "Discover articles and tutorials to help you to achieve greater success."
+msgstr ""
+
+msgid "Marketing tips"
+msgstr ""
+
+msgid "Read more"
+msgstr ""
+
+msgid "Starter"
+msgstr ""
+
+msgid "Perfect for stores wanting to taste our solution"
+msgstr ""
+
+msgid "This plan includes 2 free features:"
+msgstr ""
+
+msgid "One Sequential email automation"
+msgstr ""
+
+msgid "Premium"
+msgstr ""
+
+msgid "Perfect for stores that want to increase their sales and leads."
+msgstr ""
+
+msgid "This plan includes 7 features:"
+msgstr ""
+
+msgid "Next purchase cart"
+msgstr ""
+
+msgid "Abandoned cart"
+msgstr ""
+
+msgid "Multiple Sequential email automation"
+msgstr ""
+
+msgid "One-shot email"
+msgstr ""
+
+msgid "Would you like to purchase and install the <span style=\"color:#EA7A0B\">Premium</span> plan now?"
+msgstr ""
+
+msgid "Upgrade to MoreConvert Premium now and unlock more amazing features that will supercharge your WooCommerce website."
+msgstr ""
+
+msgid "Set a wishlist button to your store and find out your user's favorite items."
+msgstr ""
+
+msgid "Set a multi-list button to your store and allow to create of different lists depending on their needs."
+msgstr ""
+
+msgid "Abandoned Cart"
+msgstr ""
+
+msgid "set a button and allow them to ask for an estimate for some items and create a connection with users."
+msgstr ""
+
+msgid "Set up once to send emails to users based on your terms."
+msgstr ""
+
+msgid "One-shot Email"
+msgstr ""
+
+msgid "Send emails to your selected subscribers."
+msgstr ""
+
+msgid "Find out the ways you can boost your sales based on users' activities."
+msgstr ""
+
+msgid "Don't wait - take advantage of this exclusive offer and start enjoying all the benefits of MoreConvert Premium today!"
+msgstr ""
+
+msgid "NO, Not Ready Now"
+msgstr ""
+
+msgid "Purchase now"
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Added Price"
+msgstr ""
+
+msgid "Product ID"
+msgstr ""
+
+msgid "You can add custom product id or leave empty."
+msgstr ""
+
+msgid "Is product single page"
+msgstr ""
+
+msgid "You should install custom skin plugin and create a loop for editing product listing on the Elementor editor or you can design listings from wishlist setting > wishlist button"
+msgstr ""
+
+msgid "Button Type"
+msgstr ""
+
+msgid "Button Icon"
+msgstr ""
+
+msgid "Icon"
+msgstr ""
+
+msgid "Icon Added"
+msgstr ""
+
+msgid "Tooltip"
+msgstr ""
+
+msgid "Tooltip direction"
+msgstr ""
+
+msgid "Already in Wishlist"
+msgstr ""
+
+msgid "Custom Style"
+msgstr ""
+
+msgid "Inline Font Icon"
+msgstr ""
+
+msgid "Text Typography"
+msgstr ""
+
+msgid "Icon font size"
+msgstr ""
+
+msgid "Icon Size"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Text Color"
+msgstr ""
+
+msgid "Icon Color"
+msgstr ""
+
+msgid "Border Color"
+msgstr ""
+
+msgid "Background Color"
+msgstr ""
+
+msgid "Hover"
+msgstr ""
+
+msgid "Border Width"
+msgstr ""
+
+msgid "Border Radius"
+msgstr ""
+
+msgid "Button height"
+msgstr ""
+
+msgid "Button width"
+msgstr ""
+
+msgid "Button Width Type"
+msgstr ""
+
+msgid "Full Width"
+msgstr ""
+
+msgid "Inline"
+msgstr ""
+
+msgid "Button margin"
+msgstr ""
+
+msgid "Mini Wishlist & Counter"
+msgstr ""
+
+msgid "General Settings"
+msgstr ""
+
+msgid "Display Mode"
+msgstr ""
+
+msgid "Mini Wishlist"
+msgstr ""
+
+msgid "Counter Only"
+msgstr ""
+
+msgid "Counter & Mini Wishlist (show on-hover)"
+msgstr ""
+
+msgid "Counter & Mini Wishlist (show on-click)"
+msgstr ""
+
+msgid "Counter Settings"
+msgstr ""
+
+msgid "Show icon"
+msgstr ""
+
+msgid "Counter icon"
+msgstr ""
+
+msgid "Counter text"
+msgstr ""
+
+msgid "Show counter"
+msgstr ""
+
+msgid "Mini wishlist Settings"
+msgstr ""
+
+msgid "Show Button"
+msgstr ""
+
+msgid "Wishlist button position"
+msgstr ""
+
+msgid "Button text"
+msgstr ""
+
+msgid "Show totals"
+msgstr ""
+
+msgid "Products Per Page"
+msgstr ""
+
+msgid "Mini Wishlist Button"
+msgstr ""
+
+msgid "Button Typography"
+msgstr ""
+
+msgid "Mini Wishlist Product list"
+msgstr ""
+
+msgid "Product title Typography"
+msgstr ""
+
+msgid "Total products Typography"
+msgstr ""
+
+msgid "Product title Color"
+msgstr ""
+
+msgid "Counter Text & Icon"
+msgstr ""
+
+msgid "Count background Color"
+msgstr ""
+
+msgid "Count Color"
+msgstr ""
+
+msgid "WishList"
+msgstr ""
+
+msgid "Table Settings"
+msgstr ""
+
+msgid "Items show"
+msgstr ""
+
+msgid "Product stock"
+msgstr ""
+
+msgid "Date added"
+msgstr ""
+
+msgid "Add to cart button"
+msgstr ""
+
+msgid "Button to remove the product"
+msgstr ""
+
+msgid "Merge Lists"
+msgstr ""
+
+msgid "Total Price Mode"
+msgstr ""
+
+msgid "Modern"
+msgstr ""
+
+msgid "Classic"
+msgstr ""
+
+msgid "Total Price Position"
+msgstr ""
+
+msgid "Above Action Bar"
+msgstr ""
+
+msgid "Below Action Bar"
+msgstr ""
+
+msgid "Both( Default Grid )"
+msgstr ""
+
+msgid "Both( Default List )"
+msgstr ""
+
+msgid "Header Search List Style"
+msgstr ""
+
+msgid "Custom styles for search list"
+msgstr ""
+
+msgid "Typography"
+msgstr ""
+
+msgid "Focus"
+msgstr ""
+
+msgid "Header Dropdown List Style"
+msgstr ""
+
+msgid "Custom styles for dropdown list"
+msgstr ""
+
+msgid "Hover or Selected List Background Color"
+msgstr ""
+
+msgid "Footer Button"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Custom styles for select field"
+msgstr ""
+
+msgid "َAdd to cart Button"
+msgstr ""
+
+msgid "Custom styles for add to cart button"
+msgstr ""
+
+msgid "Qty input"
+msgstr ""
+
+msgid "Custom styles for qty field"
+msgstr ""
+
+msgid "Pagination"
+msgstr ""
+
+msgid "Custom styles for pagination"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Padding"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Product title typography"
+msgstr ""
+
+msgid "Date added typography"
+msgstr ""
+
+msgid "Out-of-stock typography"
+msgstr ""
+
+msgid "Variation title typography"
+msgstr ""
+
+msgid "Variation value typography"
+msgstr ""
+
+msgid "Date added Color"
+msgstr ""
+
+msgid "Out-of-stock  Color"
+msgstr ""
+
+msgid "Variation title Color"
+msgstr ""
+
+msgid "Variation value Color"
+msgstr ""
+
+msgid "Thumbnail background Color"
+msgstr ""
+
+msgid "Your image must be SVG or png for this section to be effective."
+msgstr ""
+
+msgid "Item background Color"
+msgstr ""
+
+msgid "Item border Color"
+msgstr ""
+
+msgid "Mobile Wishlist Counter"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Ask for Estimate"
 msgstr ""
 
 msgid "Get Pro Now"
@@ -4384,7 +4659,190 @@ msgstr ""
 msgid "Watch Video"
 msgstr ""
 
-msgid "This is a summary of what is currently happening on your website’s wishlist."
+msgid "Key Features"
+msgstr ""
+
+msgid "Key Features of MoreConvert Ask for Estimate Plugin for WooCommerce."
+msgstr ""
+
+msgid "One-click Estimate Button"
+msgstr ""
+
+msgid "Adds an \"Ask for Estimate\" button at the bottom of any wishlist or other lists pages."
+msgstr ""
+
+msgid "Works Across All List Types"
+msgstr ""
+
+msgid "Fully integrated with MoreConvert Pro features -- including wishlist,Multi-lists, Waitlists and more."
+msgstr ""
+
+msgid "Smart Popup With Optional Notes"
+msgstr ""
+
+msgid "A sleek popup lets users and extra information before submitting their request."
+msgstr ""
+
+msgid "Editable Button Styles"
+msgstr ""
+
+msgid "Customize button size, color , border and font to match your theme."
+msgstr ""
+
+msgid "Flexible Display Options"
+msgstr ""
+
+msgid "Choose who sees the button: all users, logged-in users only or restricted."
+msgstr ""
+
+msgid "Optional Tooltip & Notes"
+msgstr ""
+
+msgid "Add additional messaging or notes for admins right inside the request popup."
+msgstr ""
+
+msgid "Send Requests to Admin"
+msgstr ""
+
+msgid "Automatically sends estimate requests to your chosen email address."
+msgstr ""
+
+msgid "Add Multiple Recipients (CC)"
+msgstr ""
+
+msgid "Notify your sales or support team instantly."
+msgstr ""
+
+msgid "Flexible Email Templates"
+msgstr ""
+
+msgid "Let admins receive estimate requests in the style that fits best."
+msgstr ""
+
+msgid "Multilingual Support"
+msgstr ""
+
+msgid " Works with WPML, Polylang, and other popular translation plugins."
+msgstr ""
+
+msgid "Built For Speed"
+msgstr ""
+
+msgid "Lightweight, fast, and clean-coded to avoid performance issues."
+msgstr ""
+
+msgid "Moreconvert Pro Integration"
+msgstr ""
+
+msgid " This plugin works in sync with MoreConvert Pro features like Wishlist, Waitlist, and other tools."
+msgstr ""
+
+msgid "One-Click Price Requests for Your WooCommerce Lists"
+msgstr ""
+
+msgid "Enable customers to “Ask for Estimate” from any list — Wishlist, Waitlist, Multi-List, and more — all in one click."
+msgstr ""
+
+msgid "How It Works?"
+msgstr ""
+
+msgid "Once enabled, a clean Ask for Estimate button appears under your product lists. Customers can request a price estimate — with optional notes — in just one click. Requests are sent directly to the store admin via email."
+msgstr ""
+
+msgid "Compatible with all MoreConvert list types"
+msgstr ""
+
+msgid "Optional notes & CC recipients"
+msgstr ""
+
+msgid "Customize the button & email content"
+msgstr ""
+
+msgid "Easy setup. No bloat."
+msgstr ""
+
+msgid "Go To Plugin Details"
+msgstr ""
+
+msgid "Try the Demo"
+msgstr ""
+
+msgid "Unlock this Feature"
+msgstr ""
+
+msgid "Waitlist Product Alerts"
+msgstr ""
+
+msgid " Inform users when a product they’ve waitlisted is back in stock, discounted, or price-dropped."
+msgstr ""
+
+msgid "Order Status Messages"
+msgstr ""
+
+msgid "Notify users when their order status changes — from processing to shipped, completed, or cancelled."
+msgstr ""
+
+msgid "Coupon Notifications"
+msgstr ""
+
+msgid "Show newly published discount codes — automatically, right in the message center."
+msgstr ""
+
+msgid "Comment & Review Updates"
+msgstr ""
+
+msgid "Let customers know when their product reviews or blog comments are approved or replied to."
+msgstr ""
+
+msgid "Fully Editable Texts"
+msgstr ""
+
+msgid "Personalize all message content to match your brand’s tone and voice."
+msgstr ""
+
+msgid "Visibility & Display Rules"
+msgstr ""
+
+msgid "Activate or deactivate messages for waitlist items, order status, coupons, and comments with a single click."
+msgstr ""
+
+msgid "Live Notification Counter"
+msgstr ""
+
+msgid "Display unread message counts in your site’s menu, header, or anywhere you prefer."
+msgstr ""
+
+msgid "Instant Notification Alerts"
+msgstr ""
+
+msgid "Users see a real-time alert when they receive a new message from the admin."
+msgstr ""
+
+msgid "Personalized Support/Updates"
+msgstr ""
+
+msgid "Send tailored responses, request feedback or follow up on orders --- without relying on email"
+msgstr ""
+
+msgid "Smart, On-Site Messaging for WooCommerce Customers"
+msgstr ""
+
+msgid "Moreconvert Message Hub adds a clean, user-focused message center inside your WooCommerce \"My Account\" area.."
+msgstr ""
+
+msgid "Once installed,this plugin adds a new \"Messages\" tab to the WooCommerce My Account page. Users automatically receive messages when key events happen -- related to orders, products, waitlist items, coupons or reviews"
+msgstr ""
+
+msgid "Linked to the relevant event or product"
+msgstr ""
+
+msgid "Displayed inside the site (not via email)"
+msgstr ""
+
+msgid "Organized, timestamped and visible anytime"
+msgstr ""
+
+msgid "Styled and worded based on your settings"
 msgstr ""
 
 msgid "Most Active Users"
@@ -4399,9 +4857,11 @@ msgstr ""
 msgid "Potential customers"
 msgstr ""
 
-msgid "%d Potential customers for %s"
+#. translators: %1$d is the number of potential customers, %2$s is the product name with a link.
+msgid "%1$d Potential customers for %2$s"
 msgstr ""
 
+#. translators: %d is the number of potential customers who have added the product to their wishlist.
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Invite them to buy it right now with different ideas, such as a contest, on-sale automation, or even a webinar for them, with a special coupon provided at the end. Start increasing your revenue and don't lose this opportunity"
 msgstr ""
 
@@ -4414,13 +4874,16 @@ msgstr ""
 msgid "Discover which product is the most favored by users."
 msgstr ""
 
+#. translators: %s is the number of positive reviews lost, displayed in a styled HTML heading.
 msgid "%s <strong>Positive Review Lost!</strong>"
 msgstr ""
 
+#. translators: %s is the product name with a styled HTML link.
 msgid "Lost Potential Review for %s"
 msgstr ""
 
-msgid "With %d users who have this product on their wishlist, you can gain at least %d positive reviews by running a email campaign for its users. Set conditions for a big deal for all those who send the best reviews under this product."
+#. translators: %1$d is the number of users with the product on their wishlist, %2$d is the estimated number of positive reviews possible from an email campaign.
+msgid "With %1$d users who have this product on their wishlist, you can gain at least %2$d positive reviews by running a email campaign for its users. Set conditions for a big deal for all those who send the best reviews under this product."
 msgstr ""
 
 msgid "Run Campaign"
@@ -4429,6 +4892,7 @@ msgstr ""
 msgid "Gain potential customers."
 msgstr ""
 
+#. translators: %d is the number of out-of-stock products.
 msgid "With %d out-of-stock products, you must immediately convert potential customers on your product pages into leads and boost sales by promoting similar or alternative available products to them."
 msgstr ""
 
@@ -4438,9 +4902,11 @@ msgstr ""
 msgid "Newsletter"
 msgstr ""
 
+#. translators: %s is the product name with a styled HTML link.
 msgid "Build a newsletter for: %s"
 msgstr ""
 
+#. translators: %d is the number of potential customers who have added the product to their wishlist.
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Design an email automation with 5 emails that send them a group of related videos, blog posts, and other reviews about this product to increase user motivation to buy it faster. Then, provide a dedicated coupon, all within MoreConvert automation part."
 msgstr ""
 
@@ -4777,9 +5243,6 @@ msgstr ""
 msgid "All unpaid status"
 msgstr ""
 
-msgid "Product"
-msgstr ""
-
 msgid "Total lists added"
 msgstr ""
 
@@ -4828,61 +5291,6 @@ msgstr ""
 
 #. translators: 1: list type
 msgid "Added by %s"
-msgstr ""
-
-msgid "Total Sales"
-msgstr ""
-
-msgid "Sale Rate"
-msgstr ""
-
-msgid "Filter"
-msgstr ""
-
-msgid "Abandonment Cart"
-msgstr ""
-
-msgid "Privacy"
-msgstr ""
-
-msgid "Type"
-msgstr ""
-
-#. translators: 1. Date diff since wishlist creation (EG: 1 hour, 2 seconds, etc...).
-msgid "%s ago"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "List quantity"
-msgstr ""
-
-msgid "User count"
-msgstr ""
-
-msgid "Guest count"
-msgstr ""
-
-msgid "Search by name"
-msgstr ""
-
-msgid "Coupons"
-msgstr ""
-
-msgid "Directly via Lists"
-msgstr ""
-
-msgid "Phone"
-msgstr ""
-
-msgid "Total Payment Overall"
-msgstr ""
-
-msgid "Send Campaign"
-msgstr ""
-
-msgid "Bulk actions"
 msgstr ""
 
 msgid "Plain email text is outdated."
@@ -5147,6 +5555,9 @@ msgstr ""
 msgid "Net"
 msgstr ""
 
+msgid "Filter"
+msgstr ""
+
 msgid "Remove Filter"
 msgstr ""
 
@@ -5189,7 +5600,7 @@ msgstr ""
 msgid "You cannot access to update automation"
 msgstr ""
 
-#. translators: %s: field name'
+#. translators: %s: field name
 msgid "%s is a required field."
 msgstr ""
 
@@ -5241,6 +5652,18 @@ msgstr ""
 msgid "NET"
 msgstr ""
 
+msgid "Date Added"
+msgstr ""
+
+msgid "Scheduled Date"
+msgstr ""
+
+msgid "Sent Date"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
 msgid "Are you sure you want to delete?"
 msgstr ""
 
@@ -5266,6 +5689,9 @@ msgid "Delete scheduled emails"
 msgstr ""
 
 msgid "Are you sure you want to delete scheduled emails?"
+msgstr ""
+
+msgid "Search by name"
 msgstr ""
 
 msgid "Automation Removed."
@@ -5473,233 +5899,53 @@ msgid ""
 "to get an amazing discount!"
 msgstr ""
 
-msgid "MC Wishlist counters"
+msgid "Custom Wishlist Text"
 msgstr ""
 
-msgid "A list of products in the user's wishlists"
+msgid "Other Settings"
 msgstr ""
 
-msgid "Show counter icon"
+msgid "Custom title"
 msgstr ""
 
-msgid "Counter text:"
+msgid "Total Sales"
 msgstr ""
 
-msgid "Show products as a list"
+msgid "Sale Rate"
 msgstr ""
 
-msgid "Show wishlist button"
+msgid "Abandonment Cart"
 msgstr ""
 
-msgid "Show products total"
+msgid "Privacy"
 msgstr ""
 
-msgid "is enabled but not effective. It requires WooCommerce to work."
+msgid "Type"
 msgstr ""
 
-msgid "Welcome to MoreConvert 🎉"
+msgid "List quantity"
 msgstr ""
 
-msgid "You made the best decision by choosing the MoreConvert; our goal is you can sell more,not to entertain your user with some buttons and lists!"
+msgid "User count"
 msgstr ""
 
-msgid "Getting Started"
+msgid "Guest count"
 msgstr ""
 
-msgid "Ready to have some simple settings together?"
+msgid "Coupons"
 msgstr ""
 
-msgid "Full setup wizard guide"
+msgid "Directly via Lists"
 msgstr ""
 
-msgid "Learn how to setup MoreConvert."
+msgid "Phone"
 msgstr ""
 
-msgid "Lists Setting"
+msgid "Total Payment Overall"
 msgstr ""
 
-msgid "Marketing Toolkit"
+msgid "Send Campaign"
 msgstr ""
 
-msgid "Select A Tool To Increase Your Sale"
-msgstr ""
-
-msgid "Marketing Settings"
-msgstr ""
-
-msgid "Blog and Article"
-msgstr ""
-
-msgid "Discover articles and tutorials to help you to achieve greater success."
-msgstr ""
-
-msgid "Marketing tips"
-msgstr ""
-
-msgid "Read more"
-msgstr ""
-
-msgid "Starter"
-msgstr ""
-
-msgid "Perfect for stores wanting to taste our solution"
-msgstr ""
-
-msgid "This plan includes 2 free features:"
-msgstr ""
-
-msgid "One Sequential email automation"
-msgstr ""
-
-msgid "Premium"
-msgstr ""
-
-msgid "Perfect for stores that want to increase their sales and leads."
-msgstr ""
-
-msgid "This plan includes 7 features:"
-msgstr ""
-
-msgid "Next purchase cart"
-msgstr ""
-
-msgid "Abandoned cart"
-msgstr ""
-
-msgid "Multiple Sequential email automation"
-msgstr ""
-
-msgid "One-shot email"
-msgstr ""
-
-msgid "Would you like to purchase and install the <span style=\"color:#EA7A0B\">Premium</span> plan now?"
-msgstr ""
-
-msgid "Upgrade to MoreConvert Premium now and unlock more amazing features that will supercharge your WooCommerce website."
-msgstr ""
-
-msgid "Set a wishlist button to your store and find out your user's favorite items."
-msgstr ""
-
-msgid "Set a multi-list button to your store and allow to create of different lists depending on their needs."
-msgstr ""
-
-msgid "Abandoned Cart"
-msgstr ""
-
-msgid "set a button and allow them to ask for an estimate for some items and create a connection with users."
-msgstr ""
-
-msgid "Set up once to send emails to users based on your terms."
-msgstr ""
-
-msgid "One-shot Email"
-msgstr ""
-
-msgid "Send emails to your selected subscribers."
-msgstr ""
-
-msgid "Find out the ways you can boost your sales based on users' activities."
-msgstr ""
-
-msgid "Don't wait - take advantage of this exclusive offer and start enjoying all the benefits of MoreConvert Premium today!"
-msgstr ""
-
-msgid "NO, Not Ready Now"
-msgstr ""
-
-msgid "Purchase now"
-msgstr ""
-
-msgid "Added Price"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Add to wishlist"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Already in wishlist"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "View My Wishlist"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Remove from wishlist"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Close"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Wishlist Counter"
-msgstr ""
-
-msgid "Remove this product"
-msgstr ""
-
-msgid "Product Name"
-msgstr ""
-
-msgid "Product SKU"
-msgstr ""
-
-msgid "Unit Price"
-msgstr ""
-
-msgid "Stock status"
-msgstr ""
-
-msgid "Added date"
-msgstr ""
-
-msgid "Out of stock"
-msgstr ""
-
-msgid "In Stock"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Sort"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Select Product"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Move Product"
-msgstr ""
-
-msgid "Product Move"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Copy Product"
-msgstr ""
-
-msgid "Product Copy"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Product Components"
-msgstr ""
-
-msgid "Product components"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Remove Product"
-msgstr ""
-
-#. translators: date added label: 1 date added.
-#. translators: %s is date added label.
-msgid "Added on: %s"
-msgstr ""
-
-msgctxt "aria-label text"
-msgid "Select All Product"
+msgid "Bulk actions"
 msgstr ""

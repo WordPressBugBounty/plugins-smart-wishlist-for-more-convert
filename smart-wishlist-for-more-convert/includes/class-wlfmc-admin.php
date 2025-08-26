@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.9.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,14 +30,14 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.9.3';
+		public $rollback_version = '1.9.5';
 
 		/**
 		 * Minimum pro version
 		 *
 		 * @var string
 		 */
-		public $minimum_pro_version = '1.9.0';
+		public $minimum_pro_version = '1.9.6';
 
 		/**
 		 * Main panel
@@ -103,3879 +103,3900 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 			$this->installed = WLFMC_Install()->is_installed();
 
 			if ( $this->installed ) {
-                $global_tooltip_url = add_query_arg(
-	                array(
-		                'page' => 'mc-global-settings',
-		                'tab'  => 'appearance#tooltip_style',
-	                ),
-	                admin_url( 'admin.php' )
-                );
-
-				$this->global_options = array(
-					'options'        => apply_filters(
-						'wlfmc_admin_options',
+				add_action( 'init', function() {
+					$global_tooltip_url = add_query_arg(
 						array(
-							'global-settings' => array(
-								'tabs'   => array(
-									'general'    => __( 'General', 'wc-wlfmc-wishlist' ),
-									'appearance' => __( 'Appearance', 'wc-wlfmc-wishlist' ),
-									'share'      => __( 'Social Share', 'wc-wlfmc-wishlist' ),
-									'marketing'  => __( 'Marketing', 'wc-wlfmc-wishlist' ),
+							'page' => 'mc-global-settings',
+							'tab'  => 'appearance#tooltip_style',
+						),
+						admin_url( 'admin.php' )
+					);
+
+					$this->global_options = array(
+						'options'        => apply_filters(
+							'wlfmc_admin_options',
+							array(
+								'global-settings' => array(
+									'tabs'   => array(
+										'general'    => __( 'General', 'wc-wlfmc-wishlist' ),
+										'appearance' => __( 'Appearance', 'wc-wlfmc-wishlist' ),
+										'share'      => __( 'Social Share', 'wc-wlfmc-wishlist' ),
+										'marketing'  => __( 'Marketing', 'wc-wlfmc-wishlist' ),
+									),
+									'fields' => array(
+										'general'    => apply_filters(
+											'wlfmc_global_general_settings',
+											array(
+												'start-article-wishlist-optimization-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Caching Optimization & Performance Improvement', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'To improve wishlist speed and functionality, adjust settings based on your cache plugin, hosting, and server configuration.', 'wc-wlfmc-wishlist' ),
+												),
+												'ajax_mode'    => array(
+													'label'   => __( 'Type of ajax operations', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'wp_loaded' => __( 'wp loaded hook', 'wc-wlfmc-wishlist' ),
+														'rest_api' => __( 'Wp rest api', 'wc-wlfmc-wishlist' ),
+														'admin-ajax.php' => __( 'admin-ajax.php (Recommended)', 'wc-wlfmc-wishlist' ),
+													),
+													/* translators: admin url of permalink structure  */
+													'desc'    => sprintf( __( 'If you select the "Wp rest api" option, the %s must be changed to "Post name".', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'options-permalink.php' ), __( 'permalink structure', 'wc-wlfmc-wishlist' ) ) ),
+													'default' => 'admin-ajax.php',
+												),
+												'ajax_loading' => array(
+													'label'   => __( 'Show loading Ajax operations', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'desc'    => __( 'If your site speed is slow, you should activate this feature.', 'wc-wlfmc-wishlist' ),
+												),
+												'is_cache_enabled' => array(
+													'label'   => __( 'Cache protection', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'desc'    => '<a href="https://moreconvert.com/d44b" target="_blank">' . __( 'Learn how to disable caching for the lists tables.', 'wc-wlfmc-wishlist' ) . '</a>',
+													'help'    => __( 'If a caching plugin or hosting caching is enabled on your website and the wishlist is not working properly, enable this option.', 'wc-wlfmc-wishlist' ),
+												),
+												'css_print_method' => array(
+													'label'   => __( 'CSS Print Method', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This option allows you to manage your CSS file separately and utilize optimization for faster and better loading.', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+												),
+												'end-article-wishlist-optimization-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-gdpr-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'GDPR settings', 'wc-wlfmc-wishlist' ),
+												),
+												'gdpr_enable' => array(
+													'label'   => __( 'Enable GDPR Compliance', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'desc'    => __( 'When enabled, no emails will be sent until users agree to the GDPR terms.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-gdpr-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-wishlist-advanced-settings' => array(
+													'type'  => 'start',
+													'doc'   => 'https://moreconvert.com/we2m',
+													'title' => __( 'Advanced settings', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'These settings are not necessary and you can use them if you want.', 'wc-wlfmc-wishlist' ),
+												),
+												'login_url'    => array(
+													'label'   => __( 'Login URL', 'wc-wlfmc-wishlist' ),
+													'default' => '',
+													'desc'    => __( 'This link is used in places where the user will be invited to login.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'url',
+													'help'    => __( 'if you use default wordpress login page, Leave the field.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'placeholder' => __( 'Example: https://yourdomain.com/login', 'wc-wlfmc-wishlist' ),
+													),
+												),
+												'signup_url'   => array(
+													'label'   => __( 'Sign-up URL', 'wc-wlfmc-wishlist' ),
+													'default' => '',
+													'desc'    => __( 'This link is used in places where the user will be invited to Sign-up.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'url',
+													'help'    => __( 'if you use default wordpress sign-up page, Leave the field.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'placeholder' => __( 'Example: https://yourdomain.com/register', 'wc-wlfmc-wishlist' ),
+													),
+												),
+												'live_chat'    => array(
+													'label'   => __( 'Live support chat', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'help'    => __( 'With this option enabled, you can ask us your questions from the chat box inside the plugin, and we will solve your problem quickly', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-wishlist-advanced-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-wishlist-import-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Data Transfer Settings', 'wc-wlfmc-wishlist' ),
+													'desc'  => '',
+												),
+												'export_settings' => array(
+													'label'   => __( 'Export Settings', 'wc-wlfmc-wishlist' ),
+													'type'    => 'button',
+													'class'   => 'mct_export_file_button btn-secondary',
+													'default' => __( 'Export', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This feature allows you to download a backup file of your current plugin settings. This can be useful if you want to transfer your settings to another website or keep a copy for safekeeping.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'data-option_id' => 'wlfmc_options',
+													),
+												),
+												'import_settings' => array(
+													'label'   => __( 'Import Settings', 'wc-wlfmc-wishlist' ),
+													'type'    => 'import',
+													'class'   => 'wlfmc-export-settings',
+													'default' => __( 'Import', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This feature allows you to upload a backup file of previously exported plugin settings. This can be useful if you need to restore your settings after updating the plugin or moving to a new website.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'data-title'     => __( 'Select Json File', 'wc-wlfmc-wishlist' ),
+														'data-button-text' => __( 'Select This File', 'wc-wlfmc-wishlist' ),
+														'data-option_id' => 'wlfmc_options',
+														'data-mimetypes' => 'application/json',
+													),
+												),
+												'remove_all_data' => array(
+													'label' => __( 'Remove all data', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'Uncheck , if you want to prevent data loss when deleting the plugin', 'wc-wlfmc-wishlist' ),
+													'type'  => 'checkbox',
+												),
+												'end-article-wishlist-import-settings' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'appearance' => apply_filters(
+											'wlfmc_global_style_settings',
+											array(
+												'start-article-popup-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Popup and Tooltip Global appearance', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_position' => array(
+													'label'   => __( 'Popup position', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'center-center' => __( 'Middle', 'wc-wlfmc-wishlist' ),
+														'bottom-left'   => __( 'Down left', 'wc-wlfmc-wishlist' ),
+														'bottom-right'  => __( 'Down right', 'wc-wlfmc-wishlist' ),
+														'top-right'     => __( 'Top right', 'wc-wlfmc-wishlist' ),
+														'top-left'      => __( 'Top left', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => 'center-center',
+													'help'    => __( 'Specify the position of the pop up on the website page. There are 5 modes for the pop up position. Middle mode is recommended.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_box_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Popup box style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'popup_title_color' => array(
+															'label' => __( 'Title color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'popup_content_color' => array(
+															'label' => __( 'Content color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'popup_background_color' => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+														),
+														'popup_border_color'     => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#c2c2c2',
+														),
+														'popup_border_radius'    => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '8px',
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the popup (look at the gif)', 'wc-wlfmc-wishlist' ),
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'popup_icon_color' => array(
+															'label' => __( 'Icon color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'popup_icon_background_color' => array(
+															'label' => __( 'Icon background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#f2f2f2',
+														),
+													),
+												),
+												'tooltip_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'tooltip styles', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'tooltip_custom_style'  => array(
+															'label'   => __( 'Customize style', 'wc-wlfmc-wishlist' ),
+															'type'    => 'switch',
+															'default' => '0',
+														),
+														'tooltip_direction'        => array(
+															'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'default' => 'top',
+															'options' => array(
+																'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
+																'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
+																'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
+																'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
+															),
+															'dependencies' => array(
+																'id' => 'tooltip_custom_style',
+																'value' => '1',
+															),
+															'help' => __( 'These tooltip settings are intended for use with share buttons and buttons on list pages.', 'wc-wlfmc-wishlist' ),
+														),
+														'tooltip_color'            => array(
+															'label' => __( 'color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+															'dependencies' => array(
+																'id' => 'tooltip_custom_style',
+																'value' => '1',
+															),
+														),
+														'tooltip_background_color' => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgba(55, 64, 70, 0.9)',
+															'dependencies' => array(
+																'id' => 'tooltip_custom_style',
+																'value' => '1',
+															),
+														),
+														'tooltip_border_radius'    => array(
+															'label' => __( 'border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '6px',
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the tooltip (look at the gif)', 'wc-wlfmc-wishlist' ),
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'dependencies' => array(
+																'id' => 'tooltip_custom_style',
+																'value' => '1',
+															),
+														),
+
+													),
+													'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc for border radius.', 'wc-wlfmc-wishlist' ),
+												),
+												'toast_style'  => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Alert styles', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'parent_class'  => 'enable-for-pro',
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/toast-style.gif',
+													'fields'  => array(
+														'enable_toast_style' => array(
+															'section' => 'global-settings',
+															'label'   => __( 'Alert Styles', 'wc-wlfmc-wishlist' ),
+															'type'    => 'switch',
+															'default' => '0',
+															'custom_attributes' => array(
+																'disabled' => 'true',
+															),
+														),
+													),
+													'help'    => __( 'When this setting is ON, you can customize the appearance of toast notifications for success and error messages, Otherwise, the default settings will be applied.', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-popup-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-custom-css-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Additional CSS', 'wc-wlfmc-wishlist' ),
+												),
+												'custom_css'   => array(
+													'label' => __( 'Custom CSS', 'wc-wlfmc-wishlist' ),
+													'help'  => __( 'This feature allows you to add your own custom CSS code to modify the appearance of your website. Use this feature if you want to make specific design changes that cannot be done through the plugin\'s existing styling options.', 'wc-wlfmc-wishlist' ),
+													'type'  => 'css-editor',
+												),
+												'end-article-custom-css-settings' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'share'      => apply_filters(
+											'wlfmc_global_share_settings',
+											array(
+												'start-article-share-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Social Share', 'wc-wlfmc-wishlist' ),
+												),
+												/*'share_lists' => array(
+													'label'   => __( 'Active Share for:', 'wc-wlfmc-wishlist' ),
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'wishlist'   => __( 'Wishlist', 'wc-wlfmc-wishlist' ),
+														'multi-list' => __( 'Multi-list', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'wishlist',
+													),
+												),*/
+												'enable_share' => array(
+													'label'   => __( 'Share Wishlist', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable this option to let users share their Wishlist on social media', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+												),
+												'share_position' => array(
+													'label'   => __( 'Share position', 'wc-wlfmc-wishlist' ),
+													'default' => 'after_table',
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'popup'     => __( 'Popup (pro)', 'wc-wlfmc-wishlist' ),
+														'after_table'    => __( 'After table', 'wc-wlfmc-wishlist' ),
+													),
+													'disabled_options' => array(
+														'popup',
+													),
+													'dependencies' => array(
+														'id' => 'enable_share',
+														'value' => '1',
+													),
+												),
+												'share_items' => array(
+													'label'   => __( 'Active share buttons', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Which social media icons show on the sharing bar?', 'wc-wlfmc-wishlist' ),
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'facebook' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
+														'messenger' => __( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
+														'twitter' => __( 'Twitter(X)', 'wc-wlfmc-wishlist' ),
+														'whatsapp' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
+														'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
+														'email' => __( 'Email', 'wc-wlfmc-wishlist' ),
+														'copy' => __( 'Share link', 'wc-wlfmc-wishlist' ),
+														'pdf'  => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'facebook',
+														'messenger',
+														'twitter',
+														'whatsapp',
+														'telegram',
+														'email',
+														'copy',
+														'pdf',
+													),
+													'help'    => __( 'In what medias do you prefer your user to be able to share his / her wishlist?', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'enable_share',
+														'value' => '1',
+													),
+												),
+												'product_copy' => array(
+													'label'   => __( 'Transfer to My Lists Button', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This feature enables users to seamlessly transfer products from one list to own.', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+													'dependencies' => array(
+														'id' => 'enable_share',
+														'value' => '1',
+													),
+												),
+												'sharing_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Sharing style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'social_border_radius'       => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '50%',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'social_border_color'       => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgba(59,89,152,.1)',
+														),
+														'social_border_hover_color' => array(
+															'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgba(59,89,152,.1)',
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_share',
+															'value' => '1',
+														),
+														array(
+															'id' => 'share_items',
+															'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
+														),
+													),
+												),
+												'social_color_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Sharing colors', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'facebook_color'       => array(
+															'label' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#C71610',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'facebook',
+																),
+															),
+														),
+														'twitter_color'       => array(
+															'label' => __( 'Twitter(X)', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#000',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'twitter',
+																),
+															),
+														),
+														'messenger_color'       => array(
+															'label' => __( 'Messenger', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#0077FF',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'messenger',
+																),
+															),
+														),
+														'whatsapp_color'       => array(
+															'label' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#4FCE5D',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'whatsapp',
+																),
+															),
+														),
+														'telegram_color'       => array(
+															'label' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#2AABEE',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'telegram',
+																),
+															),
+														),
+														'email_color'       => array(
+															'label' => __( 'Email', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#C71610',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'email',
+																),
+															),
+														),
+														'pdf_color'       => array(
+															'label' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#FF2366',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'pdf',
+																),
+															),
+														),
+														'copy_color'       => array(
+															'label' => __( 'Copy', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#9162ff',
+															'dependencies' => array(
+																array(
+																	'id' => 'share_items',
+																	'value' => 'copy',
+																),
+															),
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_share',
+															'value' => '1',
+														),
+														array(
+															'id' => 'share_items',
+															'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
+														),
+													),
+												),
+												'copy_button_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Copy button colors', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'copy_button_color'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'copy_button_hover_color'       => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'copy_button_background_color'       => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+														),
+														'copy_button_background_hover_color' => array(
+															'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+														),
+														'copy_button_border_color'           => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+														),
+														'copy_button_border_hover_color'     => array(
+															'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_share',
+															'value' => '1',
+														),
+														array(
+															'id' => 'share_position',
+															'value' => 'popup',
+														),
+													),
+												),
+												'copy_field_style' => array(
+													'section' => 'global-settings',
+													'label'   => __( 'Copy field style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'copy_field_color'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+														),
+														'copy_field_border_color'       => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgba(59,89,152,.1)',
+														),
+														'copy_field_background_color'       => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_share',
+															'value' => '1',
+														),
+														array(
+															'id' => 'share_position',
+															'value' => 'popup',
+														),
+													),
+												),
+												'end-article-share-settings' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'marketing'  => apply_filters(
+											'wlfmc_global_marketing_settings',
+											array(
+												'start-article-marketing-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Email Marketing Processing Management', 'wc-wlfmc-wishlist' ),
+												),
+												'email_per_hours' => array(
+													'label'   => __( 'Server-Sent Emails per Hour', 'wc-wlfmc-wishlist' ),
+													'default' => 20,
+													'type'    => 'number',
+													'help'    => __( 'Default: The server sends 20 emails hourly via Wishlist email marketing options. To adjust, check with hosting support for permissible hourly email limits, and consider emails from other plugins, like WooCommerce orders.', 'wc-wlfmc-wishlist' ),
+												),
+												'reset_sending_cycles' => array(
+													'label'   => __( 'Reset Sending Cycles', 'wc-wlfmc-wishlist' ),
+													'type'    => 'button',
+													'class'   => 'wlfmc-reset-sending-cycles btn-secondary',
+													'default' => __( 'Reset', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'All previous cycle between complete automation and running a new automation will be cleared and all automation cycle rules will be cleared for all users.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-marketing-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-email-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Email Marketing Defaults', 'wc-wlfmc-wishlist' ),
+												),
+												'email-from-name' => array(
+													'label'   => __( 'From "name"', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'default' => wp_specialchars_decode( get_option( 'woocommerce_email_from_name' ), ENT_QUOTES ),
+												),
+												'email-from-address' => array(
+													'label'   => __( 'From "Email address"', 'wc-wlfmc-wishlist' ),
+													'type'    => 'email',
+													'default' => sanitize_email( get_option( 'woocommerce_email_from_address' ) ),
+												),
+												'mail-type' => array(
+													'label'   => __( 'Email template', 'wc-wlfmc-wishlist' ),
+													'default' => 'html',
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														// 'plain' => __( 'Plain', 'wc-wlfmc-wishlist' ),
+														'simple-template' => __( 'Simple Template', 'wc-wlfmc-wishlist' ),
+														'html' => __( 'HTML Woocommerce', 'wc-wlfmc-wishlist' ),
+														'mc-template' => __( 'MC Template', 'wc-wlfmc-wishlist' ),
+													),
+
+												),
+												'start-article-template' => array(
+													'type'  => 'start',
+													'title' => __( 'Email MC template', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'You can change the details of the custom email template from here.', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'mail-type',
+														'value' => 'mc-template',
+													),
+												),
+												'email-template-columns-start' => array(
+													'type'    => 'columns-start',
+													'columns' => 2,
+												),
+												'email-template-column-1-start' => array(
+													'type'  => 'column-start',
+													'class' => 'flexible-rows',
+												),
+												'email-template-column-1-child-start' => array(
+													'type'    => 'columns-start',
+													'columns' => 2,
+												),
+												'email-template-column-1-child-1-start' => array(
+													'type'  => 'column-start',
+													'class' => 'flexible-rows',
+												),
+												'email-template-logo' => array(
+													'label' => __( 'Logo', 'wc-wlfmc-wishlist' ),
+													'type'  => 'upload-image',
+													'help'  => __( 'Upload your site logo or select it from your host', 'wc-wlfmc-wishlist' ),
+
+												),
+												'email-template-column-1-child-1-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-1-child-2-start' => array(
+													'type'  => 'column-start',
+													'class' => 'flexible-rows',
+												),
+												'email-template-avatar' => array(
+													'label' => __( 'Avatar', 'wc-wlfmc-wishlist' ),
+													'type'  => 'upload-image',
+													'help'  => __( 'Upload an image of your email sender to show on the email', 'wc-wlfmc-wishlist' ),
+												),
+												'email-template-column-1-child-2-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-1-child-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-1-child-3-start' => array(
+													'type'    => 'columns-start',
+													'columns' => 1,
+												),
+												'email-template-column-1-child-3-1-start' => array(
+													'type'  => 'column-start',
+													'class' => 'flexible-rows',
+												),
+												'email-template-customer-name' => array(
+													'label'   => __( 'Email sender full name', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'default' => __( 'Ana Ride', 'wc-wlfmc-wishlist' ),
+												),
+												'email-template-customer-job' => array(
+													'label'   => __( 'Role of email sender', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'default' => __( 'Customer Manager', 'wc-wlfmc-wishlist' ),
+												),
+												'email-template-column-1-child-3-1-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-1-child-3-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-1-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-column-2-start' => array(
+													'type'  => 'column-start',
+													'class' => 'flexible-rows',
+												),
+												'email-template-socials' => array(
+													'label' => __( 'Social links', 'wc-wlfmc-wishlist' ),
+													'type'  => 'repeater',
+													'add_new_label' => __( 'Add another social link', 'wc-wlfmc-wishlist' ),
+													'limit' => 5,
+													'repeater_fields' => array(
+														'social-name' => array(
+															'label' => __( 'Name', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'class' => 'select2-trigger',
+															'options' => array(
+																'instagram' => __( 'Instagram', 'wc-wlfmc-wishlist' ),
+																'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
+																'reddit'   => __( 'Reddit', 'wc-wlfmc-wishlist' ),
+																'whatsapp' => __( 'whatsapp', 'wc-wlfmc-wishlist' ),
+																'dribbble' => __( 'dribbble', 'wc-wlfmc-wishlist' ),
+																'amazon'   => __( 'amazon', 'wc-wlfmc-wishlist' ),
+																'spotify'  => __( 'spotify', 'wc-wlfmc-wishlist' ),
+																'behance'  => __( 'behance', 'wc-wlfmc-wishlist' ),
+																'location' => __( 'location', 'wc-wlfmc-wishlist' ),
+																'tumblr'   => __( 'tumblr', 'wc-wlfmc-wishlist' ),
+																'pinterest' => __( 'pinterest', 'wc-wlfmc-wishlist' ),
+																'youtube'  => __( 'youtube', 'wc-wlfmc-wishlist' ),
+																'linkedin' => __( 'linkedin', 'wc-wlfmc-wishlist' ),
+																'twitter'  => __( 'twitter(X)', 'wc-wlfmc-wishlist' ),
+																'facebook' => __( 'facebook', 'wc-wlfmc-wishlist' ),
+
+															),
+														),
+														'social-url'  => array(
+															'label' => __( 'URL', 'wc-wlfmc-wishlist' ),
+															'type' => 'url',
+														),
+													),
+												),
+												'email-template-social-style' => array(
+													'label'  => __( 'Social links style', 'wc-wlfmc-wishlist' ),
+													'type'   => 'group-fields',
+													'fields' => array(
+														'email-template-social-shape' => array(
+															'label' => __( 'Image Shape', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'class' => 'select2-trigger',
+															'options' => array(
+																'default' => __( 'Default', 'wc-wlfmc-wishlist' ),
+																'circle'  => __( 'Circle', 'wc-wlfmc-wishlist' ),
+																'outlined_circle' => __( 'Outlined circle', 'wc-wlfmc-wishlist' ),
+																'outlined_square' => __( 'Outlined square', 'wc-wlfmc-wishlist' ),
+																'square'  => __( 'Square', 'wc-wlfmc-wishlist' ),
+																'square_rounded' => __( 'Square rounded', 'wc-wlfmc-wishlist' ),
+															),
+															'default' => 'default',
+														),
+														'email-template-social-size'  => array(
+															'label' => __( 'Image size', 'wc-wlfmc-wishlist' ),
+															'type' => 'number',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'default' => '34',
+														),
+														'email-template-social-color' => array(
+															'label' => __( 'Image color', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'class' => 'select2-trigger',
+															'options' => array(
+																'black' => __( 'Black', 'wc-wlfmc-wishlist' ),
+																'color' => __( 'Color', 'wc-wlfmc-wishlist' ),
+																'grey' => __( 'Grey', 'wc-wlfmc-wishlist' ),
+															),
+															'default' => 'color',
+														),
+
+													),
+												),
+												'email-template-social-open-in-new-tab' => array(
+													'label' => '',
+													'type'  => 'checkbox',
+													'desc'  => __( 'Open links in new tab', 'wc-wlfmc-wishlist' ),
+												),
+												'email-template-column-2-end' => array(
+													'type' => 'column-end',
+												),
+												'email-template-columns-end' => array(
+													'type' => 'columns-end',
+												),
+												'end-article-template' => array(
+													'type' => 'end',
+												),
+												'end-article-email-text' => array(
+													'type' => 'end',
+												),
+											)
+										),
+									),
 								),
-								'fields' => array(
-									'general'    => apply_filters(
-										'wlfmc_global_general_settings',
-										array(
-											'start-article-wishlist-optimization-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Caching Optimization & Performance Improvement', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'To improve wishlist speed and functionality, adjust settings based on your cache plugin, hosting, and server configuration.', 'wc-wlfmc-wishlist' ),
-											),
-											'ajax_mode'    => array(
-												'label'   => __( 'Type of ajax operations', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'wp_loaded' => __( 'wp loaded hook', 'wc-wlfmc-wishlist' ),
-													'rest_api' => __( 'Wp rest api', 'wc-wlfmc-wishlist' ),
-													'admin-ajax.php' => __( 'admin-ajax.php (Recommended)', 'wc-wlfmc-wishlist' ),
-												),
-												/* translators: admin url of permalink structure  */
-												'desc'    => sprintf( __( 'If you select the "Wp rest api" option, the %s must be changed to "Post name".', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'options-permalink.php' ), __( 'permalink structure', 'wc-wlfmc-wishlist' ) ) ),
-												'default' => 'admin-ajax.php',
-											),
-											'ajax_loading' => array(
-												'label'   => __( 'Show loading Ajax operations', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'desc'    => __( 'If your site speed is slow, you should activate this feature.', 'wc-wlfmc-wishlist' ),
-											),
-											'is_cache_enabled' => array(
-												'label'   => __( 'Cache protection', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'desc'    => '<a href="https://moreconvert.com/d44b" target="_blank">' . __( 'Learn how to disable caching for the lists tables.', 'wc-wlfmc-wishlist' ) . '</a>',
-												'help'    => __( 'If a caching plugin or hosting caching is enabled on your website and the wishlist is not working properly, enable this option.', 'wc-wlfmc-wishlist' ),
-											),
-                                            'css_print_method' => array(
-	                                            'label'   => __( 'CSS Print Method', 'wc-wlfmc-wishlist' ),
-	                                            'help'    => __( 'This option allows you to manage your CSS file separately and utilize optimization for faster and better loading.', 'wc-wlfmc-wishlist' ),
-	                                            'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-	                                            'type'    => 'switch',
-	                                            'default' => '0',
-	                                            'parent_class' => 'enable-for-pro',
-	                                            'custom_attributes' => array(
-		                                            'disabled' => 'true',
-	                                            ),
-                                            ),
-											'end-article-wishlist-optimization-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-gdpr-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'GDPR settings', 'wc-wlfmc-wishlist' ),
-											),
-											'gdpr_enable' => array(
-												'label'   => __( 'Enable GDPR Compliance', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'desc'    => __( 'When enabled, no emails will be sent until users agree to the GDPR terms.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-gdpr-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-wishlist-advanced-settings' => array(
-												'type'  => 'start',
-												'doc'   => 'https://moreconvert.com/we2m',
-												'title' => __( 'Advanced settings', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'These settings are not necessary and you can use them if you want.', 'wc-wlfmc-wishlist' ),
-											),
-											'login_url'    => array(
-												'label'   => __( 'Login URL', 'wc-wlfmc-wishlist' ),
-												'default' => '',
-												'desc'    => __( 'This link is used in places where the user will be invited to login.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'url',
-												'help'    => __( 'if you use default wordpress login page, Leave the field.', 'wc-wlfmc-wishlist' ),
-												'custom_attributes' => array(
-													'placeholder' => __( 'Example: https://yourdomain.com/login', 'wc-wlfmc-wishlist' ),
-												),
-											),
-											'signup_url'   => array(
-												'label'   => __( 'Sign-up URL', 'wc-wlfmc-wishlist' ),
-												'default' => '',
-												'desc'    => __( 'This link is used in places where the user will be invited to Sign-up.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'url',
-												'help'    => __( 'if you use default wordpress sign-up page, Leave the field.', 'wc-wlfmc-wishlist' ),
-												'custom_attributes' => array(
-													'placeholder' => __( 'Example: https://yourdomain.com/register', 'wc-wlfmc-wishlist' ),
-												),
-											),
-											'live_chat'    => array(
-												'label'   => __( 'Live support chat', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'help'    => __( 'With this option enabled, you can ask us your questions from the chat box inside the plugin, and we will solve your problem quickly', 'wc-wlfmc-wishlist' ),
-											),
-                                            'end-article-wishlist-advanced-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-wishlist-import-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Data Transfer Settings', 'wc-wlfmc-wishlist' ),
-												'desc'  => '',
-											),
-											'export_settings' => array(
-												'label'   => __( 'Export Settings', 'wc-wlfmc-wishlist' ),
-												'type'    => 'button',
-												'class'   => 'mct_export_file_button btn-secondary',
-												'default' => __( 'Export', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'This feature allows you to download a backup file of your current plugin settings. This can be useful if you want to transfer your settings to another website or keep a copy for safekeeping.', 'wc-wlfmc-wishlist' ),
-												'custom_attributes' => array(
-													'data-option_id' => 'wlfmc_options',
-												),
-											),
-											'import_settings' => array(
-												'label'   => __( 'Import Settings', 'wc-wlfmc-wishlist' ),
-												'type'    => 'import',
-												'class'   => 'wlfmc-export-settings',
-												'default' => __( 'Import', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'This feature allows you to upload a backup file of previously exported plugin settings. This can be useful if you need to restore your settings after updating the plugin or moving to a new website.', 'wc-wlfmc-wishlist' ),
-												'custom_attributes' => array(
-													'data-title'     => __( 'Select Json File', 'wc-wlfmc-wishlist' ),
-													'data-button-text' => __( 'Select This File', 'wc-wlfmc-wishlist' ),
-													'data-option_id' => 'wlfmc_options',
-													'data-mimetypes' => 'application/json',
-												),
-											),
-											'remove_all_data' => array(
-												'label' => __( 'Remove all data', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'Uncheck , if you want to prevent data loss when deleting the plugin', 'wc-wlfmc-wishlist' ),
-												'type'  => 'checkbox',
-											),
-											'end-article-wishlist-import-settings' => array(
-												'type' => 'end',
-											),
-										)
+							)
+						),
+						'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
+						'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
+						'header_buttons' => wlfmc_get_admin_header_buttons(),
+						'header_menu'    => wlfmc_get_admin_header_menu(),
+						'sidebar'        => wlfmc_get_admin_sidebar( 'global' ),
+						'type'           => 'setting-type',
+						'ajax_saving'    => true,
+						'sticky_buttons' => true,
+						'id'             => 'wlfmc_options',
+					);
+
+					$this->wishlist_options = array(
+						'options'        => apply_filters(
+							'wlfmc_admin_options',
+							array(
+								'button-display' => array(
+									'tabs'   => array(
+										'general'       => __( 'General', 'wc-wlfmc-wishlist' ),
+										'button'        => __( '"Add to wishlist" Button', 'wc-wlfmc-wishlist' ),
+										'page-settings' => __( 'Wishlist Page', 'wc-wlfmc-wishlist' ),
+										'counter'       => __( 'Header Counter', 'wc-wlfmc-wishlist' ),
 									),
-									'appearance' => apply_filters(
-										'wlfmc_global_style_settings',
-										array(
-											'start-article-popup-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Popup and Tooltip Global appearance', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_position' => array(
-												'label'   => __( 'Popup position', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'center-center' => __( 'Middle', 'wc-wlfmc-wishlist' ),
-													'bottom-left'   => __( 'Down left', 'wc-wlfmc-wishlist' ),
-													'bottom-right'  => __( 'Down right', 'wc-wlfmc-wishlist' ),
-													'top-right'     => __( 'Top right', 'wc-wlfmc-wishlist' ),
-													'top-left'      => __( 'Top left', 'wc-wlfmc-wishlist' ),
+									'fields' => array(
+										'general'       => apply_filters(
+											'wlfmc_wishlist_general_settings',
+											array(
+												'start-article-display-settings' => array(
+													'type'    => 'start',
+													'title'   => __( 'Display Settings', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'You only need to set them once after installing the plugin.', 'wc-wlfmc-wishlist' ),
+													'youtube' => 'https://moreconvert.com/rv5f',
+													'doc'     => 'https://moreconvert.com/0dfs',
 												),
-												'default' => 'center-center',
-												'help'    => __( 'Specify the position of the pop up on the website page. There are 5 modes for the pop up position. Middle mode is recommended.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_box_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Popup box style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'popup_title_color' => array(
-														'label' => __( 'Title color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'popup_content_color' => array(
-														'label' => __( 'Content color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'popup_background_color' => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-													),
-													'popup_border_color'     => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#c2c2c2',
-													),
-													'popup_border_radius'    => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '8px',
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the popup (look at the gif)', 'wc-wlfmc-wishlist' ),
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'popup_icon_color' => array(
-														'label' => __( 'Icon color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'popup_icon_background_color' => array(
-														'label' => __( 'Icon background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#f2f2f2',
-													),
+												'wishlist_enable' => array(
+													'label'   => __( 'Enable wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
 												),
-											),
-											'tooltip_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'tooltip styles', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'tooltip_custom_style'  => array(
-														'label'   => __( 'Customize style', 'wc-wlfmc-wishlist' ),
-														'type'    => 'switch',
-														'default' => '0',
-													),
-													'tooltip_direction'        => array(
-														'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'default' => 'top',
-														'options' => array(
-															'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
-															'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
-															'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
-															'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
-														),
-														'dependencies' => array(
-															'id' => 'tooltip_custom_style',
-															'value' => '1',
-														),
-                                                        'help' => __( 'These tooltip settings are intended for use with share buttons and buttons on list pages.', 'wc-wlfmc-wishlist' ),
-													),
-													'tooltip_color'            => array(
-														'label' => __( 'color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-														'dependencies' => array(
-															'id' => 'tooltip_custom_style',
-															'value' => '1',
-														),
-													),
-													'tooltip_background_color' => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgba(55, 64, 70, 0.9)',
-														'dependencies' => array(
-															'id' => 'tooltip_custom_style',
-															'value' => '1',
-														),
-													),
-													'tooltip_border_radius'    => array(
-														'label' => __( 'border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '6px',
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the tooltip (look at the gif)', 'wc-wlfmc-wishlist' ),
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'dependencies' => array(
-															'id' => 'tooltip_custom_style',
-															'value' => '1',
-														),
-													),
-
+												'is_merge_lists'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
 												),
-												'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc for border radius.', 'wc-wlfmc-wishlist' ),
-											),
-											'toast_style'  => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Alert styles', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'parent_class'  => 'enable-for-pro',
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/toast-style.gif',
-												'fields'  => array(
-													'enable_toast_style' => array(
-														'section' => 'global-settings',
-														'label'   => __( 'Alert Styles', 'wc-wlfmc-wishlist' ),
-														'type'    => 'switch',
-														'default' => '0',
-														'custom_attributes' => array(
-															'disabled' => 'true',
-														),
+												'who_can_see_wishlist_options' => array(
+													'label'   => __( 'Wishlist Display', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'help'    => __( 'Do you want the wishlist to be visible only to members or all users of your website', 'wc-wlfmc-wishlist' ),
+													'options' => array(
+														'all' => __( 'Show to All users', 'wc-wlfmc-wishlist' ),
+														'users' => __( 'Show to Logged-in Users Only', 'wc-wlfmc-wishlist' ),
 													),
-												),
-												'help'    => __( 'When this setting is ON, you can customize the appearance of toast notifications for success and error messages, Otherwise, the default settings will be applied.', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-popup-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-custom-css-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Additional CSS', 'wc-wlfmc-wishlist' ),
-											),
-											'custom_css'   => array(
-												'label' => __( 'Custom CSS', 'wc-wlfmc-wishlist' ),
-												'help'  => __( 'This feature allows you to add your own custom CSS code to modify the appearance of your website. Use this feature if you want to make specific design changes that cannot be done through the plugin\'s existing styling options.', 'wc-wlfmc-wishlist' ),
-												'type'  => 'css-editor',
-											),
-											'end-article-custom-css-settings' => array(
-												'type' => 'end',
-											),
-										)
-									),
-									'share'      => apply_filters(
-										'wlfmc_global_share_settings',
-										array(
-											'start-article-share-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Social Share', 'wc-wlfmc-wishlist' ),
-											),
-											/*'share_lists' => array(
-												'label'   => __( 'Active Share for:', 'wc-wlfmc-wishlist' ),
-												'type'    => 'checkbox-group',
-												'options' => array(
-													'wishlist'   => __( 'Wishlist', 'wc-wlfmc-wishlist' ),
-													'multi-list' => __( 'Multi-list', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => array(
-													'wishlist',
-												),
-											),*/
-											'enable_share' => array(
-												'label'   => __( 'Share Wishlist', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable this option to let users share their Wishlist on social media', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-											),
-											'share_position' => array(
-												'label'   => __( 'Share position', 'wc-wlfmc-wishlist' ),
-												'default' => 'after_table',
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'popup'     => __( 'Popup (pro)', 'wc-wlfmc-wishlist' ),
-													'after_table'    => __( 'After table', 'wc-wlfmc-wishlist' ),
-												),
-												'disabled_options' => array(
-													'popup',
-												),
-												'dependencies' => array(
-													'id' => 'enable_share',
-													'value' => '1',
-												),
-											),
-											'share_items' => array(
-												'label'   => __( 'Active share buttons', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Which social media icons show on the sharing bar?', 'wc-wlfmc-wishlist' ),
-												'type'    => 'checkbox-group',
-												'options' => array(
-													'facebook' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
-													'messenger' => __( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
-													'twitter' => __( 'Twitter', 'wc-wlfmc-wishlist' ),
-													'whatsapp' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
-													'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
-													'email' => __( 'Email', 'wc-wlfmc-wishlist' ),
-													'copy' => __( 'Share link', 'wc-wlfmc-wishlist' ),
-													'pdf'  => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => array(
-													'facebook',
-													'messenger',
-													'twitter',
-													'whatsapp',
-													'telegram',
-													'email',
-													'copy',
-													'pdf',
-												),
-												'help'    => __( 'In what medias do you prefer your user to be able to share his / her wishlist?', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'enable_share',
-													'value' => '1',
-												),
-											),
-											'product_copy' => array(
-												'label'   => __( 'Transfer to My Lists Button', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'This feature enables users to seamlessly transfer products from one list to own.', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-												'dependencies' => array(
-													'id' => 'enable_share',
-													'value' => '1',
-												),
-											),
-											'sharing_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Sharing style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'social_border_radius'       => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '50%',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'social_border_color'       => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgba(59,89,152,.1)',
-													),
-													'social_border_hover_color' => array(
-														'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgba(59,89,152,.1)',
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_share',
-														'value' => '1',
-													),
-													array(
-														'id' => 'share_items',
-														'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
-													),
-												),
-											),
-											'social_color_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Sharing colors', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'facebook_color'       => array(
-														'label' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#C71610',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'facebook',
-															),
-														),
-													),
-													'twitter_color'       => array(
-														'label' => __( 'Twitter', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#000',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'twitter',
-															),
-														),
-													),
-													'messenger_color'       => array(
-														'label' => __( 'Messenger', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#0077FF',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'messenger',
-															),
-														),
-													),
-													'whatsapp_color'       => array(
-														'label' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#4FCE5D',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'whatsapp',
-															),
-														),
-													),
-													'telegram_color'       => array(
-														'label' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#2AABEE',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'telegram',
-															),
-														),
-													),
-													'email_color'       => array(
-														'label' => __( 'Email', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#C71610',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'email',
-															),
-														),
-													),
-													'pdf_color'       => array(
-														'label' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#FF2366',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'pdf',
-															),
-														),
-													),
-													'copy_color'       => array(
-														'label' => __( 'Copy', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#9162ff',
-														'dependencies' => array(
-															array(
-																'id' => 'share_items',
-																'value' => 'copy',
-															),
-														),
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_share',
-														'value' => '1',
-													),
-													array(
-														'id' => 'share_items',
-														'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
-													),
-												),
-											),
-											'copy_button_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Copy button colors', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'copy_button_color'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'copy_button_hover_color'       => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'copy_button_background_color'       => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-													),
-													'copy_button_background_hover_color' => array(
-														'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-													),
-													'copy_button_border_color'           => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-													),
-													'copy_button_border_hover_color'     => array(
-														'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_share',
-														'value' => '1',
-													),
-													array(
-														'id' => 'share_position',
-														'value' => 'popup',
-													),
-												),
-											),
-											'copy_field_style' => array(
-												'section' => 'global-settings',
-												'label'   => __( 'Copy field style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'copy_field_color'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-													),
-													'copy_field_border_color'       => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgba(59,89,152,.1)',
-													),
-													'copy_field_background_color'       => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_share',
-														'value' => '1',
-													),
-													array(
-														'id' => 'share_position',
-														'value' => 'popup',
-													),
-												),
-											),
-											'end-article-share-settings' => array(
-												'type' => 'end',
-											),
-										)
-									),
-									'marketing'  => apply_filters(
-										'wlfmc_global_marketing_settings',
-										array(
-											'start-article-marketing-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Email Marketing Processing Management', 'wc-wlfmc-wishlist' ),
-											),
-											'email_per_hours' => array(
-												'label'   => __( 'Server-Sent Emails per Hour', 'wc-wlfmc-wishlist' ),
-												'default' => 20,
-												'type'    => 'number',
-												'help'    => __( 'Default: The server sends 20 emails hourly via Wishlist email marketing options. To adjust, check with hosting support for permissible hourly email limits, and consider emails from other plugins, like WooCommerce orders.', 'wc-wlfmc-wishlist' ),
-											),
-											'reset_sending_cycles' => array(
-												'label'   => __( 'Reset Sending Cycles', 'wc-wlfmc-wishlist' ),
-												'type'    => 'button',
-												'class'   => 'wlfmc-reset-sending-cycles btn-secondary',
-												'default' => __( 'Reset', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'All previous cycle between complete automation and running a new automation will be cleared and all automation cycle rules will be cleared for all users.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-marketing-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-email-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Email Marketing Defaults', 'wc-wlfmc-wishlist' ),
-											),
-											'email-from-name' => array(
-												'label'   => __( 'From "name"', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'default' => wp_specialchars_decode( get_option( 'woocommerce_email_from_name' ), ENT_QUOTES ),
-											),
-											'email-from-address' => array(
-												'label'   => __( 'From "Email address"', 'wc-wlfmc-wishlist' ),
-												'type'    => 'email',
-												'default' => sanitize_email( get_option( 'woocommerce_email_from_address' ) ),
-											),
-											'mail-type' => array(
-												'label'   => __( 'Email template', 'wc-wlfmc-wishlist' ),
-												'default' => 'html',
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													// 'plain' => __( 'Plain', 'wc-wlfmc-wishlist' ),
-													'simple-template' => __( 'Simple Template', 'wc-wlfmc-wishlist' ),
-													'html' => __( 'HTML Woocommerce', 'wc-wlfmc-wishlist' ),
-													'mc-template' => __( 'MC Template', 'wc-wlfmc-wishlist' ),
-												),
-
-											),
-											'start-article-template' => array(
-												'type'  => 'start',
-												'title' => __( 'Email MC template', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'You can change the details of the custom email template from here.', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'mail-type',
-													'value' => 'mc-template',
-												),
-											),
-											'email-template-columns-start' => array(
-												'type'    => 'columns-start',
-												'columns' => 2,
-											),
-											'email-template-column-1-start' => array(
-												'type'  => 'column-start',
-												'class' => 'flexible-rows',
-											),
-											'email-template-column-1-child-start' => array(
-												'type'    => 'columns-start',
-												'columns' => 2,
-											),
-											'email-template-column-1-child-1-start' => array(
-												'type'  => 'column-start',
-												'class' => 'flexible-rows',
-											),
-											'email-template-logo' => array(
-												'label' => __( 'Logo', 'wc-wlfmc-wishlist' ),
-												'type'  => 'upload-image',
-												'help'  => __( 'Upload your site logo or select it from your host', 'wc-wlfmc-wishlist' ),
-
-											),
-											'email-template-column-1-child-1-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-1-child-2-start' => array(
-												'type'  => 'column-start',
-												'class' => 'flexible-rows',
-											),
-											'email-template-avatar' => array(
-												'label' => __( 'Avatar', 'wc-wlfmc-wishlist' ),
-												'type'  => 'upload-image',
-												'help'  => __( 'Upload an image of your email sender to show on the email', 'wc-wlfmc-wishlist' ),
-											),
-											'email-template-column-1-child-2-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-1-child-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-1-child-3-start' => array(
-												'type'    => 'columns-start',
-												'columns' => 1,
-											),
-											'email-template-column-1-child-3-1-start' => array(
-												'type'  => 'column-start',
-												'class' => 'flexible-rows',
-											),
-											'email-template-customer-name' => array(
-												'label'   => __( 'Email sender full name', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'default' => __( 'Ana Ride', 'wc-wlfmc-wishlist' ),
-											),
-											'email-template-customer-job' => array(
-												'label'   => __( 'Role of email sender', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'default' => __( 'Customer Manager', 'wc-wlfmc-wishlist' ),
-											),
-											'email-template-column-1-child-3-1-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-1-child-3-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-1-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-column-2-start' => array(
-												'type'  => 'column-start',
-												'class' => 'flexible-rows',
-											),
-											'email-template-socials' => array(
-												'label' => __( 'Social links', 'wc-wlfmc-wishlist' ),
-												'type'  => 'repeater',
-												'add_new_label' => __( 'Add another social link', 'wc-wlfmc-wishlist' ),
-												'limit' => 5,
-												'repeater_fields' => array(
-													'social-name' => array(
-														'label' => __( 'Name', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'class' => 'select2-trigger',
-														'options' => array(
-															'instagram' => __( 'Instagram', 'wc-wlfmc-wishlist' ),
-															'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
-															'reddit'   => __( 'Reddit', 'wc-wlfmc-wishlist' ),
-															'whatsapp' => __( 'whatsapp', 'wc-wlfmc-wishlist' ),
-															'dribbble' => __( 'dribbble', 'wc-wlfmc-wishlist' ),
-															'amazon'   => __( 'amazon', 'wc-wlfmc-wishlist' ),
-															'spotify'  => __( 'spotify', 'wc-wlfmc-wishlist' ),
-															'behance'  => __( 'behance', 'wc-wlfmc-wishlist' ),
-															'location' => __( 'location', 'wc-wlfmc-wishlist' ),
-															'tumblr'   => __( 'tumblr', 'wc-wlfmc-wishlist' ),
-															'pinterest' => __( 'pinterest', 'wc-wlfmc-wishlist' ),
-															'youtube'  => __( 'youtube', 'wc-wlfmc-wishlist' ),
-															'linkedin' => __( 'linkedin', 'wc-wlfmc-wishlist' ),
-															'twitter'  => __( 'twitter', 'wc-wlfmc-wishlist' ),
-															'facebook' => __( 'facebook', 'wc-wlfmc-wishlist' ),
-
-														),
-													),
-													'social-url'  => array(
-														'label' => __( 'URL', 'wc-wlfmc-wishlist' ),
-														'type' => 'url',
-													),
-												),
-											),
-											'email-template-social-style' => array(
-												'label'  => __( 'Social links style', 'wc-wlfmc-wishlist' ),
-												'type'   => 'group-fields',
-												'fields' => array(
-													'email-template-social-shape' => array(
-														'label' => __( 'Image Shape', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'class' => 'select2-trigger',
-														'options' => array(
-															'default' => __( 'Default', 'wc-wlfmc-wishlist' ),
-															'circle'  => __( 'Circle', 'wc-wlfmc-wishlist' ),
-															'outlined_circle' => __( 'Outlined circle', 'wc-wlfmc-wishlist' ),
-															'outlined_square' => __( 'Outlined square', 'wc-wlfmc-wishlist' ),
-															'square'  => __( 'Square', 'wc-wlfmc-wishlist' ),
-															'square_rounded' => __( 'Square rounded', 'wc-wlfmc-wishlist' ),
-														),
-														'default' => 'default',
-													),
-													'email-template-social-size'  => array(
-														'label' => __( 'Image size', 'wc-wlfmc-wishlist' ),
-														'type' => 'number',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'default' => '34',
-													),
-													'email-template-social-color' => array(
-														'label' => __( 'Image color', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'class' => 'select2-trigger',
-														'options' => array(
-															'black' => __( 'Black', 'wc-wlfmc-wishlist' ),
-															'color' => __( 'Color', 'wc-wlfmc-wishlist' ),
-															'grey' => __( 'Grey', 'wc-wlfmc-wishlist' ),
-														),
-														'default' => 'color',
-													),
-
-												),
-											),
-											'email-template-social-open-in-new-tab' => array(
-												'label' => '',
-												'type'  => 'checkbox',
-												'desc'  => __( 'Open links in new tab', 'wc-wlfmc-wishlist' ),
-											),
-											'email-template-column-2-end' => array(
-												'type' => 'column-end',
-											),
-											'email-template-columns-end' => array(
-												'type' => 'columns-end',
-											),
-											'end-article-template' => array(
-												'type' => 'end',
-											),
-											'end-article-email-text' => array(
-												'type' => 'end',
-											),
-										)
-									),
-								),
-							),
-						)
-					),
-					'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
-					'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
-					'header_buttons' => wlfmc_get_admin_header_buttons(),
-					'header_menu'    => wlfmc_get_admin_header_menu(),
-					'sidebar'        => wlfmc_get_admin_sidebar( 'global' ),
-					'type'           => 'setting-type',
-					'ajax_saving'    => true,
-					'sticky_buttons' => true,
-					'id'             => 'wlfmc_options',
-				);
-
-				$this->wishlist_options = array(
-					'options'        => apply_filters(
-						'wlfmc_admin_options',
-						array(
-							'button-display' => array(
-								'tabs'   => array(
-									'general'       => __( 'General', 'wc-wlfmc-wishlist' ),
-									'button'        => __( '"Add to wishlist" Button', 'wc-wlfmc-wishlist' ),
-									'page-settings' => __( 'Wishlist Page', 'wc-wlfmc-wishlist' ),
-									'counter'       => __( 'Header Counter', 'wc-wlfmc-wishlist' ),
-								),
-								'fields' => array(
-									'general'       => apply_filters(
-										'wlfmc_wishlist_general_settings',
-										array(
-											'start-article-display-settings' => array(
-												'type'    => 'start',
-												'title'   => __( 'Display Settings', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'You only need to set them once after installing the plugin.', 'wc-wlfmc-wishlist' ),
-												'youtube' => 'https://moreconvert.com/rv5f',
-												'doc'     => 'https://moreconvert.com/0dfs',
-											),
-											'wishlist_enable' => array(
-												'label'   => __( 'Enable wishlist', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-											),
-											'is_merge_lists'       => array(
-                                                'parent_class' => 'hidden-option',
-                                                'type'         => 'switch',
-                                                'remove_name'  => true,
-												'default' => '0',
-											),
-											'who_can_see_wishlist_options' => array(
-												'label'   => __( 'Wishlist Display', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'help'    => __( 'Do you want the wishlist to be visible only to members or all users of your website', 'wc-wlfmc-wishlist' ),
-												'options' => array(
-													'all' => __( 'Show to All users', 'wc-wlfmc-wishlist' ),
-													'users' => __( 'Show to Logged-in Users Only', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'all',
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'force_user_to_login' => array(
-												'label'   => __( 'Guest User Lock', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'If you want a comprehensive and accurate analytics section, make the login require.', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'Guests can see the button, but only members can use it. If they try, they\'ll see an error message and need to log in or sign up to use its features.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'dependencies' => array(
-													array(
-														'id' => 'who_can_see_wishlist_options',
-														'value' => 'all',
-													),
-													array(
+													'default' => 'all',
+													'dependencies' => array(
 														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
+												),
+												'force_user_to_login' => array(
+													'label'   => __( 'Guest User Lock', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'If you want a comprehensive and accurate analytics section, make the login require.', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'Guests can see the button, but only members can use it. If they try, they\'ll see an error message and need to log in or sign up to use its features.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'dependencies' => array(
+														array(
+															'id' => 'who_can_see_wishlist_options',
+															'value' => 'all',
+														),
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+
+													),
+													'default' => '0',
 
 												),
-												'default' => '0',
+												'multi_list_state' => array(
+													'label'   => __( 'Multi-List', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
+														'value' => '1',
+													),
+												),
+												'save_for_later_state' => array(
+													'label'   => __( 'Save For Later', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
+														'value' => '1',
+													),
+												),
+												'end-article-display-settings' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'button'        => apply_filters(
+											'wlfmc_wishlist_button_settings',
+											array(
+												// add to wishlist actions.
+												'start-article-actions' => array(
+													'type'    => 'start',
+													'title'   => __( '"Add to Wishlist" Button <span style="color:#fd5d00">Actions</span>', 'wc-wlfmc-wishlist'  ),
+													'class'   => 'mct-accordion collapsed',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'click_wishlist_button_behavior' => array(
+													'label'   => __( '"Add to Wishlist" Button Reaction', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'help'    => __( 'Specify the action when users click the "Add to Wishlist" button.', 'wc-wlfmc-wishlist' ),
+													'options' => array(
+														'just-add'     => __( 'No Reaction, Just Add to Wishlist', 'wc-wlfmc-wishlist' ),
+														'open-popup'   => __( 'Popup Message for Wishlist Status', 'wc-wlfmc-wishlist' ),
+														'add-redirect' => __( 'Go to Wishlist Page After Adding To Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => 'just-add',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'after_second_click' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Second click action', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'remove'   => __( 'Remove from wishlist', 'wc-wlfmc-wishlist' ),
+														'wishlist' => __( 'Go to the wishlist page', 'wc-wlfmc-wishlist' ),
+														'error'    => __( 'Display "Product Already in Wishlist" Alert', 'wc-wlfmc-wishlist' ),
+													),
+													'help'    => __( 'After the product is added to the wishlist, What should happen if the user clicks the wishlist button again?', 'wc-wlfmc-wishlist' ),
+													'default' => 'remove',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'enable_for_outofstock_product' => array(
+													'label'   => __( 'Show for out-of-stock', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable the “ add to wishlist” button for out-of-stock products', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in out of stock products.', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
+														'value' => '1',
+													),
+												),
+												'end-article-actions' => array(
+													'type' => 'end',
+												),
+												'start-article-popup-setting' => array(
+													'type'  => 'start',
+													'title' => __( 'Popup Message for Wishlist Status Settings', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/b6gi',
+													'class'   => 'mct-accordion',
+													'dependencies' => array(
+														array(
+															'id' => 'click_wishlist_button_behavior',
+															'value' => 'open-popup',
+														),
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
 
-											),
-											'multi_list_state' => array(
-												'label'   => __( 'Multi-List', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-                                                'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'save_for_later_state' => array(
-												'label'   => __( 'Save For Later', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-                                                'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'end-article-display-settings' => array(
-												'type' => 'end',
-											),
-										)
-									),
-									'button'        => apply_filters(
-										'wlfmc_wishlist_button_settings',
-										array(
-                                            // add to wishlist actions.
-											'start-article-actions' => array(
-												'type'    => 'start',
-												'title'   => __( '"Add to Wishlist" Button <span style="color:#fd5d00">Actions</span>', 'wc-wlfmc-wishlist'  ),
-												'class'   => 'mct-accordion collapsed',
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_enable',
-														'value' => '1',
 													),
-													array(
-														'id' => 'is_merge_lists',
-														'value' => '0',
-													)
+													'desc'  => __( 'Customize the popup appearance and content when the user clicks the list button.', 'wc-wlfmc-wishlist' ),
 												),
-											),
-											'click_wishlist_button_behavior' => array(
-												'label'   => __( '"Add to Wishlist" Button Reaction', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'help'    => __( 'Specify the action when users click the "Add to Wishlist" button.', 'wc-wlfmc-wishlist' ),
-												'options' => array(
-													'just-add'     => __( 'No Reaction, Just Add to Wishlist', 'wc-wlfmc-wishlist' ),
-													'open-popup'   => __( 'Popup Message for Wishlist Status', 'wc-wlfmc-wishlist' ),
-													'add-redirect' => __( 'Go to Wishlist Page After Adding To Wishlist', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'just-add',
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_enable',
-														'value' => '1',
+												'popup_size'  => array(
+													'label'   => __( 'Popup size', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'If you want to use a photo in the pop up, choose large size for it.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'radio',
+													'options' => array(
+														'small' => __( 'Small', 'wc-wlfmc-wishlist' ),
+														'large' => __( 'Large', 'wc-wlfmc-wishlist' ),
 													),
-													array(
-														'id' => 'is_merge_lists',
-														'value' => '0',
-													)
-												),
-											),
-											'after_second_click' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Second click action', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'remove'   => __( 'Remove from wishlist', 'wc-wlfmc-wishlist' ),
-													'wishlist' => __( 'Go to the wishlist page', 'wc-wlfmc-wishlist' ),
-													'error'    => __( 'Display "Product Already in Wishlist" Alert', 'wc-wlfmc-wishlist' ),
-												),
-												'help'    => __( 'After the product is added to the wishlist, What should happen if the user clicks the wishlist button again?', 'wc-wlfmc-wishlist' ),
-												'default' => 'remove',
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_enable',
-														'value' => '1',
-													),
-													array(
-														'id' => 'is_merge_lists',
-														'value' => '0',
-													)
-												),
-											),
-											'enable_for_outofstock_product' => array(
-												'label'   => __( 'Show for out-of-stock', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable the “ add to wishlist” button for out-of-stock products', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in out of stock products.', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'end-article-actions' => array(
-												'type' => 'end',
-											),
-											'start-article-popup-setting' => array(
-												'type'  => 'start',
-												'title' => __( 'Popup Message for Wishlist Status Settings', 'wc-wlfmc-wishlist' ),
-												'doc'   => 'https://moreconvert.com/b6gi',
-												'class'   => 'mct-accordion',
-												'dependencies' => array(
-													array(
+													'dependencies' => array(
 														'id' => 'click_wishlist_button_behavior',
 														'value' => 'open-popup',
 													),
-													array(
+													'default' => 'large',
+													'help'    => __( 'Specify the size of the pop up. There are two modes, small and large. In large mode you can use the product photo for pop up.', 'wc-wlfmc-wishlist' ),
+												),
+												'use_featured_image' => array(
+													'label'   => __( 'Use featured image for pop up', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable if use featured image for pop up', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'dependencies' => array(
+														array(
+															'id'    => 'popup_size',
+															'value' => 'large',
+														),
+														array(
+															'id'    => 'click_wishlist_button_behavior',
+															'value' => 'open-popup',
+														),
+													),
+													'default' => '0',
+												),
+												'popup_image' => array(
+													'label' => __( 'Popup image', 'wc-wlfmc-wishlist' ),
+													'type'  => 'upload-image',
+													'dependencies' => array(
+														array(
+															'id'    => 'popup_size',
+															'value' => 'large',
+														),
+														array(
+															'id'    => 'click_wishlist_button_behavior',
+															'value' => 'open-popup',
+														),
+														array(
+															'id'    => 'use_featured_image',
+															'value' => '0',
+														),
+													),
+													'desc'  => __( 'The maximum image size should be 400 * 400 pixels.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_image_size' => array(
+													'label'   => __( 'Popup image Size', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'thumbnail' => __( 'Thumbnail', 'wc-wlfmc-wishlist' ),
+														'medium'    => __( 'Medium', 'wc-wlfmc-wishlist' ),
+														'large'     => __( 'Large', 'wc-wlfmc-wishlist' ),
+														'manual'    => __( 'Manual', 'wc-wlfmc-wishlist' ),
+													),
+													'dependencies' => array(
+														array(
+															'id'    => 'popup_size',
+															'value' => 'large',
+														),
+														array(
+															'id'    => 'click_wishlist_button_behavior',
+															'value' => 'open-popup',
+														),
+													),
+													'default' => 'medium',
+													'help'    => __( 'The maximum image size should be 400 * 400 pixels.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_image_manual_sizes' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Popup image sizes', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'popup_image_width'  => array(
+															'label' => __( 'Image width', 'wc-wlfmc-wishlist' ),
+															'type'  => 'number',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+
+														),
+														'popup_image_height' => array(
+															'label' => __( 'Image height', 'wc-wlfmc-wishlist' ),
+															'type'  => 'number',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id'    => 'popup_size',
+															'value' => 'large',
+														),
+														array(
+															'id'    => 'click_wishlist_button_behavior',
+															'value' => 'open-popup',
+														),
+														array(
+															'id'    => 'popup_image_size',
+															'value' => 'manual',
+														),
+
+													),
+
+												),
+												'popup_title' => array(
+													'label'   => __( 'Popup title', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Added to Wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Added to Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'dependencies' => array(
+														'id' => 'click_wishlist_button_behavior',
+														'value' => 'open-popup',
+													),
+													'desc'    => __( 'You can use the following placeholders: <code>{product_name}</code>,<code>{product_price}</code>', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'Select the title of the pop up. No need to change and you can use the default text.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_content' => array(
+													'label'   => __( 'Popup content', 'wc-wlfmc-wishlist' ),
+													'type'    => 'wp-editor',
+													'translatable' => true,
+													'desc'    => __( 'You can use the following placeholders: <code>{product_name}</code>,<code>{product_price}</code>', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'click_wishlist_button_behavior',
+														'value' => 'open-popup',
+													),
+													'custom_attributes' => array(
+														'style' => 'max-width:100%;width:100%',
+														'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'help'    => __( 'Select the content of the pop up. No need to change and you can use the default text.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_buttons' => array(
+													'label'   => __( 'Add pop up button', 'wc-wlfmc-wishlist' ),
+													'type'    => 'add-button',
+													'translatable' => true,
+													'links'   => array(
+														'back' => __( 'Close pop up', 'wc-wlfmc-wishlist' ),
+														'signup-login' => __( 'Sign-up or login', 'wc-wlfmc-wishlist' ),
+														'wishlist' => __( 'Wishlist', 'wc-wlfmc-wishlist' ),
+														'custom-link' => __( 'Custom url', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														array(
+															'label'             => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
+															'background'        => '#555555',
+															'background-hover'  => '#555555',
+															'label-color'       => '#ffffff',
+															'label-hover-color' => '#ffffff',
+															'border-radius'     => '2px',
+															'link'              => 'wishlist',
+															'custom-link'       => '',
+														),
+														array(
+															'label' => __( 'Close', 'wc-wlfmc-wishlist' ),
+															'background' => 'rgba(0,0,0,0)',
+															'background-hover' => 'rgba(0,0,0,0)',
+															'label-color' => '#7e7e7e',
+															'label-hover-color' => '#7e7e7e',
+															'border-radius' => '2px',
+															'link' => 'back',
+															'custom-link' => '',
+														),
+													),
+													'helps'   => array(
+														'border-radius' => array(
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+														),
+													),
+													'limit'   => 3,
+													'dependencies' => array(
+														'id' => 'click_wishlist_button_behavior',
+														'value' => 'open-popup',
+													),
+													'help'    => __( 'These settings are related to the pop up button. You can consider more than one button for your pop up.', 'wc-wlfmc-wishlist' ),
+												),
+												'popup_appearance' => array(
+													'label' => __( 'Popup Appearance', 'wc-wlfmc-wishlist' ),
+													'type'  => 'html',
+													'html'  => '<a class="btn-secondary" href="' . esc_url(
+															add_query_arg(
+																array(
+																	'page' => 'mc-global-settings',
+																	'tab'  => 'appearance',
+																),
+																admin_url( 'admin.php' )
+															)
+														) . '" target="_blank">' . __( 'Change appearance', 'wc-wlfmc-wishlist' ) . '</a>',
+												),
+												'end-article-popup-setting' => array(
+													'type' => 'end',
+												),
+												// Products single.
+												'start-article-single' => array(
+													'type'    => 'start',
+													/* translators: 1: single product page text */
+													'title'   => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Single Product Page', 'wc-wlfmc-wishlist' ). '</span>' ),
+													'desc'    => __( 'Design your wishlist button on your product page.', 'wc-wlfmc-wishlist' ),
+													'youtube' => 'https://moreconvert.com/6dhb',
+													'doc'     => 'https://moreconvert.com/awhv',
+													'class'   => 'mct-accordion',
+													'dependencies' => array(
 														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
-													array(
-														'id' => 'is_merge_lists',
-														'value' => '0',
-													)
-
 												),
-												'desc'  => __( 'Customize the popup appearance and content when the user clicks the list button.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_size'  => array(
-												'label'   => __( 'Popup size', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'If you want to use a photo in the pop up, choose large size for it.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'radio',
-												'options' => array(
-													'small' => __( 'Small', 'wc-wlfmc-wishlist' ),
-													'large' => __( 'Large', 'wc-wlfmc-wishlist' ),
-												),
-												'dependencies' => array(
-													'id' => 'click_wishlist_button_behavior',
-													'value' => 'open-popup',
-												),
-												'default' => 'large',
-												'help'    => __( 'Specify the size of the pop up. There are two modes, small and large. In large mode you can use the product photo for pop up.', 'wc-wlfmc-wishlist' ),
-											),
-											'use_featured_image' => array(
-												'label'   => __( 'Use featured image for pop up', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable if use featured image for pop up', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'dependencies' => array(
-													array(
-														'id'    => 'popup_size',
-														'value' => 'large',
-													),
-													array(
-														'id'    => 'click_wishlist_button_behavior',
-														'value' => 'open-popup',
-													),
-												),
-												'default' => '0',
-											),
-											'popup_image' => array(
-												'label' => __( 'Popup image', 'wc-wlfmc-wishlist' ),
-												'type'  => 'upload-image',
-												'dependencies' => array(
-													array(
-														'id'    => 'popup_size',
-														'value' => 'large',
-													),
-													array(
-														'id'    => 'click_wishlist_button_behavior',
-														'value' => 'open-popup',
-													),
-													array(
-														'id'    => 'use_featured_image',
-														'value' => '0',
-													),
-												),
-												'desc'  => __( 'The maximum image size should be 400 * 400 pixels.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_image_size' => array(
-												'label'   => __( 'Popup image Size', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'thumbnail' => __( 'Thumbnail', 'wc-wlfmc-wishlist' ),
-													'medium'    => __( 'Medium', 'wc-wlfmc-wishlist' ),
-													'large'     => __( 'Large', 'wc-wlfmc-wishlist' ),
-													'manual'    => __( 'Manual', 'wc-wlfmc-wishlist' ),
-												),
-												'dependencies' => array(
-													array(
-														'id'    => 'popup_size',
-														'value' => 'large',
-													),
-													array(
-														'id'    => 'click_wishlist_button_behavior',
-														'value' => 'open-popup',
-													),
-												),
-												'default' => 'medium',
-												'help'    => __( 'The maximum image size should be 400 * 400 pixels.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_image_manual_sizes' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Popup image sizes', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'popup_image_width'  => array(
-														'label' => __( 'Image width', 'wc-wlfmc-wishlist' ),
-														'type'  => 'number',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-
-													),
-													'popup_image_height' => array(
-														'label' => __( 'Image height', 'wc-wlfmc-wishlist' ),
-														'type'  => 'number',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id'    => 'popup_size',
-														'value' => 'large',
-													),
-													array(
-														'id'    => 'click_wishlist_button_behavior',
-														'value' => 'open-popup',
-													),
-													array(
-														'id'    => 'popup_image_size',
-														'value' => 'manual',
-													),
-
-												),
-
-											),
-											'popup_title' => array(
-												'label'   => __( 'Popup title', 'wc-wlfmc-wishlist' ),
-												'default' => __( 'Added to Wishlist', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'custom_attributes' => array(
-													'placeholder' => __( 'Added to Wishlist', 'wc-wlfmc-wishlist' ),
-												),
-												'translatable' => true,
-												'dependencies' => array(
-													'id' => 'click_wishlist_button_behavior',
-													'value' => 'open-popup',
-												),
-												'desc'    => __( 'You can use the following placeholders: <code>{product_name}</code>,<code>{product_price}</code>', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'Select the title of the pop up. No need to change and you can use the default text.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_content' => array(
-												'label'   => __( 'Popup content', 'wc-wlfmc-wishlist' ),
-												'type'    => 'wp-editor',
-												'translatable' => true,
-												'desc'    => __( 'You can use the following placeholders: <code>{product_name}</code>,<code>{product_price}</code>', 'wc-wlfmc-wishlist' ),
-												'default' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'click_wishlist_button_behavior',
-													'value' => 'open-popup',
-												),
-												'custom_attributes' => array(
-													'style' => 'max-width:100%;width:100%',
-													'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
-												),
-												'help'    => __( 'Select the content of the pop up. No need to change and you can use the default text.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_buttons' => array(
-												'label'   => __( 'Add pop up button', 'wc-wlfmc-wishlist' ),
-												'type'    => 'add-button',
-												'translatable' => true,
-												'links'   => array(
-													'back' => __( 'Close pop up', 'wc-wlfmc-wishlist' ),
-													'signup-login' => __( 'Sign-up or login', 'wc-wlfmc-wishlist' ),
-													'wishlist' => __( 'Wishlist', 'wc-wlfmc-wishlist' ),
-													'custom-link' => __( 'Custom url', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => array(
-													array(
-														'label'             => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
-														'background'        => '#555555',
-														'background-hover'  => '#555555',
-														'label-color'       => '#ffffff',
-														'label-hover-color' => '#ffffff',
-														'border-radius'     => '2px',
-														'link'              => 'wishlist',
-														'custom-link'       => '',
-													),
-													array(
-														'label' => __( 'Close', 'wc-wlfmc-wishlist' ),
-														'background' => 'rgba(0,0,0,0)',
-														'background-hover' => 'rgba(0,0,0,0)',
-														'label-color' => '#7e7e7e',
-														'label-hover-color' => '#7e7e7e',
-														'border-radius' => '2px',
-														'link' => 'back',
-														'custom-link' => '',
-													),
-												),
-												'helps'   => array(
-													'border-radius' => array(
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
-													),
-												),
-												'limit'   => 3,
-												'dependencies' => array(
-													'id' => 'click_wishlist_button_behavior',
-													'value' => 'open-popup',
-												),
-												'help'    => __( 'These settings are related to the pop up button. You can consider more than one button for your pop up.', 'wc-wlfmc-wishlist' ),
-											),
-											'popup_appearance' => array(
-												'label' => __( 'Popup Appearance', 'wc-wlfmc-wishlist' ),
-												'type'  => 'html',
-												'html'  => '<a class="btn-secondary" href="' . esc_url(
-														add_query_arg(
-															array(
-																'page' => 'mc-global-settings',
-																'tab'  => 'appearance',
-															),
-															admin_url( 'admin.php' )
+												'wishlist_button_position' => array(
+													'label'   => __( 'Button position', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => apply_filters(
+														'wlfmc_single_position_options',
+														array(
+															'before_add_to_cart' => __( 'Before "add to cart" form', 'wc-wlfmc-wishlist' ),
+															'after_add_to_cart' => __( 'After "add to cart" form', 'wc-wlfmc-wishlist' ),
+															'before_add_to_cart_button' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
+															'after_add_to_cart_button' => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
+															'image_top_left' => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
+															'image_top_right' => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
+															'image_bottom_left' => __( 'On image - bottom left', 'wc-wlfmc-wishlist' ),
+															'image_bottom_right' => __( 'On image - bottom right', 'wc-wlfmc-wishlist' ),
+															'summary' => __( 'After summary', 'wc-wlfmc-wishlist' ),
+															'shortcode' => __( 'Use shortcode', 'wc-wlfmc-wishlist' ),
 														)
-													) . '" target="_blank">' . __( 'Change appearance', 'wc-wlfmc-wishlist' ) . '</a>',
-											),
-											'end-article-popup-setting' => array(
-												'type' => 'end',
-											),
-											// Products single.
-											'start-article-single' => array(
-												'type'    => 'start',
-												'title'   => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Single Product Page', 'wc-wlfmc-wishlist' ). '</span>' ),
-												'desc'    => __( 'Design your wishlist button on your product page.', 'wc-wlfmc-wishlist' ),
-												'youtube' => 'https://moreconvert.com/6dhb',
-												'doc'     => 'https://moreconvert.com/awhv',
-                                                'class'   => 'mct-accordion',
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
+													),
+													'help'    => __( 'button position on the product page', 'wc-wlfmc-wishlist' ),
+													'default' => 'image_top_left',
 												),
-											),
-											'wishlist_button_position' => array(
-												'label'   => __( 'Button position', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => apply_filters(
-													'wlfmc_single_position_options',
-													array(
-														'before_add_to_cart' => __( 'Before "add to cart" form', 'wc-wlfmc-wishlist' ),
-														'after_add_to_cart' => __( 'After "add to cart" form', 'wc-wlfmc-wishlist' ),
-														'before_add_to_cart_button' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
-														'after_add_to_cart_button' => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
-														'image_top_left' => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
-														'image_top_right' => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
-														'image_bottom_left' => __( 'On image - bottom left', 'wc-wlfmc-wishlist' ),
-														'image_bottom_right' => __( 'On image - bottom right', 'wc-wlfmc-wishlist' ),
-														'summary' => __( 'After summary', 'wc-wlfmc-wishlist' ),
-														'shortcode' => __( 'Use shortcode', 'wc-wlfmc-wishlist' ),
-													)
-												),
-												'help'    => __( 'button position on the product page', 'wc-wlfmc-wishlist' ),
-												'default' => 'image_top_left',
-											),
-											'shortcode_button' => array(
-												'label'   => __( 'Shortcode button', 'wc-wlfmc-wishlist' ),
-												'type'    => 'copy-text',
-												'default' => '[wlfmc_add_to_wishlist]',
-												'desc'    => '<a href="https://moreconvert.com/6zox" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
-												'dependencies' => array(
-													'id' => 'wishlist_button_position',
-													'value' => 'shortcode',
-												),
-												'help'    => __( 'Use this shortcode to specify a custom position. Just copy this shortcode wherever you want the button to be displayed.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_type_single' => array(
-												'label'   => __( 'Button type', 'wc-wlfmc-wishlist' ),
-												'type'    => 'radio',
-												'options' => array(
-													'icon' => __( 'Icon only', 'wc-wlfmc-wishlist' ),
-													'text' => __( 'Text only', 'wc-wlfmc-wishlist' ),
-													'both' => __( 'Icon and text', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'icon',
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/button_type.gif',
-												'help'    => __( 'Select the button appearance. It is better to test different modes and choose the most compatible with the theme.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_theme_single' => array(
-												'label'   => __( 'Default button style', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable if use theme default styles for icon and text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'help'    => __( 'Do you want the button settings to be automatically aligned with your theme?', 'wc-wlfmc-wishlist' ),
-											),
-											'icon_name_single' => array(
-												'label'   => __( 'Button icon', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'This icon is also used as a pop-up icon.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select-icon',
-												'class'   => 'select2-trigger',
-												'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
-												'default' => 'heart-regular-2',
-											),
-											'icon_svg_single' => array(
-												'label' => __( 'Custom icon (svg)', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'icon_name_single',
-														'value' => 'custom',
-													),
-												),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'icon_svg_added_single' => array(
-												'label' => __( '"product added" custom icon (svg)', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'icon_name_single',
-														'value' => 'custom',
-													),
-                                                    array(
-                                                        'id' => 'is_merge_lists',
-                                                        'value' => '0',
-                                                    )
-												),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_icon_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Icon style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'icon_font_size_single'   => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '15px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'icon_color_single'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(230,126,34)',
-													),
-													'icon_hover_color_single' => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(81,81,81)',
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_single',
-														'value' => '0',
-													),
-													array(
-														'id' => 'button_type_single',
-														'value' => 'icon,both',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_text_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Text style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'text_font_size_single'   => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => 'inherit',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'text_color_single'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(230,126,34)',
-													),
-													'text_hover_color_single' => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(81,81,81)',
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_single',
-														'value' => '0',
-													),
-													array(
-														'id' => 'button_type_single',
-														'value' => 'text,both',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-
-											),
-											'button_colors_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button colors', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'button_background_color_single'       => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_background_hover_color_single' => array(
-														'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_border_color_single'           => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_border_hover_color_single'     => array(
-														'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_single',
-														'value' => '0',
-													),
-												),
-											),
-											'button_sizes_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button sizes', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'button_border_width_single'  => array(
-														'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '1px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'button_width_single'         => array(
-														'label' => __( 'Width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '45px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'dependencies' => array(
-															array(
-																'id'    => 'button_type_single',
-																'value' => 'icon',
-															),
-														),
-													),
-													'button_height_single'        => array(
-														'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '45px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'button_border_radius_single' => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '5px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
-													),
-													'button_margin_single'        => array(
-														'label' => __( 'Margin', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '0px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-margin.gif',
-														'help' => __( 'You can define the margin for all 4 side of the button. to move the button left, put the margin like 0px 0px 0px -15px', 'wc-wlfmc-wishlist' ),
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_single',
-														'value' => '0',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'separator_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Separate icon and text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'separate_icon_and_text_single' => array(
-														'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
-														'type' => 'switch',
-														'default' => '0',
-													),
-													'separator_color_single'        => array(
-														'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'dependencies' => array(
-															array(
-																'id'    => 'button_type_single',
-																'value' => 'both',
-															),
-															array(
-																'id'    => 'separate_icon_and_text_single',
-																'value' => '1',
-															),
-														),
-
-													),
-
-												),
-												'desc'    => __( 'Separate icon and text boxes with a vertical line', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'button_type_single',
-													'value' => 'both',
-												),
-											),
-											'button_tooltip_single' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button tooltip styles', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'enable_tooltip_single'           => array(
-														'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
-														'type' => 'switch',
-														'default' => '1',
-													),
-													'tooltip_direction_single'        => array(
-														'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'default' => 'top',
-														'options' => array(
-															'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
-															'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
-															'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
-															'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
-														),
-														'dependencies' => array(
-															array(
-																'id'    => 'enable_tooltip_single',
-																'value' => '1',
-															),
-														),
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_type_single',
-														'value' => 'icon',
-													),
-												),
-												'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
-												'desc'    => sprintf( __( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', $global_tooltip_url, __( 'global settings', 'wc-wlfmc-wishlist' ) ) ),
-											),
-											'end-article-single' => array(
-												'type' => 'end',
-											),
-											'start-article-loop' => array(
-												'type'  => 'start',
-												'title' => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Product Listings/Loops', 'wc-wlfmc-wishlist' ). '</span>' ),
-												'desc'  => __( 'Design your wishlist button on your shop page and other loops.', 'wc-wlfmc-wishlist' ),
-												'doc'   => 'https://moreconvert.com/2798',
-												'class' => 'mct-accordion collapsed',
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_enable',
-														'value' => '1',
-													),
-												),
-											),
-											// Products loop.
-											'show_on_loop' => array(
-												'label'   => __( 'Show "add to Wishlist" in listings', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable the "add to Wishlist" feature in WooCommerce products\' listing', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in all lists.', 'wc-wlfmc-wishlist' ),
-											),
-											'loop_position' => array(
-												'label'   => __( 'Button position in listings', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Choose where to show "Add to Wishlist" button or link in WooCommerce products\' listing.', 'wc-wlfmc-wishlist' ),
-												'default' => 'image_top_right',
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => apply_filters(
-													'wlfmc_loop_position_options',
-													array(
-														'image_top_left'     => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
-														'image_top_right'    => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
-														'before_add_to_cart' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
-														'after_add_to_cart'  => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
-														'shortcode'          => __( 'Use shortcode', 'wc-wlfmc-wishlist' ),
-													)
-												),
-												'dependencies' => array(
-													'id' => 'show_on_loop',
-													'value' => '1',
-												),
-												'help'    => __( 'Select the button position to view in the lists. Preferably similar to the button position on the product page.', 'wc-wlfmc-wishlist' ),
-											),
-											'loop_shortcode_button' => array(
-												'label'   => __( 'Shortcode button', 'wc-wlfmc-wishlist' ),
-												'type'    => 'copy-text',
-												'default' => '[wlfmc_add_to_wishlist]',
-												'desc'    => '<a href="https://moreconvert.com/6zox" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
-												'dependencies' => array(
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
-													array(
-														'id' => 'loop_position',
+												'shortcode_button' => array(
+													'label'   => __( 'Shortcode button', 'wc-wlfmc-wishlist' ),
+													'type'    => 'copy-text',
+													'default' => '[wlfmc_add_to_wishlist]',
+													'desc'    => '<a href="https://moreconvert.com/6zox" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
+													'dependencies' => array(
+														'id' => 'wishlist_button_position',
 														'value' => 'shortcode',
 													),
+													'help'    => __( 'Use this shortcode to specify a custom position. Just copy this shortcode wherever you want the button to be displayed.', 'wc-wlfmc-wishlist' ),
 												),
-											),
-											'button_type_loop' => array(
-												'label'   => __( 'Button type', 'wc-wlfmc-wishlist' ),
-												'type'    => 'radio',
-												'options' => array(
-													'icon' => __( 'Icon only', 'wc-wlfmc-wishlist' ),
-													'text' => __( 'Text only', 'wc-wlfmc-wishlist' ),
-													'both' => __( 'Icon and text', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'icon',
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/button_type.gif',
-												'help'    => __( 'Select the button appearance. It is better to test different modes and choose the most compatible with the theme.', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'show_on_loop',
-													'value' => '1',
-												),
-											),
-											'button_theme_loop' => array(
-												'label'   => __( 'Default button style', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable if use theme default styles for icon and text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'dependencies' => array(
-													'id' => 'show_on_loop',
-													'value' => '1',
-												),
-											),
-											'icon_name_loop' => array(
-												'label'   => __( 'Button icon', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select-icon',
-												'class'   => 'select2-trigger',
-												'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
-												'default' => 'heart-regular-2',
-												'dependencies' => array(
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'icon,both',
+												'button_type_single' => array(
+													'label'   => __( 'Button type', 'wc-wlfmc-wishlist' ),
+													'type'    => 'radio',
+													'options' => array(
+														'icon' => __( 'Icon only', 'wc-wlfmc-wishlist' ),
+														'text' => __( 'Text only', 'wc-wlfmc-wishlist' ),
+														'both' => __( 'Icon and text', 'wc-wlfmc-wishlist' ),
 													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
+													'default' => 'icon',
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/button_type.gif',
+													'help'    => __( 'Select the button appearance. It is better to test different modes and choose the most compatible with the theme.', 'wc-wlfmc-wishlist' ),
 												),
-											),
-											'icon_svg_loop' => array(
-												'label' => __( 'Custom icon (svg)', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
+												'button_theme_single' => array(
+													'label'   => __( 'Default button style', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable if use theme default styles for icon and text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'help'    => __( 'Do you want the button settings to be automatically aligned with your theme?', 'wc-wlfmc-wishlist' ),
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'icon,both',
-													),
-													array(
-														'id' => 'icon_name_loop',
-														'value' => 'custom',
-													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
+												'icon_name_single' => array(
+													'label'   => __( 'Button icon', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'This icon is also used as a pop-up icon.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select-icon',
+													'class'   => 'select2-trigger',
+													'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
+													'default' => 'heart-regular-2',
 												),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'icon_svg_added_loop' => array(
-												'label' => __( '"product added" custom icon (svg)', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'icon,both',
+												'icon_svg_single' => array(
+													'label' => __( 'Custom icon (svg)', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
 													),
-													array(
-														'id' => 'icon_name_loop',
-														'value' => 'custom',
-													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
-                                                    array(
-														'id' => 'is_merge_lists',
-														'value' => '0',
-													)
-												),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_icon_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Icon style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'icon_font_size_loop'   => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '15px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+													'dependencies' => array(
+														array(
+															'id' => 'icon_name_single',
+															'value' => 'custom',
 														),
 													),
-													'icon_color_loop'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(230,126,34)',
-													),
-													'icon_hover_color_loop' => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(81,81,81)',
-													),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_loop',
-														'value' => '0',
+												'icon_svg_added_single' => array(
+													'label' => __( '"product added" custom icon (svg)', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
 													),
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'icon,both',
-													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'button_text_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Text style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-
-													'text_font_size_loop'   => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => 'inherit',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+													'dependencies' => array(
+														array(
+															'id' => 'icon_name_single',
+															'value' => 'custom',
 														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
 													),
-													'text_color_loop'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(230,126,34)',
-													),
-													'text_hover_color_loop' => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'rgb(81,81,81)',
-													),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_loop',
-														'value' => '0',
-													),
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'text,both',
-													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-
-											),
-											'button_colors_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button color', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'button_background_color_loop'       => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_background_hover_color_loop' => array(
-														'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_border_color_loop'           => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-													'button_border_hover_color_loop'     => array(
-														'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_loop',
-														'value' => '0',
-													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
-													),
-												),
-											),
-											'button_sizes_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button sizes', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'button_border_width_loop'  => array(
-														'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '1px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'button_width_loop'         => array(
-														'label' => __( 'Width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '45px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'dependencies' => array(
-															array(
-																'id'    => 'button_type_loop',
-																'value' => 'icon',
+												'button_icon_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Icon style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'icon_font_size_single'   => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '15px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
 															),
 														),
-													),
-													'button_height_loop'        => array(
-														'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '45px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+														'icon_color_single'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(230,126,34)',
+														),
+														'icon_hover_color_single' => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(81,81,81)',
 														),
 													),
-													'button_border_radius_loop' => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '5px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_single',
+															'value' => '0',
 														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
-													),
-													'button_margin_loop'        => array(
-														'label' => __( 'Margin', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '0px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+														array(
+															'id' => 'button_type_single',
+															'value' => 'icon,both',
 														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-margin.gif',
-														'help' => __( 'You can define the margin for all 4 side of the button. to move the button left, put the margin like 0px 0px 0px -15px', 'wc-wlfmc-wishlist' ),
 													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'button_text_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Text style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'text_font_size_single'   => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => 'inherit',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'text_color_single'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(230,126,34)',
+														),
+														'text_hover_color_single' => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(81,81,81)',
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_single',
+															'value' => '0',
+														),
+														array(
+															'id' => 'button_type_single',
+															'value' => 'text,both',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
 
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_theme_loop',
-														'value' => '0',
+												'button_colors_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button colors', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'button_background_color_single'       => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_background_hover_color_single' => array(
+															'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_border_color_single'           => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_border_hover_color_single'     => array(
+															'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+
 													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_single',
+															'value' => '0',
+														),
 													),
 												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'separator_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Separate icon and text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'separate_icon_and_text_loop' => array(
-														'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
-														'type' => 'switch',
-														'default' => '0',
-													),
-													'separator_color_loop'        => array(
-														'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'dependencies' => array(
-															array(
-																'id'    => 'button_type_loop',
-																'value' => 'both',
+												'button_sizes_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button sizes', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'button_border_width_single'  => array(
+															'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '1px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
 															),
-															array(
-																'id'    => 'separate_icon_and_text_loop',
-																'value' => '1',
+														),
+														'button_width_single'         => array(
+															'label' => __( 'Width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '45px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'button_type_single',
+																	'value' => 'icon',
+																),
+															),
+														),
+														'button_height_single'        => array(
+															'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '45px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'button_border_radius_single' => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '5px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+														),
+														'button_margin_single'        => array(
+															'label' => __( 'Margin', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '0px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-margin.gif',
+															'help' => __( 'You can define the margin for all 4 side of the button. to move the button left, put the margin like 0px 0px 0px -15px', 'wc-wlfmc-wishlist' ),
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_single',
+															'value' => '0',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'separator_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Separate icon and text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'separate_icon_and_text_single' => array(
+															'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
+															'type' => 'switch',
+															'default' => '0',
+														),
+														'separator_color_single'        => array(
+															'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'dependencies' => array(
+																array(
+																	'id'    => 'button_type_single',
+																	'value' => 'both',
+																),
+																array(
+																	'id'    => 'separate_icon_and_text_single',
+																	'value' => '1',
+																),
+															),
+
+														),
+
+													),
+													'desc'    => __( 'Separate icon and text boxes with a vertical line', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'button_type_single',
+														'value' => 'both',
+													),
+												),
+												'button_tooltip_single' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button tooltip styles', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'enable_tooltip_single'           => array(
+															'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
+															'type' => 'switch',
+															'default' => '1',
+														),
+														'tooltip_direction_single'        => array(
+															'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'default' => 'top',
+															'options' => array(
+																'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
+																'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
+																'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
+																'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'enable_tooltip_single',
+																	'value' => '1',
+																),
 															),
 														),
 
 													),
-
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_single',
+															'value' => 'icon',
+														),
+													),
+													'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
+													'desc' => sprintf(
+													// translators: %s is a placeholder for a link to global settings.
+														__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
+														sprintf(
+															'<a href="%s" target="_blank">%s</a>',
+															$global_tooltip_url,
+															// translators: The text for the link to global settings.
+															__( 'global settings', 'wc-wlfmc-wishlist' )
+														)
+													),
 												),
-												'desc'    => __( 'Separate icon and text boxes with a vertical line', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-                                                    array(
-                                                        'id' => 'button_type_loop',
-                                                        'value' => 'both',
-                                                    ),
-													array(
+												'end-article-single' => array(
+													'type' => 'end',
+												),
+												'start-article-loop' => array(
+													'type'  => 'start',
+													'title' => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Product Listings/Loops', 'wc-wlfmc-wishlist' ). '</span>' ),
+													'desc'  => __( 'Design your wishlist button on your shop page and other loops.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/2798',
+													'class' => 'mct-accordion collapsed',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+													),
+												),
+												// Products loop.
+												'show_on_loop' => array(
+													'label'   => __( 'Show "add to Wishlist" in listings', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable the "add to Wishlist" feature in WooCommerce products\' listing', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in all lists.', 'wc-wlfmc-wishlist' ),
+												),
+												'loop_position' => array(
+													'label'   => __( 'Button position in listings', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Choose where to show "Add to Wishlist" button or link in WooCommerce products\' listing.', 'wc-wlfmc-wishlist' ),
+													'default' => 'image_top_right',
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => apply_filters(
+														'wlfmc_loop_position_options',
+														array(
+															'image_top_left'     => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
+															'image_top_right'    => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
+															'before_add_to_cart' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
+															'after_add_to_cart'  => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
+															'shortcode'          => __( 'Use shortcode', 'wc-wlfmc-wishlist' ),
+														)
+													),
+													'dependencies' => array(
+														'id' => 'show_on_loop',
+														'value' => '1',
+													),
+													'help'    => __( 'Select the button position to view in the lists. Preferably similar to the button position on the product page.', 'wc-wlfmc-wishlist' ),
+												),
+												'loop_shortcode_button' => array(
+													'label'   => __( 'Shortcode button', 'wc-wlfmc-wishlist' ),
+													'type'    => 'copy-text',
+													'default' => '[wlfmc_add_to_wishlist]',
+													'desc'    => '<a href="https://moreconvert.com/6zox" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
+													'dependencies' => array(
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+														array(
+															'id' => 'loop_position',
+															'value' => 'shortcode',
+														),
+													),
+												),
+												'button_type_loop' => array(
+													'label'   => __( 'Button type', 'wc-wlfmc-wishlist' ),
+													'type'    => 'radio',
+													'options' => array(
+														'icon' => __( 'Icon only', 'wc-wlfmc-wishlist' ),
+														'text' => __( 'Text only', 'wc-wlfmc-wishlist' ),
+														'both' => __( 'Icon and text', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => 'icon',
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/button_type.gif',
+													'help'    => __( 'Select the button appearance. It is better to test different modes and choose the most compatible with the theme.', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
 														'id' => 'show_on_loop',
 														'value' => '1',
 													),
 												),
-											),
-											'button_tooltip_loop' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Button tooltip', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'enable_tooltip_loop'           => array(
-														'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
-														'type' => 'switch',
-														'default' => '1',
+												'button_theme_loop' => array(
+													'label'   => __( 'Default button style', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable if use theme default styles for icon and text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'dependencies' => array(
+														'id' => 'show_on_loop',
+														'value' => '1',
 													),
-													'tooltip_direction_loop'        => array(
-														'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'default' => 'top',
-														'options' => array(
-															'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
-															'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
-															'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
-															'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
+												),
+												'icon_name_loop' => array(
+													'label'   => __( 'Button icon', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select-icon',
+													'class'   => 'select2-trigger',
+													'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
+													'default' => 'heart-regular-2',
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'icon,both',
 														),
-														'dependencies' => array(
-															array(
-																'id'    => 'enable_tooltip_loop',
-																'value' => '1',
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+												),
+												'icon_svg_loop' => array(
+													'label' => __( 'Custom icon (svg)', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'icon,both',
+														),
+														array(
+															'id' => 'icon_name_loop',
+															'value' => 'custom',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
+												),
+												'icon_svg_added_loop' => array(
+													'label' => __( '"product added" custom icon (svg)', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'icon,both',
+														),
+														array(
+															'id' => 'icon_name_loop',
+															'value' => 'custom',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
+												),
+												'button_icon_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Icon style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'icon_font_size_loop'   => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '15px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'icon_color_loop'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(230,126,34)',
+														),
+														'icon_hover_color_loop' => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(81,81,81)',
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_loop',
+															'value' => '0',
+														),
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'icon,both',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'button_text_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Text style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+
+														'text_font_size_loop'   => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => 'inherit',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'text_color_loop'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(230,126,34)',
+														),
+														'text_hover_color_loop' => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'rgb(81,81,81)',
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_loop',
+															'value' => '0',
+														),
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'text,both',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+
+												),
+												'button_colors_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button color', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'button_background_color_loop'       => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_background_hover_color_loop' => array(
+															'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_border_color_loop'           => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+														'button_border_hover_color_loop'     => array(
+															'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_loop',
+															'value' => '0',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+												),
+												'button_sizes_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button sizes', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'button_border_width_loop'  => array(
+															'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '1px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'button_width_loop'         => array(
+															'label' => __( 'Width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '45px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'button_type_loop',
+																	'value' => 'icon',
+																),
+															),
+														),
+														'button_height_loop'        => array(
+															'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '45px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'button_border_radius_loop' => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '5px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+														),
+														'button_margin_loop'        => array(
+															'label' => __( 'Margin', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '0px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-margin.gif',
+															'help' => __( 'You can define the margin for all 4 side of the button. to move the button left, put the margin like 0px 0px 0px -15px', 'wc-wlfmc-wishlist' ),
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'button_theme_loop',
+															'value' => '0',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'separator_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Separate icon and text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'separate_icon_and_text_loop' => array(
+															'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
+															'type' => 'switch',
+															'default' => '0',
+														),
+														'separator_color_loop'        => array(
+															'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'dependencies' => array(
+																array(
+																	'id'    => 'button_type_loop',
+																	'value' => 'both',
+																),
+																array(
+																	'id'    => 'separate_icon_and_text_loop',
+																	'value' => '1',
+																),
+															),
+
+														),
+
+													),
+													'desc'    => __( 'Separate icon and text boxes with a vertical line', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'both',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+												),
+												'button_tooltip_loop' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Button tooltip', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'enable_tooltip_loop'           => array(
+															'label' => __( 'Activation', 'wc-wlfmc-wishlist' ),
+															'type' => 'switch',
+															'default' => '1',
+														),
+														'tooltip_direction_loop'        => array(
+															'label' => __( 'direction', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'default' => 'top',
+															'options' => array(
+																'top'    => __( 'Top', 'wc-wlfmc-wishlist' ),
+																'bottom' => __( 'Bottom', 'wc-wlfmc-wishlist' ),
+																'right'  => __( 'Right', 'wc-wlfmc-wishlist' ),
+																'left'   => __( 'Left', 'wc-wlfmc-wishlist' ),
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'enable_tooltip_loop',
+																	'value' => '1',
+																),
 															),
 														),
 													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'button_type_loop',
-														'value' => 'icon',
+													'dependencies' => array(
+														array(
+															'id' => 'button_type_loop',
+															'value' => 'icon',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
 													),
-                                                    array(
+													'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
+													'desc' => sprintf(
+													// translators: %s is a placeholder for a link to global settings.
+														__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
+														sprintf(
+															'<a href="%s" target="_blank">%s</a>',
+															$global_tooltip_url,
+															// translators: The text for the link to global settings.
+															__( 'global settings', 'wc-wlfmc-wishlist' )
+														)
+													),
+												),
+												'end-article-loop' => array(
+													'type' => 'end',
+												),
+												'start-article-gutenberg' => array(
+													'type'  => 'start',
+													'title' => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Gutenberg listings', 'wc-wlfmc-wishlist' ). '</span>' ),
+													'class'   => 'mct-accordion collapsed',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+												),
+												'show_on_gutenberg' => array(
+													'label'   => __( 'Show "add to Wishlist" in gutenberg listings', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enable the "add to Wishlist" feature in WooCommerce products\' gutenberg listings', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'dependencies' => array(
 														'id' => 'show_on_loop',
 														'value' => '1',
 													),
+													'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in all gutenberg lists.', 'wc-wlfmc-wishlist' ),
 												),
-												'help'    => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
-												'desc'    => sprintf( __( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', $global_tooltip_url, __( 'global settings', 'wc-wlfmc-wishlist' ) ) ),
-											),
-											'end-article-loop' => array(
-												'type' => 'end',
-											),
-											'start-article-gutenberg' => array(
-												'type'  => 'start',
-												'title' => sprintf( __( '"Add to wishlist" Button %s', 'wc-wlfmc-wishlist' ), '<span style="color:#fd5d00">'. __( 'on Gutenberg listings', 'wc-wlfmc-wishlist' ). '</span>' ),
-												'class'   => 'mct-accordion collapsed',
-												'dependencies' => array(
-													array(
+												'gutenberg_position' => array(
+													'label'   => __( 'Button position in gutenberg listings', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Choose where to show "Add to Wishlist" button or link in WooCommerce products\' gutenberg listings.', 'wc-wlfmc-wishlist' ),
+													'default' => 'image_top_right',
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'image_top_left'     => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
+														'image_top_right'    => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
+														'after_title'        => __( 'After title', 'wc-wlfmc-wishlist' ),
+														'before_price'       => __( 'Before price', 'wc-wlfmc-wishlist' ),
+														'after_price'        => __( 'After price', 'wc-wlfmc-wishlist' ),
+														'before_add_to_cart' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
+														'after_add_to_cart'  => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'show_on_gutenberg',
+															'value' => '1',
+														),
+														array(
+															'id' => 'show_on_loop',
+															'value' => '1',
+														),
+													),
+													'help'    => __( 'Select the button position to view in the gutenberg lists. Preferably similar to the button position on the product page.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-gutenberg' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'page-settings' => apply_filters(
+											'wlfmc_wishlist_page_settings',
+											array(
+												// page settings.
+												'start-article-page-settings' => array(
+													'type'    => 'start',
+													'title'   => __( 'Wishlist Page Display Options', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Choose details of your wishlist page.', 'wc-wlfmc-wishlist' ),
+													'youtube' => 'https://moreconvert.com/g03y',
+													'doc'     => 'https://moreconvert.com/uat1',
+													'dependencies' => array(
 														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
+												),
+												'wishlist_user_page' => array(
+													'label'   => __( 'User\'s Wishlist Page Options', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'it will show for site logged in users when they want to see their wishlists.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'default' => 'myaccount-page',
+													'options' => array(
+														'myaccount-page' => __( 'Display on WooCommerce My Account', 'wc-wlfmc-wishlist' ),
+														'quest-page' => __( 'Display on the Guest List Page', 'wc-wlfmc-wishlist' ),
+														'custom-panel' => __( 'Display on a custom user panel', 'wc-wlfmc-wishlist' ),
 													),
 												),
-											),
-											'show_on_gutenberg' => array(
-												'label'   => __( 'Show "add to Wishlist" in gutenberg listings', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Enable the "add to Wishlist" feature in WooCommerce products\' gutenberg listings', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'dependencies' => array(
-													'id' => 'show_on_loop',
-													'value' => '1',
-												),
-												'help'    => __( 'By activating this option, the Add to wishlist button will be displayed in all gutenberg lists.', 'wc-wlfmc-wishlist' ),
-											),
-											'gutenberg_position' => array(
-												'label'   => __( 'Button position in gutenberg listings', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Choose where to show "Add to Wishlist" button or link in WooCommerce products\' gutenberg listings.', 'wc-wlfmc-wishlist' ),
-												'default' => 'image_top_right',
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'image_top_left'     => __( 'On image - top left', 'wc-wlfmc-wishlist' ),
-													'image_top_right'    => __( 'On image - top right', 'wc-wlfmc-wishlist' ),
-													'after_title'        => __( 'After title', 'wc-wlfmc-wishlist' ),
-													'before_price'       => __( 'Before price', 'wc-wlfmc-wishlist' ),
-													'after_price'        => __( 'After price', 'wc-wlfmc-wishlist' ),
-													'before_add_to_cart' => __( 'Before "add to cart" button', 'wc-wlfmc-wishlist' ),
-													'after_add_to_cart'  => __( 'After "add to cart" button', 'wc-wlfmc-wishlist' ),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'show_on_gutenberg',
-														'value' => '1',
+												'wishlist_endpoint' => array(
+													'label'   => __( 'WooCommerce My Account Wishlist page slug', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'default' => 'wlfmc-wishlist',
+													'class'   => 'validate',
+													'custom_attributes' => array(
+														'pattern'    => '^[a-z0-9]+(?:-[a-z0-9]+)*$',
+														'data-error' => __( 'Invalid format. Use letters, numbers, and hyphens (-) only, with no spaces or other special characters.', 'wc-wlfmc-wishlist' ),
 													),
-													array(
-														'id' => 'show_on_loop',
-														'value' => '1',
+													'dependencies' => array(
+														'id' => 'wishlist_user_page',
+														'value' => 'myaccount-page',
+													),
+													/* translators: admin url of permalink structure */
+													'desc'    => sprintf( __( 'Please update the %s if the requested page encounters a 404 error.', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'options-permalink.php' ), __( 'permalink structure', 'wc-wlfmc-wishlist' ) ) ),
+												),
+												'wishlist_custom_url' => array(
+													'label' => __( 'Custom URL', 'wc-wlfmc-wishlist' ),
+													'type'  => 'url',
+													'class' => 'validate',
+													'dependencies' => array(
+														'id' => 'wishlist_user_page',
+														'value' => 'custom-panel',
 													),
 												),
-												'help'    => __( 'Select the button position to view in the gutenberg lists. Preferably similar to the button position on the product page.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-gutenberg' => array(
-												'type' => 'end',
-											),
-										)
-									),
-									'page-settings' => apply_filters(
-										'wlfmc_wishlist_page_settings',
-										array(
-                                            // page settings.
-											'start-article-page-settings' => array(
-												'type'    => 'start',
-												'title'   => __( 'Wishlist Page Display Options', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Choose details of your wishlist page.', 'wc-wlfmc-wishlist' ),
-												'youtube' => 'https://moreconvert.com/g03y',
-												'doc'     => 'https://moreconvert.com/uat1',
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'wishlist_user_page' => array(
-												'label'   => __( 'User\'s Wishlist Page Options', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'it will show for site logged in users when they want to see their wishlists.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'default' => 'myaccount-page',
-												'options' => array(
-													'myaccount-page' => __( 'Display on WooCommerce My Account', 'wc-wlfmc-wishlist' ),
-													'quest-page' => __( 'Display on the Guest List Page', 'wc-wlfmc-wishlist' ),
-													'custom-panel' => __( 'Display on a custom user panel', 'wc-wlfmc-wishlist' ),
-												),
-											),
-											'wishlist_endpoint' => array(
-												'label'   => __( 'WooCommerce My Account Wishlist page slug', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'default' => 'wlfmc-wishlist',
-												'class'   => 'validate',
-												'custom_attributes' => array(
-													'pattern'    => '^[a-z0-9]+(?:-[a-z0-9]+)*$',
-													'data-error' => __( 'Invalid format. Use letters, numbers, and hyphens (-) only, with no spaces or other special characters.', 'wc-wlfmc-wishlist' ),
-												),
-												'dependencies' => array(
-													'id' => 'wishlist_user_page',
-													'value' => 'myaccount-page',
-												),
-												/* translators: admin url of permalink structure */
-												'desc'    => sprintf( __( 'Please update the %s if the requested page encounters a 404 error.', 'wc-wlfmc-wishlist' ), sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'options-permalink.php' ), __( 'permalink structure', 'wc-wlfmc-wishlist' ) ) ),
-											),
-											'wishlist_custom_url' => array(
-												'label' => __( 'Custom URL', 'wc-wlfmc-wishlist' ),
-												'type'  => 'url',
-												'class' => 'validate',
-												'dependencies' => array(
-													'id' => 'wishlist_user_page',
-													'value' => 'custom-panel',
-												),
-											),
-											'wishlist_enable_myaccount_link' => array(
-												'label'   => __( 'Show Link to Wishlist in my account', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '',
-												'dependencies' => array(
-													'id' => 'wishlist_user_page',
-													'value' => 'quest-page',
-												),
-											),
-											'wishlist_page' => array(
-												'label'   => __( 'Guest Wishlist page', 'wc-wlfmc-wishlist' ),
-												/* translators: 1: create a page link  2: shortcode*/
-												'desc'    => sprintf( __( '%1$s or Add %2$s shortcode to a any page you want.', 'wc-wlfmc-wishlist' ), '<a class="wlfmc-built-wishlist-page" href="#">' . __( 'click to build a new page', 'wc-wlfmc-wishlist' ) . '</a>', '<code>[wlfmc_wishlist]</code>' ) . '<a href="https://moreconvert.com/4rrt" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
-												'type'    => 'page-select',
-												'show_links' => true,
-												'exclude' => $this->get_all_wc_page_ids(),
-												'class'   => 'select2-trigger',
-												'default' => get_option( 'wlfmc_wishlist_page_id' ),
-												'help'    => __( 'Wishlist page needs to be selected so the plugin knows where it is. You should choose it upon installation of the plugin or create it manually.', 'wc-wlfmc-wishlist' ),
-											),
-											'separator'    => array(
-												'type' => 'separator',
-											),
-											'show_login_notice_for_guests' => array(
-												'label'   => __( 'Login notice', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Show login notice for guests on wishlist page', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'dependencies' => array(
-													'id' => 'who_can_see_wishlist_options',
-													'value' => 'all',
-												),
-												'default' => '1',
-												'help'    => __( 'It helps you to generate more leads.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-page-settings' => array(
-												'type' => 'end',
-											),
-                                            // actions
-											'start-article-lists-actions-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'In-List Actions Settings', 'wc-wlfmc-wishlist' ),
-											),
-											'remove_from_wishlist' => array(
-												'label'   => __( 'List Products Auto-Removal', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'class'   => 'select2-trigger',
-												'options' => array(
-													'none' => __( 'Keep Product in List Permanently', 'wc-wlfmc-wishlist' ),
-													'added-to-cart' => __( 'Remove Product After Adding to Cart', 'wc-wlfmc-wishlist' ),
-													'completed' => __( 'Remove Product After Order Completion', 'wc-wlfmc-wishlist' ),
-													'processing' => __( 'Remove Product After Order Processing', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'none',
-												'help'    => __( 'Remove from wishlist or any other lists based on this condition will happen.', 'wc-wlfmc-wishlist' ),
-											),
-											'redirect_after_add_to_cart' => array(
-												'label'   => __( 'Redirect to the cart', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'help'    => __( 'It works for the "add all to cart" button and the "add to cart" option in the action button and "add to cart" button in the lists.', 'wc-wlfmc-wishlist' ),
-											),
-											'product_move' => array(
-												'label'   => __( 'Product Transfer', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'This feature enables users to seamlessly transfer products from one list to another. Please note that this functionality only can be used within wishlists and multi-lists.', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-											),
-											'external_in_new_tab' => array(
-												'label'   => __( 'Open New Tab for External Product Add to Cart', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'It is essential for affiliate products to open in a new tab and keep users active on your website.', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-											),
-											'end-article-lists-actions-settings' => array(
-												'type' => 'end',
-											),
-											// table settings.
-											'start-article-table-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Wishlist Table Items Display', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'Choose options of your wishlist table.', 'wc-wlfmc-wishlist' ),
-												'doc'   => 'https://moreconvert.com/fbdn',
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'wishlist_items_show' => array(
-												'label'   => __( 'Items show for wishlist', 'wc-wlfmc-wishlist' ),
-												'type'    => 'checkbox-group',
-												'options' => array(
-													'product-checkbox'     => __( 'Checkboxes', 'wc-wlfmc-wishlist' ),
-													'product-name'         => __( 'Product name', 'wc-wlfmc-wishlist' ),
-													'product-review'       => __( 'Product rating', 'wc-wlfmc-wishlist' ),
-													'product-thumbnail'    => __( 'Product image', 'wc-wlfmc-wishlist' ),
-													'product-variation'    => __( 'Product variations selected by the user (e.g. size or color)', 'wc-wlfmc-wishlist' ),
-													'product-price'        => __( 'Product price', 'wc-wlfmc-wishlist' ),
-													'product-quantity'     => __( 'Quantity', 'wc-wlfmc-wishlist' ),
-													'product-stock-status' => __( 'Product stock (show if product is unavailable)', 'wc-wlfmc-wishlist' ),
-													'product-date-added'   => __( 'Date on which the product was added to the wishlist', 'wc-wlfmc-wishlist' ),
-													'product-add-to-cart'  => __( 'Add to cart option for each product', 'wc-wlfmc-wishlist' ),
-													'product-remove'       => __( 'Button to remove product from wishlist', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => array(
-													'product-checkbox',
-													'product-name',
-													'product-thumbnail',
-													'product-variation',
-													'product-price',
-													'product-add-to-cart',
-													'product-remove',
-												),
-											),
-											'wishlist_under_table' => array(
-												'label'   => __( 'Under wishlist table show', 'wc-wlfmc-wishlist' ),
-												'type'    => 'checkbox-group',
-												'options' => array(
-													'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
-													'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => array(
-													'actions',
-													'add-all-to-cart',
-												),
-											),
-											'wishlist_show_total_price' => array(
-												'label'   => __( 'Total Price Display', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-											),
-											'wishlist_drag_n_drop' => array(
-												'label'   => __( 'Enable Drag & Drop products', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'Empower users to rearrange their product on list to reflect their priorities', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
-												),
-											),
-											'wishlist_view_mode' => array(
-												'label'   => __( 'Select view mode', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'default' => 'list',
-												'options' => array(
-													'list' => __( 'List', 'wc-wlfmc-wishlist' ),
-													'grid' => __( 'Grid', 'wc-wlfmc-wishlist' ),
-													'both-grid' => __( 'Both( Default Grid ) - pro', 'wc-wlfmc-wishlist' ),
-													'both-list' => __( 'Both( Default List ) - pro', 'wc-wlfmc-wishlist' ),
-												),
-												'disabled_options' => array(
-													'both-grid',
-													'both-list',
-												),
-											),
-											'social_share' => array(
-												'label' => __( 'Social Share', 'wc-wlfmc-wishlist' ),
-												'type'  => 'html',
-												'html'  => '<a class="btn-secondary" href="' . esc_url(
-														add_query_arg(
-															array(
-																'page' => 'mc-global-settings',
-																'tab'  => 'share',
-															),
-															admin_url( 'admin.php' )
-														)
-													) . '" target="_blank">' . __( 'Change Settings', 'wc-wlfmc-wishlist' ) . '</a>',
-											),
-											'end-article-table-settings' => array(
-												'type' => 'end',
-											),
-											// page appearance settings.
-											'start-article-page-appearance-settings' => array(
-												'type'    => 'start',
-												'title'   => __( 'Wishlist Page Appearance', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'wishlist_custom_template' => array(
-												'label'   => __( 'Wishlist default template', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-											),
-											'wishlist_button_text' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Buttons Text Style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'wishlist_button_color'       => array(
-														'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#515151',
-													),
-													'wishlist_button_hover_color' => array(
-														'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-													),
-													'wishlist_button_font_size'   => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '14px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
+												'wishlist_enable_myaccount_link' => array(
+													'label'   => __( 'Show Link to Wishlist in my account', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '',
+													'dependencies' => array(
+														'id' => 'wishlist_user_page',
+														'value' => 'quest-page',
 													),
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_custom_template',
-														'value' => '0',
-													),
+												'wishlist_page' => array(
+													'label'   => __( 'Guest Wishlist page', 'wc-wlfmc-wishlist' ),
+													/* translators: 1: create a page link  2: shortcode*/
+													'desc'    => sprintf( __( '%1$s or Add %2$s shortcode to a any page you want.', 'wc-wlfmc-wishlist' ), '<a class="wlfmc-built-wishlist-page" href="#">' . __( 'click to build a new page', 'wc-wlfmc-wishlist' ) . '</a>', '<code>[wlfmc_wishlist]</code>' ) . '<a href="https://moreconvert.com/4rrt" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
+													'type'    => 'page-select',
+													'show_links' => true,
+													'exclude' => $this->get_all_wc_page_ids(),
+													'class'   => 'select2-trigger',
+													'default' => get_option( 'wlfmc_wishlist_page_id' ),
+													'help'    => __( 'Wishlist page needs to be selected so the plugin knows where it is. You should choose it upon installation of the plugin or create it manually.', 'wc-wlfmc-wishlist' ),
 												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'wishlist_button_colors' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Buttons Color', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'wishlist_button_background_color'       => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-													),
-													'wishlist_button_background_hover_color' => array(
-														'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#e67e22',
-													),
-													'wishlist_button_border_color'           => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-													),
-													'wishlist_button_border_hover_color'     => array(
-														'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#e67e22',
-													),
-
+												'separator'    => array(
+													'type' => 'separator',
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_custom_template',
-														'value' => '0',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'wishlist_button_sizes' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Buttons Style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-
-													'wishlist_button_border_radius' => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '5px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
-
-													),
-													'wishlist_button_border_width'  => array(
-														'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '1px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_button_height'        => array(
-														'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '36px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_custom_template',
-														'value' => '0',
-													),
-												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'wishlist_table_style' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Wishlist items style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'wishlist_table_thumbnail_background'  => array(
-														'label' => __( 'Thumbnail background color', 'wc-wlfmc-wishlist' ),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-thumbnail-background-color.gif',
-														'help' => __( 'Your image must be SVG or png for this section to be effective..', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#f5f5f5',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_table_grid_border_color'     => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#ebebeb',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_table_grid_border_radius'    => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '6px',
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the grid (look at the gif)', 'wc-wlfmc-wishlist' ),
-
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_table_item_background'       => array(
-														'label' => __( 'Item background color', 'wc-wlfmc-wishlist' ),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-item-background-color.gif',
-														'help'  => ' ',
-														'type' => 'color',
-														'default' => '#fff',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_table_item_hover_background' => array(
-														'label' => __( 'Item background hover color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-													'wishlist_table_separator_color'       => array(
-														'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => 'transparent',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-													),
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_custom_template',
-														'value' => '0',
-													),
-												),
-
-											),
-											'wishlist_button_add_to_cart_style' => array(
-												'label'   => __( '"Add to Cart" Button Appearance', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Apply button style for add to cart button', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'dependencies' => array(
-													array(
-														'id' => 'wishlist_custom_template',
-														'value' => '0',
-													),
-												),
-											),
-											'wishlist_disable_qty_padding' => array(
-												'label'   => __( 'Disable Quantity Padding', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'If the quantity input field has a blank space and is not displaying anything, enable this.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-											),
-											'wishlist_qty_style' => array(
-												'label'   => __( 'Quantity field style', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Apply styling to quantity field', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'Ensure it is displayed correctly after setting; some themes are incompatible with this setting.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-quantity-field-style.gif',
-												'dependencies' => array(
-													'id' => 'wishlist_custom_template',
-													'value' => '0',
-												),
-											),
-											'wishlist_pagination_style' => array(
-												'label'   => __( 'Pagination style', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Apply wishlist page style for pagination bar', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'dependencies' => array(
-													'id' => 'wishlist_custom_template',
-													'value' => '0',
-												),
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-pagination-style.gif',
-												'help'    => __( 'Theme settings are used for pagination; by activating this section, coordinate it with the wishlist page style.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-page-appearance-settings' => array(
-												'type' => 'end',
-											),
-                                            // empty table.
-											'start-article-page-empty-settings' => array(
-												'type'    => 'start',
-												'title'   => __( 'Empty Wishlist Content', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'empty_wishlist_title' => array(
-												'label'   => __( 'Empty wishlist title', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'custom_attributes' => array(
-													'placeholder' => __( 'YOUR WISHLIST IS EMPTY!', 'wc-wlfmc-wishlist' ),
-												),
-												'translatable' => true,
-												'default' => __( 'YOUR WISHLIST IS EMPTY!', 'wc-wlfmc-wishlist' ),
-											),
-											'empty_wishlist_content' => array(
-												'label'   => __( 'Empty wishlist content', 'wc-wlfmc-wishlist' ),
-												'type'    => 'wp-editor',
-												'translatable' => true,
-												'default' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
-												'custom_attributes' => array(
-													'style' => 'max-width:100%;width:100%',
-													'placeholder' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
-												),
-											),
-											'end-article-page-empty-settings' => array(
-												'type' => 'end',
-											),
-                                            // login notice.
-											'start-article-login-notice' => array(
-												'type'  => 'start',
-												'title' => __( 'Login notice', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'Turn guest users into leads by inviting them to sign up on the wishlist page.', 'wc-wlfmc-wishlist' ),
-												'doc'   => 'https://moreconvert.com/7f5g',
-												'dependencies' => array(
-													array(
-														'id' => 'show_login_notice_for_guests',
-														'value' => '1',
-													),
-													array(
+												'show_login_notice_for_guests' => array(
+													'label'   => __( 'Login notice', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Show login notice for guests on wishlist page', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'dependencies' => array(
 														'id' => 'who_can_see_wishlist_options',
 														'value' => 'all',
 													),
-													array(
+													'default' => '1',
+													'help'    => __( 'It helps you to generate more leads.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-page-settings' => array(
+													'type' => 'end',
+												),
+												// actions
+												'start-article-lists-actions-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'In-List Actions Settings', 'wc-wlfmc-wishlist' ),
+												),
+												'remove_from_wishlist' => array(
+													'label'   => __( 'List Products Auto-Removal', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'class'   => 'select2-trigger',
+													'options' => array(
+														'none' => __( 'Keep Product in List Permanently', 'wc-wlfmc-wishlist' ),
+														'added-to-cart' => __( 'Remove Product After Adding to Cart', 'wc-wlfmc-wishlist' ),
+														'completed' => __( 'Remove Product After Order Completion', 'wc-wlfmc-wishlist' ),
+														'processing' => __( 'Remove Product After Order Processing', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => 'none',
+													'help'    => __( 'Remove from wishlist or any other lists based on this condition will happen.', 'wc-wlfmc-wishlist' ),
+												),
+												'redirect_after_add_to_cart' => array(
+													'label'   => __( 'Redirect to the cart', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'help'    => __( 'It works for the "add all to cart" button and the "add to cart" option in the action button and "add to cart" button in the lists.', 'wc-wlfmc-wishlist' ),
+												),
+												'product_move' => array(
+													'label'   => __( 'Product Transfer', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This feature enables users to seamlessly transfer products from one list to another. Please note that this functionality only can be used within wishlists and multi-lists.', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+												),
+												'external_in_new_tab' => array(
+													'label'   => __( 'Open New Tab for External Product Add to Cart', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'It is essential for affiliate products to open in a new tab and keep users active on your website.', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+												),
+												'end-article-lists-actions-settings' => array(
+													'type' => 'end',
+												),
+												// table settings.
+												'start-article-table-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Wishlist Table Items Display', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'Choose options of your wishlist table.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/fbdn',
+													'dependencies' => array(
 														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
 												),
-											),
-											'login_notice_content' => array(
-												'label'   => __( 'Content', 'wc-wlfmc-wishlist' ),
-												'type'    => 'wp-editor',
-												'translatable' => true,
-												'help'    => __( 'Write a text for Notify that creates FOMO', 'wc-wlfmc-wishlist' ),
-												'default' => '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'Warning! You Will Lose Your Wishlist', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'If you do not sign-up or log in to your account right now , you will probably lose your list after leaving the site.', 'wc-wlfmc-wishlist' ) . '</p>',
-												'custom_attributes' => array(
-													'style' => 'max-width:100%;width:100%',
-												),
-											),
-											'login_notice_buttons' => array(
-												'label'   => __( 'Add button', 'wc-wlfmc-wishlist' ),
-												'type'    => 'add-button',
-												'translatable' => true,
-												'help'    => __( 'Adjust the text of the notification buttons to have the most impact', 'wc-wlfmc-wishlist' ),
-												'links'   => array(
-													'login'  => __( 'login', 'wc-wlfmc-wishlist' ),
-													'signup' => __( 'Sign-up', 'wc-wlfmc-wishlist' ),
-													'custom-link' => __( 'Custom url', 'wc-wlfmc-wishlist' ),
-												),
-												'helps'   => array(
-													'border-radius' => array(
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+												'wishlist_items_show' => array(
+													'label'   => __( 'Items show for wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'product-checkbox'     => __( 'Checkboxes', 'wc-wlfmc-wishlist' ),
+														'product-name'         => __( 'Product name', 'wc-wlfmc-wishlist' ),
+														'product-review'       => __( 'Product rating', 'wc-wlfmc-wishlist' ),
+														'product-thumbnail'    => __( 'Product image', 'wc-wlfmc-wishlist' ),
+														'product-variation'    => __( 'Product variations selected by the user (e.g. size or color)', 'wc-wlfmc-wishlist' ),
+														'product-price'        => __( 'Product price', 'wc-wlfmc-wishlist' ),
+														'product-quantity'     => __( 'Quantity', 'wc-wlfmc-wishlist' ),
+														'product-stock-status' => __( 'Product stock (show if product is unavailable)', 'wc-wlfmc-wishlist' ),
+														'product-date-added'   => __( 'Date on which the product was added to the wishlist', 'wc-wlfmc-wishlist' ),
+														'product-add-to-cart'  => __( 'Add to cart option for each product', 'wc-wlfmc-wishlist' ),
+														'product-remove'       => __( 'Button to remove product from wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'product-checkbox',
+														'product-name',
+														'product-thumbnail',
+														'product-variation',
+														'product-price',
+														'product-add-to-cart',
+														'product-remove',
 													),
 												),
-												'default' => array(
-													array(
-														'label' => __( 'Login', 'wc-wlfmc-wishlist' ),
-														'background' => '#555555',
-														'background-hover' => '#555555',
-														'label-color' => '#ffffff',
-														'label-hover-color' => '#ffffff',
-														'border-radius' => '2px',
-														'link' => 'login',
-														'custom-link' => '',
+												'wishlist_under_table' => array(
+													'label'   => __( 'Under wishlist table show', 'wc-wlfmc-wishlist' ),
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
+														'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
 													),
-													array(
-														'label' => __( 'Sign-up', 'wc-wlfmc-wishlist' ),
-														'background' => 'rgba(0,0,0,0)',
-														'background-hover' => 'rgba(0,0,0,0)',
-														'label-color' => '#7e7e7e',
-														'label-hover-color' => '#7e7e7e',
-														'border-radius' => '2px',
-														'link' => 'signup',
-														'custom-link' => '',
+													'default' => array(
+														'actions',
+														'add-all-to-cart',
 													),
 												),
-												'limit'   => 3,
-											),
-											'login_notice_background_color' => array(
-												'label'   => __( 'Background color', 'wc-wlfmc-wishlist' ),
-												'type'    => 'color',
-												'help'    => __( 'We suggest you choose red, orange and yellow.', 'wc-wlfmc-wishlist' ),
-												'default' => '#f6f6f6',
-											),
-											'end-article-login-notice' => array(
-												'type' => 'end',
-											),
-
-										)
-									),
-									'counter'       => apply_filters(
-										'wlfmc_wishlist_counter_settings',
-										array(
-											'start-article-wishlist-counter-settings' => array(
-												'type'    => 'start',
-												'title'   => __( 'Wishlist header counter', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Add a counter icon on the header or any spot you choose to show wishlist items and include a mini wishlist.', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'Wishlist product counter', 'wc-wlfmc-wishlist' ),
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/counter.gif',
-												'youtube' => 'https://moreconvert.com/qs5d',
-												'doc'     => 'https://moreconvert.com/pj25',
-												'dependencies' => array(
-													'id' => 'wishlist_enable',
-													'value' => '1',
-												),
-											),
-											'counter_add_to_menu' => array(
-												'label'   => __( 'Add counter to menu', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Use shortcode to place it in the desired location <code>[wlfmc_wishlist_counter]</code>', 'wc-wlfmc-wishlist' ) . '<a href="https://moreconvert.com/jtea" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
-												'default' => '',
-												// 'type'    => 'select',
-												'type'    => 'multi-select',
-												'class'   => 'select2-trigger',
-												'options' => $this->get_wordpress_menus(),
-											),
-											'counter_menu_position' => array(
-												'label'   => __( 'Counter position (Menu item order)', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Define the position of the counter in the list of menu items.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'number',
-												'default' => 100,
-												'help'    => __( 'Allows you to add the wishlist counter as a menu item and apply its position.', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													array(
-														'id' => 'counter_add_to_menu',
-														'value' => count( $this->get_wordpress_menus() ) > 0 ? implode( ',', array_slice( array_keys( $this->get_wordpress_menus() ), 0 ) ) : 'disable',
+												'wishlist_show_total_price' => array(
+													'label'   => __( 'Total Price Display', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
 													),
 												),
-											),
-											'counter_icon' => array(
-												'label'   => __( '"wishlist" counter icon', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select-icon',
-												'class'   => 'select2-trigger',
-												'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
-												'default' => 'heart-regular-2',
-											),
-											'counter_icon_svg_zero' => array(
-												'label' => __( 'Custom zero icon svg', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'counter_icon',
-														'value' => 'custom',
+												'wishlist_drag_n_drop' => array(
+													'label'   => __( 'Enable Drag & Drop products', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'Empower users to rearrange their product on list to reflect their priorities', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
 													),
 												),
-												'help'  => __( 'Define a custom icon for when no product is added to the wishlist', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'counter_icon_svg_added' => array(
-												'label' => __( 'Custom added icon svg', 'wc-wlfmc-wishlist' ),
-												'type'  => 'textarea',
-												'custom_attributes' => array(
-													'cols' => '120',
-													'rows' => '3',
-												),
-												'dependencies' => array(
-													array(
-														'id' => 'counter_icon',
-														'value' => 'custom',
+												'wishlist_view_mode' => array(
+													'label'   => __( 'Select view mode', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'default' => 'list',
+													'options' => array(
+														'list' => __( 'List', 'wc-wlfmc-wishlist' ),
+														'grid' => __( 'Grid', 'wc-wlfmc-wishlist' ),
+														'both-grid' => __( 'Both( Default Grid ) - pro', 'wc-wlfmc-wishlist' ),
+														'both-list' => __( 'Both( Default List ) - pro', 'wc-wlfmc-wishlist' ),
+													),
+													'disabled_options' => array(
+														'both-grid',
+														'both-list',
 													),
 												),
-												'help'  => __( 'Define a custom icon for when at least one product is on the wishlist', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
-											),
-											'counter_icon_width' => array(
-												'label'   => __( 'Icon width', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'default' => '24px',
-												'dependencies' => array(
-													array(
-														'id' => 'counter_icon',
-														'value' => 'custom',
-													),
+												'social_share' => array(
+													'label' => __( 'Social Share', 'wc-wlfmc-wishlist' ),
+													'type'  => 'html',
+													'html'  => '<a class="btn-secondary" href="' . esc_url(
+															add_query_arg(
+																array(
+																	'page' => 'mc-global-settings',
+																	'tab'  => 'share',
+																),
+																admin_url( 'admin.php' )
+															)
+														) . '" target="_blank">' . __( 'Change Settings', 'wc-wlfmc-wishlist' ) . '</a>',
 												),
-												'custom_attributes' => array(
-													'style' => 'width:80px',
+												'end-article-table-settings' => array(
+													'type' => 'end',
 												),
-											),
-											'enable_counter_text' => array(
-												'label'   => __( 'Show "wishlist" counter text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-											),
-											'counter_text' => array(
-												'label'   => __( '"wishlist" counter text', 'wc-wlfmc-wishlist' ),
-												'type'    => 'text',
-												'custom_attributes' => array(
-													'placeholder' => __( 'Wishlist - ', 'wc-wlfmc-wishlist' ),
-												),
-												'translatable' => true,
-												'default' => __( 'Wishlist - ', 'wc-wlfmc-wishlist' ),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_counter_text',
+												// page appearance settings.
+												'start-article-page-appearance-settings' => array(
+													'type'    => 'start',
+													'title'   => __( 'Wishlist Page Appearance', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
 												),
-											),
-											'enable_counter_products_number' => array(
-												'label'   => __( 'Show Product Count', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-											),
-											'hide_counter_zero_products_number' => array(
-												'label'   => __( 'Hide Zero Counts', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-hide-zero.gif',
-												'help'       => __( 'Hide Zero Counts', 'wc-wlfmc-wishlist' ),
-												'default' => '1',
-												'dependencies' => array(
-													array(
-														'id' => 'enable_counter_products_number',
+												'wishlist_custom_template' => array(
+													'label'   => __( 'Wishlist default template', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+												),
+												'wishlist_button_text' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Buttons Text Style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'wishlist_button_color'       => array(
+															'label' => __( 'Color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#515151',
+														),
+														'wishlist_button_hover_color' => array(
+															'label' => __( 'Hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+														),
+														'wishlist_button_font_size'   => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '14px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_custom_template',
+															'value' => '0',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'wishlist_button_colors' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Buttons Color', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'wishlist_button_background_color'       => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+														),
+														'wishlist_button_background_hover_color' => array(
+															'label' => __( 'Background hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#e67e22',
+														),
+														'wishlist_button_border_color'           => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+														),
+														'wishlist_button_border_hover_color'     => array(
+															'label' => __( 'Border hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#e67e22',
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_custom_template',
+															'value' => '0',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'wishlist_button_sizes' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Buttons Style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+
+														'wishlist_button_border_radius' => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '5px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+
+														),
+														'wishlist_button_border_width'  => array(
+															'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '1px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_button_height'        => array(
+															'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '36px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_custom_template',
+															'value' => '0',
+														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'wishlist_table_style' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Wishlist items style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'wishlist_table_thumbnail_background'  => array(
+															'label' => __( 'Thumbnail background color', 'wc-wlfmc-wishlist' ),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-thumbnail-background-color.gif',
+															'help' => __( 'Your image must be SVG or png for this section to be effective..', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#f5f5f5',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_table_grid_border_color'     => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#ebebeb',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_table_grid_border_radius'    => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '6px',
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the grid (look at the gif)', 'wc-wlfmc-wishlist' ),
+
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_table_item_background'       => array(
+															'label' => __( 'Item background color', 'wc-wlfmc-wishlist' ),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-item-background-color.gif',
+															'help'  => ' ',
+															'type' => 'color',
+															'default' => '#fff',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_table_item_hover_background' => array(
+															'label' => __( 'Item background hover color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+														'wishlist_table_separator_color'       => array(
+															'label' => __( 'Separator color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => 'transparent',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+														),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_custom_template',
+															'value' => '0',
+														),
+													),
+
+												),
+												'wishlist_button_add_to_cart_style' => array(
+													'label'   => __( '"Add to Cart" Button Appearance', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Apply button style for add to cart button', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_custom_template',
+															'value' => '0',
+														),
+													),
+												),
+												'wishlist_disable_qty_padding' => array(
+													'label'   => __( 'Disable Quantity Padding', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'If the quantity input field has a blank space and is not displaying anything, enable this.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+												),
+												'wishlist_qty_style' => array(
+													'label'   => __( 'Quantity field style', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Apply styling to quantity field', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'Ensure it is displayed correctly after setting; some themes are incompatible with this setting.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-quantity-field-style.gif',
+													'dependencies' => array(
+														'id' => 'wishlist_custom_template',
+														'value' => '0',
+													),
+												),
+												'wishlist_pagination_style' => array(
+													'label'   => __( 'Pagination style', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Apply wishlist page style for pagination bar', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'dependencies' => array(
+														'id' => 'wishlist_custom_template',
+														'value' => '0',
+													),
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-pagination-style.gif',
+													'help'    => __( 'Theme settings are used for pagination; by activating this section, coordinate it with the wishlist page style.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-page-appearance-settings' => array(
+													'type' => 'end',
+												),
+												// empty table.
+												'start-article-page-empty-settings' => array(
+													'type'    => 'start',
+													'title'   => __( 'Empty Wishlist Content', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
 												),
-											),
-											'hide_counter_if_no_items' => array(
-												'label'   => __( 'Hide Counter for Empty list', 'wc-wlfmc-wishlist' ),
-												'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
-												'help'    => __( 'By enabling this option, if there are no products available in the list, the counter will be hidden completely.', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '0',
-												'parent_class' => 'enable-for-pro',
-												'custom_attributes' => array(
-													'disabled' => 'true',
+												'empty_wishlist_title' => array(
+													'label'   => __( 'Empty wishlist title', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'YOUR WISHLIST IS EMPTY!', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'YOUR WISHLIST IS EMPTY!', 'wc-wlfmc-wishlist' ),
 												),
-											),
-											'counter_products_number_position' => array(
-												'label'   => __( 'Products number position', 'wc-wlfmc-wishlist' ),
-												'default' => 'right',
-												'type'    => 'select',
-												'options' => array(
-													'right' => __( 'Right side of the text', 'wc-wlfmc-wishlist' ),
-													'left' => __( 'Left side of the text', 'wc-wlfmc-wishlist' ),
-													'top-right' => __( 'On icon - top right', 'wc-wlfmc-wishlist' ),
-													'top-left' => __( 'On icon - top left', 'wc-wlfmc-wishlist' ),
+												'empty_wishlist_content' => array(
+													'label'   => __( 'Empty wishlist content', 'wc-wlfmc-wishlist' ),
+													'type'    => 'wp-editor',
+													'translatable' => true,
+													'default' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'style' => 'max-width:100%;width:100%',
+														'placeholder' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
+													),
 												),
-												'dependencies' => array(
-													array(
-														'id' => 'enable_counter_products_number',
+												'end-article-page-empty-settings' => array(
+													'type' => 'end',
+												),
+												// login notice.
+												'start-article-login-notice' => array(
+													'type'  => 'start',
+													'title' => __( 'Login notice', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'Turn guest users into leads by inviting them to sign up on the wishlist page.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/7f5g',
+													'dependencies' => array(
+														array(
+															'id' => 'show_login_notice_for_guests',
+															'value' => '1',
+														),
+														array(
+															'id' => 'who_can_see_wishlist_options',
+															'value' => 'all',
+														),
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+													),
+												),
+												'login_notice_content' => array(
+													'label'   => __( 'Content', 'wc-wlfmc-wishlist' ),
+													'type'    => 'wp-editor',
+													'translatable' => true,
+													'help'    => __( 'Write a text for Notify that creates FOMO', 'wc-wlfmc-wishlist' ),
+													'default' => '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'Warning! You Will Lose Your Wishlist', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'If you do not sign-up or log in to your account right now , you will probably lose your list after leaving the site.', 'wc-wlfmc-wishlist' ) . '</p>',
+													'custom_attributes' => array(
+														'style' => 'max-width:100%;width:100%',
+													),
+												),
+												'login_notice_buttons' => array(
+													'label'   => __( 'Add button', 'wc-wlfmc-wishlist' ),
+													'type'    => 'add-button',
+													'translatable' => true,
+													'help'    => __( 'Adjust the text of the notification buttons to have the most impact', 'wc-wlfmc-wishlist' ),
+													'links'   => array(
+														'login'  => __( 'login', 'wc-wlfmc-wishlist' ),
+														'signup' => __( 'Sign-up', 'wc-wlfmc-wishlist' ),
+														'custom-link' => __( 'Custom url', 'wc-wlfmc-wishlist' ),
+													),
+													'helps'   => array(
+														'border-radius' => array(
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+														),
+													),
+													'default' => array(
+														array(
+															'label' => __( 'Login', 'wc-wlfmc-wishlist' ),
+															'background' => '#555555',
+															'background-hover' => '#555555',
+															'label-color' => '#ffffff',
+															'label-hover-color' => '#ffffff',
+															'border-radius' => '2px',
+															'link' => 'login',
+															'custom-link' => '',
+														),
+														array(
+															'label' => __( 'Sign-up', 'wc-wlfmc-wishlist' ),
+															'background' => 'rgba(0,0,0,0)',
+															'background-hover' => 'rgba(0,0,0,0)',
+															'label-color' => '#7e7e7e',
+															'label-hover-color' => '#7e7e7e',
+															'border-radius' => '2px',
+															'link' => 'signup',
+															'custom-link' => '',
+														),
+													),
+													'limit'   => 3,
+												),
+												'login_notice_background_color' => array(
+													'label'   => __( 'Background color', 'wc-wlfmc-wishlist' ),
+													'type'    => 'color',
+													'help'    => __( 'We suggest you choose red, orange and yellow.', 'wc-wlfmc-wishlist' ),
+													'default' => '#f6f6f6',
+												),
+												'end-article-login-notice' => array(
+													'type' => 'end',
+												),
+
+											)
+										),
+										'counter'       => apply_filters(
+											'wlfmc_wishlist_counter_settings',
+											array(
+												'start-article-wishlist-counter-settings' => array(
+													'type'    => 'start',
+													'title'   => __( 'Wishlist header counter', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Add a counter icon on the header or any spot you choose to show wishlist items and include a mini wishlist.', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'Wishlist product counter', 'wc-wlfmc-wishlist' ),
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/counter.gif',
+													'youtube' => 'https://moreconvert.com/qs5d',
+													'doc'     => 'https://moreconvert.com/pj25',
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
 														'value' => '1',
 													),
 												),
-											),
-											'counter_style' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Counter style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'counter_color'                   => array(
-														'label' => __( 'Icon color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-														'dependencies' => array(
-															array(
-																'id'    => 'counter_icon',
-																'value' => wlfmc_get_icon_names( 'wishlist', true, true, true ),
+												'counter_add_to_menu' => array(
+													'label'   => __( 'Add counter to menu', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Use shortcode to place it in the desired location <code>[wlfmc_wishlist_counter]</code>', 'wc-wlfmc-wishlist' ) . '<a href="https://moreconvert.com/jtea" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
+													'default' => '',
+													// 'type'    => 'select',
+													'type'    => 'multi-select',
+													'class'   => 'select2-trigger',
+													'options' => $this->get_wordpress_menus(),
+												),
+												'counter_menu_position' => array(
+													'label'   => __( 'Counter position (Menu item order)', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Define the position of the counter in the list of menu items.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'number',
+													'default' => 100,
+													'help'    => __( 'Allows you to add the wishlist counter as a menu item and apply its position.', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'counter_add_to_menu',
+															'value' => count( $this->get_wordpress_menus() ) > 0 ? implode( ',', array_slice( array_keys( $this->get_wordpress_menus() ), 0 ) ) : 'disable',
+														),
+													),
+												),
+												'counter_icon' => array(
+													'label'   => __( '"wishlist" counter icon', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select-icon',
+													'class'   => 'select2-trigger',
+													'options' => wlfmc_get_icon_names( 'wishlist', true, true ),
+													'default' => 'heart-regular-2',
+												),
+												'counter_icon_svg_zero' => array(
+													'label' => __( 'Custom zero icon svg', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'counter_icon',
+															'value' => 'custom',
+														),
+													),
+													'help'  => __( 'Define a custom icon for when no product is added to the wishlist', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
+												),
+												'counter_icon_svg_added' => array(
+													'label' => __( 'Custom added icon svg', 'wc-wlfmc-wishlist' ),
+													'type'  => 'textarea',
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'counter_icon',
+															'value' => 'custom',
+														),
+													),
+													'help'  => __( 'Define a custom icon for when at least one product is on the wishlist', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color.', 'wc-wlfmc-wishlist' ),
+												),
+												'counter_icon_width' => array(
+													'label'   => __( 'Icon width', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'default' => '24px',
+													'dependencies' => array(
+														array(
+															'id' => 'counter_icon',
+															'value' => 'custom',
+														),
+													),
+													'custom_attributes' => array(
+														'style' => 'width:80px',
+													),
+												),
+												'enable_counter_text' => array(
+													'label'   => __( 'Show "wishlist" counter text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+												),
+												'counter_text' => array(
+													'label'   => __( '"wishlist" counter text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Wishlist - ', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Wishlist - ', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_counter_text',
+															'value' => '1',
+														),
+													),
+												),
+												'enable_counter_products_number' => array(
+													'label'   => __( 'Show Product Count', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+												),
+												'hide_counter_zero_products_number' => array(
+													'label'   => __( 'Hide Zero Counts', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-hide-zero.gif',
+													'help'       => __( 'Hide Zero Counts', 'wc-wlfmc-wishlist' ),
+													'default' => '1',
+													'dependencies' => array(
+														array(
+															'id' => 'enable_counter_products_number',
+															'value' => '1',
+														),
+													),
+												),
+												'hide_counter_if_no_items' => array(
+													'label'   => __( 'Hide Counter for Empty list', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Just for premium users', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'By enabling this option, if there are no products available in the list, the counter will be hidden completely.', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '0',
+													'parent_class' => 'enable-for-pro',
+													'custom_attributes' => array(
+														'disabled' => 'true',
+													),
+												),
+												'counter_products_number_position' => array(
+													'label'   => __( 'Products number position', 'wc-wlfmc-wishlist' ),
+													'default' => 'right',
+													'type'    => 'select',
+													'options' => array(
+														'right' => __( 'Right side of the text', 'wc-wlfmc-wishlist' ),
+														'left' => __( 'Left side of the text', 'wc-wlfmc-wishlist' ),
+														'top-right' => __( 'On icon - top right', 'wc-wlfmc-wishlist' ),
+														'top-left' => __( 'On icon - top left', 'wc-wlfmc-wishlist' ),
+													),
+													'dependencies' => array(
+														array(
+															'id' => 'enable_counter_products_number',
+															'value' => '1',
+														),
+													),
+												),
+												'counter_style' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Counter style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'counter_color'                   => array(
+															'label' => __( 'Icon color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+															'dependencies' => array(
+																array(
+																	'id'    => 'counter_icon',
+																	'value' => wlfmc_get_icon_names( 'wishlist', true, true, true ),
+																),
+															),
+														),
+														'counter_icon_font_size'          => array(
+															'label' => __( 'Icon Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => 'inherit',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'counter_icon',
+																	'value' => wlfmc_get_icon_names( 'wishlist', true, true, true ),
+																),
+															),
+														),
+														'counter_font_weight'          => array(
+															'label' => __( 'Font Weight', 'wc-wlfmc-wishlist' ),
+															'type' => 'select',
+															'class'   => 'select2-trigger',
+															'default' => 'inherit',
+															'options'   => array(
+																'100'   => '100',
+																'200'   => '200',
+																'300'   => '300',
+																'400'   => '400',
+																'500'   => '500',
+																'600'   => '600',
+																'700'   => '700',
+																'800'   => '800',
+																'900'   => '900',
+																'inherit'   => __( 'inherit', 'wc-wlfmc-wishlist' ),
+															),
+															'dependencies' => array(
+																array(
+																	'id'    => 'enable_counter_text',
+																	'value' => '1',
+																),
+															),
+														),
+														'counter_number_background_color' => array(
+															'label' => __( 'Number Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#e74c3c',
+															'dependencies' => array(
+																array(
+																	'id'    => 'enable_counter_products_number',
+																	'value' => '1',
+																),
+																array(
+																	'id'    => 'counter_products_number_position',
+																	'value' => 'top-right,top-left',
+																),
+															),
+														),
+														'counter_text_color'              => array(
+															'label' => __( 'Text color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#333',
+															'dependencies' => array(
+																array(
+																	'id'    => 'enable_counter_text',
+																	'value' => '1',
+																),
 															),
 														),
 													),
-													'counter_icon_font_size'          => array(
-														'label' => __( 'Icon Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => 'inherit',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'dependencies' => array(
-															array(
-																'id'    => 'counter_icon',
-																'value' => wlfmc_get_icon_names( 'wishlist', true, true, true ),
-															),
-														),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'display_mini_wishlist_for_counter' => array(
+													'label'   => __( 'Display mini wishlist for counter', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'options' => array(
+														'counter-only'  => __( 'Disabled', 'wc-wlfmc-wishlist' ),
+														'on-hover' => __( 'Show on hover', 'wc-wlfmc-wishlist' ),
+														'on-click' => __( 'Show on click', 'wc-wlfmc-wishlist' ),
 													),
-													'counter_font_weight'          => array(
-														'label' => __( 'Font Weight', 'wc-wlfmc-wishlist' ),
-														'type' => 'select',
-														'class'   => 'select2-trigger',
-														'default' => 'inherit',
-														'options'   => array(
-															'100'   => '100',
-															'200'   => '200',
-															'300'   => '300',
-															'400'   => '400',
-															'500'   => '500',
-															'600'   => '600',
-															'700'   => '700',
-															'800'   => '800',
-															'900'   => '900',
-															'inherit'   => __( 'inherit', 'wc-wlfmc-wishlist' ),
-														),
-														'dependencies' => array(
-															array(
-																'id'    => 'enable_counter_text',
-																'value' => '1',
-															),
-														),
+													'default' => 'counter-only',
+												),
+												'enable_counter_add_link_title' => array(
+													'label'   => __( 'Add Link For "Wishlist" Counter Title', 'wc-wlfmc-wishlist' ),
+													'type'    => 'switch',
+													'default' => '1',
+													'dependencies' => array(
+														'id' => 'display_mini_wishlist_for_counter',
+														'value' => 'counter-only',
 													),
-													'counter_number_background_color' => array(
-														'label' => __( 'Number Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#e74c3c',
-														'dependencies' => array(
-															array(
-																'id'    => 'enable_counter_products_number',
-																'value' => '1',
-															),
-															array(
-																'id'    => 'counter_products_number_position',
-																'value' => 'top-right,top-left',
-															),
-														),
+												),
+												'end-article-wishlist-counter-settings' => array(
+													'type' => 'end',
+												),
+												'start-article-mini-wishlist-counter-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Mini-Wishlist', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'A preview of the user\'s wishlist that can be shown as a shortcut to the main wishlist, usually displayed in a dropdown or sidebar.', 'wc-wlfmc-wishlist' ),
+													'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-mini-wishlist.gif',
+													'help'  => ' ',
+													'dependencies' => array(
+														'id' => 'display_mini_wishlist_for_counter',
+														'value' => 'on-hover,on-click',
 													),
-													'counter_text_color'              => array(
-														'label' => __( 'Text color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#333',
-														'dependencies' => array(
-															array(
-																'id'    => 'enable_counter_text',
-																'value' => '1',
-															),
+												),
+												'mini_wishlist_position_mode' => array(
+													'label'   => __( 'Mini wishlist position mode', 'wc-wlfmc-wishlist' ),
+													'type'    => 'select',
+													'options' => array(
+														'absolute' => __( 'Absolute position', 'wc-wlfmc-wishlist' ),
+														'fixed' => __( 'Fixed position', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => 'fixed',
+												),
+												'position_fixed_z_index' => array(
+													'label'   => __( 'Z-index mini wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'number',
+													'default' => '997',
+													'dependencies' => array(
+														array(
+															'id' => 'mini_wishlist_position_mode',
+															'value' => 'fixed',
 														),
 													),
 												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'display_mini_wishlist_for_counter' => array(
-												'label'   => __( 'Display mini wishlist for counter', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'options' => array(
-													'counter-only'  => __( 'Disabled', 'wc-wlfmc-wishlist' ),
-													'on-hover' => __( 'Show on hover', 'wc-wlfmc-wishlist' ),
-													'on-click' => __( 'Show on click', 'wc-wlfmc-wishlist' ),
+												'counter_per_page_products_count' => array(
+													'label'   => __( 'Maximum products in mini wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'number',
+													'default' => 4,
 												),
-												'default' => 'counter-only',
-											),
-											'enable_counter_add_link_title' => array(
-												'label'   => __( 'Add Link For "Wishlist" Counter Title', 'wc-wlfmc-wishlist' ),
-												'type'    => 'switch',
-												'default' => '1',
-												'dependencies' => array(
-													'id' => 'display_mini_wishlist_for_counter',
-													'value' => 'counter-only',
-												),
-											),
-											'end-article-wishlist-counter-settings' => array(
-												'type' => 'end',
-											),
-											'start-article-mini-wishlist-counter-settings' => array(
-												'type'  => 'start',
-												'title' => __( 'Mini-Wishlist', 'wc-wlfmc-wishlist' ),
-												'desc'  => __( 'A preview of the user\'s wishlist that can be shown as a shortcut to the main wishlist, usually displayed in a dropdown or sidebar.', 'wc-wlfmc-wishlist' ),
-												'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/wishlist-mini-wishlist.gif',
-												'help'  => ' ',
-												'dependencies' => array(
-													'id' => 'display_mini_wishlist_for_counter',
-													'value' => 'on-hover,on-click',
-												),
-											),
-											'mini_wishlist_position_mode' => array(
-												'label'   => __( 'Mini wishlist position mode', 'wc-wlfmc-wishlist' ),
-												'type'    => 'select',
-												'options' => array(
-													'absolute' => __( 'Absolute position', 'wc-wlfmc-wishlist' ),
-													'fixed' => __( 'Fixed position', 'wc-wlfmc-wishlist' ),
-												),
-												'default' => 'fixed',
-											),
-											'position_fixed_z_index' => array(
-												'label'   => __( 'Z-index mini wishlist', 'wc-wlfmc-wishlist' ),
-												'type'    => 'number',
-												'default' => '997',
-												'dependencies' => array(
-													array(
-														'id' => 'mini_wishlist_position_mode',
-														'value' => 'fixed',
+												'counter_mini_wishlist_link_position' => array(
+													'label'   => __( 'Wishlist button position in mini wishlist', 'wc-wlfmc-wishlist' ),
+													'default' => 'after',
+													'type'    => 'select',
+													'options' => array(
+														'after'  => __( 'After products', 'wc-wlfmc-wishlist' ),
+														'before' => __( 'Before products', 'wc-wlfmc-wishlist' ),
 													),
 												),
-											),
-											'counter_per_page_products_count' => array(
-												'label'   => __( 'Maximum products in mini wishlist', 'wc-wlfmc-wishlist' ),
-												'type'    => 'number',
-												'default' => 4,
-											),
-											'counter_mini_wishlist_link_position' => array(
-												'label'   => __( 'Wishlist button position in mini wishlist', 'wc-wlfmc-wishlist' ),
-												'default' => 'after',
-												'type'    => 'select',
-												'options' => array(
-													'after'  => __( 'After products', 'wc-wlfmc-wishlist' ),
-													'before' => __( 'Before products', 'wc-wlfmc-wishlist' ),
-												),
-											),
-											'counter_mini_wishlist_style' => array(
-												'section' => 'button-display',
-												'label'   => __( 'Mini wishlist style', 'wc-wlfmc-wishlist' ),
-												'type'    => 'group-fields',
-												'fields'  => array(
-													'counter_background_color' => array(
-														'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#fff',
-													),
-													'counter_border_color'     => array(
-														'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
-														'type' => 'color',
-														'default' => '#f5f5f5',
-													),
-													'counter_border_radius'    => array(
-														'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '5px',
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the counter (look at the gif)', 'wc-wlfmc-wishlist' ),
+												'counter_mini_wishlist_style' => array(
+													'section' => 'button-display',
+													'label'   => __( 'Mini wishlist style', 'wc-wlfmc-wishlist' ),
+													'type'    => 'group-fields',
+													'fields'  => array(
+														'counter_background_color' => array(
+															'label' => __( 'Background color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#fff',
+														),
+														'counter_border_color'     => array(
+															'label' => __( 'Border color', 'wc-wlfmc-wishlist' ),
+															'type' => 'color',
+															'default' => '#f5f5f5',
+														),
+														'counter_border_radius'    => array(
+															'label' => __( 'Border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '5px',
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the counter (look at the gif)', 'wc-wlfmc-wishlist' ),
 
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
 														),
+													),
+													'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
+												),
+												'counter_button_colors' => array(
+													'label'   => __( 'Mini wishlist button colors', 'wc-wlfmc-wishlist' ),
+													'type'    => 'color-style',
+													'default' => array(
+														'color'  => '#515151',
+														'color-hover' => '#fff',
+														'background' => '#ebebeb',
+														'background-hover' => '#e67e22',
+														'border' => 'rgb(0,0,0,0)',
+														'border-hover' => 'rgb(0,0,0,0)',
 													),
 												),
-												'desc'    => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'counter_button_colors' => array(
-												'label'   => __( 'Mini wishlist button colors', 'wc-wlfmc-wishlist' ),
-												'type'    => 'color-style',
-												'default' => array(
-													'color'  => '#515151',
-													'color-hover' => '#fff',
-													'background' => '#ebebeb',
-													'background-hover' => '#e67e22',
-													'border' => 'rgb(0,0,0,0)',
-													'border-hover' => 'rgb(0,0,0,0)',
-												),
-											),
-											'counter_button_sizes' => array(
-												'label'  => __( 'Mini wishlist button sizes', 'wc-wlfmc-wishlist' ),
-												'type'   => 'group-fields',
-												'fields' => array(
-													'counter_button_font_size'    => array(
-														'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '15px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+												'counter_button_sizes' => array(
+													'label'  => __( 'Mini wishlist button sizes', 'wc-wlfmc-wishlist' ),
+													'type'   => 'group-fields',
+													'fields' => array(
+														'counter_button_font_size'    => array(
+															'label' => __( 'Font size', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '15px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
 														),
-													),
-													'counter_button_height'       => array(
-														'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '38px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+														'counter_button_height'       => array(
+															'label' => __( 'Height', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '38px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
 														),
-													),
-													'counter_button_border_width' => array(
-														'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '1px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
+														'counter_button_border_width' => array(
+															'label' => __( 'Border width', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '1px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
 														),
-													),
 
-													'counter_button_border_radius' => array(
-														'label' => __( 'border radius', 'wc-wlfmc-wishlist' ),
-														'type' => 'text',
-														'default' => '5px',
-														'custom_attributes' => array(
-															'style' => 'width:80px',
-														),
-														'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
-														'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
+														'counter_button_border_radius' => array(
+															'label' => __( 'border radius', 'wc-wlfmc-wishlist' ),
+															'type' => 'text',
+															'default' => '5px',
+															'custom_attributes' => array(
+																'style' => 'width:80px',
+															),
+															'help_image' => MC_WLFMC_URL . 'assets/backend/images/help/border_radius.gif',
+															'help' => __( 'You can define the radius for all 4 corners of the button (look at the gif)', 'wc-wlfmc-wishlist' ),
 
+														),
 													),
+													'desc'   => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
 												),
-												'desc'   => __( 'e.g. 10px, 15rem, 13em etc.', 'wc-wlfmc-wishlist' ),
-											),
-											'end-article-mini-wishlist-counter-settings' => array(
-												'type' => 'end',
-											),
-										)
+												'end-article-mini-wishlist-counter-settings' => array(
+													'type' => 'end',
+												),
+											)
+										),
 									),
 								),
-							),
-						)
-					),
-					'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
-					'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
-					'header_buttons' => wlfmc_get_admin_header_buttons(),
-					'header_menu'    => wlfmc_get_admin_header_menu(),
-					'sidebar'        => wlfmc_get_admin_sidebar( 'wishlist' ),
-					'type'           => 'setting-type',
-					'ajax_saving'    => true,
-                    'sticky_buttons' => true,
-					'id'             => 'wlfmc_options',
-				);
+							)
+						),
+						'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
+						'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
+						'header_buttons' => wlfmc_get_admin_header_buttons(),
+						'header_menu'    => wlfmc_get_admin_header_menu(),
+						'sidebar'        => wlfmc_get_admin_sidebar( 'wishlist' ),
+						'type'           => 'setting-type',
+						'ajax_saving'    => true,
+						'sticky_buttons' => true,
+						'id'             => 'wlfmc_options',
+					);
 
-                $this->text_options = array(
-	                'options'        => apply_filters(
-		                'wlfmc_admin_options',
-		                array(
-			                'texts' => array(
-				                'tabs'   => array(
-					                'global'       => __( 'Global Texts', 'wc-wlfmc-wishlist' ),
-					                'wishlist'     => __( 'Wishlist Texts', 'wc-wlfmc-wishlist' ),
-				                ),
-				                'fields' => array(
-					                'global'        => apply_filters(
-						                'wlfmc_global_text_settings',
-						                array(
-							                'start-article-text-settings' => array(
-								                'type'  => 'start',
-								                'title' => __( 'Global Text Management', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'wishlist_enable'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'gdpr_enable'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'multi_list_enable'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'waitlist_enable'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-                                            'sfl_popup_remove' => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'switch',
-	                                            'remove_name'  => true,
-	                                            'default' => '0',
-                                            ),
-                                            'merge_save_for_later'  => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'switch',
-                                                'remove_name'  => true,
-	                                            'default'      => '0',
-                                            ),
-                                            'waitlist_required_product_variation'  => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'switch',
-	                                            'remove_name'  => true,
-	                                            'default' => '1',
-                                            ),
-							                'sfl_enable'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'is_merge_lists'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'merge_lists'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-							                'multi_list_under_table' => array(
-								                'parent_class' => 'hidden-option',
-								                'remove_name'  => true,
-								                'type'    => 'checkbox-group',
-								                'options' => array(
-									                'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
-									                'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'default' => array(
-									                'actions',
-									                'add-all-to-cart',
-								                ),
-							                ),
-							                'waitlist_under_table' => array(
-								                'parent_class' => 'hidden-option',
-								                'remove_name'  => true,
-								                'type'    => 'checkbox-group',
-								                'options' => array(
-									                'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
-									                'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'default' => array(
-									                'actions',
-									                'add-all-to-cart',
-								                ),
-							                ),
-							                'wishlist_under_table'       => array(
-								                'parent_class' => 'hidden-option',
-								                'remove_name'  => true,
-								                'type'    => 'checkbox-group',
-								                'options' => array(
-									                'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
-									                'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'default' => array(
-									                'actions',
-									                'add-all-to-cart',
-								                ),
-							                ),
-							                'enable_share'       => array(
-								                'parent_class' => 'hidden-option',
-								                'type'         => 'switch',
-								                'remove_name'  => true,
-								                'default' => '0',
-							                ),
-                                            'multi_list_enable_share' => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'switch',
-	                                            'remove_name'  => true,
-	                                            'default' => '0',
-                                            ),
-							                'share_items'       => array(
-								                'parent_class' => 'hidden-option',
-								                'remove_name'  => true,
-								                'type'    => 'checkbox-group',
-								                'options' => array(
-									                'facebook' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
-									                'messenger' => __( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
-									                'twitter' => __( 'Twitter', 'wc-wlfmc-wishlist' ),
-									                'whatsapp' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
-									                'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
-									                'email' => __( 'Email', 'wc-wlfmc-wishlist' ),
-									                'copy' => __( 'Share link', 'wc-wlfmc-wishlist' ),
-									                'pdf'  => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'default' => array(
-									                'facebook',
-									                'messenger',
-									                'twitter',
-									                'whatsapp',
-									                'telegram',
-									                'email',
-									                'copy',
-									                'pdf',
-								                ),
-							                ),
-                                            'share_position'       => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'text',
-	                                            'remove_name'  => true,
-	                                            'default' => 'after_table',
-                                            ),
-                                            'display_mini_wishlist_for_counter'       => array(
-	                                            'parent_class' => 'hidden-option',
-	                                            'type'         => 'text',
-	                                            'remove_name'  => true,
-	                                            'default' => 'counter-only',
-                                            ),
-							                'action_label' => array(
-								                'label'   => __( '"Actions" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Actions', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Actions', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'wishlist_under_table',
-										                'value' => 'actions',
-									                ),
-								                ),
-							                ),
-							                'action_add_to_cart_label' => array(
-								                'label'   => __( '"Add to cart" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Add to cart', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Add to cart', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'action_remove_label' => array(
-								                'label'   => __( '"Remove" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Remove', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Remove', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'apply_label'  => array(
-								                'label'   => __( '"Apply" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Apply', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Apply', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'all_add_to_cart_label' => array(
-								                'label'   => __( '"Add all to cart" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Add all to cart', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Add all to cart', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'end-article-text-settings' => array(
-								                'type' => 'end',
-							                ),
-							                //share labels.
-							                'start-article-share-text' => array(
-                                                'parent_class' => 'hidden-option',
-								                'type'  => 'start',
-								                'title' => __( 'Share label and  tooltip custom text', 'wc-wlfmc-wishlist' ),
-								                'desc'  => __( 'It will show on the tooltip and labels text.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'share_tooltip' => array(
-								                'label'   => __( 'Share tooltip text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Share', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-							                ),
-							                'socials_title' => array(
-								                'label'   => __( 'Sharing title', 'wc-wlfmc-wishlist' ),
-								                'desc'    => __( 'Wishlist title used for sharing', 'wc-wlfmc-wishlist' ),
-								                /* translators: %s: site name */
-								                'default' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
-								                ),
-								                'translatable' => true,
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'twitter,facebook,email',
-									                ),
-								                ),
-								                'help'    => __( 'Enter the title that you would like to display as your ad when your user is sharing it.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'share_popup_title' => array(
-								                'label'   => __( 'Sharing Popup Title', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Share your list', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share your list', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-							                ),
-							                'share_on_label' => array(
-								                'label'   => __( '"Share on:" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share on:', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share on:', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
-									                ),
-								                ),
-							                ),
-							                'copy_field_label' => array(
-								                'label'   => __( 'Copy field label', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Or copy the link', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Or copy the link', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'copy',
-									                ),
-									                array(
-										                'id' => 'share_position',
-										                'value' => 'popup',
-									                ),
-								                ),
-							                ),
-							                'copy_button_text' => array(
-								                'label'   => __( '"Copy button" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Copy', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Copy', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'copy',
-									                ),
-									                array(
-										                'id' => 'share_position',
-										                'value' => 'popup',
-									                ),
-								                ),
-							                ),
-							                'share_on_facebook_tooltip_label' => array(
-								                'label'   => __( '"Share on facebook" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share on facebook', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share on facebook', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'facebook',
-									                ),
-								                ),
-							                ),
-							                'share_on_messenger_tooltip_label' => array(
-								                'label'   => __( '"Share with messenger" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share with messenger', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share with messenger', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'messenger',
-									                ),
-								                ),
-							                ),
-							                'share_on_twitter_tooltip_label' => array(
-								                'label'   => __( '"Share on twitter" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share on Twitter', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share on Twitter', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'twitter',
-									                ),
-								                ),
-							                ),
-							                'share_on_whatsapp_tooltip_label' => array(
-								                'label'   => __( '"Share on whatsApp" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share on whatsApp', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share on whatsApp', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'whatsapp',
-									                ),
-								                ),
-							                ),
-							                'share_on_telegram_tooltip_label' => array(
-								                'label'   => __( '"Share on Telegram" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share on Telegram', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share on Telegram', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'telegram',
-									                ),
-								                ),
-							                ),
-							                'share_on_email_tooltip_label' => array(
-								                'label'   => __( '"Share with email" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Share with email', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Share with email', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'email',
-									                ),
-								                ),
-							                ),
-							                'share_on_copy_link_tooltip_label' => array(
-								                'label'   => __( '"Click to copy the link" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Click to copy the link', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Click to copy the link', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'copy',
-									                ),
-									                array(
-										                'id' => 'share_position',
-										                'value' => 'after_table',
-									                ),
-								                ),
-							                ),
-							                'share_on_download_pdf_tooltip_label' => array(
-								                'label'   => __( '"Download pdf" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'share_items',
-										                'value' => 'pdf',
-									                ),
-								                ),
-							                ),
-							                'end-article-share-text' => array(
-								                'type' => 'end',
-							                ),
-							                'start-article-gdpr-text' => array(
-								                'type'  => 'start',
-								                'title' => __( 'GDPR texts', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'gdpr_content' => array(
-								                'label'   => __( 'GDPR Notice Text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'wp-editor',
-								                'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
-								                'custom_attributes' => array(
-									                'style' => 'max-width:100%;width:100%',
-									                'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-                                                'translatable' => true,
-								                'default'      => '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'We Value Your Privacy', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms.', 'wc-wlfmc-wishlist' ) . '</p>',
-							                ),
-							                'gdpr_accept_button_title' => array(
-								                'label'   => __( 'Accept Button Text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Accept', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'translatable' => true,
-							                ),
-							                'gdpr_denied_button_title' => array(
-								                'label'   => __( 'Decline Button Text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Decline', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'translatable' => true,
-							                ),
-							                'separator'    => array(
-								                'type' => 'separator',
-							                ),
-							                'unsubscribed_content' => array(
-								                'label'   => __( 'UnSubscribed Notice Text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'wp-editor',
-								                'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
-								                'custom_attributes' => array(
-									                'style' => 'max-width:100%;width:100%',
-									                'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' =>  '<p style="text-align: center;">' . __( 'Your email has been successfully unsubscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) . '</p>',
-							                ),
-							                'unsubscribed_button_title' => array(
-								                'label'   => __( 'Subscribe Button Text', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Agree, Subscribe Me', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'translatable' => true,
-							                ),
-							                'end-article-gdpr-text' => array(
-								                'type' => 'end',
-							                ),
-							                'start-article-no-access-text' => array(
-								                'parent_class' => 'hidden-option',
-								                'type'  => 'start',
-								                'title' => __( 'No access texts', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'no_access_title' => array(
-								                'label'   => __( 'No access title', 'wc-wlfmc-wishlist' ),
-                                                'default' => __( 'Access Denied', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'translatable' => true,
-							                ),
-							                'no_access_content' => array(
-								                'label'   => __( 'No access message', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'translatable' => true,
-								                'default' => __( 'You do not have permission. Please log in or signup to access this content.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'end-article-no-access-text' => array(
-								                'type' => 'end',
-							                ),
-						                )
-					                ),
-					                'wishlist'      => apply_filters(
-						                'wlfmc_wishlist_text_settings',
-						                array(
-							                // notifications.
-							                'start-article-notification-text' => array(
-								                'type'  => 'start',
-								                'title' => __( 'Alert Notification Texts', 'wc-wlfmc-wishlist' ),
-								                'desc'  => __( 'You can choose your desired text for the items below.', 'wc-wlfmc-wishlist' ),
-								                'doc'   => 'https://moreconvert.com/m08z',
-								                'dependencies' => array(
-									                array(
-										                'id' => 'wishlist_enable',
-										                'value' => '1',
-									                ),
-									                array(
-										                'id' => 'is_merge_lists',
-										                'value' => '0',
-									                )
-								                ),
-							                ),
-							                'login_need_text' => array(
-								                'label'   => __( '"Force to login" text', 'wc-wlfmc-wishlist' ),
-								                'desc'    => __( 'You can use <code>{login_url}</code> or <code>{signup_url}</code> in the text.', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'to use your Wishlist: <br><a href="{login_url}">Login right now</a>', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'textarea',
-								                'translatable' => true,
-								                'custom_attributes' => array(
-									                'cols' => '120',
-									                'rows' => '3',
-								                ),
-								                'help'    => __( 'it will show when users have to log in to add to the wishlist', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'product_added_text' => array(
-								                'label'   => __( '"Product added" text', 'wc-wlfmc-wishlist' ),
-								                'desc'    => __( 'Enter the text of the message displayed when the user adds a product to the Wishlist. leave empty for disable message.', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Product added!', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Product added!', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'help'    => __( 'After the user clicks on the Add to wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'product_removed_text' => array(
-								                'label'   => __( '"Product removed" text', 'wc-wlfmc-wishlist' ),
-								                'desc'    => __( 'Enter the text of the message displayed when the user removed a product from the Wishlist,leave empty for disable message', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'Product Removed!', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Product Removed!', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'help'    => __( 'After the user clicks on the remove from wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'already_in_wishlist_text' => array(
-								                'label'   => __( '"Product already in Wishlist" text', 'wc-wlfmc-wishlist' ),
-								                'desc'    => __( 'Enter the text for the message displayed when the user will try to add a product that is already in the Wishlist,leave empty for disable message', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'help'    => __( 'If the product already exists in the user\'s wishlist and she/he clicks the Add to wishlist button again, this text will be displayed.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'end-article-notification-text' => array(
-								                'type' => 'end',
-							                ),
-							                // labels.
-							                'start-article-labels-text' => array(
-								                'type'  => 'start',
-								                'title' => __( 'Button and tooltip custom text', 'wc-wlfmc-wishlist' ),
-								                'desc'  => __( 'It will show on the tooltip and button text.', 'wc-wlfmc-wishlist' ),
-								                'doc'   => 'https://moreconvert.com/hafu',
-								                'dependencies' => array(
-									                'id' => 'wishlist_enable',
-									                'value' => '1',
-								                ),
-							                ),
-							                'button_label_add' => array(
-								                'label'   => __( '"Add To Wishlist" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Add To Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Add To Wishlist', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'button_label_view' => array(
-								                'label'   => __( '"View My Wishlist" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'is_merge_lists',
-										                'value' => '0',
-									                )
-								                ),
-							                ),
-							                'button_label_remove' => array(
-								                'label'   => __( '"Remove From Wishlist" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Remove From Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Remove From Wishlist', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'is_merge_lists',
-										                'value' => '0',
-									                )
-								                ),
-							                ),
-							                'button_label_exists' => array(
-								                'label'   => __( '"Already In Wishlist" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Already In Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Already In Wishlist', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'is_merge_lists',
-										                'value' => '0',
-									                )
-								                ),
-							                ),
-							                'end-article-labels-text' => array(
-								                'type' => 'end',
-							                ),
-							                // labels.
-							                'start-article-table-labels-text' => array(
-								                'type'  => 'start',
-								                'title' => __( 'Page custom text', 'wc-wlfmc-wishlist' ),
-								                'desc'  => __( 'It will show on the tooltip and label text.', 'wc-wlfmc-wishlist' ),
-								                'doc'   => 'https://moreconvert.com/nm16',
-								                'dependencies' => array(
-									                'id' => 'wishlist_enable',
-									                'value' => '1',
-								                ),
-							                ),
-							                'wishlist_page_title' => array(
-								                'label'   => __( 'Wishlist name', 'wc-wlfmc-wishlist' ),
-								                'help'    => __( 'This phrase is used for tabs, menus, and wherever you need a title for the Wishlist', 'wc-wlfmc-wishlist' ),
-								                'default' => __( 'My Wishlist', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'My Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-							                ),
-							                'all_add_to_cart_tooltip_label' => array(
-								                'label'   => __( '"Add all to cart" tooltip text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'textarea',
-								                'translatable' => true,
-								                'custom_attributes' => array(
-									                'cols' => '120',
-									                'rows' => '3',
-									                'placeholder' => __( 'All products on the Wishlist will be added to the cart (except out-of-stock products and variable products without specifying the variable).', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'default' => __( 'All products on the Wishlist will be added to the cart (except out-of-stock products and variable products without specifying the variable).', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'wishlist_under_table',
-										                'value' => 'add-all-to-cart',
-									                ),
-								                ),
-							                ),
-							                'end-article-table-labels-text' => array(
-								                'type' => 'end',
-							                ),
-							                // Mini Wishlist Texts.
-							                'start-article-mini-wishlist-text' => array(
-								                'type'  => 'start',
-								                'title' => __( 'Mini Wishlist Texts', 'wc-wlfmc-wishlist' ),
-								                'dependencies' => array(
-									                array(
-										                'id' => 'wishlist_enable',
-										                'value' => '1',
-									                ),
-									                array(
-										                'id' => 'display_mini_wishlist_for_counter',
-										                'value' => 'on-hover,on-click',
-									                )
-								                ),
-							                ),
-							                'counter_button_text' => array(
-								                'label'   => __( 'Mini wishlist button text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'counter_total_text' => array(
-								                'label'   => __( '"Total products" text', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'Total products', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'Total products', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'counter_empty_wishlist_content' => array(
-								                'label'   => __( 'Empty wishlist content', 'wc-wlfmc-wishlist' ),
-								                'type'    => 'text',
-								                'custom_attributes' => array(
-									                'placeholder' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
-								                ),
-								                'translatable' => true,
-								                'default' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
-							                ),
-							                'end-article-mini-wishlist-text' => array(
-								                'type' => 'end',
-							                ),
-						                )
-					                ),
-				                ),
-			                ),
-		                )
-	                ),
-	                'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
-	                'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
-	                'header_buttons' => wlfmc_get_admin_header_buttons(),
-	                'header_menu'    => wlfmc_get_admin_header_menu(),
-	                'sidebar'        => wlfmc_get_admin_sidebar( 'text' ),
-	                'type'           => 'setting-type',
-	                'ajax_saving'    => true,
-	                'sticky_buttons' => true,
-	                'id'             => 'wlfmc_options',
-                );
+					$this->text_options = array(
+						'options'        => apply_filters(
+							'wlfmc_admin_options',
+							array(
+								'texts' => array(
+									'tabs'   => array(
+										'global'       => __( 'Global Texts', 'wc-wlfmc-wishlist' ),
+										'wishlist'     => __( 'Wishlist Texts', 'wc-wlfmc-wishlist' ),
+									),
+									'fields' => array(
+										'global'        => apply_filters(
+											'wlfmc_global_text_settings',
+											array(
+												'start-article-text-settings' => array(
+													'type'  => 'start',
+													'title' => __( 'Global Text Management', 'wc-wlfmc-wishlist' ),
+												),
+												'wishlist_enable'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'gdpr_enable'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'multi_list_enable'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'waitlist_enable'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'sfl_popup_remove' => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'merge_save_for_later'  => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default'      => '0',
+												),
+												'waitlist_required_product_variation'  => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '1',
+												),
+												'sfl_enable'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'is_merge_lists'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'merge_lists'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'multi_list_under_table' => array(
+													'parent_class' => 'hidden-option',
+													'remove_name'  => true,
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
+														'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'actions',
+														'add-all-to-cart',
+													),
+												),
+												'waitlist_under_table' => array(
+													'parent_class' => 'hidden-option',
+													'remove_name'  => true,
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
+														'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'actions',
+														'add-all-to-cart',
+													),
+												),
+												'wishlist_under_table'       => array(
+													'parent_class' => 'hidden-option',
+													'remove_name'  => true,
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'actions' => __( 'All together Actions button', 'wc-wlfmc-wishlist' ),
+														'add-all-to-cart' => __( '"Add All to Cart" button', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'actions',
+														'add-all-to-cart',
+													),
+												),
+												'enable_share'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'multi_list_enable_share' => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'switch',
+													'remove_name'  => true,
+													'default' => '0',
+												),
+												'share_items'       => array(
+													'parent_class' => 'hidden-option',
+													'remove_name'  => true,
+													'type'    => 'checkbox-group',
+													'options' => array(
+														'facebook' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
+														'messenger' => __( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
+														'twitter' => __( 'Twitter(X)', 'wc-wlfmc-wishlist' ),
+														'whatsapp' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
+														'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
+														'email' => __( 'Email', 'wc-wlfmc-wishlist' ),
+														'copy' => __( 'Share link', 'wc-wlfmc-wishlist' ),
+														'pdf'  => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => array(
+														'facebook',
+														'messenger',
+														'twitter',
+														'whatsapp',
+														'telegram',
+														'email',
+														'copy',
+														'pdf',
+													),
+												),
+												'share_position'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'text',
+													'remove_name'  => true,
+													'default' => 'after_table',
+												),
+												'display_mini_wishlist_for_counter'       => array(
+													'parent_class' => 'hidden-option',
+													'type'         => 'text',
+													'remove_name'  => true,
+													'default' => 'counter-only',
+												),
+												'action_label' => array(
+													'label'   => __( '"Actions" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Actions', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Actions', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_under_table',
+															'value' => 'actions',
+														),
+													),
+												),
+												'action_add_to_cart_label' => array(
+													'label'   => __( '"Add to cart" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Add to cart', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Add to cart', 'wc-wlfmc-wishlist' ),
+												),
+												'action_remove_label' => array(
+													'label'   => __( '"Remove" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Remove', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Remove', 'wc-wlfmc-wishlist' ),
+												),
+												'apply_label'  => array(
+													'label'   => __( '"Apply" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Apply', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Apply', 'wc-wlfmc-wishlist' ),
+												),
+												'all_add_to_cart_label' => array(
+													'label'   => __( '"Add all to cart" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Add all to cart', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Add all to cart', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-text-settings' => array(
+													'type' => 'end',
+												),
+												//share labels.
+												'start-article-share-text' => array(
+													'parent_class' => 'hidden-option',
+													'type'  => 'start',
+													'title' => __( 'Share label and  tooltip custom text', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'It will show on the tooltip and labels text.', 'wc-wlfmc-wishlist' ),
+												),
+												'share_tooltip' => array(
+													'label'   => __( 'Share tooltip text', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Share', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+												),
+												'socials_title' => array(
+													'label'   => __( 'Sharing title', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Wishlist title used for sharing', 'wc-wlfmc-wishlist' ),
+													/* translators: %s: site name */
+													'default' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
+													),
+													'translatable' => true,
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'twitter,facebook,email',
+														),
+													),
+													'help'    => __( 'Enter the title that you would like to display as your ad when your user is sharing it.', 'wc-wlfmc-wishlist' ),
+												),
+												'share_popup_title' => array(
+													'label'   => __( 'Sharing Popup Title', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Share your list', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share your list', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+												),
+												'share_on_label' => array(
+													'label'   => __( '"Share on:" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share on:', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share on:', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'copy,messenger,whatsapp,telegram,twitter,facebook,email,pdf',
+														),
+													),
+												),
+												'copy_field_label' => array(
+													'label'   => __( 'Copy field label', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Or copy the link', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Or copy the link', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'copy',
+														),
+														array(
+															'id' => 'share_position',
+															'value' => 'popup',
+														),
+													),
+												),
+												'copy_button_text' => array(
+													'label'   => __( '"Copy button" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Copy', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Copy', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'copy',
+														),
+														array(
+															'id' => 'share_position',
+															'value' => 'popup',
+														),
+													),
+												),
+												'share_on_facebook_tooltip_label' => array(
+													'label'   => __( '"Share on facebook" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share on facebook', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share on facebook', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'facebook',
+														),
+													),
+												),
+												'share_on_messenger_tooltip_label' => array(
+													'label'   => __( '"Share with messenger" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share with messenger', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share with messenger', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'messenger',
+														),
+													),
+												),
+												'share_on_twitter_tooltip_label' => array(
+													'label'   => __( '"Share on twitter(X)" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share on Twitter(X)', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share on Twitter(X)', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'twitter',
+														),
+													),
+												),
+												'share_on_whatsapp_tooltip_label' => array(
+													'label'   => __( '"Share on whatsApp" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share on whatsApp', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share on whatsApp', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'whatsapp',
+														),
+													),
+												),
+												'share_on_telegram_tooltip_label' => array(
+													'label'   => __( '"Share on Telegram" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share on Telegram', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share on Telegram', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'telegram',
+														),
+													),
+												),
+												'share_on_email_tooltip_label' => array(
+													'label'   => __( '"Share with email" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Share with email', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Share with email', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'email',
+														),
+													),
+												),
+												'share_on_copy_link_tooltip_label' => array(
+													'label'   => __( '"Click to copy the link" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Click to copy the link', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Click to copy the link', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'copy',
+														),
+														array(
+															'id' => 'share_position',
+															'value' => 'after_table',
+														),
+													),
+												),
+												'share_on_download_pdf_tooltip_label' => array(
+													'label'   => __( '"Download pdf" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Download pdf', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'share_items',
+															'value' => 'pdf',
+														),
+													),
+												),
+												'end-article-share-text' => array(
+													'type' => 'end',
+												),
+												'start-article-gdpr-text' => array(
+													'type'  => 'start',
+													'title' => __( 'GDPR texts', 'wc-wlfmc-wishlist' ),
+												),
+												'gdpr_content' => array(
+													'label'   => __( 'GDPR Notice Text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'wp-editor',
+													'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'style' => 'max-width:100%;width:100%',
+														'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default'      => '<p style="text-align: center;"><span style="color: #ff0000;"><strong>' . __( 'We Value Your Privacy', 'wc-wlfmc-wishlist' ) . '</strong></span></p><p style="text-align: center;">' . __( 'We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms.', 'wc-wlfmc-wishlist' ) . '</p>',
+												),
+												'gdpr_accept_button_title' => array(
+													'label'   => __( 'Accept Button Text', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Accept', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'translatable' => true,
+												),
+												'gdpr_denied_button_title' => array(
+													'label'   => __( 'Decline Button Text', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Decline', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'translatable' => true,
+												),
+												'separator'    => array(
+													'type' => 'separator',
+												),
+												'unsubscribed_content' => array(
+													'label'   => __( 'UnSubscribed Notice Text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'wp-editor',
+													'desc'    => __( 'The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page.', 'wc-wlfmc-wishlist' ),
+													'custom_attributes' => array(
+														'style' => 'max-width:100%;width:100%',
+														'placeholder' => __( 'See your favorite product on Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' =>  '<p style="text-align: center;">' . __( 'Your email has been successfully unsubscribed! To receive exclusive discounts and amazing offers, please subscribe now.', 'wc-wlfmc-wishlist' ) . '</p>',
+												),
+												'unsubscribed_button_title' => array(
+													'label'   => __( 'Subscribe Button Text', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Agree, Subscribe Me', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'translatable' => true,
+												),
+												'end-article-gdpr-text' => array(
+													'type' => 'end',
+												),
+												'start-article-no-access-text' => array(
+													'parent_class' => 'hidden-option',
+													'type'  => 'start',
+													'title' => __( 'No access texts', 'wc-wlfmc-wishlist' ),
+												),
+												'no_access_title' => array(
+													'label'   => __( 'No access title', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Access Denied', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'translatable' => true,
+												),
+												'no_access_content' => array(
+													'label'   => __( 'No access message', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'translatable' => true,
+													'default' => __( 'You do not have permission. Please log in or signup to access this content.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-no-access-text' => array(
+													'type' => 'end',
+												),
+											)
+										),
+										'wishlist'      => apply_filters(
+											'wlfmc_wishlist_text_settings',
+											array(
+												// notifications.
+												'start-article-notification-text' => array(
+													'type'  => 'start',
+													'title' => __( 'Alert Notification Texts', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'You can choose your desired text for the items below.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/m08z',
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'login_need_text' => array(
+													'label'   => __( '"Force to login" text', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'You can use <code>{login_url}</code> or <code>{signup_url}</code> in the text.', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'to use your Wishlist: <br><a href="{login_url}">Login right now</a>', 'wc-wlfmc-wishlist' ),
+													'type'    => 'textarea',
+													'translatable' => true,
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+													),
+													'help'    => __( 'it will show when users have to log in to add to the wishlist', 'wc-wlfmc-wishlist' ),
+												),
+												'product_added_text' => array(
+													'label'   => __( '"Product added" text', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enter the text of the message displayed when the user adds a product to the Wishlist. leave empty for disable message.', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Product added!', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Product added!', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'help'    => __( 'After the user clicks on the Add to wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar.', 'wc-wlfmc-wishlist' ),
+												),
+												'product_removed_text' => array(
+													'label'   => __( '"Product removed" text', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enter the text of the message displayed when the user removed a product from the Wishlist,leave empty for disable message', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'Product Removed!', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Product Removed!', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'help'    => __( 'After the user clicks on the remove from wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar.', 'wc-wlfmc-wishlist' ),
+												),
+												'already_in_wishlist_text' => array(
+													'label'   => __( '"Product already in Wishlist" text', 'wc-wlfmc-wishlist' ),
+													'desc'    => __( 'Enter the text for the message displayed when the user will try to add a product that is already in the Wishlist,leave empty for disable message', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'The product is already in your Wishlist!', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'help'    => __( 'If the product already exists in the user\'s wishlist and she/he clicks the Add to wishlist button again, this text will be displayed.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-notification-text' => array(
+													'type' => 'end',
+												),
+												// labels.
+												'start-article-labels-text' => array(
+													'type'  => 'start',
+													'title' => __( 'Button and tooltip custom text', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'It will show on the tooltip and button text.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/hafu',
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
+														'value' => '1',
+													),
+												),
+												'button_label_add' => array(
+													'label'   => __( '"Add To Wishlist" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Add To Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Add To Wishlist', 'wc-wlfmc-wishlist' ),
+												),
+												'button_label_view' => array(
+													'label'   => __( '"View My Wishlist" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'button_label_remove' => array(
+													'label'   => __( '"Remove From Wishlist" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Remove From Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Remove From Wishlist', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'button_label_exists' => array(
+													'label'   => __( '"Already In Wishlist" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Already In Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Already In Wishlist', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'is_merge_lists',
+															'value' => '0',
+														)
+													),
+												),
+												'end-article-labels-text' => array(
+													'type' => 'end',
+												),
+												// labels.
+												'start-article-table-labels-text' => array(
+													'type'  => 'start',
+													'title' => __( 'Page custom text', 'wc-wlfmc-wishlist' ),
+													'desc'  => __( 'It will show on the tooltip and label text.', 'wc-wlfmc-wishlist' ),
+													'doc'   => 'https://moreconvert.com/nm16',
+													'dependencies' => array(
+														'id' => 'wishlist_enable',
+														'value' => '1',
+													),
+												),
+												'wishlist_page_title' => array(
+													'label'   => __( 'Wishlist name', 'wc-wlfmc-wishlist' ),
+													'help'    => __( 'This phrase is used for tabs, menus, and wherever you need a title for the Wishlist', 'wc-wlfmc-wishlist' ),
+													'default' => __( 'My Wishlist', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'My Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+												),
+												'all_add_to_cart_tooltip_label' => array(
+													'label'   => __( '"Add all to cart" tooltip text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'textarea',
+													'translatable' => true,
+													'custom_attributes' => array(
+														'cols' => '120',
+														'rows' => '3',
+														'placeholder' => __( 'All products on the Wishlist will be added to the cart (except out-of-stock products and variable products without specifying the variable).', 'wc-wlfmc-wishlist' ),
+													),
+													'default' => __( 'All products on the Wishlist will be added to the cart (except out-of-stock products and variable products without specifying the variable).', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_under_table',
+															'value' => 'add-all-to-cart',
+														),
+													),
+												),
+												'end-article-table-labels-text' => array(
+													'type' => 'end',
+												),
+												// Mini Wishlist Texts.
+												'start-article-mini-wishlist-text' => array(
+													'type'  => 'start',
+													'title' => __( 'Mini Wishlist Texts', 'wc-wlfmc-wishlist' ),
+													'dependencies' => array(
+														array(
+															'id' => 'wishlist_enable',
+															'value' => '1',
+														),
+														array(
+															'id' => 'display_mini_wishlist_for_counter',
+															'value' => 'on-hover,on-click',
+														)
+													),
+												),
+												'counter_button_text' => array(
+													'label'   => __( 'Mini wishlist button text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'View My Wishlist', 'wc-wlfmc-wishlist' ),
+												),
+												'counter_total_text' => array(
+													'label'   => __( '"Total products" text', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'Total products', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'Total products', 'wc-wlfmc-wishlist' ),
+												),
+												'counter_empty_wishlist_content' => array(
+													'label'   => __( 'Empty wishlist content', 'wc-wlfmc-wishlist' ),
+													'type'    => 'text',
+													'custom_attributes' => array(
+														'placeholder' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
+													),
+													'translatable' => true,
+													'default' => __( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ),
+												),
+												'end-article-mini-wishlist-text' => array(
+													'type' => 'end',
+												),
+											)
+										),
+									),
+								),
+							)
+						),
+						'title'          => __( 'MoreConvert', 'wc-wlfmc-wishlist' ),
+						'logo'           => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/logo.svg" width="45" height="40"  alt="logo"/>',
+						'header_buttons' => wlfmc_get_admin_header_buttons(),
+						'header_menu'    => wlfmc_get_admin_header_menu(),
+						'sidebar'        => wlfmc_get_admin_sidebar( 'text' ),
+						'type'           => 'setting-type',
+						'ajax_saving'    => true,
+						'sticky_buttons' => true,
+						'id'             => 'wlfmc_options',
+					);
 
-				$this->wishlist_panel = new MCT_Admin( $this->wishlist_options );
+					$this->wishlist_panel = new MCT_Admin( $this->wishlist_options );
 
-				$this->main_panel = new MCT_Admin( $this->global_options );
+					$this->main_panel = new MCT_Admin( $this->global_options );
 
-				$this->text_panel = new MCT_Admin( $this->text_options );
+					$this->text_panel = new MCT_Admin( $this->text_options );
 
-                $this->load_default_options();
+					$this->load_default_options();
+				});
 			}
 
 			add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
@@ -4412,7 +4433,12 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 */
 		public function get_wordpress_menus() {
 			$menus     = array();
-			$get_menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+			$get_menus = get_terms(
+				array(
+					'taxonomy'   => 'nav_menu',
+					'hide_empty' => true,
+				)
+			);
 			foreach ( $get_menus as $menu ) {
 				$menus[ $menu->term_id ] = $menu->name;
 			}
@@ -5643,7 +5669,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 											'options' => array(
 												'facebook' => __( 'Facebook', 'wc-wlfmc-wishlist' ),
 												'messenger' => __( 'Facebook messenger', 'wc-wlfmc-wishlist' ),
-												'twitter' => __( 'Twitter', 'wc-wlfmc-wishlist' ),
+												'twitter' => __( 'Twitter(X)', 'wc-wlfmc-wishlist' ),
 												'whatsapp' => __( 'Whatsapp', 'wc-wlfmc-wishlist' ),
 												'telegram' => __( 'Telegram', 'wc-wlfmc-wishlist' ),
 												'email' => __( 'Email', 'wc-wlfmc-wishlist' ),

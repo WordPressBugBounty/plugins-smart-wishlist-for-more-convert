@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -214,4 +214,3 @@ function wlfmc_electro_header_icons() {
 	</div>
 	<?php
 }
-

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
- * @version 1.6.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,14 +30,14 @@ function wlfmc_shoptimizer_integrate() {
 
 		add_action(
 			'wlfmc_table_product_before_add_to_cart',
-			function() {
+			function () {
 				remove_filter( 'woocommerce_loop_add_to_cart_link', 'commercegurus_as_loop_add_to_cart_link', 99 );
 			}
 		);
 
 		add_action(
 			'wlfmc_table_product_after_add_to_cart',
-			function() {
+			function () {
 				add_filter( 'woocommerce_loop_add_to_cart_link', 'commercegurus_as_loop_add_to_cart_link', 99, 2 );
 			}
 		);
@@ -52,7 +52,6 @@ function wlfmc_shoptimizer_integrate() {
 		remove_action( 'woocommerce_single_product_summary', 'commercekit_single_product_wishlist', 38 );
 		remove_action( 'woocommerce_before_shop_loop_item_title', 'commercekit_after_shop_loop_item_wishlist', 15 );
 	}
-
 }
 
 /**
@@ -332,7 +331,6 @@ function wlfmc_shoptimizer_counters_position() {
 		}
 		echo '</div>';
 	}
-
 }
 
 /**

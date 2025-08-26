@@ -4,8 +4,8 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.9
  * @since 1.3.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -82,7 +82,6 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 			$action = str_replace( 'wlfmc_wp_rest_', '', $action );
 
 			return self::$action( $data );
-
 		}
 
 		/**
@@ -336,7 +335,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		 *
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
-		public static function load_fragments( array $data ) {
+		public static function load_fragments( array $data ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			$fragment_json = isset( $_FILES['fragments_file']['tmp_name'] ) && is_uploaded_file( $_FILES['fragments_file']['tmp_name'] ) ? file_get_contents( $_FILES['fragments_file']['tmp_name'] ) : false; // phpcs:ignore
 			$fragments     = $fragment_json ? json_decode( $fragment_json, true ) : false;
 
@@ -360,8 +359,6 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 				)
 			);
 		}
-
-
 	}
 
 }
@@ -374,12 +371,6 @@ add_action( 'rest_api_init', 'wlfmc_api_init' );
  * @return void
  */
 function wlfmc_api_init() {
-
 	$controller = new WLFMC_Api();
 	$controller->register_routes();
-
 }
-
-
-
-

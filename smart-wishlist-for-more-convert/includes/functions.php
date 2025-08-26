@@ -4,11 +4,44 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+/**
+ * Format a datetime from MySQL timezone to WordPress timezone.
+ *
+ * @param string|WC_DateTime $date   The date to format.
+ * @param string             $format  Optional. The format to use.
+ * @return string                   Formatted date string.
+ */
+function wlfmc_format_datetime( $date, $format = '' ) {
+	return WLFMC_Date_Formatter::format_mysql_datetime( $date, $format );
+}
+
+/**
+ * Format a UTC datetime to WordPress timezone.
+ *
+ * @param string $date   The UTC date string.
+ * @param string $format Optional. The format to use.
+ * @return string        Formatted date string.
+ */
+function wlfmc_format_utc_date( $date, $format = '' ) {
+	return WLFMC_Date_Formatter::format_utc_datetime( $date, $format );
+}
+
+/**
+ * Format a date as "time ago" string (e.g., "2 hours ago").
+ *
+ * @param string|WC_DateTime $date The date to format (string or WC_DateTime).
+ * @param string             $source_timezone Timezone of the input date ('mysql' or 'utc'). Default 'mysql'.
+ * @return string Formatted time ago string or empty string on failure.
+ */
+function wlfmc_time_ago( $date, $source_timezone = 'mysql' ) {
+	return WLFMC_Date_Formatter::time_ago( $date, $source_timezone );
 }
 
 
@@ -152,8 +185,8 @@ if ( ! function_exists( 'wlfmc_is_rtl' ) ) {
 	 * @return bool
 	 */
 	function wlfmc_is_rtl( $lang = false ): bool {
-		$current_lang    = $lang ?? apply_filters( 'wpml_current_language', null );
-		return apply_filters( 'wpml_is_rtl' , $current_lang ?? is_rtl() );
+		$current_lang = $lang ?? apply_filters( 'wpml_current_language', null );
+		return apply_filters( 'wpml_is_rtl', $current_lang ?? is_rtl() );
 	}
 }
 
@@ -164,12 +197,11 @@ if ( ! function_exists( 'wlfmc_locate_template' ) ) {
 	 * Locate the templates and return the path of the file found
 	 *
 	 * @param string $path Path to locate.
-	 * @param array  $var Unused.
 	 *
 	 * @version 1.5.0
 	 * @return string
 	 */
-	function wlfmc_locate_template( $path, $var = null ) {
+	function wlfmc_locate_template( $path ) {
 		$woocommerce_base = WC()->template_path();
 
 		$template_woocommerce_path = $woocommerce_base . $path;
@@ -202,26 +234,26 @@ if ( ! function_exists( 'wlfmc_get_template' ) ) {
 	 *
 	 * @param string $path Path to get.
 	 * @param mixed  $var Variables to send to template.
-	 * @param bool   $return Whether to return or print the template.
+	 * @param bool   $should_return Whether to return or print the template.
 	 *
 	 * @return string|void
 	 */
-	function wlfmc_get_template( $path, $var = null, $return = false ) {
-		$located = wlfmc_locate_template( $path, $var );
+	function wlfmc_get_template( $path, $var = null, $should_return = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames
+		$located = wlfmc_locate_template( $path );
 
 		if ( $var && is_array( $var ) ) {
 			$atts = $var;
 			extract( $var ); // @codingStandardsIgnoreLine.
 		}
 
-		if ( $return ) {
+		if ( $should_return ) {
 			ob_start();
 		}
 
 		// include file located.
 		include $located;
 
-		if ( $return ) {
+		if ( $should_return ) {
 			return ob_get_clean();
 		}
 	}
@@ -235,11 +267,11 @@ if ( ! function_exists( 'wlfmc_get_template_part' ) ) {
 	 * @param string $template_part Template part.
 	 * @param string $template_layout Template variation.
 	 * @param array  $var Array of variables to be passed to template.
-	 * @param bool   $return Whether to return template or print it.
+	 * @param bool   $should_return Whether to return template or print it.
 	 *
 	 * @return string|void
 	 */
-	function wlfmc_get_template_part( $template = '', $template_part = '', $template_layout = '', $var = array(), $return = false ) {
+	function wlfmc_get_template_part( $template = '', $template_part = '', $template_layout = '', $var = array(), $should_return = false ) {
 		if ( ! empty( $template_part ) ) {
 			$template_part = '-' . $template_part;
 		}
@@ -270,14 +302,15 @@ if ( ! function_exists( 'wlfmc_get_template_part' ) ) {
 			$located = wlfmc_locate_template( $filename );
 
 			if ( $located ) {
-				return wlfmc_get_template( $filename, $var, $return );
+				return wlfmc_get_template( $filename, $var, $should_return );
 			}
 		}
 	}
 }
 
-
 /* === GET FUNCTIONS === */
+
+
 if ( ! function_exists( 'wlfmc_get_out_of_stock_product_count' ) ) {
 	/**
 	 * Get the count of out-of-stock products in WooCommerce.
@@ -287,11 +320,13 @@ if ( ! function_exists( 'wlfmc_get_out_of_stock_product_count' ) ) {
 	function wlfmc_get_out_of_stock_product_count() {
 
 		add_filter( 'woocommerce_product_query', 'wlfmc_filter_out_of_stock_products' );
-		$product_count = new WP_Query( array(
-			'post_type'      => 'product',
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-		) );
+		$product_count = new WP_Query(
+			array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'posts_per_page' => -1,
+			)
+		);
 		remove_filter( 'woocommerce_product_query', 'wlfmc_filter_out_of_stock_products' );
 
 		return $product_count->found_posts;
@@ -303,16 +338,18 @@ if ( ! function_exists( 'wlfmc_get_out_of_stock_product_count' ) ) {
 	 * @param WP_Query $q The product query.
 	 */
 	function wlfmc_filter_out_of_stock_products( $q ) {
-		$q->set( 'meta_query', array(
+		$q->set(
+			'meta_query',
 			array(
-				'key'     => '_stock_status',
-				'value'   => 'outofstock',
-				'compare' => '=',
-			),
-		) );
+				array(
+					'key'     => '_stock_status',
+					'value'   => 'outofstock',
+					'compare' => '=',
+				),
+			)
+		);
 	}
 }
-
 
 if ( ! function_exists( 'wlfmc_get_hidden_products' ) ) {
 	/**
@@ -479,13 +516,13 @@ if ( ! function_exists( 'wlfmc_get_option' ) ) {
 	 * Return option value
 	 *
 	 * @param string $field Field key.
-	 * @param string $default Default value.
+	 * @param string $default_value Default value.
 	 *
 	 * @return mixed
 	 */
-	function wlfmc_get_option( $field, $default = '' ) {
+	function wlfmc_get_option( $field, $default_value = '' ) {
 		$all_options = get_option( 'wlfmc_options', array() );
-		$value       = $default;
+		$value       = $default_value;
 
 		if ( is_array( $all_options ) && ! empty( $all_options ) ) {
 			foreach ( $all_options as $section ) {
@@ -524,12 +561,12 @@ if ( ! function_exists( 'wlfmc_get_admin_header_buttons' ) ) {
 	 * @return array header buttons
 	 */
 	function wlfmc_get_admin_header_buttons(): array {
-		$buttons = array();
+		$buttons   = array();
 		$test_mode = defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE );
 		$test_help = $test_mode ? __( 'Turn off Test Mode to display the settings you have applied.', 'wc-wlfmc-wishlist' ) : __( 'Turn on Test Mode to practice and try things out without displaying for users.', 'wc-wlfmc-wishlist' );
 		$help      = '<div class="mct-help-tip-wrap">
 						<span class="mct-help-tip-dec">
-							<p> ' . esc_attr( $test_help ) .' </p>
+							<p> ' . esc_attr( $test_help ) . ' </p>
 						</span>
 					</div>';
 
@@ -546,7 +583,8 @@ if ( ! function_exists( 'wlfmc_get_admin_header_buttons' ) ) {
 			'btn_url'   => 'https://moreconvert.com/a2a8',
 		);
 		$buttons[] = array(
-			'btn_label' => sprintf( __( 'Test Mode %s %s', 'wc-wlfmc-wishlist' ), $help, $test_mode ? '<span class="badge enabled">'. __( 'Enabled', 'wc-wlfmc-wishlist' ) . '</span>': '<span class="badge disabled">'.__( 'Disabled', 'wc-wlfmc-wishlist' )  . '</span>' ),
+			// translators: %1$s is a help text or tooltip, %2$s is an HTML span indicating if .
+			'btn_label' => sprintf( __( 'Test Mode %1$s %2$s', 'wc-wlfmc-wishlist' ), $help, $test_mode ? '<span class="badge enabled">' . __( 'Enabled', 'wc-wlfmc-wishlist' ) . '</span>' : '<span class="badge disabled">' . __( 'Disabled', 'wc-wlfmc-wishlist' ) . '</span>' ),
 			'btn_class' => 'd-flex f-center gap-5 wlfmc-test-mode-status',
 			'btn_url'   => 'https://moreconvert.com/h739',
 		);
@@ -562,14 +600,12 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 	 * @return array header menu
 	 */
 	function wlfmc_get_admin_header_menu(): array {
-		//$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
-		//$current_tab  = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		return apply_filters(
 			'wlfmc_admin_header_menu',
 			array(
 				array(
-					'id'   => 'style',
-					'text' => __( 'Style', 'wc-wlfmc-wishlist' ),
+					'id'      => 'style',
+					'text'    => __( 'Style', 'wc-wlfmc-wishlist' ),
 					'submenu' => array(
 						array(
 							'id'   => 'button-style',
@@ -583,9 +619,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'page-style',
-							'text'          => __( 'Wishlist Page Style', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'page-style',
+							'text' => __( 'Wishlist Page Style', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-wishlist-settings',
 									'tab'  => 'page-settings',
@@ -594,9 +630,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'counter-style',
-							'text'          => __( 'Wishlist Counter Style', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'counter-style',
+							'text' => __( 'Wishlist Counter Style', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-wishlist-settings',
 									'tab'  => 'counter',
@@ -605,9 +641,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'popup-style',
-							'text'          => __( 'Popup Style', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'popup-style',
+							'text' => __( 'Popup Style', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-global-settings',
 									'tab'  => 'appearance',
@@ -618,8 +654,8 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 					),
 				),
 				array(
-					'id'   => 'text',
-					'text' => __( 'Text', 'wc-wlfmc-wishlist' ),
+					'id'      => 'text',
+					'text'    => __( 'Text', 'wc-wlfmc-wishlist' ),
 					'submenu' => array(
 						array(
 							'id'   => 'button-text',
@@ -633,9 +669,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'page-text',
-							'text'          => __( 'Wishlist Page Texts', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'page-text',
+							'text' => __( 'Wishlist Page Texts', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-text-customization',
 									'tab'  => 'wishlist#wishlist_page_title',
@@ -644,9 +680,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'counter-text',
-							'text'          => __( 'Counter Texts', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'counter-text',
+							'text' => __( 'Counter Texts', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-text-customization',
 									'tab'  => 'wishlist#counter_button_text',
@@ -655,9 +691,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'notification-text',
-							'text'          => __( 'Notification Texts', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'notification-text',
+							'text' => __( 'Notification Texts', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-text-customization',
 									'tab'  => 'wishlist#login_need_text',
@@ -666,9 +702,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'global-text',
-							'text'          => __( 'Global Texts', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'global-text',
+							'text' => __( 'Global Texts', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-text-customization',
 									'tab'  => 'global#action_label',
@@ -787,9 +823,9 @@ if ( ! function_exists( 'wlfmc_get_admin_header_menu' ) ) {
 							),
 						),
 						array(
-							'id'            => 'email-marketing',
-							'text'          => __( 'Global Settings', 'wc-wlfmc-wishlist' ),
-							'url'           => add_query_arg(
+							'id'   => 'email-marketing',
+							'text' => __( 'Global Settings', 'wc-wlfmc-wishlist' ),
+							'url'  => add_query_arg(
 								array(
 									'page' => 'mc-global-settings',
 									'tab'  => 'marketing',
@@ -827,18 +863,20 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 	/**
 	 * Retrieves admin sidebar items
 	 *
+	 * @param string $type Sidebar type.
+	 *
 	 * @version 1.7.6
 	 * @return array sidebar items
 	 */
 	function wlfmc_get_admin_sidebar( $type = 'default' ): array {
-		$icon  = '<span class="dashicons dashicons-external"></span>';
+		$icon           = '<span class="dashicons dashicons-external"></span>';
 		$premium_widget = array(
-			'id'      => 'premium_wishlist',
-			'class'   => 'wlfmc-premium-sidebar d-flex f-column',
-			'image'   => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/white-crown.svg" width="44" height="44" />',
-			'title'   => __( 'Get MoreConvert Pro', 'wc-wlfmc-wishlist' ),
-			'content' => __( 'Obtain the most essential "lists" features for a WooCommerce store—lightweight and compatible with over 100 themes and plugins. Track user behavior and boost retention and sales with a built-in email automation and marketing system.', 'wc-wlfmc-wishlist' ),
-			'button'  => array(
+			'id'             => 'premium_wishlist',
+			'class'          => 'wlfmc-premium-sidebar d-flex f-column',
+			'image'          => '<img src="' . MC_WLFMC_URL . 'assets/backend/images/white-crown.svg" width="44" height="44" />',
+			'title'          => __( 'Get MoreConvert Pro', 'wc-wlfmc-wishlist' ),
+			'content'        => __( 'Obtain the most essential "lists" features for a WooCommerce store—lightweight and compatible with over 100 themes and plugins. Track user behavior and boost retention and sales with a built-in email automation and marketing system.', 'wc-wlfmc-wishlist' ),
+			'button'         => array(
 				'btn_label' => __( 'Get MoreConvert Pro', 'wc-wlfmc-wishlist' ) . '<span class="dashicons dashicons-arrow-' . ( is_rtl() ? 'left' : 'right' ) . '-alt"></span>',
 				'btn_url'   => 'https://moreconvert.com/h558',
 				'btn_class' => 'btn-primary black-btn',
@@ -857,13 +895,13 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 							<img src="' . MC_WLFMC_URL . 'assets/backend/images/icon-star.svg" alt="star" width="12" height="12" />
 							<img src="' . MC_WLFMC_URL . 'assets/backend/images/icon-star.svg" alt="star" width="12" height="12" />
 						</div>
-						<div>' . __( 'Rated 5.0 • by 65+ Users', 'wc-wlfmc-wishlist' ) . '</div>
+						<div>' . __( 'Rated 5.0 • by 110+ Users', 'wc-wlfmc-wishlist' ) . '</div>
 					</div>
 				</a>',
 		);
 
 		switch ( $type ) {
-			case 'wishlist' :
+			case 'wishlist':
 				$items = array(
 					$premium_widget,
 					array(
@@ -872,27 +910,27 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-								<a href="https://moreconvert.com/r2yb">'. esc_attr__( 'How to configure wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/rr3l">'. esc_attr__( 'What is mini-wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/69n9">'. esc_attr__( 'How to use wishlist counter shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/1ijn">'. esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/v55t">'. esc_attr__( 'How to customize "Add To Wishlist" button on product lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<!--a href="https://moreconvert.com/evkm">'. esc_attr__( 'How to hide counter icon when the wishlist is empty?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/4k67">'. esc_attr__( 'How to create multiple/unlimited lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/y572">'. esc_attr__( 'How to use "Add to wishlist" button shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/3gsh">'. esc_attr__( 'How to use wishlist table shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/ycrt">'. esc_attr__( 'How to add icons to tabbed lists in woocommerce my account tabs?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/wa1b">'. esc_attr__( 'How to configure wishlist pop-up settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/meli">'. esc_attr__( 'How to configure wishlist display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/2go6">'. esc_attr__( 'How to configure wishlist counter settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/98jb">'. esc_attr__( 'How to configure wishlist table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/ox6a">'. esc_attr__( 'How to configure wishlist page settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/njbz">'. esc_attr__( 'How to add wishlist functionality to your custom dashboard?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/a0l4">'. esc_attr__( 'How to customize the empty list image and button text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/f3ct">'. esc_attr__( 'How to display SKU in wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/3945">'. esc_attr__( 'How to display price changes in the wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
+								<a href="https://moreconvert.com/r2yb">' . esc_attr__( 'How to configure wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/rr3l">' . esc_attr__( 'What is mini-wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/69n9">' . esc_attr__( 'How to use wishlist counter shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/1ijn">' . esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/v55t">' . esc_attr__( 'How to customize "Add To Wishlist" button on product lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<!--a href="https://moreconvert.com/evkm">' . esc_attr__( 'How to hide counter icon when the wishlist is empty?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/4k67">' . esc_attr__( 'How to create multiple/unlimited lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/y572">' . esc_attr__( 'How to use "Add to wishlist" button shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/3gsh">' . esc_attr__( 'How to use wishlist table shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/ycrt">' . esc_attr__( 'How to add icons to tabbed lists in woocommerce my account tabs?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/wa1b">' . esc_attr__( 'How to configure wishlist pop-up settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/meli">' . esc_attr__( 'How to configure wishlist display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/2go6">' . esc_attr__( 'How to configure wishlist counter settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/98jb">' . esc_attr__( 'How to configure wishlist table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/ox6a">' . esc_attr__( 'How to configure wishlist page settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/njbz">' . esc_attr__( 'How to add wishlist functionality to your custom dashboard?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/a0l4">' . esc_attr__( 'How to customize the empty list image and button text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/f3ct">' . esc_attr__( 'How to display SKU in wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/3945">' . esc_attr__( 'How to display price changes in the wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
 								',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/zy38',
@@ -902,7 +940,7 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/84c3',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
@@ -915,24 +953,24 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-							<a href="https://moreconvert.com/mbxg">'. esc_attr__( 'What is multi-lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/vxnd">'. esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/x42i">'. esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/h14n">'. esc_attr__( 'How to customize multi-lists counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/lryq">'. esc_attr__( 'How to configure multi-lists page settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<!--a href="https://moreconvert.com/o0u6">'. esc_attr__( 'How to customize multi-lists display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/7g98">'. esc_attr__( 'How to customize multi-lists button on single product page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/szm6">'. esc_attr__( 'How to customize texts for multi-lists label and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/qc3q">'. esc_attr__( 'How to configure multi-lists pop-up settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/noab">'. esc_attr__( 'How to customize pop-up appearance settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/88jg">'. esc_attr__( 'How to customize label and tooltip texts on single lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/j773">'. esc_attr__( 'How to configure multi-lists table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/fkcn">'. esc_attr__( 'How to configure settings for single lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/msiq">'. esc_attr__( 'How to customize texts for multi-lists notifications?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/i1sl">'. esc_attr__( 'How to customize settings for "Add To List" pop up?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/uj4x">'. esc_attr__( 'How to customize texts for multi-lists button and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->					           
+							<a href="https://moreconvert.com/mbxg">' . esc_attr__( 'What is multi-lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/vxnd">' . esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/x42i">' . esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/h14n">' . esc_attr__( 'How to customize multi-lists counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/lryq">' . esc_attr__( 'How to configure multi-lists page settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<!--a href="https://moreconvert.com/o0u6">' . esc_attr__( 'How to customize multi-lists display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/7g98">' . esc_attr__( 'How to customize multi-lists button on single product page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/szm6">' . esc_attr__( 'How to customize texts for multi-lists label and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/qc3q">' . esc_attr__( 'How to configure multi-lists pop-up settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/noab">' . esc_attr__( 'How to customize pop-up appearance settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/88jg">' . esc_attr__( 'How to customize label and tooltip texts on single lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/j773">' . esc_attr__( 'How to configure multi-lists table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/fkcn">' . esc_attr__( 'How to configure settings for single lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/msiq">' . esc_attr__( 'How to customize texts for multi-lists notifications?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/i1sl">' . esc_attr__( 'How to customize settings for "Add To List" pop up?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/uj4x">' . esc_attr__( 'How to customize texts for multi-lists button and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
 						',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/gno0',
@@ -942,7 +980,7 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/d33k',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
@@ -955,28 +993,28 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-							<a href="https://moreconvert.com/wjwx">'. esc_attr__( 'How to use waitlist shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>						           
-							<a href="https://moreconvert.com/lwdt">'. esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>							
-							<a href="https://moreconvert.com/84ew">'. esc_attr__( 'What is Mini-Waitlist and how to enable it?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/q9nn">'. esc_attr__( 'How to customize waitlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/nc4u">'. esc_attr__( 'How to add lists functionality to your custom dashboard?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/d9fo">'. esc_attr__( 'How to display price changes in the wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<!--a href="https://moreconvert.com/4z81">'. esc_attr__( 'How to customize display options for waitlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/8uu8">'. esc_attr__( 'How to customize "Add to waitlist" button on single product page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/53di">'. esc_attr__( 'How to customize waitlist counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/bhs4">'. esc_attr__( 'How to customize "Add to waitlist" button on product listing?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/vkuu">'. esc_attr__( 'How to customize texts for waitlist buttons and tooltips?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/wrkb">'. esc_attr__( 'How to activate email settings for waitlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/bkwf">'. esc_attr__( 'How to customize waitlist pop-up?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/qwlb">'. esc_attr__( 'How to customize waitlist notification texts?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/1pqx">'. esc_attr__( 'How to customize waitlist page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/a859">'. esc_attr__( 'How to customize waitlist label and tooltip texts?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/d0a3">'. esc_attr__( 'How to customize the empty list image and button text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/96kt">'. esc_attr__( 'How to display SKU in lists table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/1xe1">'. esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->	
-							<!--a href="https://moreconvert.com/iczb">'. esc_attr__( 'How to add icons to tabbed lists in woocommerce my account tabs?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
+							<a href="https://moreconvert.com/wjwx">' . esc_attr__( 'How to use waitlist shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/lwdt">' . esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/84ew">' . esc_attr__( 'What is Mini-Waitlist and how to enable it?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/q9nn">' . esc_attr__( 'How to customize waitlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/nc4u">' . esc_attr__( 'How to add lists functionality to your custom dashboard?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/d9fo">' . esc_attr__( 'How to display price changes in the wishlist table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<!--a href="https://moreconvert.com/4z81">' . esc_attr__( 'How to customize display options for waitlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/8uu8">' . esc_attr__( 'How to customize "Add to waitlist" button on single product page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/53di">' . esc_attr__( 'How to customize waitlist counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/bhs4">' . esc_attr__( 'How to customize "Add to waitlist" button on product listing?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/vkuu">' . esc_attr__( 'How to customize texts for waitlist buttons and tooltips?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/wrkb">' . esc_attr__( 'How to activate email settings for waitlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/bkwf">' . esc_attr__( 'How to customize waitlist pop-up?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/qwlb">' . esc_attr__( 'How to customize waitlist notification texts?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/1pqx">' . esc_attr__( 'How to customize waitlist page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/a859">' . esc_attr__( 'How to customize waitlist label and tooltip texts?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/d0a3">' . esc_attr__( 'How to customize the empty list image and button text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/96kt">' . esc_attr__( 'How to display SKU in lists table?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/1xe1">' . esc_attr__( 'How to prevent button overlapping in product listings and single product pages?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/iczb">' . esc_attr__( 'How to add icons to tabbed lists in woocommerce my account tabs?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
 						',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/1zwy',
@@ -986,7 +1024,7 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/lm3f',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
@@ -999,20 +1037,20 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-							<a href="https://moreconvert.com/510i">'. esc_attr__( 'How to enable "Remove Reduction Pop-up"?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/80f2">'. esc_attr__( 'How to add next purchase cart button to cart page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/laok">'. esc_attr__( 'How to customize next purchase cart pop-up??', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/2xs6">'. esc_attr__( 'What is Next Purchase Cart?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<a href="https://moreconvert.com/saov">'. esc_attr__( 'How to customize label and tooltip customization text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-							<!--a href="https://moreconvert.com/46ay">'. esc_attr__( 'How to customize next purchase cart display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/26n8">'. esc_attr__( 'How to customize table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/t42l">'. esc_attr__( 'How to change all labels and texts settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/vfjj">'. esc_attr__( 'How to customize notification custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/9x3h">'. esc_attr__( 'How to use next purchase cart table shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/g5vt">'. esc_attr__( 'How to use next purchase cart button shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-							<!--a href="https://moreconvert.com/apou">'. esc_attr__( 'How to use next purchase cart counter shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->				
+							<a href="https://moreconvert.com/510i">' . esc_attr__( 'How to enable "Remove Reduction Pop-up"?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/80f2">' . esc_attr__( 'How to add next purchase cart button to cart page?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/laok">' . esc_attr__( 'How to customize next purchase cart pop-up??', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/2xs6">' . esc_attr__( 'What is Next Purchase Cart?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<a href="https://moreconvert.com/saov">' . esc_attr__( 'How to customize label and tooltip customization text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+							<!--a href="https://moreconvert.com/46ay">' . esc_attr__( 'How to customize next purchase cart display settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/26n8">' . esc_attr__( 'How to customize table settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/t42l">' . esc_attr__( 'How to change all labels and texts settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/vfjj">' . esc_attr__( 'How to customize notification custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/9x3h">' . esc_attr__( 'How to use next purchase cart table shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/g5vt">' . esc_attr__( 'How to use next purchase cart button shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+							<!--a href="https://moreconvert.com/apou">' . esc_attr__( 'How to use next purchase cart counter shortcodes?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
 						',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/eno0',
@@ -1022,12 +1060,12 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/dau9',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
 				break;
-			case 'global' :
+			case 'global':
 				$items = array(
 					$premium_widget,
 					array(
@@ -1036,23 +1074,23 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-								<a href="https://moreconvert.com/d9ah">'. esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/cbcs">'. esc_attr__( 'How to customize pop-ups and tooltips appearance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/cd4l">'. esc_attr__( 'How to configure tabbed lists settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/wbgu">'. esc_attr__( 'How to move products between lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/1sku">'. esc_attr__( 'How to add additional CSS?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<!--a href="https://moreconvert.com/50of">'. esc_attr__( 'How to add sign-up and login links to wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/00bd">'. esc_attr__( 'How to configure advanced list actions settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/cntb">'. esc_attr__( 'How to enable and customize social share?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/1ilf">'. esc_attr__( 'How to customize share label & tooltip custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/eqfh">'. esc_attr__( 'How to customize toast notification for add to list?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/zshc">'. esc_attr__( 'How to optimize cache settings and improve performance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/okgi">'. esc_attr__( 'How to customize tabbed lists appearance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/8sk0">'. esc_attr__( 'How to customize the global text management?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								<!--a href="https://moreconvert.com/3eiv">'. esc_attr__( 'How to add a lists users counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a-->
-								
+								<a href="https://moreconvert.com/d9ah">' . esc_attr__( 'How to enable drag and drop products functionality in lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/cbcs">' . esc_attr__( 'How to customize pop-ups and tooltips appearance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/cd4l">' . esc_attr__( 'How to configure tabbed lists settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/wbgu">' . esc_attr__( 'How to move products between lists?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/1sku">' . esc_attr__( 'How to add additional CSS?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<!--a href="https://moreconvert.com/50of">' . esc_attr__( 'How to add sign-up and login links to wishlist?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/00bd">' . esc_attr__( 'How to configure advanced list actions settings?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/cntb">' . esc_attr__( 'How to enable and customize social share?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/1ilf">' . esc_attr__( 'How to customize share label & tooltip custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/eqfh">' . esc_attr__( 'How to customize toast notification for add to list?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/zshc">' . esc_attr__( 'How to optimize cache settings and improve performance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/okgi">' . esc_attr__( 'How to customize tabbed lists appearance?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/8sk0">' . esc_attr__( 'How to customize the global text management?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+								<!--a href="https://moreconvert.com/3eiv">' . esc_attr__( 'How to add a lists users counter?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a-->
+
 							',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/n7mu',
@@ -1062,12 +1100,12 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/zrpk',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
 				break;
-			case 'text' :
+			case 'text':
 				$items = array(
 					$premium_widget,
 					array(
@@ -1076,13 +1114,13 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 						'title'   => __( 'FAQs', 'wc-wlfmc-wishlist' ),
 						'desc'    => __( 'Most frequently asked questions.', 'wc-wlfmc-wishlist' ),
 						'content' => '
-								<a href="https://moreconvert.com/gri0">'. esc_attr__( 'How to Translate Automations and Campaigns with WPML?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/02ua">'. esc_attr__( 'How to customize label and tooltip customization text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/1ilf">'. esc_attr__( 'How to customize share label & tooltip custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/8sk0">'. esc_attr__( 'How to customize the global text management?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
-								<a href="https://moreconvert.com/szm6">'. esc_attr__( 'How to customize texts for multi-lists label and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) .'</a>
+								<a href="https://moreconvert.com/gri0">' . esc_attr__( 'How to Translate Automations and Campaigns with WPML?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/02ua">' . esc_attr__( 'How to customize label and tooltip customization text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/1ilf">' . esc_attr__( 'How to customize share label & tooltip custom text?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/8sk0">' . esc_attr__( 'How to customize the global text management?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
+								<a href="https://moreconvert.com/szm6">' . esc_attr__( 'How to customize texts for multi-lists label and tooltip?', 'wc-wlfmc-wishlist' ) . wp_kses_post( $icon ) . '</a>
 							',
-						'buttons'  => array(
+						'buttons' => array(
 							array(
 								'btn_label' => __( 'See All Documents', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/1hhw',
@@ -1092,7 +1130,7 @@ if ( ! function_exists( 'wlfmc_get_admin_sidebar' ) ) {
 								'btn_label' => __( 'Ask your question', 'wc-wlfmc-wishlist' ),
 								'btn_url'   => 'https://moreconvert.com/ztpq',
 								'btn_class' => 'btn-primary full-w red-btn',
-							)
+							),
 						),
 					),
 				);
@@ -1164,7 +1202,7 @@ if ( ! function_exists( 'wlfmc_get_icon_names' ) ) {
 	 * @param string $list_type list type.
 	 * @param bool   $has_image has preview image or not.
 	 * @param bool   $multiple_image has multiple preview image or not.
-	 * @param bool   $return_keys return string of icon keys
+	 * @param bool   $return_keys return string of icon keys.
 	 * @return array|string
 	 */
 	function wlfmc_get_icon_names( $list_type, $has_image = false, $multiple_image = false, $return_keys = false ) {
@@ -1360,7 +1398,7 @@ if ( ! function_exists( 'wlfmc_get_icon_names' ) ) {
 		}
 
 		if ( $return_keys ) {
-			if ( isset($icons['custom']) ) {
+			if ( isset( $icons['custom'] ) ) {
 				unset( $icons['custom'] );
 			}
 			$icons = implode( ',', array_keys( $icons ) );
@@ -1509,7 +1547,7 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 	 */
 	function wlfmc_process_product_data( $product_type, $atts, $prod_id, $quantity ) {
 		$variations = array();
-		if ( in_array( $product_type, array( 'variable',  'variation', 'variable-subscription'  ), true ) ) {
+		if ( in_array( $product_type, array( 'variable', 'variation', 'variable-subscription' ), true ) ) {
 			foreach ( $_REQUEST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( 'attribute_' !== substr( $key, 0, 10 ) || '' === $value ) {
 					continue;
@@ -1541,8 +1579,8 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 			array_flip( wlfmc_remove_args_from_posted_data() )
 		);
 		$files        = array();
-		if ( is_array( $_FILES ) ) {
-			foreach ( $_FILES as $k => $file ) {
+		if ( is_array( $_FILES ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			foreach ( $_FILES as $k => $file ) { // phpcs:ignore WordPress.Security.NonceVerification
 				if ( '' !== $file['name'] ) {
 					$files[ $k ] = array(
 						'name'     => $file['name'],
@@ -1554,7 +1592,7 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 				}
 			}
 		}
-		if ( in_array( $product_type, array( 'variable',  'variation', 'variable-subscription'  ), true ) ) {
+		if ( in_array( $product_type, array( 'variable', 'variation', 'variable-subscription' ), true ) ) {
 			foreach ( $post as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( 'attribute_' === substr( $key, 0, 10 ) && '' === $value ) {
 					unset( $post[ $key ] );
@@ -1674,7 +1712,6 @@ if ( ! function_exists( 'wlfmc_sanitize_svg' ) ) {
 		$sanitizer = new enshrined\svgSanitize\Sanitizer();
 
 		return $sanitizer->sanitize( $svg );
-
 	}
 }
 
@@ -1736,7 +1773,7 @@ if ( ! function_exists( 'wlfmc_merge_notices' ) ) {
 		$error_notices = wc_get_notices( 'error' );
 
 		$error_notices = array_map(
-			function( $val ) {
+			function ( $val ) {
 				return $val['notice'];
 			},
 			$error_notices
@@ -1746,7 +1783,6 @@ if ( ! function_exists( 'wlfmc_merge_notices' ) ) {
 		wc_clear_notices();
 		/* translators: %1$s: product name , %2$: error notice . */
 		return wp_kses_post( sprintf( __( 'We couldn\'t add %1$s to the cart because: %2$s', 'wc-wlfmc-wishlist' ), $product_name, implode( ',', $error_notices ) ) );
-
 	}
 }
 
@@ -1770,54 +1806,79 @@ if ( ! function_exists( 'wlfmc_create_default_automations' ) ) {
 					'mail_heading'    => '',
 					'mail_subject'    => '',
 					'html_content'    => '',
-					'html_footer'     => nl2br( __( '{site_name}
+					'html_footer'     => nl2br(
+						__(
+							'{site_name}
 {site_description}
 If you have any questions, feel free to contact us at <a href="{shop_url}">Shop</a>
-<a href="{unsubscribe_url}">Unsubscribe here</a>', 'wc-wlfmc-wishlist' ) ),
+<a href="{unsubscribe_url}">Unsubscribe here</a>',
+							'wc-wlfmc-wishlist'
+						)
+					),
 				),
 				array(
-					'enable_email' => '0',
+					'enable_email'    => '0',
 					'send_after_days' => 1,
 					'mail_heading'    => '',
 					'mail_subject'    => '',
 					'html_content'    => '',
-					'html_footer'     => nl2br( __( '{site_name}
+					'html_footer'     => nl2br(
+						__(
+							'{site_name}
 {site_description}
 If you have any questions, feel free to contact us at <a href="{shop_url}">Shop</a>
-<a href="{unsubscribe_url}">Unsubscribe here</a>', 'wc-wlfmc-wishlist' ) ),
+<a href="{unsubscribe_url}">Unsubscribe here</a>',
+							'wc-wlfmc-wishlist'
+						)
+					),
 				),
 				array(
-					'enable_email' => '0',
+					'enable_email'    => '0',
 					'send_after_days' => 3,
 					'mail_heading'    => '',
 					'mail_subject'    => '',
 					'html_content'    => '',
-					'html_footer'     => nl2br( __( '{site_name}
+					'html_footer'     => nl2br(
+						__(
+							'{site_name}
 {site_description}
 If you have any questions, feel free to contact us at <a href="{shop_url}">Shop</a>
-<a href="{unsubscribe_url}">Unsubscribe here</a>', 'wc-wlfmc-wishlist' ) ),
+<a href="{unsubscribe_url}">Unsubscribe here</a>',
+							'wc-wlfmc-wishlist'
+						)
+					),
 				),
 				array(
-					'enable_email' => '0',
+					'enable_email'    => '0',
 					'send_after_days' => 5,
 					'mail_heading'    => '',
 					'mail_subject'    => '',
 					'html_content'    => '',
-					'html_footer'     => nl2br( __( '{site_name}
+					'html_footer'     => nl2br(
+						__(
+							'{site_name}
 {site_description}
 If you have any questions, feel free to contact us at <a href="{shop_url}">Shop</a>
-<a href="{unsubscribe_url}">Unsubscribe here</a>', 'wc-wlfmc-wishlist' ) ),
+<a href="{unsubscribe_url}">Unsubscribe here</a>',
+							'wc-wlfmc-wishlist'
+						)
+					),
 				),
 				array(
-					'enable_email' => '0',
+					'enable_email'    => '0',
 					'send_after_days' => 7,
 					'mail_heading'    => '',
 					'mail_subject'    => '',
 					'html_content'    => '',
-					'html_footer'     => nl2br( __( '{site_name}
+					'html_footer'     => nl2br(
+						__(
+							'{site_name}
 {site_description}
 If you have any questions, feel free to contact us at <a href="{shop_url}">Shop</a>
-<a href="{unsubscribe_url}">Unsubscribe here</a>', 'wc-wlfmc-wishlist' ) ),
+<a href="{unsubscribe_url}">Unsubscribe here</a>',
+							'wc-wlfmc-wishlist'
+						)
+					),
 				),
 			),
 		);
@@ -1835,8 +1896,9 @@ If you have any questions, feel free to contact us at <a href="{shop_url}">Shop<
 				case 'on-sale':
 					$automation_name                                    = 'Default On Sale Automation';
 					$default_options['offer_emails'][0]['mail_subject'] = __( '{product_name} - A Deal You Can\'t Miss!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][0]['html_content'] = nl2br( __(
-						'Hey {user_first_name},
+					$default_options['offer_emails'][0]['html_content'] = nl2br(
+						__(
+							'Hey {user_first_name},
 
 We\'ve got something exciting just for you. Our {product_name} is now on sale, and the price won\'t stay this low for long! Don\'t miss out on this fantastic opportunity to own the {product_name}.
 
@@ -1852,12 +1914,14 @@ Don\'t hesitate! Act fast and be the first to grab this incredible offer.
 Happy shopping!
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][1]['mail_subject'] = __( 'Exclusive Offer: {product_name} is Waiting for You!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][1]['html_content'] = nl2br( __(
-						'Hello {user_first_name},
+					$default_options['offer_emails'][1]['html_content'] = nl2br(
+						__(
+							'Hello {user_first_name},
 
 We noticed you\'re eyeing our amazing {product_name}. Good news - it\'s on sale now!
 
@@ -1875,13 +1939,14 @@ We can\'t wait to see you enjoy your new {product_name}!
 Warm regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
-
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][2]['mail_subject'] = __( 'Hurry! Last Chance to Grab {product_name} on Sale', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][2]['html_content'] = nl2br( __(
-						'Hey {user_first_name},
+					$default_options['offer_emails'][2]['html_content'] = nl2br(
+						__(
+							'Hey {user_first_name},
 
 Time is running out! Our {product_name} is still on sale, but the clock is ticking.
 
@@ -1899,12 +1964,14 @@ Hurry, we don\'t want you to miss out!
 Best regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][3]['mail_subject'] = __( 'Don\'t Regret It! {product_name} Sale Ending Soon', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][3]['html_content'] = nl2br( __(
-						'Hello {user_first_name},
+					$default_options['offer_emails'][3]['html_content'] = nl2br(
+						__(
+							'Hello {user_first_name},
 
 We hate to break it to you, but our {product_name} sale is about to end.
 
@@ -1922,12 +1989,14 @@ Time is of the essence. Don\'t miss out on owning the {product_name}!
 Sincerely,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][4]['mail_subject'] = __( '{product_name} Sale Ends Today', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][4]['html_content'] = nl2br( __(
-						'Hey {user_first_name},
+					$default_options['offer_emails'][4]['html_content'] = nl2br(
+						__(
+							'Hey {user_first_name},
 
 Today is your last chance to get the {product_name} at an incredible price.
 
@@ -1945,14 +2014,16 @@ We don\'t want you to have regrets, so hurry and make your purchase!
 Warmest wishes,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 					break;
 				case 'back-in-stock':
 					$automation_name                                    = 'Default Back in Stock Automation';
 					$default_options['offer_emails'][0]['mail_subject'] = __( 'Exciting News! {product_name} is back in stock!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][0]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][0]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 We\'ve got some fantastic news for you! Your favorite product, {product_name}, is back in stock. Our inventory was running low, but we\'ve managed to restock it just for you.
 
@@ -1965,12 +2036,14 @@ Hurry, this product tends to sell out quickly! Don\'t miss out on the chance to 
 Best regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][1]['mail_subject'] = __( '{user_first_name}, don\'t miss out on {product_name}!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][1]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][1]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 Just a quick reminder that {product_name} is now back in stock. It\'s a customer favorite, and we don\'t want you to miss out on it.
 
@@ -1982,12 +2055,14 @@ Check it out here <a href="{product_url}">{product_name}</a>This is your chance 
 Warm regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][2]['mail_subject'] = __( 'Exclusive Offer: {product_name} + {coupon_amount} Off Just for You!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][2]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][2]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 We know you\'ve been eyeing {product_name}, and we\'ve got something special for you. As a token of our appreciation, here\'s an exclusive {coupon_amount} discount on {product_name} just for you.
 
@@ -2001,12 +2076,14 @@ Don\'t miss out on this limited-time offer! We hope to see you soon.
 Warmly,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][3]['mail_subject'] = __( 'Grab {product_name} Before It\'s Gone Again!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][3]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][3]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 Time is running out! {product_name} is flying off the shelves, and we\'d hate for you to miss out.
 
@@ -2020,12 +2097,14 @@ Don\'t let this opportunity slip through your fingers. Act fast, and make {produ
 Best regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][4]['mail_subject'] = __( 'Exciting News! {product_name} is back in stock!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][4]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][4]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 This is your last reminder that {product_name} is on the verge of selling out once again. We hate to see you miss out on it.
 
@@ -2039,15 +2118,17 @@ Thank you for considering this opportunity. We look forward to serving you soon.
 Warmly,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					break;
 				case 'low-stock':
 					$automation_name                                    = 'Default Low Stock Automation';
 					$default_options['offer_emails'][0]['mail_subject'] = __( 'Act Fast to Get Your {product_name}!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][0]['html_content'] = nl2br( __(
-						'Dear {user_first_name},
+					$default_options['offer_emails'][0]['html_content'] = nl2br(
+						__(
+							'Dear {user_first_name},
 
 We noticed that one of your favorite items, {product_name}, is running low in stock on {site_name}.
 
@@ -2060,12 +2141,14 @@ Remember, it\'s your last chance to purchase at the regular price of {regular_pr
 Stay trendy,
 {site_name}
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][1]['mail_subject'] = __( 'Last Few {product_name} Items Left!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][1]['html_content'] = nl2br( __(
-						'Hey {user_first_name},
+					$default_options['offer_emails'][1]['html_content'] = nl2br(
+						__(
+							'Hey {user_first_name},
 
 We hope you\'re having an amazing day! We wanted to remind you that {product_name} is flying off the shelves on {site_name}. There are only a few left, and they\'re going fast!
 
@@ -2076,12 +2159,14 @@ Your support means the world to us, and we can\'t wait for you to enjoy your new
 Warm regards,
 {site_name}
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][2]['mail_subject'] = __( 'Your {product_name} Awaits You!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][2]['html_content'] = nl2br( __(
-						'Hello {user_first_name},
+					$default_options['offer_emails'][2]['html_content'] = nl2br(
+						__(
+							'Hello {user_first_name},
 
 We\'re excited to update you about {product_name}. They\'re almost gone, and we don\'t want you to miss out!
 
@@ -2094,12 +2179,14 @@ Thanks for being a loyal {site_name} customer. We appreciate your support.
 Best wishes,
 {site_name}
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][3]['mail_subject'] = __( 'Exclusive {product_name} Discount Inside!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][3]['html_content'] = nl2br( __(
-						'Hello {user_first_name},
+					$default_options['offer_emails'][3]['html_content'] = nl2br(
+						__(
+							'Hello {user_first_name},
 
 Time is running out, and we want to make sure you don\'t miss out on {product_name}! We\'re offering you an exclusive {coupon_amount} discount for your loyalty.
 
@@ -2112,12 +2199,14 @@ Thanks for choosing {site_name} for your shopping needs!
 Happy shopping,
 {site_name}
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][4]['mail_subject'] = __( 'Last Chance to Save on {product_name}!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][4]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][4]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 This is your last chance to snag a great deal on {product_name}! With just a few left in stock, you don\'t want to miss out.
 
@@ -2130,14 +2219,16 @@ Thank you for being a part of {site_name}. We look forward to serving you again 
 Warm regards,
 {site_name}
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 					break;
 				case 'price-change':
 					$automation_name                                    = 'Default Price Change Automation';
 					$default_options['offer_emails'][0]['mail_subject'] = __( 'Exciting News About {product_name}', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][0]['html_content'] = nl2br( __(
-						'Hey there, {user_first_name}!
+					$default_options['offer_emails'][0]['html_content'] = nl2br(
+						__(
+							'Hey there, {user_first_name}!
 
 We\'ve got some fantastic news for you. We\'ve recently adjusted the price of {product_name}, and we couldn\'t wait to share it with you.
 
@@ -2153,12 +2244,14 @@ Stay tuned for more exciting updates!
 Warm regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][1]['mail_subject'] = __( 'Last Chance: Grab {product_name} Before It\'s Gone!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][1]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][1]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 We noticed you\'ve been eyeing {product_name}, and we don\'t want you to miss out on this fantastic deal. The clock is ticking, and stock is limited!
 
@@ -2171,12 +2264,14 @@ Don\'t wait, act now! <a href="{product_url}">{product_name}</a>
 Best wishes,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][2]['mail_subject'] = __( '{user_first_name}, See Why Others Love {product_name}!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][2]['html_content'] = nl2br( __(
-						'Hey {user_first_name},
+					$default_options['offer_emails'][2]['html_content'] = nl2br(
+						__(
+							'Hey {user_first_name},
 
 The excitement around {product_name} is growing, and we wanted to share what our happy customers are saying:
 
@@ -2192,12 +2287,14 @@ Ready to join the delighted customers? <a href="{add_to_cart_url}">Shop Now</a>
 Sincerely,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][3]['mail_subject'] = __( 'Exclusive Offer: Save Extra on {product_name} Today!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][3]['html_content'] = nl2br( __(
-						'Hello {user_first_name},
+					$default_options['offer_emails'][3]['html_content'] = nl2br(
+						__(
+							'Hello {user_first_name},
 
 We know you\'ve been considering {product_name}, and we appreciate your interest. As a token of our appreciation, here\'s an exclusive discount just for you:
 
@@ -2210,12 +2307,14 @@ Hurry and grab this special offer now: <a href="{product_url}">{product_name}</a
 Warm regards,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 
 					$default_options['offer_emails'][4]['mail_subject'] = __( 'Last Chance! Don\'t Miss Out on {product_name} Savings!', 'wc-wlfmc-wishlist' );
-					$default_options['offer_emails'][4]['html_content'] = nl2br( __(
-						'Hi {user_first_name},
+					$default_options['offer_emails'][4]['html_content'] = nl2br(
+						__(
+							'Hi {user_first_name},
 
 This is it – your last opportunity to save big on {product_name}. Time is running out, and stock is limited. Don\'t let this deal slip away!
 
@@ -2230,8 +2329,9 @@ Your satisfaction is our priority!
 Best wishes,
 The {site_name} Team
 ',
-						'wc-wlfmc-wishlist'
-					) );
+							'wc-wlfmc-wishlist'
+						)
+					);
 					break;
 			}
 			$default_options['offer_emails'][0]['mail_heading'] = $default_options['offer_emails'][0]['mail_subject'];
@@ -2253,6 +2353,105 @@ The {site_name} Team
 				array( '%s', '%d', '%s', '%d', '%d', '%s' )
 			);
 		}
+	}
+}
+
+if ( ! function_exists( 'wlfmc_is_email_unsubscribed' ) ) {
+	/**
+	 * Check if an email is unsubscribed.
+	 *
+	 * @param string $email The email address to check.
+	 * @return bool True if the email is unsubscribed, false otherwise.
+	 */
+	function wlfmc_is_email_unsubscribed( $email ) {
+		global $wpdb;
+
+		$email = sanitize_email( $email );
+		if ( ! is_email( $email ) ) {
+			return false;
+		}
+
+		$count = $wpdb->get_var( // phpcs:ignore WordPress.DB
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM $wpdb->wlfmc_unsubscribed_emails WHERE email = %s",
+				$email
+			)
+		); // db call ok; no-cache ok.
+
+		return $count > 0;
+	}
+}
+
+if ( ! function_exists( 'wlfmc_add_email_to_unsubscribed' ) ) {
+	/**
+	 * Add an email to the unsubscribed table.
+	 *
+	 * @param string $email The email address to add.
+	 * @return bool True if the email was added successfully or already exists, false on failure.
+	 */
+	function wlfmc_add_email_to_unsubscribed( $email ) {
+		global $wpdb;
+
+		$email = sanitize_email( $email );
+		if ( ! is_email( $email ) ) {
+			return false;
+		}
+
+		// Check if email already exists to avoid duplicate entries.
+		if ( wlfmc_is_email_unsubscribed( $email ) ) {
+			return true; // Already unsubscribed, no need to insert.
+		}
+
+		$result = $wpdb->insert( // phpcs:ignore WordPress.DB
+			$wpdb->wlfmc_unsubscribed_emails,
+			array(
+				'email'             => $email,
+				'date_unsubscribed' => gmdate( 'Y-m-d H:i:s', time() ),
+			),
+			array( '%s', '%s' )
+		); // db call ok; no-cache ok.
+
+		if ( false !== $result ) {
+			do_action( 'wlfmc_email_added_to_unsubscribed', $email );
+			return true;
+		}
+
+		return false;
+	}
+}
+if ( ! function_exists( 'wlfmc_remove_email_from_unsubscribed' ) ) {
+	/**
+	 * Remove an email from the unsubscribed table.
+	 *
+	 * @param string $email The email address to remove.
+	 * @return bool True if the email was removed successfully or does not exist, false on failure.
+	 */
+	function wlfmc_remove_email_from_unsubscribed( $email ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'wlfmc_unsubscribed_emails';
+
+		$email = sanitize_email( $email );
+		if ( ! is_email( $email ) ) {
+			return false;
+		}
+
+		// Check if email exists in the table.
+		if ( ! wlfmc_is_email_unsubscribed( $email ) ) {
+			return true; // Email not in table, no need to delete.
+		}
+
+		$result = $wpdb->delete( // phpcs:ignore WordPress.DB
+			$table_name,
+			array( 'email' => $email ),
+			array( '%s' )
+		); // db call ok; no-cache ok.
+
+		if ( false !== $result ) {
+			do_action( 'wlfmc_email_removed_from_unsubscribed', $email );
+			return true;
+		}
+
+		return false;
 	}
 }
 
@@ -2329,4 +2528,3 @@ if ( ! function_exists( 'wlfmc_destroycookie' ) ) {
 		wlfmc_setcookie( $name, array(), time() - 3600 );
 	}
 }
-

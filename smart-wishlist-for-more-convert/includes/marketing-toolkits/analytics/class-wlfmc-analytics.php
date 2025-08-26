@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.1
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -56,7 +57,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 			add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_analytics' ), 9, 3 );
 
 			add_action( 'wlfmc_added_to_wishlist', array( $this, 'added_to_analytics' ), 10, 4 );
-
 		}
 
 		/**
@@ -113,7 +113,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 				);
 
 			}
-
 		}
 
 		/**
@@ -151,7 +150,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 						'quantity'      => $quantity,
 						'price'         => $price,
 						'type'          => $type,
-						'datepurchased' => current_time( 'mysql' ),
+						'datepurchased' => gmdate( 'Y-m-d H:i:s', time() ),
 						'currency'      => get_woocommerce_currency(),
 					),
 					array( 'ID' => $exists_id ),
@@ -176,7 +175,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 						'quantity'      => $quantity,
 						'price'         => $price,
 						'type'          => $type,
-						'datepurchased' => current_time( 'mysql' ),
+						'datepurchased' => gmdate( 'Y-m-d H:i:s', time() ),
 						'currency'      => get_woocommerce_currency(),
 						'list_type'     => $wishlist_type,
 					),
@@ -194,7 +193,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 					)
 				);
 			}
-
 		}
 
 		/**
@@ -221,7 +219,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 					'quantity'      => $quantity,
 					'price'         => $price,
 					'type'          => 'buy-through-coupon',
-					'datepurchased' => current_time( 'mysql' ),
+					'datepurchased' => gmdate( 'Y-m-d H:i:s', time() ),
 					'currency'      => get_woocommerce_currency(),
 				),
 				array(
@@ -236,7 +234,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 					'%s',
 				)
 			);
-
 		}
 
 		/**
@@ -306,7 +303,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 		 * @param array                 $values cart item values.
 		 * @param WC_order              $order Order object.
 		 */
-		public function add_order_item_meta( $item, $cart_item_key, $values, $order ) {
+		public function add_order_item_meta( $item, $cart_item_key, $values, $order ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			$data = $this->get_item_data( $cart_item_key );
 			if ( ! empty( $data ) ) {
 				$item->update_meta_data( '_wlfmc_wishlist_cart', $data );
@@ -323,7 +320,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 		 *
 		 * @return void
 		 */
-		public static function show_meta_in_order_item( $item_id, $item, $product ) {
+		public static function show_meta_in_order_item( $item_id, $item, $product ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 			$wlfmc_meta = $item->get_meta( '_wlfmc_wishlist_cart' );
 			if ( $wlfmc_meta && isset( $wlfmc_meta['wishlist_type'] ) ) {
 				$list_type = '';
@@ -477,29 +474,27 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 						$data['product_id']    = $_wishlist_cart['product_id'];
 						$data['wishlist_type'] = $_wishlist_cart['wishlist_type'] ?? '';
 						$data['customer_id']   = $_wishlist_cart['customer_id'] ?? '';
-					} else {
+					} elseif ( ! empty( $wishlists ) ) {
 
-						if ( ! empty( $wishlists ) ) {
-							foreach ( $wishlists as $wishlist ) {
+						foreach ( $wishlists as $wishlist ) {
 
-								$product_id   = $item->get_product_id();
-								$variation_id = $item->get_variation_id();
+							$product_id   = $item->get_product_id();
+							$variation_id = $item->get_variation_id();
 
-								if ( $variation_id && $wishlist->has_product( $variation_id ) ) {
-									$find_in_lists         = true;
-									$data['wishlist_id']   = $wishlist->get_id();
-									$data['product_id']    = $variation_id;
-									$data['wishlist_type'] = $wishlist->get_type();
-									$data['customer_id']   = $wishlist->get_customer_id();
-									break;
-								} elseif ( $product_id && $wishlist->has_product( $product_id ) ) {
-									$find_in_lists         = true;
-									$data['wishlist_id']   = $wishlist->get_id();
-									$data['product_id']    = $product_id;
-									$data['wishlist_type'] = $wishlist->get_type();
-									$data['customer_id']   = $wishlist->get_customer_id();
-									break;
-								}
+							if ( $variation_id && $wishlist->has_product( $variation_id ) ) {
+								$find_in_lists         = true;
+								$data['wishlist_id']   = $wishlist->get_id();
+								$data['product_id']    = $variation_id;
+								$data['wishlist_type'] = $wishlist->get_type();
+								$data['customer_id']   = $wishlist->get_customer_id();
+								break;
+							} elseif ( $product_id && $wishlist->has_product( $product_id ) ) {
+								$find_in_lists         = true;
+								$data['wishlist_id']   = $wishlist->get_id();
+								$data['product_id']    = $product_id;
+								$data['wishlist_type'] = $wishlist->get_type();
+								$data['customer_id']   = $wishlist->get_customer_id();
+								break;
 							}
 						}
 					}
@@ -541,8 +536,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 
 			return self::$instance;
 		}
-
-
 	}
 
 }

@@ -10,7 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.3
- * @version 1.8.8
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -43,12 +43,12 @@ function wlfmc_woocommerce_tm_extra_product_options_integrate() {
  * @throws Exception Exception.
  * @return float|int|mixed
  */
-function wlfmc_woocommerce_tm_extra_product_options_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_woocommerce_tm_extra_product_options_wishlist_item_price( $price, $product_meta, $product, $item ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	if ( is_object( $product ) && isset( $product_meta['tmdata'] ) && ( defined( 'THEMECOMPLETE_EPO_VERSION' ) || defined( 'TM_EPO_VERSION' ) ) ) {
-		$api     = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_API() : TM_EPO_API();
-		$core    = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? ( function_exists( 'THEMECOMPLETE_EPO_DATA_STORE' ) ? THEMECOMPLETE_EPO_DATA_STORE() : THEMECOMPLETE_EPO() ) : TM_EPO();
-		$version = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_VERSION : TM_EPO_VERSION;
+		$api                  = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_API() : TM_EPO_API();
+		$core                 = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? ( function_exists( 'THEMECOMPLETE_EPO_DATA_STORE' ) ? THEMECOMPLETE_EPO_DATA_STORE() : THEMECOMPLETE_EPO() ) : TM_EPO();
+		$version              = defined( 'THEMECOMPLETE_EPO_VERSION' ) ? THEMECOMPLETE_EPO_VERSION : TM_EPO_VERSION;
 		$hide_options_in_cart = function_exists( 'THEMECOMPLETE_EPO_DATA_STORE' ) ? $core->get( 'tm_epo_hide_options_in_cart' ) : $core->tm_epo_hide_options_in_cart;
 		if ( 'no' === $hide_options_in_cart ) {
 			$product_id = $product_meta['tmdata']['product_id'];

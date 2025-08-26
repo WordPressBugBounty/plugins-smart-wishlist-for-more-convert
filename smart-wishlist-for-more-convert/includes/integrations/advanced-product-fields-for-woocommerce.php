@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.9.6
  */
 
 use SW_WAPF\Includes\Classes\Field_Groups;
@@ -153,7 +154,7 @@ function wlfmc_wapf_add_to_cart_validation( $passed, $product, $meta, $item ) {
  * @throws Exception Exception.
  * @return float|int|mixed
  */
-function wlfmc_wapf_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_wapf_wishlist_item_price( $price, $product_meta, $product, $item ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( ! empty( $product_meta['wapf'] ) ) {
 		$base          = Helper::get_product_base_price( $product );
 		$options_total = 0;
@@ -174,5 +175,4 @@ function wlfmc_wapf_wishlist_item_price( $price, $product_meta, $product, $item 
 	}
 
 	return $price;
-
 }

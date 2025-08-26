@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +25,6 @@ function wlfmc_after_setup_go() {
 		add_action( 'go_header_social_icons', 'wlfmc_go_header_counters' );
 		add_action( 'customize_register', 'wlfmc_go_customizer', 20 );
 	}
-
 }
 
 /**

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -87,7 +87,6 @@ if ( ! class_exists( 'WLFMC_Customer' ) ) {
 			if ( $this->get_id() > 0 || ! empty( $this->get_token() ) ) {
 				$this->data_store->read( $this );
 			}
-
 		}
 
 		/* === HELPERS === */

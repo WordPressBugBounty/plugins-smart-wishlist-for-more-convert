@@ -458,6 +458,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             url: mct_admin_params.search_post_url,
             dataType: 'json',
             delay: 250,
+            beforeSend: function beforeSend(xhr) {
+              xhr.setRequestHeader('X-WP-Nonce', mct_admin_params.nonce);
+            },
+            data: function data(params) {
+              return {
+                search_term: params.term
+              };
+            },
+            processResults: function processResults(data) {
+              return {
+                results: data
+              };
+            },
+            cache: true
+          },
+          minimumInputLength: minimum_input_length,
+          placeholder: placeholder
+        });
+      });
+    }
+
+    function initSearchUser() {
+      $('.mc-user-search').filter(':not(.enhanced)').each(function () {
+        var placeholder = $(this).data('placeholder'),
+            minimum_input_length = $(this).data('minimum_input_length');
+        $(this).select2({
+          ajax: {
+            url: mct_admin_params.search_user_url,
+            dataType: 'json',
+            delay: 250,
+            beforeSend: function beforeSend(xhr) {
+              xhr.setRequestHeader('X-WP-Nonce', mct_admin_params.nonce);
+            },
             data: function data(params) {
               return {
                 search_term: params.term
@@ -515,6 +548,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         init_optgroup_dependencies();
         initSelect2();
         initSearchPost();
+        initSearchUser();
         initDatePicker();
       },
       hide: function hide(deleteElement) {
@@ -544,6 +578,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           init_optgroup_dependencies();
           initSelect2();
           initSearchPost();
+          initSearchUser();
           initDatePicker();
         }
       }],
@@ -577,6 +612,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         init_optgroup_dependencies();
         initSelect2();
         initSearchPost();
+        initSearchUser();
         initDatePicker();
       }
     });
@@ -1129,6 +1165,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     initColorpicker();
     initSelect2();
     initSearchPost();
+    initSearchUser();
     initDatePicker();
     initCssEditor();
     initWizard();

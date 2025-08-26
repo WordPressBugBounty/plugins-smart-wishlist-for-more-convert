@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.3
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,7 +28,6 @@ function wlfmc_botiga_integrate() {
 		add_filter( 'botiga_quick_view_product_components', 'wlfmc_botiga_quick_view_components' );
 
 	}
-
 }
 
 /**
@@ -122,5 +121,4 @@ function botiga_quick_view_summary_wlfmc_wishlist( WC_Product $product ) {
 	}
 
 	echo do_shortcode( '[wlfmc_add_to_wishlist product_id="' . $product->get_id() . '" is_single="true"]' );
-
 }

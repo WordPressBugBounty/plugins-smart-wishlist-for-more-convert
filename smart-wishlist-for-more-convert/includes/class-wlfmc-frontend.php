@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -392,9 +392,8 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 */
 		public function add_menu_item_class( $class, $list_type, $menu_args ) {
 			if ( isset( $menu_args->menu_class ) ) {
-				switch ( $menu_args->menu_class ) {
-					case 'hfe-nav-menu':
-						return 'hfe-menu-item';
+				if ( $menu_args->menu_class == 'hfe-nav-menu' ) {
+					return 'hfe-menu-item';
 				}
 			}
 			return $class;

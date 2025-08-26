@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.2
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,7 +41,7 @@ function wlfmc_woocommerce_mix_and_match_products_integrate() {
  * @throws Exception Exception.
  * @return float|int
  */
-function wlfmc_woocommerce_mix_and_match_products_wishlist_item_price( $price, $product_meta, $product, $item ) {
+function wlfmc_woocommerce_mix_and_match_products_wishlist_item_price( $price, $product_meta, $product, $item ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	if ( is_object( $product ) && $product->is_type( 'mix-and-match' ) && $product->is_priced_per_product( 'edit' ) ) {
 		$mnm_items = $product->get_child_items();
 		if ( ! empty( $mnm_items ) ) {
@@ -64,5 +65,3 @@ function wlfmc_woocommerce_mix_and_match_products_wishlist_item_price( $price, $
 	}
 	return $price;
 }
-
-

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -179,7 +179,7 @@ if ( ! class_exists( 'WLFMC_Wishlist' ) ) {
 		 */
 		public function current_user_can( $capability = 'view', $current_user = false ) {
 			// admin can do anything by default.
-			if ( is_user_logged_in() && current_user_can( 'manage_woocommerce' ) && apply_filters( 'wlfmc_admin_can', true, $capability, $current_user, $this ) ) {
+			if ( is_user_logged_in() && current_user_can( 'manage_woocommerce' ) && apply_filters( 'wlfmc_admin_can', true, $capability, $current_user, $this ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 				return true;
 			}
 
@@ -322,7 +322,7 @@ if ( ! class_exists( 'WLFMC_Wishlist' ) ) {
 			$formatted_name = $email;
 
 			if ( ! empty( $first_name ) || ! empty( $last_name ) ) {
-				$formatted_name .= " <{$first_name} {$last_name}>";
+				$formatted_name .= " <$first_name $last_name>";
 			}
 
 			return $formatted_name;

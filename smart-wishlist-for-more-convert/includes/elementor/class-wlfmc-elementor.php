@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.1
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -238,7 +238,6 @@ if ( ! class_exists( 'WLFMC_Elementor' ) ) {
 				)
 			);
 			wp_enqueue_script( 'wlfmc-elementor-editor' );
-
 		}
 	}
 

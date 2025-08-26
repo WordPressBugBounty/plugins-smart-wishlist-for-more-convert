@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,5 +27,4 @@ add_filter( 'wpto_template_loc_item_wishlist', 'wlfmc_woo_product_table_integrat
  */
 function wlfmc_woo_product_table_integrate(): string {
 	return MC_WLFMC_INC . 'integrations/woo-product-table/wishlist.php';
-
 }

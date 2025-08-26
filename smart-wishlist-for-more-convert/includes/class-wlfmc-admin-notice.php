@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 1.8.7
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,18 +41,15 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		public function __construct() {
 
 			add_action( 'admin_init', array( $this, 'dismiss_notice' ) );
-			// add_action( 'admin_notices', array( $this, 'after_skip_wizard' ) );
-			// add_action( 'admin_notices', array( $this, 'after_finish_wizard' ) );
 			add_action( 'admin_notices', array( $this, 'update_tables' ) );
 			add_action( 'admin_notices', array( $this, 'wpml_notice' ) );
 			add_action( 'admin_notices', array( $this, 'black_friday_notice' ) );
-
 		}
 
 		/**
 		 * Get Next black friday
 		 *
-         * @since 1.8.7
+		 * @since 1.8.7
 		 * @return false|int
 		 */
 		private function get_next_black_friday() {
@@ -60,7 +57,8 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			$november     = strtotime( "November 1 $year" );
 			$black_friday = strtotime( 'fourth Friday', $november );
 			// If Black Friday has already passed this year, get it for next year.
-			/*if ( $black_friday < time() ) {
+			/*
+			if ( $black_friday < time() ) {
 				$year++;
 				$november     = strtotime( "November 1 $year" );
 				$black_friday = strtotime( 'fourth Friday', $november );
@@ -71,7 +69,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		/**
 		 * Print Black Friday Notice
 		 *
-         * @since 1.8.5
+		 * @since 1.8.5
 		 * @return void
 		 */
 		public function black_friday_notice() {
@@ -286,8 +284,8 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 
 		/**
 		 * Dismiss Notice.
-         *
-         * @version 1.8.5
+		 *
+		 * @version 1.8.5
 		 */
 		public function dismiss_notice() {
 			$nonce = isset( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) : '';
@@ -478,7 +476,6 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			);
 
 			$this->output( $args );
-
 		}
 
 		/**
@@ -509,7 +506,6 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			);
 
 			$this->output( $args );
-
 		}
 
 		/**
@@ -664,7 +660,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 					}
 
 					.wlfmc-notice p {
-					   /* font-size: 14px;
+						/* font-size: 14px;
 						line-height: 21px;
 						color: #302a23;*/
 					}
@@ -1218,7 +1214,6 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 				<?php
 				$this->style_loaded = true;
 			endif;
-
 		}
 
 		/**
@@ -1226,7 +1221,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		 *
 		 * @return false|string
 		 * @since 1.2.4
-         * @version 1.8.5
+		 * @version 1.8.5
 		 */
 		private function clean_url() {
 			$params = array(
@@ -1242,9 +1237,9 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 				'wlfmc-notice-after-16-days-dismiss',
 				'wlfmc-notice-after-30-days-dismiss',
 				'wlfmc-notice-after-35-days-dismiss',
-                'wlfmc-black-friday-2024-dismiss',
-                'wlfmc-black-friday-2025-dismiss',
-                'wlfmc-black-friday-2026-dismiss'
+				'wlfmc-black-friday-2024-dismiss',
+				'wlfmc-black-friday-2025-dismiss',
+				'wlfmc-black-friday-2026-dismiss',
 			);
 
 			return remove_query_arg( $params );

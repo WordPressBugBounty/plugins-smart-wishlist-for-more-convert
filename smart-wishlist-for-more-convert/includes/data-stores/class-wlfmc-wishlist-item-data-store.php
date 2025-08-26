@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -106,7 +106,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 		/**
 		 * Read/populate data properties specific to this order item.
 		 *
-		 * @param WLFMC_Wishlist_Item $item Wishlist item object..
+		 * @param WLFMC_Wishlist_Item $item Wishlist item object.
 		 *
 		 * @throws Exception When wishlist item is not found.
 		 */
@@ -313,12 +313,12 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 			extract( $args ); // phpcs:ignore WordPress.PHP.DontExtract
 
 			$sql = "SELECT SQL_CALC_FOUND_ROWS i.*,
-					           CASE 
+					           CASE
 	                                WHEN l.is_default = 1 THEN 'wishlist'
 	                                WHEN l.wishlist_slug = 'waitlist' THEN 'waitlist'
 	                                WHEN l.wishlist_slug = 'save-for-later' THEN 'save-for-later'
 	                                ELSE 'lists'
-	                            END AS list_type 
+	                            END AS list_type
                     FROM $wpdb->wlfmc_wishlist_items AS i
                     INNER JOIN $wpdb->wlfmc_wishlists AS l ON l.`ID` = i.`wishlist_id`
                     INNER JOIN $wpdb->posts AS p ON p.ID = i.prod_id
@@ -432,7 +432,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 
 			if ( ! empty( $orderby ) ) {
 				$order = ! empty( $order ) ? $order : 'DESC';
-				$sql  .= ' ORDER BY i.' . esc_sql( $orderby ) . ' ' . esc_sql( $order ) . ', i.position ASC';
+				$sql  .= sprintf( ' ORDER BY i.%s %s, i.position ASC', esc_sql( $orderby ), esc_sql( $order ) );
 			} else {
 				$sql .= ' ORDER BY i.position ASC, i.ID DESC';
 			}
@@ -563,7 +563,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 
 			if ( ! empty( $orderby ) ) {
 				$order = ! empty( $order ) ? $order : 'DESC';
-				$sql  .= ' ORDER BY ' . esc_sql( $orderby ) . ' ' . esc_sql( $order );
+				$sql  .= sprintf( ' ORDER BY %s %s', esc_sql( $orderby ), esc_sql( $order ) );
 			}
 
 			if ( ! empty( $limit ) && isset( $offset ) ) {
@@ -732,12 +732,12 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 					      SELECT
 					          ( CASE WHEN l.`user_id` IS NULL THEN l.`session_id` ELSE l.`user_id` END) AS u_id,
 					          l.`ID` as wishlist_id,
-					           CASE 
+					           CASE
 	                                WHEN is_default = 1 THEN 'wishlist'
 	                                WHEN wishlist_slug = 'waitlist' THEN 'waitlist'
 	                                WHEN wishlist_slug = 'save-for-later' THEN 'save-for-later'
 	                                ELSE 'lists'
-	                            END AS list_type 
+	                            END AS list_type
 					      FROM $wpdb->wlfmc_wishlists AS l
 					      WHERE ( l.`expiration` > NOW() OR l.`expiration` IS NULL ) $user_condition $list_type_condition
 				      ) as v
@@ -853,8 +853,8 @@ if ( ! class_exists( 'WLFMC_Wishlist_Item_Data_Store' ) ) {
 		 *
 		 * @return string
 		 */
-		public static function filter_orderby_for_wishlist_count( $orderby ) {
-			return 'i.wishlist_counts ' . ( isset( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		public static function filter_orderby_for_wishlist_count( $orderby ) { //phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+			return 'i.wishlist_counts ' . ( isset( $_REQUEST['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : 'ASC' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		}
 	}
 }

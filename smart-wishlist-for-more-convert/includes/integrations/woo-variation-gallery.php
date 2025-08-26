@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.5.5
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -118,4 +119,3 @@ function wlfmc_woo_variation_gallery_button_position( array $positions ): array 
 
 	return $positions;
 }
-

@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.5.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -56,7 +57,7 @@ function wlfmc_jetwoobuilder_integrate() {
  * @param object $obj  Widget instance.
  * @param array  $args Specific widget arguments list.
  */
-function wlfmc_register_wishlist_button_jet_woo_builder_controls( $obj = null, $args = array() ) {
+function wlfmc_register_wishlist_button_jet_woo_builder_controls( $obj = null, $args = array() ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 
 	$obj->start_controls_section(
 		'section_wishlist_content',
@@ -87,7 +88,6 @@ function wlfmc_register_wishlist_button_jet_woo_builder_controls( $obj = null, $
 	}
 
 	$obj->end_controls_section();
-
 }
 
 /**

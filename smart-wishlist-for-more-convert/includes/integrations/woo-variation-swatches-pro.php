@@ -10,6 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.4
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,5 +73,3 @@ function wlfmc_add_to_wishlist_woo_variation_swatches_pro() {
     "
 	);
 }
-
-

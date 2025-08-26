@@ -10,7 +10,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.5.9
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,7 +39,7 @@ function wlfmc_shoplentor_integrate() {
  * @version 1.7.6
  * @return string
  */
-function wlfmc_shoplentor_button( $output ) {
+function wlfmc_shoplentor_button( $output ) {// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	$html = do_shortcode( '[wlfmc_add_to_wishlist is_single=""]' );
 
 	$before_html = wlfmc_get_action_output( 'wlfmc_before_shoplentor_wishlist_button' );

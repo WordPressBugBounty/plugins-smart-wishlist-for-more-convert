@@ -1479,13 +1479,13 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 		 *
 		 * @param string $message The message.
 		 * @param string $type The type of message (can be 'error' or 'updated').
-		 * @param bool   $echo Set to true if you want to print the message.
+		 * @param bool   $should_print Set to true if you want to print the message.
 		 *
 		 * @return string
 		 */
-		public function get_message( string $message, string $type = 'error', bool $echo = true ) {
+		public function get_message( string $message, string $type = 'error', bool $should_print = true ) {
 			$message = '<div id="message" class="' . esc_attr( $type ) . ' fade"><p>' . wp_kses_post( $message ) . '</p></div>';
-			if ( $echo ) {
+			if ( $should_print ) {
 				echo wp_kses_post( $message );
 			}
 

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
- * @version 1.7.6
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 					if ( 'plain' === $this->current_automation->get_mail_type() && 'edit' === $_GET['tools-action'] ) {
 						add_action(
 							'admin_notices',
-							function() {
+							function () {
 								WLFMC_Admin_Notice()->styles();
 								?>
 							<div id="wlfmc-us-core-admin-notice" class="notice wlfmc-notice wlfmc-notice-error">
@@ -84,15 +84,8 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 					}
 				}
 
-				if ( isset( $_GET['tools-action'] ) && 'view' === $_GET['tools-action'] && $this->current_automation && $this->current_automation->get_id() > 0 ) {
+				add_filter( 'set-screen-option', array( $this, 'set_screen_option' ), 11, 3 );
 
-					add_filter( 'set-screen-option', array( $this, 'set_automation_item_screen_option' ), 11, 3 );
-
-				} elseif ( ! isset( $_GET['tools-action'] ) ) {
-
-					add_filter( 'set-screen-option', array( $this, 'set_automation_screen_option' ), 11, 3 );
-
-				}
 			}
 			//phpcs:enable WordPress.Security.NonceVerification
 			add_action( 'wlfmc_email_automation_admin_settings', array( $this, 'display_email_automation_page' ), 10 );
@@ -131,7 +124,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 
 			wp_register_style( 'wlfmc-automation-admin', MC_WLFMC_URL . 'assets/backend/css/automation' . $suffix . '.css', array(), WLFMC_VERSION );
 			wp_enqueue_style( 'wlfmc-automation-admin' );
-
 		}
 
 
@@ -194,34 +186,24 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 
 
 		/**
-		 * Catch automation_per_page.
+		 * Validate screen options on update.
 		 *
-		 * @param string $status Unused.
-		 * @param string $option The option name where the value is set for.
-		 * @param string $value The new value for the screen option.
+		 * @param bool|int $status Screen option value. Default false to skip.
+		 * @param string   $option The option name.
+		 * @param int      $value The number of rows to use.
 		 *
-		 * @return string|void
+		 * @return bool|int
 		 */
-		public function set_automation_screen_option( $status, $option, $value ) {
-			if ( 'automation_per_page' === $option ) {
+		public function set_screen_option( $status, $option, $value ) {
+			$screen_options = array(
+				'automation_per_page',
+				'automation_item_per_page',
+			);
+
+			if ( in_array( $option, $screen_options, true ) ) {
 				return $value;
 			}
-		}
-
-
-		/**
-		 * Catch automation_item_per_page.
-		 *
-		 * @param string $status Unused.
-		 * @param string $option The option name where the value is set for.
-		 * @param string $value The new value for the screen option.
-		 *
-		 * @return string|void
-		 */
-		public function set_automation_item_screen_option( $status, $option, $value ) {
-			if ( 'automation_item_per_page' === $option ) {
-				return $value;
-			}
+			return $status;
 		}
 
 		/**
@@ -240,7 +222,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 			);
 
 			$this->automation = new WLFMC_Automation_Table();
-
 		}
 
 		/**
@@ -259,7 +240,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 			);
 
 			$this->automation_item = new WLFMC_Automation_Item_Table();
-
 		}
 
 		/**
@@ -471,7 +451,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 											'type'    => 'select',
 											'class'   => 'select2-trigger',
 											'options' => array(
-												// 'plain' => __( 'Plain', 'wc-wlfmc-wishlist' ),
 												'simple-template' => __( 'Simple Template', 'wc-wlfmc-wishlist' ),
 												'html' => __( 'HTML Woocommerce', 'wc-wlfmc-wishlist' ),
 												'mc-template' => __( 'MC Template', 'wc-wlfmc-wishlist' ),
@@ -584,7 +563,7 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 														'pinterest' => __( 'pinterest', 'wc-wlfmc-wishlist' ),
 														'youtube'  => __( 'youtube', 'wc-wlfmc-wishlist' ),
 														'linkedin' => __( 'linkedin', 'wc-wlfmc-wishlist' ),
-														'twitter'  => __( 'twitter', 'wc-wlfmc-wishlist' ),
+														'twitter'  => __( 'twitter(X)', 'wc-wlfmc-wishlist' ),
 														'facebook' => __( 'facebook', 'wc-wlfmc-wishlist' ),
 
 													),
@@ -891,7 +870,7 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 		/**
 		 * Display the list of automations.
 		 *
-         * @version 1.7.6
+		 * @version 1.7.6
 		 * @return void
 		 */
 		public function display_automation_lists() {
@@ -1106,8 +1085,8 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 						<?php foreach ( $saved_options['offer_emails'] as $k => $email ) : ?>
 							<?php
 							$row            = $this->current_automation->get_email_key_states( $k );
-							$current_status = ( ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all' );
-							$current_key    = ( ! empty( $_REQUEST['email_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['email_key'] ) ) : '' );
+							$current_status = ( ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all' ); // phpcs: WordPress.Security.NonceVerification
+							$current_key    = ( ! empty( $_REQUEST['email_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['email_key'] ) ) : '' ); // phpcs: WordPress.Security.NonceVerification
 
 							$filter_url        = add_query_arg(
 								array(
@@ -1246,7 +1225,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 				)
 			);
 			$fields->output();
-
 		}
 
 
@@ -1264,8 +1242,6 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 
 			return self::$instance;
 		}
-
-
 	}
 
 }
@@ -1286,5 +1262,4 @@ function WLFMC_Automation_Admin() { // phpcs:ignore WordPress.NamingConventions.
 		return WLFMC_Automation_Admin::get_instance();
 
 	}
-
 }

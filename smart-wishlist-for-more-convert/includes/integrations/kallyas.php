@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.3.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,6 @@ function wlfmc_kallyas_integrate() {
 		add_filter( 'wlfmc_loop_positions', 'wlfmc_kallyas_fix_loop_position' );
 
 	}
-
 }
 /**
  * Fix loop position

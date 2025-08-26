@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.0
+ * @version 1.9.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -451,8 +451,8 @@ if ( ! class_exists( 'WLFMC_Wishlist_Data_Store' ) ) {
 							customers.first_name LIKE %s OR
 							customers.last_name LIKE %s OR
 							customers.email LIKE %s OR
-							customers.phone LIKE %s 
-							
+							customers.phone LIKE %s
+
 						)';
 
 				$search_value = '%' . esc_sql( $user_search ) . '%';
@@ -849,7 +849,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Data_Store' ) ) {
 				$nchars     = 12;
 				$token      = '';
 
-				for ( $i = 0; $i <= $nchars - 1; $i ++ ) {
+				for ( $i = 0; $i <= $nchars - 1; $i++ ) {
 					$token .= $dictionary[ wp_rand( 0, strlen( $dictionary ) - 1 ) ];
 				}
 
