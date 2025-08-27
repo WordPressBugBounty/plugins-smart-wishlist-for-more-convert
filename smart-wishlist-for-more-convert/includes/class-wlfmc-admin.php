@@ -37,7 +37,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $minimum_pro_version = '1.9.6';
+		public $minimum_pro_version = '1.9.0';
 
 		/**
 		 * Main panel
