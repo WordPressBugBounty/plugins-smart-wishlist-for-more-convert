@@ -4,8 +4,8 @@
 
 @font-face {
   font-family: "wlfmc-icons";
-  src: url("../fonts/wlfmc-icons.eot?1rdldd");
-  src: url("../fonts/wlfmc-icons.eot?1rdldd#iefix") format("embedded-opentype"), url("../fonts/wlfmc-icons.ttf?1rdldd") format("truetype"), url("../fonts/wlfmc-icons.woff?1rdldd") format("woff"), url("../fonts/wlfmc-icons.svg?1rdldd#wlfmc-icons") format("svg");
+  src: url("../fonts/wlfmc-icons.eot?1rdldc");
+  src: url("../fonts/wlfmc-icons.eot?1rdldc#iefix") format("embedded-opentype"), url("../fonts/wlfmc-icons.woff2?1rdldc") format("woff2"), url("../fonts/wlfmc-icons.woff?1rdldc") format("woff"), url("../fonts/wlfmc-icons.ttf?1rdldc") format("truetype"), url("../fonts/wlfmc-icons.svg?1rdldc#wlfmc-icons") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;

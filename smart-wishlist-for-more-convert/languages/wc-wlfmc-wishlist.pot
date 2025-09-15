@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: MoreConvert\n"
 "Last-Translator: MoreConvert\n"
-"POT-Creation-Date: 2025-08-27 12:08+0000\n"
+"POT-Creation-Date: 2025-09-15 12:28+0000\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -18,6 +18,21 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "is enabled but not effective. It requires WooCommerce to work."
+msgstr ""
+
+msgid "30% Discount"
+msgstr ""
+
+msgid "Spooky Savings Alert: <span class='orange-text'>Halloween Deals</span> on MoreConvert!"
+msgstr ""
+
+msgid "Unlock premium features with eerie discounts this Halloween. Limited time offer!"
+msgstr ""
+
+msgid "Grab the Halloween Deal!"
+msgstr ""
+
+msgid "Don't let these savings vanish into the night!"
 msgstr ""
 
 msgid "Don't Miss MoreConvert Exclusive <span class='yellow-text'>Black Friday Deals!</span>"
@@ -30,6 +45,30 @@ msgid "Get the Discount Now!"
 msgstr ""
 
 msgid "Take advantage of this incredible deal right now!"
+msgstr ""
+
+msgid "Cyber Monday Madness: Exclusive <span class='green-text'>Tech Deals</span> on MoreConvert!"
+msgstr ""
+
+msgid "Power up your site with cyber savings on premium tools. Act fast!"
+msgstr ""
+
+msgid "Secure Cyber Savings!"
+msgstr ""
+
+msgid "Upgrade now before the clock runs out!"
+msgstr ""
+
+msgid "Festive Cheer: <span class='error-text'>Christmas Specials</span> from MoreConvert!"
+msgstr ""
+
+msgid "Wrap up the year with holiday discounts on premium features. Merry savings!"
+msgstr ""
+
+msgid "Unwrap Christmas Deals!"
+msgstr ""
+
+msgid "Make your holidays brighter with these offers!"
 msgstr ""
 
 msgid "Need More Power for MC Wishlist?"
@@ -95,24 +134,6 @@ msgid "Updating ..."
 msgstr ""
 
 msgid "Update tables"
-msgstr ""
-
-msgid "Thanks for installing MC Wishlist!"
-msgstr ""
-
-msgid "It is easy to use the MC Wishlist. Please use the setup wizard to quick start setup."
-msgstr ""
-
-msgid "Start Wizard"
-msgstr ""
-
-msgid "Together we will increase your sales."
-msgstr ""
-
-msgid "Thank you for installing MC Wishlist plugin. Our main goal and challenge is to increase your site sales effortlessly, without the need for more traffic. If you would like to join us in this challenge, check the marketing settings and documentation right now."
-msgstr ""
-
-msgid "Let's Go Marketing"
 msgstr ""
 
 msgid "General"

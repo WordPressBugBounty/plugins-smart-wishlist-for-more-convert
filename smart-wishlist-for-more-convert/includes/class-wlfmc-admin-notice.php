@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 1.9.6
+ * @version 1.9.8
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +32,14 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		 * @since 1.7.6
 		 */
 		public $style_loaded = false;
+
+		/**
+		 * Current event
+		 *
+		 * @var string
+		 * @since 1.9.8
+		 */
+		public $current_event = '';
 		/**
 		 * Constructor
 		 *
@@ -39,17 +47,260 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-
+			$this->check_current_event();
 			add_action( 'admin_init', array( $this, 'dismiss_notice' ) );
 			add_action( 'admin_notices', array( $this, 'update_tables' ) );
 			add_action( 'admin_notices', array( $this, 'wpml_notice' ) );
-			add_action( 'admin_notices', array( $this, 'black_friday_notice' ) );
+			add_action( 'admin_notices', array( $this, 'event_notices' ) );
+			add_filter( 'wlfmc_admin_menus', array( $this, 'add_admin_event_menu' ), 29, 2 );
+		}
+
+		/**
+		 * NEW: Early check to set $current_event if ANY event is currently active.
+		 * This ensures the menu filter sees it as true during admin menu building.
+		 *
+		 * @since 1.9.8
+		 * @return void
+		 */
+		private function check_current_event() {
+			$events = $this->get_events( true );
+			foreach ( $events as $event_key ) {
+				$start_date   = $this->get_event_date( $event_key, 'start' );
+				$end_date     = $this->get_event_date( $event_key, 'end' );
+				$current_time = time();
+				if ( $current_time >= $start_date && $current_time <= $end_date ) {
+					$this->current_event = $event_key;
+					break;  // No need to check further if any event is active.
+				}
+			}
+		}
+
+		/**
+		 * Add admin text menu
+		 *
+		 * @param array  $admin_menus admin menus.
+		 * @param string $parent_slug parent slug.
+		 *
+		 * @return array
+		 *
+		 * @since 1.9.8
+		 */
+		public function add_admin_event_menu( $admin_menus, $parent_slug ) {
+			if ( '' !== $this->current_event ) {
+				$event_settings       = add_submenu_page(
+					$parent_slug,
+					__( '30% Discount', 'wc-wlfmc-wishlist' ),
+					'<span class="discount-item">' . __( '30% Discount', 'wc-wlfmc-wishlist' ) . '<span class="discount-badge"></span></span>',
+					apply_filters( 'wlfmc_capability', 'manage_options' ),
+					'https://moreconvert.com/sale'
+				);
+				$admin_menus['event'] = $event_settings;
+			}
+
+			return $admin_menus;
+		}
+
+		/**
+		 * Get event date based on type.
+		 *
+		 * @param string $event_key Event key like 'black_friday'.
+		 * @param string $type 'start' or 'end' or 'event_date'.
+		 * @return int Timestamp.
+		 * @since 1.9.8
+		 */
+		private function get_event_date( $event_key, $type = 'event_date' ) {
+			$year = gmdate( 'Y' );
+			switch ( $event_key ) {
+				case 'halloween':
+					if ( 'start' === $type ) {
+						return strtotime( "October 24, $year" );
+					} elseif ( 'end' === $type ) {
+						return strtotime( "November 1, $year" );
+					}
+					return $this->get_next_halloween();
+				case 'black_friday':
+					$november     = strtotime( "November 1 $year" );
+					$black_friday = strtotime( 'fourth Friday', $november );
+					if ( 'start' === $type ) {
+						return strtotime( '-7 days', $black_friday );
+					} elseif ( 'end' === $type ) {
+						return strtotime( '+1 days', $black_friday );
+					}
+					return $this->get_next_black_friday();
+				case 'cyber_monday':
+					$cyber_monday = $this->get_next_cyber_monday();
+					if ( 'start' === $type ) {
+						return strtotime( 'November 30, ' . $year );
+					} elseif ( 'end' === $type ) {
+						return strtotime( 'December 2, ' . $year );
+					}
+					return $cyber_monday;
+				case 'christmas':
+					if ( 'start' === $type ) {
+						return strtotime( "December 10, $year" );
+					} elseif ( 'end' === $type ) {
+						$new_years = $year + 1;
+						return strtotime( "January 1, $new_years" );
+					}
+					return $this->get_next_christmas();
+				default:
+					return 0;
+			}
+		}
+
+		/**
+		 * Get all events configuration.
+		 *
+		 * @param bool $keys Return keys.
+		 *
+		 * @return array Events array.
+		 * @since 1.9.8
+		 */
+		private function get_events( $keys = false ) {
+			if ( $keys ) {
+				return array( 'halloween', 'black_friday', 'cyber_monday', 'christmas' );
+			}
+			return array(
+				'halloween'    => array(
+					'image'     => 'sale-banner.png',
+					'title'     => __( "Spooky Savings Alert: <span class='orange-text'>Halloween Deals</span> on MoreConvert!", 'wc-wlfmc-wishlist' ),
+					'content'   => __( 'Unlock premium features with eerie discounts this Halloween. Limited time offer!', 'wc-wlfmc-wishlist' ),
+					'btn_text'  => __( 'Grab the Halloween Deal!', 'wc-wlfmc-wishlist' ),
+					'btn_url'   => 'https://moreconvert.com/sale',
+					'btn_small' => __( 'Don\'t let these savings vanish into the night!', 'wc-wlfmc-wishlist' ),
+					'class'     => 'wlfmc-halloween',
+				),
+				'black_friday' => array(
+					'image'     => 'sale-banner.png',
+					'title'     => __( "Don't Miss MoreConvert Exclusive <span class='yellow-text'>Black Friday Deals!</span>", 'wc-wlfmc-wishlist' ),
+					'content'   => __( 'Upgrade to Pro and unlock advanced features at unbeatable prices! This is a once-a-year opportunity.', 'wc-wlfmc-wishlist' ),
+					'btn_text'  => __( 'Get the Discount Now!', 'wc-wlfmc-wishlist' ),
+					'btn_url'   => 'https://moreconvert.com/sale',
+					'btn_small' => __( 'Take advantage of this incredible deal right now!', 'wc-wlfmc-wishlist' ),
+					'class'     => 'wlfmc-events',
+				),
+				'cyber_monday' => array(
+					'image'     => 'sale-banner.png',
+					'title'     => __( "Cyber Monday Madness: Exclusive <span class='green-text'>Tech Deals</span> on MoreConvert!", 'wc-wlfmc-wishlist' ),
+					'content'   => __( 'Power up your site with cyber savings on premium tools. Act fast!', 'wc-wlfmc-wishlist' ),
+					'btn_text'  => __( 'Secure Cyber Savings!', 'wc-wlfmc-wishlist' ),
+					'btn_url'   => 'https://moreconvert.com/sale',
+					'btn_small' => __( 'Upgrade now before the clock runs out!', 'wc-wlfmc-wishlist' ),
+					'class'     => 'wlfmc-cyber-monday',
+				),
+				'christmas'    => array(
+					'image'     => 'sale-banner.png',
+					'title'     => __( "Festive Cheer: <span class='error-text'>Christmas Specials</span> from MoreConvert!", 'wc-wlfmc-wishlist' ),
+					'content'   => __( 'Wrap up the year with holiday discounts on premium features. Merry savings!', 'wc-wlfmc-wishlist' ),
+					'btn_text'  => __( 'Unwrap Christmas Deals!', 'wc-wlfmc-wishlist' ),
+					'btn_url'   => 'https://moreconvert.com/sale',
+					'btn_small' => __( 'Make your holidays brighter with these offers!', 'wc-wlfmc-wishlist' ),
+					'class'     => 'wlfmc-christmas',
+				),
+			);
+		}
+
+		/**
+		 * Print event notice.
+		 *
+		 * @param string $event_key Event key.
+		 * @since 1.9.7
+		 * @return void
+		 */
+		private function print_event_notice( $event_key ) {
+			$year       = gmdate( 'Y' );
+			$option_key = "wlfmc-{$event_key}-{$year}-notice";
+			if ( ! is_super_admin() || '' === $this->current_event || wlfmc_is_true( get_option( $option_key ) ) ) {
+				return;
+			}
+			$event_date   = $this->get_event_date( $event_key );
+			$start_date   = $this->get_event_date( $event_key, 'start' );
+			$end_date     = $this->get_event_date( $event_key, 'end' );
+			$current_time = time();
+			$dismiss_url  = wp_nonce_url(
+				add_query_arg(
+					array(
+						"wlfmc-{$event_key}-{$year}-dismiss" => 1,
+					),
+					$this->clean_url()
+				),
+				"wlfmc-{$event_key}-{$year}-dismiss-nonce"
+			);
+
+			if ( $current_time >= $start_date && $current_time <= $end_date ) {
+				$events = $this->get_events();
+				$event  = $events[ $event_key ];
+				$this->styles();
+				?>
+				<div id="wlfmc-<?php echo esc_attr( $event_key ); ?>" class="notice wlfmc-events wlfmc-notice <?php echo esc_attr( $event['class'] ); ?>">
+					<div class="wlfmc-notice-with-image">
+						<div class="wlfmc-image-wrapper">
+							<img src="<?php echo esc_url( MC_WLFMC_URL . 'assets/backend/images/' . esc_attr( $event['image'] ) ); ?>" alt="black-friday" width="200px" height="168px" />
+						</div>
+						<div class="wlfmc-content-wrapper">
+						<h2><?php echo wp_kses_post( $event['title'] ); ?></h2>
+						<a href="<?php echo esc_url( $dismiss_url ); ?>" class="dismiss-btn">
+							<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11">
+								<path id="close" d="M13.076,12.244,8.832,8l4.244-4.244a.588.588,0,1,0-.832-.832h0L8,7.168,3.756,2.924a.588.588,0,0,0-.832.832h0L7.168,8,2.924,12.244a.588.588,0,1,0,.832.832h0L8,8.832l4.244,4.244a.588.588,0,0,0,.832-.832Z" transform="translate(-2.752 -2.752)" fill="#fff"/>
+							</svg>
+						</a>
+						<p>
+							<?php echo esc_attr( $event['content'] ); ?>
+						</p>
+						<p class="wlfmc-notice-action-wrapper">
+							<span class="wlfmc-btn-wrapper">
+								<a href="<?php echo esc_url( $event['btn_url'] ); ?>" class="btn-notice-2" target="_blank">
+									<?php echo esc_attr( $event['btn_text'] ); ?>
+								</a>
+								<small><?php echo esc_attr( $event['btn_small'] ); ?></small>
+							</span>
+							<span id="wlfmc_<?php echo esc_attr( $event_key ); ?>_countdown" class="wlfmc-timer"></span>
+						</p>
+						</div>
+					</div>
+				</div>
+				<script>
+					var countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> = new Date("<?php echo esc_attr( gmdate( 'Y-m-d H:i:s', $end_date ) ); ?>").getTime();
+					var x<?php echo esc_attr( ucfirst( $event_key ) ); ?> = setInterval(function() {
+						var now = new Date().getTime();
+						var distance = countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> - now;
+						var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+						var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+						var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+						var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+						document.getElementById("wlfmc_<?php echo esc_attr( $event_key ); ?>_countdown").innerHTML = "<span id='wlfmc-notice-timer-days'>"
+							+ days + "d </span> : <span id='wlfmc-notice-timer-hours'>"
+							+ hours + "h </span> : <span id='wlfmc-notice-timer-minutes'>"
+							+ minutes + "m </span> : <span id='wlfmc-notice-timer-seconds'>"
+							+ seconds + "s </span>";
+						if (distance < 0) {
+							clearInterval(x<?php echo esc_attr( ucfirst( $event_key ) ); ?>);
+							document.getElementById("wlfmc-<?php echo esc_attr( $event_key ); ?>").remove();
+						}
+					}, 1000);
+				</script>
+				<?php
+			}
+		}
+
+		/**
+		 * Print all event notices.
+		 *
+		 * @since 1.9.7
+		 * @return void
+		 */
+		public function event_notices() {
+			$events = $this->get_events( true );
+			foreach ( $events as $event_key ) {
+				$this->print_event_notice( $event_key );
+			}
 		}
 
 		/**
 		 * Get Next black friday
 		 *
 		 * @since 1.8.7
+		 * @version 1.9.8
 		 * @return false|int
 		 */
 		private function get_next_black_friday() {
@@ -57,108 +308,57 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			$november     = strtotime( "November 1 $year" );
 			$black_friday = strtotime( 'fourth Friday', $november );
 			// If Black Friday has already passed this year, get it for next year.
-			/*
 			if ( $black_friday < time() ) {
-				$year++;
+				++$year;
 				$november     = strtotime( "November 1 $year" );
 				$black_friday = strtotime( 'fourth Friday', $november );
-			}*/
+			}
 			return $black_friday;
 		}
 
 		/**
-		 * Print Black Friday Notice
+		 * Get next Halloween date (always October 31st of the current or next year).
 		 *
-		 * @since 1.8.5
-		 * @return void
+		 * @since 1.9.8
+		 * @return int Timestamp of the next Halloween.
 		 */
-		public function black_friday_notice() {
-			if ( defined( 'MC_WLFMC_PREMIUM' ) || get_option( 'wlfmc_premium_version' ) ) {
-				return;
+		private function get_next_halloween() {
+			$year      = gmdate( 'Y' );
+			$halloween = strtotime( "October 31 $year" );
+			// If Halloween has passed, get next year's.
+			if ( $halloween < time() ) {
+				++$year;
+				$halloween = strtotime( "November 1 $year" );
 			}
+			return $halloween;
+		}
 
-			$year = gmdate( 'Y' );
-
-			if ( ! is_super_admin() || wlfmc_is_true( get_option( 'wlfmc-black-friday-' . $year . '-notice' ) ) ) {
-				return;
-			}
-
+		/**
+		 * Get next Cyber Monday (Monday after Black Friday).
+		 *
+		 * @since 1.9.8
+		 * @return int Timestamp of the next Cyber Monday.
+		 */
+		private function get_next_cyber_monday() {
 			$black_friday = $this->get_next_black_friday();
-			$start_date   = strtotime( '-4 days', $black_friday );
-			$end_date     = strtotime( '+7 days', $black_friday );
-			$current_time = time();
-			$dismiss_url  = wp_nonce_url(
-				add_query_arg(
-					array(
-						'wlfmc-black-friday-' . $year . '-dismiss' => 1,
-					),
-					$this->clean_url()
-				),
-				'wlfmc-black-friday-' . $year . '-dismiss-nonce'
-			);
-			if ( $current_time >= $start_date && $current_time <= $end_date ) {
-				$this->styles();
-				?>
-				<div id="wlfmc-black-friday" class="notice wlfmc-notice wlfmc-black-friday">
-					<span class="wlfmc-line-up"></span>
-					<div class="wlfmc-notice-with-image">
-						<div class="wlfmc-image-wrapper">
-							<img src="<?php echo esc_url( MC_WLFMC_URL . 'assets/backend/images/black-friday-banner.png' ); ?>" alt="black-friday" width="234px" height="210px" />
-						</div>
-						<div class="wlfmc-content-wrapper">
-							<h2><?php echo wp_kses_post( __( "Don't Miss MoreConvert Exclusive <span class='yellow-text'>Black Friday Deals!</span>", 'wc-wlfmc-wishlist' ) ); ?></h2>
-							<a href="<?php echo esc_url( $dismiss_url ); ?>" class="dismiss-btn">
-								<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11">
-									<path id="close" d="M13.076,12.244,8.832,8l4.244-4.244a.588.588,0,1,0-.832-.832h0L8,7.168,3.756,2.924a.588.588,0,0,0-.832.832h0L7.168,8,2.924,12.244a.588.588,0,1,0,.832.832h0L8,8.832l4.244,4.244a.588.588,0,0,0,.832-.832Z" transform="translate(-2.752 -2.752)" fill="#fff"/>
-								</svg>
-							</a>
-							<p>
-								<?php esc_attr_e( 'Upgrade to Pro and unlock advanced features at unbeatable prices! This is a once-a-year opportunity.', 'wc-wlfmc-wishlist' ); ?>
-							</p>
-							<p class="wlfmc-notice-action-wrapper">
-								<span class="wlfmc-btn-wrapper">
-									<a href="https://moreconvert.com/xb4y" class="btn-notice-2" target="_blank">
-										<?php esc_attr_e( 'Get the Discount Now!', 'wc-wlfmc-wishlist' ); ?>
-									</a>
-									<small><?php esc_attr_e( 'Take advantage of this incredible deal right now!', 'wc-wlfmc-wishlist' ); ?></small>
-								</span>
-								<span id="wlfmc_blackfriday_countdown" class="wlfmc-timer"></span>
-							</p>
-						</div>
-					</div>
-					<span class="wlfmc-line-down"></span>
-				</div>
-				<script>
-					// Set the date we're counting down to
-					var countDownDate = new Date("<?php echo esc_attr( gmdate( 'Y-m-d H:i:s', $end_date ) ); ?>").getTime();
+			return strtotime( '+3 days', $black_friday ); // Monday after Friday.
+		}
 
-					// Update the count-down every 1 second
-					var x = setInterval(function() {
-						var now = new Date().getTime();
-						var distance = countDownDate - now;
-
-						// Time calculations for days, hours, minutes and seconds.
-						var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-						var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-						var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-						var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-						// Display the result in the element with id="wlfmc_blackfriday_countdown".
-						document.getElementById("wlfmc_blackfriday_countdown").innerHTML = "<span id='wlfmc-notice-timer-days'>"
-							+ days + "d </span> : <span id='wlfmc-notice-timer-hours'>"
-							+ hours + "h </span> : <span id='wlfmc-notice-timer-minutes'>"
-							+ minutes + "m </span> : <span id='wlfmc-notice-timer-seconds'>"
-							+ seconds + "s </span>";
-
-						// If the count-down is over, write some text.
-						if (distance < 0) {
-							clearInterval(x);
-							document.getElementById("wlfmc-black-friday").remove();
-						}
-					}, 1000);
-				</script>
-				<?php
+		/**
+		 * Get next Christmas (always December 25th of the current or next year).
+		 *
+		 * @since 1.9.8
+		 * @return int Timestamp of the next Christmas.
+		 */
+		private function get_next_christmas() {
+			$year      = gmdate( 'Y' );
+			$christmas = strtotime( "December 25 $year" );
+			// If Christmas has passed, get next year's.
+			if ( $christmas < time() ) {
+				++$year;
+				$christmas = strtotime( "December 25 $year" );
 			}
+			return $christmas;
 		}
 
 		/**
@@ -322,6 +522,13 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 
 			}
 
+			$events = $this->get_events( true );
+			foreach ( $events as $event_key ) {
+				if ( isset( $_GET[ "wlfmc-{$event_key}-{$year}-dismiss" ] ) && '1' === $_GET[ "wlfmc-{$event_key}-{$year}-dismiss" ] && wp_verify_nonce( $nonce, "wlfmc-{$event_key}-{$year}-dismiss-nonce" ) ) {
+					update_option( "wlfmc-{$event_key}-{$year}-notice", true );
+				}
+			}
+
 			$notice_after_days = array( '3', '7', '10', '15', '16', '30', '35' );
 
 			foreach ( $notice_after_days as $day ) {
@@ -438,74 +645,6 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 				</script>
 				<?php
 			}
-		}
-
-		/**
-		 * Add admin notice after skip wizard.
-		 */
-		public function after_skip_wizard() {
-
-			if ( ! is_super_admin() || wlfmc_is_true( get_option( 'wlfmc-skip-wizard-notice' ) ) ) {
-				return;
-			}
-			$args = array(
-				'wrapper_class' => 'notice-skip-wizard',
-				'title'         => esc_html__( 'Thanks for installing MC Wishlist!', 'wc-wlfmc-wishlist' ),
-				'content'       => esc_html__( 'It is easy to use the MC Wishlist. Please use the setup wizard to quick start setup.', 'wc-wlfmc-wishlist' ),
-				'btn_title'     => esc_html__( 'Start Wizard', 'wc-wlfmc-wishlist' ),
-				'btn_class'     => 'btn-notice blue-btn',
-				'btn_url'       => wp_nonce_url(
-					add_query_arg(
-						array(
-							'wlfmc-skip-wizard-dismiss' => 1,
-						),
-						get_admin_url() . 'admin.php?page=mc-wishlist-setup'
-					),
-					'wlfmc-skip-wizard-dismiss-nonce'
-				),
-				'btn_target'    => '_self',
-				'dismiss_url'   => wp_nonce_url(
-					add_query_arg(
-						array(
-							'wlfmc-skip-wizard-dismiss' => 1,
-						),
-						$this->clean_url()
-					),
-					'wlfmc-skip-wizard-dismiss-nonce'
-				),
-			);
-
-			$this->output( $args );
-		}
-
-		/**
-		 * Add admin notice after finish wizard.
-		 */
-		public function after_finish_wizard() {
-			if ( ! is_super_admin() || wlfmc_is_true( get_option( 'wlfmc-finish-wizard-notice' ) ) ) {
-				return;
-			}
-			$args = array(
-				'wrapper_class' => 'notice-finish-wizard',
-				'title'         => esc_html__( 'Together we will increase your sales.', 'wc-wlfmc-wishlist' ),
-				'content'       => esc_html__( 'Thank you for installing MC Wishlist plugin. Our main goal and challenge is to increase your site sales effortlessly, without the need for more traffic. If you would like to join us in this challenge, check the marketing settings and documentation right now.', 'wc-wlfmc-wishlist' ),
-				'btn_title'     => esc_html__( "Let's Go Marketing", 'wc-wlfmc-wishlist' ),
-				'btn_class'     => 'btn-notice',
-				'btn_url'       => wp_nonce_url(
-					add_query_arg(
-						array(
-							'wlfmc-finish-wizard-dismiss' => 1,
-							'page'                        => 'mc-email-automations',
-						),
-						admin_url( 'admin.php' )
-					),
-					'wlfmc-finish-wizard-dismiss-nonce'
-				),
-				'btn_target'    => '_self',
-				'dismiss_url'   => wp_nonce_url( add_query_arg( 'wlfmc-finish-wizard-dismiss', 1, $this->clean_url() ), 'wlfmc-finish-wizard-dismiss-nonce' ),
-			);
-
-			$this->output( $args );
 		}
 
 		/**
@@ -1036,11 +1175,11 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect id='Rectangle_357' data-name='Rectangle 357' width='32' height='32' fill='none'/%3E%3Cpath id='tick-circle-svgrepo-com_1_' data-name='tick-circle-svgrepo-com (1)' d='M16,2A14,14,0,1,0,30,16,14.023,14.023,0,0,0,16,2Zm6.692,10.78-7.938,7.938a1.048,1.048,0,0,1-1.484,0L9.308,16.756a1.049,1.049,0,1,1,1.484-1.484l3.22,3.22,7.2-7.2a1.049,1.049,0,0,1,1.484,1.484Z' fill='%23fd5d00'/%3E%3C/svg%3E");
 					}
 
-					.wlfmc-black-friday .wlfmc-notice-with-image{
+					.wlfmc-events .wlfmc-notice-with-image{
 						position:relative;
 						z-index:1
 					}
-					.wlfmc-black-friday {
+					.wlfmc-events {
 						border:0 !important;
 						border-radius:6px !important;
 						color:#fff;
@@ -1048,12 +1187,12 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						position:relative;
 						background: linear-gradient(90deg, #171717 0.99%, #272727 1.76%, #3a3a3a 2.98%, #424242 3.81%, #3c3c3c 4.37%, #2b2b2b 6.52%, #1f1f1f 9.2%, #181818 12.96%, #171717 23.39%, #171717 47.75%, #171717 51.51%, #171717 69.44%, #171717 72.21%, #191919 82.01%, #222 88.14%, #303030 93.25%, #3d3d3d 96.19%, #303030 97.13%, #212121 98.72%, #1c1c1c 100%);
 					}
-					.wlfmc-black-friday h2 {
+					.wlfmc-events h2 {
 						color:#fff;
 						font-size: 24px;
 						margin-bottom: 5px;
 					}
-					.wlfmc-black-friday .yellow-text {
+					.wlfmc-events .yellow-text {
 						color:#FECE26
 					}
 					.wlfmc-line-down, .wlfmc-line-up {
@@ -1078,10 +1217,10 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						top: 4px;
 						left: 8px;
 					}
-					.wlfmc-black-friday .wlfmc-timer {
+					.wlfmc-events .wlfmc-timer {
 						gap:10px;
 					}
-					.wlfmc-black-friday .wlfmc-timer span {
+					.wlfmc-events .wlfmc-timer span {
 						background: #fff;
 						color:#171717;
 					}
@@ -1237,11 +1376,14 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 				'wlfmc-notice-after-16-days-dismiss',
 				'wlfmc-notice-after-30-days-dismiss',
 				'wlfmc-notice-after-35-days-dismiss',
-				'wlfmc-black-friday-2024-dismiss',
-				'wlfmc-black-friday-2025-dismiss',
-				'wlfmc-black-friday-2026-dismiss',
 			);
-
+			$year   = gmdate( 'Y' );
+			$events = $this->get_events( true );
+			foreach ( $events as $event_key ) {
+				for ( $y = $year - 2; $y <= $year + 1; $y++ ) {
+					$params[] = "wlfmc-{$event_key}-{$y}-dismiss";
+				}
+			}
 			return remove_query_arg( $params );
 		}
 
