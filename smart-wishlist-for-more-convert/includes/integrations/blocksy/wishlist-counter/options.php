@@ -5,6 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.6
+ * @version 1.9.9
  */
 
 $link_options = array(
@@ -49,7 +50,7 @@ $options = array(
 	'wishlist_counter_description'      => array(
 		'type'  => 'ct-title',
 		'label' => __( 'Other Settings', 'wc-wlfmc-wishlist' ),
-		/* translators: %s: multi-list counter setting page */
+		/* translators: %s: wishlist,waitlist,multilist counter setting page */
 		'desc'  => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'wishlist counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 	),
 );

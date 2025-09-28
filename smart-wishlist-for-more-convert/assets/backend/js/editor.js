@@ -3,7 +3,9 @@
 (function () {
   var $ = jQuery;
   elementor.hooks.addFilter("panel/elements/regionViews", function (panel) {
-    if (WlfmcPanelSettings.wlfmc_pro_widgets.length <= 0) return panel;
+    if (WlfmcPanelSettings.wlfmc_pro_widgets.length <= 0) {
+      return panel;
+    }
     var WlfmcWidgetsPromoHandler,
       WlfmcCategoryIndex,
       WlfmcElementsView = panel.elements.view,
@@ -47,12 +49,16 @@
       },
       getElementObj: function getElementObj(key) {
         var widgetObj = WlfmcPanelSettings.wlfmc_pro_widgets.find(function (widget, index) {
-          if (widget.key == key) return true;
+          if (widget.key == key) {
+            return true;
+          }
         });
         return widgetObj;
       },
       onMouseDown: function onMouseDown() {
-        if (!this.isWlfmcWidget()) return;
+        if (!this.isWlfmcWidget()) {
+          return;
+        }
         void this.constructor.__super__.onMouseDown.call(this);
         var widgetObject = this.getElementObj(this.model.get("name")),
           actionURL = widgetObject.action_url;

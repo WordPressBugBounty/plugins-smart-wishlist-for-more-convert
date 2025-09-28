@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.1
- * @version 1.9.3
+ * @version 1.9.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -199,7 +199,7 @@ function wlfmc_register_configuration( $configurations, $wp_customize ) {
 			'section'  => $_section,
 			'priority' => 34,
 			'label'    => '',
-			/* translators: %s: wishlist counter setting page */
+			/* translators: %s: wishlist,waitlist,multilist counter setting page */
 			'help'     => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'wishlist counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 		),
 	);
@@ -231,7 +231,7 @@ function wlfmc_register_configuration( $configurations, $wp_customize ) {
 				'section'  => $_section,
 				'priority' => 34,
 				'label'    => '',
-				/* translators: %s: waitlist counter setting page */
+				/* translators: %s: wishlist,waitlist,multilist counter setting page */
 				'help'     => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'waitlist counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 			),
 		);
@@ -262,7 +262,7 @@ function wlfmc_register_configuration( $configurations, $wp_customize ) {
 				'section'  => $_section,
 				'priority' => 34,
 				'label'    => '',
-				/* translators: %s: multi-list counter setting page */
+				/* translators: %s: wishlist,waitlist,multilist counter setting page */
 				'help'     => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'multi-list counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 			),
 		);

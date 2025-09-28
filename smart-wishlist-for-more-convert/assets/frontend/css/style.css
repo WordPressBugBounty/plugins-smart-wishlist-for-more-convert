@@ -2562,6 +2562,10 @@ html.popup_visible body {
   display: inline-block !important;
 }
 
+.wlfmc-add-button a {
+  border-color: transparent;
+}
+
 .wlfmc-add-button > a {
   -webkit-box-align: center;
   -ms-flex-align: center;

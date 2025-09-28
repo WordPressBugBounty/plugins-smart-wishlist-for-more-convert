@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.9.8
+ * @version 1.9.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -5367,7 +5367,11 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 									'steptitle'   => __( 'Page Setup', 'wc-wlfmc-wishlist' ),
 									'title'       => __( 'Page Setup Options', 'wc-wlfmc-wishlist' ),
 									'top_desc'    => __( 'Enter a name for the Wishlist page. This name will be used for the user menu in the WooCommerce user panel.', 'wc-wlfmc-wishlist' ),
-									'bottom_desc' => sprintf( __( 'All settings of this step and the next steps can be changed through the %s.', 'wc-wlfmc-wishlist' ), '<a href="'. esc_url( $wishlist_setting_url ) . '" target="_blank">'. __( 'MC Wishlist > wishlist', 'wc-wlfmc-wishlist' ) .'</a>' ),
+									'bottom_desc' => sprintf(
+										// translators: %s is a link to the Wishlist settings page.
+										__( 'All settings of this step and the next steps can be changed through the %s.', 'wc-wlfmc-wishlist' ),
+										'<a href="' . esc_url( $wishlist_setting_url ) . '" target="_blank">' . __( 'MC Wishlist > wishlist', 'wc-wlfmc-wishlist' ) . '</a>'
+									),
 									'fields'      => array(
 										'wishlist_page_title' => array(
 											'section' => 'texts',
@@ -5394,7 +5398,11 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 									'steptitle'   => __( 'Button', 'wc-wlfmc-wishlist' ),
 									'title'       => __( 'Button Options', 'wc-wlfmc-wishlist' ),
 									'top_desc'    => __( 'Choose where the Add to Wishlist button is displayed on the product page and the listings (like the shop page).', 'wc-wlfmc-wishlist' ),
-									'bottom_desc' => sprintf( __( 'You can change the color and icon of the button later from %s', 'wc-wlfmc-wishlist' ), '<a href="'. esc_url( $wishlist_button_url ) . '" target="_blank">'. __( 'MC Wishlist > wishlist(button tab & text tab)', 'wc-wlfmc-wishlist' ) .'</a>' ),
+									'bottom_desc' => sprintf(
+										// translators: %s is a link to the Wishlist button settings page.
+										__( 'You can change the color and icon of the button later from %s', 'wc-wlfmc-wishlist' ),
+										'<a href="' . esc_url( $wishlist_button_url ) . '" target="_blank">' . __( 'MC Wishlist > wishlist(button tab & text tab)', 'wc-wlfmc-wishlist' ) . '</a>'
+									),
 									'fields'      => array(
 										'wishlist_button_position' => array(
 											'section' => 'button-display',
@@ -5610,7 +5618,12 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 									'steptitle'   => __( 'Processing', 'wc-wlfmc-wishlist' ),
 									'title'       => __( 'Processing Options', 'wc-wlfmc-wishlist' ),
 									'top_desc'    => __( 'Adjust the behavior of the Wishlist button after clicking on it and after clicking again.', 'wc-wlfmc-wishlist' ),
-									'bottom_desc' => sprintf( __( 'you can change the pop up details and other settings from %s and %s', 'wc-wlfmc-wishlist' ), '<a href="'. esc_url( $wishlist_setting_url ) . '" target="_blank">'. __( 'MC Wishlist > wishlist', 'wc-wlfmc-wishlist' ) .'</a>', '<a href="'. esc_url( $global_url ) . '" target="_blank">'. __( 'MC Wishlist > global', 'wc-wlfmc-wishlist' ) .'</a>' ),
+									'bottom_desc' => sprintf(
+										// translators: %1$s is a link to the Wishlist settings page, %2$s is a link to the Global settings page.
+										__( 'you can change the pop up details and other settings from %1$s and %2$s', 'wc-wlfmc-wishlist' ),
+										'<a href="' . esc_url( $wishlist_setting_url ) . '" target="_blank">' . __( 'MC Wishlist > wishlist', 'wc-wlfmc-wishlist' ) . '</a>',
+										'<a href="' . esc_url( $global_url ) . '" target="_blank">' . __( 'MC Wishlist > global', 'wc-wlfmc-wishlist' ) . '</a>'
+									),
 									'fields'      => array(
 										'click_wishlist_button_behavior' => array(
 											'section' => 'button-display',
@@ -5654,7 +5667,12 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 								'step-4'  => array(
 									'steptitle'   => __( 'Share', 'wc-wlfmc-wishlist' ),
 									'title'       => __( 'Share Options', 'wc-wlfmc-wishlist' ),
-									'bottom_desc' => sprintf( __( 'you can change the marketing details  from %s and %s', 'wc-wlfmc-wishlist' ), '<a href="'. esc_url( $global_share_url ) . '" target="_blank">'. __( 'MC Wishlist > global > share tab', 'wc-wlfmc-wishlist' ) .'</a>', '<a href="'. esc_url( $wishlist_page_setting_url ) . '" target="_blank">'. __( 'MC Wishlist > wishlist > page tab', 'wc-wlfmc-wishlist' ) .'</a>' ),
+									'bottom_desc' => sprintf(
+										// translators: %1$s is a link to the Global Share settings page, %2$s is a link to the Wishlist Page settings page.
+										__( 'you can change the marketing details from %1$s and %2$s', 'wc-wlfmc-wishlist' ),
+										'<a href="' . esc_url( $global_share_url ) . '" target="_blank">' . __( 'MC Wishlist > global > share tab', 'wc-wlfmc-wishlist' ) . '</a>',
+										'<a href="' . esc_url( $wishlist_page_setting_url ) . '" target="_blank">' . __( 'MC Wishlist > wishlist > page tab', 'wc-wlfmc-wishlist' ) . '</a>'
+									),
 									'fields'      => array(
 										'enable_share' => array(
 											'section' => 'global-settings',

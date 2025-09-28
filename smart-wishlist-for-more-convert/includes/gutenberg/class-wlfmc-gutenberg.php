@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @since 1.9.6
+ * @version 1.9.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,8 +52,102 @@ if ( ! class_exists( 'WLFMC_Gutenberg' ) ) {
 
 			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_style' ) );
 			add_filter( 'woocommerce_blocks_product_grid_item_html', array( $this, 'render_product_block' ), 10, 3 );
+			add_action( 'init', array( $this, 'register_add_to_list_block' ) );
 		}
 
+		/**
+		 * Registers the WooCommerce blocks.
+		 */
+		public function register_add_to_list_block() {
+			if ( ! function_exists( 'register_block_type' ) ) {
+				return;
+			}
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			wp_register_script(
+				'wlfmc-add-to-list-block',
+				MC_WLFMC_URL . 'assets/backend/js/add-to-list-block' . $suffix . '.js',
+				array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-i18n', 'wp-components' ),
+				WLFMC_VERSION,
+				true
+			);
+
+			wp_set_script_translations( 'wlfmc-add-to-list-block', 'wc-wlfmc-wishlist' );
+			wp_localize_script(
+				'wlfmc-add-to-list-block',
+				'wlfmcBlockSettings',
+				array(
+					'isPremium' => defined( 'MC_WLFMC_PREMIUM' ),
+				)
+			);
+			// Register blocks.
+			$blocks = array(
+				'wishlist'   => array(
+					'shortcode'  => 'wlfmc_add_to_wishlist',
+					'is_premium' => false,
+				),
+				'multi-list' => array(
+					'shortcode'  => 'wlfmc_add_to_multi_list',
+					'is_premium' => true,
+				),
+				'waitlist'   => array(
+					'shortcode'  => 'wlfmc_add_to_waitlist',
+					'is_premium' => true,
+				),
+			);
+
+			foreach ( $blocks as $type => $config ) {
+				register_block_type(
+					"wlfmc/add-to-$type",
+					array(
+						'editor_script'   => 'wlfmc-add-to-list-block',
+						'render_callback' => function ( $attributes ) use ( $type, $config ) {
+							return $this->render_add_to_list_block( $attributes, $type, $config['shortcode'], $config['is_premium'] );
+						},
+						'attributes'      => array(
+							'is_single' => array(
+								'type'    => 'boolean',
+								'default' => false,
+							),
+						),
+					)
+				);
+			}
+		}
+
+		/**
+		 * Renders the add-to-list block for a given type.
+		 *
+		 * This method generates the HTML output for the add-to-list block shortcode
+		 * based on the provided attributes, type, and shortcode name. It checks if the
+		 * premium version is required and available, validates the shortcode, and
+		 * returns the rendered shortcode output.
+		 *
+		 * @since 1.9.9
+		 *
+		 * @param array   $attributes     Block attributes, including 'is_single' (boolean).
+		 * @param string  $type           The type of list (e.g., 'wishlist', 'multi-list', 'waitlist').
+		 * @param string  $shortcode_name The shortcode name to render (e.g., 'wlfmc_add_to_wishlist').
+		 * @param boolean $is_premium     Whether the block requires the premium version.
+		 *
+		 * @return string The rendered HTML output of the block or an error message.
+		 */
+		public function render_add_to_list_block( $attributes, $type, $shortcode_name, $is_premium ) {
+
+			// Check for premium version if required.
+			if ( $is_premium && ! defined( 'MC_WLFMC_PREMIUM' ) ) {
+				/* translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist). */
+				return '<div>' . esc_html( sprintf( __( 'The %s feature requires the Pro version of the plugin.', 'wc-wlfmc-wishlist' ), ucfirst( $type ) ) ) . '</div>';
+			}
+
+			// Validate shortcode.
+			if ( empty( $shortcode_name ) ) {
+				return '<div>' . esc_html__( 'Invalid button type', 'wc-wlfmc-wishlist' ) . '</div>';
+			}
+
+			$atts_str = ' position="shortcode" is_single="' . ( $attributes['is_single'] ? 'true' : '' ) . '"';
+
+			return do_shortcode( '[' . $shortcode_name . $atts_str . ']' );
+		}
 
 		/**
 		 * Enqueue block style.

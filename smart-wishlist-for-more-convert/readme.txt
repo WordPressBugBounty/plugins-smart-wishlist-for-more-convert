@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 6.8.2
-Stable tag: 1.9.8
+Stable tag: 1.9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,13 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.9 =
+
+* Tested: WC 10.2.1
+* Added: Gutenberg blocks for "Add to Wishlist", "Add to Multilist" (Premium feature), and "Add to Waitlist" (Premium feature) buttons.
+* Fixed: Resolved issue with sending emails in the campaign (Premium feature).
+* Fixed: Corrected bug in deleting email logs.
 
 = 1.9.8 =
 

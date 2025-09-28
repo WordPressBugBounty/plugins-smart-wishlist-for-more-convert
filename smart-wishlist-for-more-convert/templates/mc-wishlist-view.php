@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.9
  */
 
 /**
@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <form id="wlfmc-wishlist-form" action="<?php echo esc_attr( $form_action ); ?>" method="post" class="wlfmc-wishlist-form wlfmc-wishlist-<?php echo esc_attr( $unique_id ); ?> wlfmc-wishlist-fragment woocommerce <?php echo wlfmc_is_true( apply_filters( 'wlfmc_is_page_cache_enabled', $is_cache_enabled ) ) ? 'on-first-load' : ''; ?>" data-fragment-options="<?php echo esc_attr( wp_json_encode( $fragment_options ) ); ?>" data-fragment-ref="wishlist">
 	<?php
-    $notices = apply_filters( 'wlfmc_list_notices', false, $is_cache_enabled );
+	$notices = apply_filters( 'wlfmc_list_notices', false, $is_cache_enabled );
 	?>
 
 	<?php do_action( 'wlfmc_before_login_notice', $wishlist, $atts ); ?>
@@ -143,7 +143,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-customer-id="<?php echo $wishlist ? esc_attr( $wishlist->get_customer_id() ) : ''; ?>"
 			data-is-owner="<?php echo esc_attr( $is_user_owner ); ?>"
 			data-token="<?php echo esc_attr( $wishlist_token ); ?>"
-            data-nonce="<?php echo esc_attr( wp_create_nonce( 'wlfmc_wishlist_actions_nonce' ) ); ?>">
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'wlfmc_wishlist_actions_nonce' ) ); ?>">
 			<tbody class="wishlist-items-wrapper <?php echo ( ! $wishlist || ! $wishlist->has_items() ) ? 'wishlist-empty' : ''; ?>">
 
 			<?php if ( $wishlist && $wishlist->has_items() ) : ?>
@@ -160,12 +160,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$cart_item    = $item->get_cart_item();
 					$meta         = $item->get_product_meta();
 					$permalink    = apply_filters( 'woocommerce_cart_item_permalink', $product->get_permalink( $item->get_cart_item( true ) ), $cart_item, '' );
-                    try {
-	                    $item_meta_date = apply_filters( 'wlfmc_item_meta_data','', $meta, $cart_item, $wishlist );
-	                    $item_meta_date = '' !== wlfmc_remove_empty_html_tags( $item_meta_date ) ? $item_meta_date : '';
+					try {
+						$item_meta_date = apply_filters( 'wlfmc_item_meta_data', '', $meta, $cart_item, $wishlist );
+						$item_meta_date = '' !== wlfmc_remove_empty_html_tags( $item_meta_date ) ? $item_meta_date : '';
 					} catch ( Exception $e ) {
-	                    $item_meta_date = '';
-                    }
+						$item_meta_date = '';
+					}
 					?>
 					<?php if ( $product->exists() ) : ?>
 						<tr id="wlfmc-row-<?php echo esc_attr( $item->get_product_id() ); ?>"
@@ -178,7 +178,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<input type="hidden" name="items[<?php echo esc_attr( $item->get_product_id() ); ?>][position]" value="<?php echo esc_attr( $item->get_position() ); ?>"/>
 								</td>
 							<?php endif; ?>
-							<td class="first-column <?php echo esc_attr( apply_filters( 'wlfmc_table_first_column_classes', '',  $wishlist, $atts ) ); ?>">
+							<td class="first-column <?php echo esc_attr( apply_filters( 'wlfmc_table_first_column_classes', '', $wishlist, $atts ) ); ?>">
 								<?php do_action( 'wlfmc_table_start_first_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex f-center-items wlfmc-thumbnail-wrapper">
 									<div class="d-flex f-center-item wlfmc-action-icons">
@@ -198,9 +198,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 											</a>
 										<?php endif; ?>
 										<?php if ( $product_copy ) : ?>
-                                            <a href="#" aria-label="<?php echo esc_attr_x( 'Copy Product', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>" class="product-copy <?php echo $available_multi_list ? 'wlfmc-popup-trigger' : 'wlfmc_copy_to_default_list';?>" data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"  data-item-id="<?php echo esc_attr( $item->get_id() ); ?>" data-popup-id="copy_popup" title="<?php echo esc_html( apply_filters( 'wlfmc_product_copy_title', esc_html__( 'Product Copy', 'wc-wlfmc-wishlist' ) ) ); ?>">
-                                                <i class="wlfmc-icon-move-to-list"></i>
-                                            </a>
+											<a href="#" aria-label="<?php echo esc_attr_x( 'Copy Product', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>" class="product-copy <?php echo $available_multi_list ? 'wlfmc-popup-trigger' : 'wlfmc_copy_to_default_list'; ?>" data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"  data-item-id="<?php echo esc_attr( $item->get_id() ); ?>" data-popup-id="copy_popup" title="<?php echo esc_html( apply_filters( 'wlfmc_product_copy_title', esc_html__( 'Product Copy', 'wc-wlfmc-wishlist' ) ) ); ?>">
+												<i class="wlfmc-icon-move-to-list"></i>
+											</a>
 										<?php endif; ?>
 										<?php if ( '' !== $item_meta_date ) : ?>
 											<a href="#" aria-label="<?php echo esc_attr_x( 'Product Components', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>" class="product-components" title="<?php echo esc_html( apply_filters( 'wlfmc_product_components_title', esc_html__( 'Product components', 'wc-wlfmc-wishlist' ) ) ); ?>">
@@ -229,8 +229,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 								<?php do_action( 'wlfmc_table_end_first_column', $item, $wishlist, $atts ); ?>
 							</td>
-							<td class="center-column <?php echo esc_attr( apply_filters( 'wlfmc_table_center_column_classes', '',  $wishlist, $atts ) ); ?>">
-                                <?php do_action( 'wlfmc_table_start_center_column', $item, $wishlist, $atts ); ?>
+							<td class="center-column <?php echo esc_attr( apply_filters( 'wlfmc_table_center_column_classes', '', $wishlist, $atts ) ); ?>">
+								<?php do_action( 'wlfmc_table_start_center_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex flex-column gap-5">
 									<?php do_action( 'wlfmc_table_product_details_start', $item, $wishlist, $atts ); ?>
 
@@ -278,7 +278,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php if ( in_array( 'product-date-added', $items_show, true ) && $item->get_date_added() ) : ?>
 										<!-- Date added -->
 										<?php
-										// translators: date added label: 1 date added.
+										// translators: %s is date added label.
 										echo '<div class="product-date-added dateadded hide-on-list-mode">' . esc_html( sprintf( __( 'Added on: %s', 'wc-wlfmc-wishlist' ), $item->get_date_added_formatted() ) ) . '</div>';
 										?>
 
@@ -327,7 +327,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 								<?php do_action( 'wlfmc_table_end_center_column', $item, $wishlist, $atts ); ?>
 							</td>
-							<td class="last-column <?php echo esc_attr( apply_filters( 'wlfmc_table_last_column_classes', '',  $wishlist, $atts ) ); ?>">
+							<td class="last-column <?php echo esc_attr( apply_filters( 'wlfmc_table_last_column_classes', '', $wishlist, $atts ) ); ?>">
 								<?php do_action( 'wlfmc_table_start_last_column', $item, $wishlist, $atts ); ?>
 								<div class="d-flex flex-column gap-5">
 									<div
@@ -437,7 +437,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 														esc_attr( $product->get_id() ),
 														esc_attr( $item->get_quantity() ),
 														esc_attr( $button_class ),
-                                                        esc_attr( wp_create_nonce( 'wlfmc_add_to_cart_from_wishlist' ) ),
+														esc_attr( wp_create_nonce( 'wlfmc_add_to_cart_from_wishlist' ) ),
 														! empty( $button_attributes ) ? wc_implode_html_attributes( $button_attributes ) : '',
 														esc_html( $add_to_cart_text )
 													),
@@ -460,7 +460,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<div class="product-date-added dateadded hide-on-grid-mode">
 										<?php
 										// translators: %s is date added label.
-										echo sprintf( esc_html__( 'Added on: %s', 'wc-wlfmc-wishlist' ), $item->get_date_added_formatted() ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+										printf( esc_html__( 'Added on: %s', 'wc-wlfmc-wishlist' ), $item->get_date_added_formatted() ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										?>
 										</div>
 									<?php endif; ?>
@@ -481,17 +481,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php endif; ?>
 				<?php endforeach; ?>
 			<?php elseif ( ! $has_access ) : ?>
-                <tr class="wishlist-empty-row">
-                    <td colspan="3" class="last-column">
+				<tr class="wishlist-empty-row">
+					<td colspan="3" class="last-column">
 						<?php
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_image', '<img class="empty-image" src="' . esc_url( MC_WLFMC_URL ) . 'assets/frontend/images/access-denied.svg" width="296" height="215">', $atts ) );
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_title', '' !== $no_access_title ? '<h3 class="empty-title">' . $no_access_title . '</h3>' : '', $atts ) );
 						echo do_shortcode( apply_filters( 'wlfmc_no_access_message', '' !== $no_access_content ? '<div class="empty-content">' . $no_access_content . '</div>' : '', $atts ) );
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'woocommerce' ) . '</a>', $atts ) );
 						?>
-                    </td>
-                </tr>
-            <?php else: ?>
+					</td>
+				</tr>
+			<?php else : ?>
 				<tr class="wishlist-empty-row">
 					<td colspan="3" class="last-column">
 						<?php
@@ -554,9 +554,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php endif; ?>
 								<?php do_action( 'wlfmc_table_before_product_copy_action', $wishlist, $atts ); ?>
 								<?php if ( $product_copy ) : ?>
-                                    <a href="#" class="button multiple-product-copy <?php echo $available_multi_list ? 'wlfmc-popup-trigger' : 'wlfmc_copy_to_default_list';?>" style="display:none" data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>" data-popup-id="copy_popup">
-                                        <i class="wlfmc-icon-move-to-list"></i>&nbsp;<span><?php echo esc_attr( $copy_all_to_list_label ); ?></span>
-                                    </a>
+									<a href="#" class="button multiple-product-copy <?php echo $available_multi_list ? 'wlfmc-popup-trigger' : 'wlfmc_copy_to_default_list'; ?>" style="display:none" data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>" data-popup-id="copy_popup">
+										<i class="wlfmc-icon-move-to-list"></i>&nbsp;<span><?php echo esc_attr( $copy_all_to_list_label ); ?></span>
+									</a>
 								<?php endif; ?>
 								<?php do_action( 'wlfmc_table_before_all_add_to_cart_action', $wishlist, $atts ); ?>
 								<?php if ( $enable_all_add_to_cart ) : ?>
@@ -661,7 +661,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php do_action( 'wlfmc_product_move', $wishlist, $atts ); ?>
 		<?php endif; ?>
 
-		<?php if ( $product_copy && $wishlist && $wishlist->has_items()  ) : ?>
+		<?php if ( $product_copy && $wishlist && $wishlist->has_items() ) : ?>
 			<?php do_action( 'wlfmc_product_copy', $wishlist, $atts ); ?>
 		<?php endif; ?>
 

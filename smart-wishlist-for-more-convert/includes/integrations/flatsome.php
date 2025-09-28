@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.9
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -313,7 +313,7 @@ function wlfmc_flatsome() {
 			'label'     => '',
 			'section'   => $section,
 			'transport' => $transport,
-			/* translators: %s: wishlist counter setting page */
+			/* translators: %s: wishlist,waitlist,multilist counter setting page */
 			'default'   => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'wishlist counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 		)
 	);
@@ -405,7 +405,7 @@ function wlfmc_flatsome() {
 				'label'     => '',
 				'section'   => $section,
 				'transport' => $transport,
-				/* translators: %s: waitlist counter setting page */
+				/* translators: %s: wishlist,waitlist,multilist counter setting page */
 				'default'   => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'waitlist counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 			)
 		);
@@ -498,7 +498,7 @@ function wlfmc_flatsome() {
 				'label'     => '',
 				'section'   => $section,
 				'transport' => $transport,
-				/* translators: %s: multi-list counter setting page */
+				/* translators: %s: wishlist,waitlist,multilist counter setting page */
 				'default'   => sprintf( __( 'To change the settings of this section, please refer to the %s.', 'wc-wlfmc-wishlist' ), '<a href="' . esc_url( $counter_link ) . '" target="_blank">' . __( 'multi-list counter page', 'wc-wlfmc-wishlist' ) . '</a>' ),
 			)
 		);
