@@ -1,15 +1,15 @@
-# Copyright (C) 2025 MoreConvert
+# Copyright (C) 2026 MoreConvert
 # This file is distributed under the same license as the MoreConvert Wishlist for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: smart-wishlist-for-more-convert 1.9.9\n"
+"Project-Id-Version: smart-wishlist-for-more-convert 1.9.12\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "Last-Translator: MoreConvert\n"
 "Language-Team: MoreConvert\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-09-28T21:54:23+08:00\n"
+"POT-Creation-Date: 2026-01-21T02:49:11+08:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wc-wlfmc-wishlist\n"
@@ -193,20 +193,24 @@ msgstr ""
 msgid "We need to update the WPML String Translation plugin tables. This ensures that the WPML plugin works well with the text in MC WooCommerce Wishlist. Thank you for your cooperation."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:578
+#: includes/class-wlfmc-admin-notice.php:577
+msgid "We need to update the Wishlist Customers table. Thank you for your cooperation."
+msgstr ""
+
+#: includes/class-wlfmc-admin-notice.php:582
 msgid "Attention: Important Plugin Update Required!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:581
+#: includes/class-wlfmc-admin-notice.php:585
 msgid "Updated!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:581
+#: includes/class-wlfmc-admin-notice.php:585
 msgid "Updating ..."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:581
-#: includes/class-wlfmc-admin-notice.php:582
+#: includes/class-wlfmc-admin-notice.php:585
+#: includes/class-wlfmc-admin-notice.php:586
 msgid "Update tables"
 msgstr ""
 
@@ -1001,7 +1005,7 @@ msgid "Image Shape"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:914
-#: includes/class-wlfmc-install.php:861
+#: includes/class-wlfmc-install.php:865
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:784
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:587
 msgid "Default"
@@ -1310,14 +1314,14 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4499
 #: includes/class-wlfmc-admin.php:4500
 #: includes/class-wlfmc-admin.php:4836
-#: includes/class-wlfmc-ajax-handler.php:576
+#: includes/class-wlfmc-ajax-handler.php:621
 #: includes/class-wlfmc-frontend.php:196
-#: includes/class-wlfmc-install.php:1642
+#: includes/class-wlfmc-install.php:1646
 #: includes/integrations/jet-woo-builder.php:65
 #: includes/integrations/neve/components/class-wishlist-counter.php:77
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1924
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1951
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1976
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1925
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1952
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1977
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:68
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:149
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:157
@@ -1341,7 +1345,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:3848
 #: includes/class-wlfmc-admin.php:3949
 #: includes/class-wlfmc-admin.php:3952
-#: includes/class-wlfmc-install.php:774
+#: includes/class-wlfmc-install.php:778
 #: includes/class-wlfmc-shortcode.php:538
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:303
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:304
@@ -2151,7 +2155,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:2739
 #: includes/class-wlfmc-admin.php:3967
 #: includes/class-wlfmc-admin.php:3970
-#: includes/class-wlfmc-form-handler.php:650
+#: includes/class-wlfmc-form-handler.php:652
 #: includes/class-wlfmc-shortcode.php:213
 #: includes/class-wlfmc-shortcode.php:852
 msgid "You have not added any products to your wishlist."
@@ -2748,7 +2752,7 @@ msgid "You can use <code>{login_url}</code> or <code>{signup_url}</code> in the 
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:3776
-#: includes/class-wlfmc-frontend.php:1310
+#: includes/class-wlfmc-frontend.php:1315
 msgid "to use your Wishlist: <br><a href=\"{login_url}\">Login right now</a>"
 msgstr ""
 
@@ -2800,8 +2804,8 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:3810
 #: includes/class-wlfmc-admin.php:3813
-#: includes/class-wlfmc.php:395
-#: includes/class-wlfmc.php:814
+#: includes/class-wlfmc.php:398
+#: includes/class-wlfmc.php:817
 msgid "The product is already in your Wishlist!"
 msgstr ""
 
@@ -2827,7 +2831,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:3836
 #: includes/class-wlfmc-admin.php:3839
 #: includes/class-wlfmc-admin.php:5613
-#: includes/class-wlfmc-install.php:773
+#: includes/class-wlfmc-install.php:777
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:52
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:292
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:293
@@ -2847,7 +2851,7 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:3860
 #: includes/class-wlfmc-admin.php:3863
-#: includes/class-wlfmc-install.php:775
+#: includes/class-wlfmc-install.php:779
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:314
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:315
 msgid "Remove From Wishlist"
@@ -2922,7 +2926,7 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:4061
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:211
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1871
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1872
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:47
 msgid "Lists"
 msgstr ""
@@ -3081,22 +3085,22 @@ msgid "Gather leads and boost your sales with attention-grabbing lists for poten
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4796
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1047
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1048
 msgid "Created Lists"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4803
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1054
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1055
 msgid "Added Products"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4817
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1068
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1069
 msgid "Send Emails"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4824
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1075
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1076
 msgid "Sales"
 msgstr ""
 
@@ -3121,11 +3125,11 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4962
 #: includes/class-wlfmc-admin.php:5052
 #: includes/class-wlfmc-admin.php:5107
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1305
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1404
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1503
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1603
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2677
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1306
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1405
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1504
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1604
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2678
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:906
 msgid "Unlock Now!"
 msgstr ""
@@ -3167,11 +3171,11 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4992
 #: includes/class-wlfmc-admin.php:5082
 #: includes/class-wlfmc-admin.php:5137
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1335
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1434
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1533
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1633
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2686
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1336
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1435
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1534
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1634
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2687
 msgid "Upgrade Now"
 msgstr ""
 
@@ -3180,10 +3184,10 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4998
 #: includes/class-wlfmc-admin.php:5088
 #: includes/class-wlfmc-admin.php:5143
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1341
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1440
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1539
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1639
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1342
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1441
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1540
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1640
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:919
 msgid "Learn More"
 msgstr ""
@@ -3194,9 +3198,9 @@ msgid "Set a button for your users on their cart page and prevent them from dele
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4897
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1925
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1952
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1977
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1926
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1953
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1978
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:70
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:151
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:292
@@ -3247,7 +3251,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4953
 #: includes/class-wlfmc-admin.php:4962
 #: includes/elementor/class-wlfmc-elementor.php:207
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1404
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1405
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:153
 #: templates/admin/mc-wizard-features.php:46
 #: templates/admin/mc-wizard-features.php:89
@@ -3257,37 +3261,37 @@ msgid "Waitlist"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4963
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1405
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1406
 msgid "Add a Customizable waitlist button, detailed waitlist page design, and counter option, you’ll never miss a sale again."
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4967
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1409
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1410
 msgid "Pre-launch Waitlist"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4971
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1413
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1414
 msgid "Price Change Alert"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4975
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1417
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1418
 msgid "Flash Sale Waitlist"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4979
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1421
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1422
 msgid "Low Stock Alert"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4983
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1425
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1426
 msgid "Back in Stock Notification for Similar Products"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:4987
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1429
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1430
 msgid "Integrated with other lists"
 msgstr ""
 
@@ -3297,7 +3301,7 @@ msgid "Set a button on your product page and help users to notify when a product
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5037
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1305
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1306
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:906
 #: templates/admin/mc-wizard-features.php:103
 #: templates/admin/mc-wizard-features.php:105
@@ -3310,42 +3314,42 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:5043
 #: includes/class-wlfmc-admin.php:5052
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1503
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1504
 msgid "One-Shot Email"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5053
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1504
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1505
 msgid "Select a specific group of users that add products to their lists and send them an email with dedicated coupons."
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5057
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1508
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1509
 msgid "New Product Launch Announcement"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5061
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1512
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1513
 msgid "Cross-Selling and Upselling"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5065
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1516
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1517
 msgid "Seasonal Sales Promotion"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5069
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1520
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1521
 msgid "Re-engagement Campaigns"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5073
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1524
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1525
 msgid "Best-Selling Product Promotion"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5077
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1528
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1529
 msgid "One Time Personalized Recommendations"
 msgstr ""
 
@@ -3355,8 +3359,8 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:5098
 #: includes/class-wlfmc-admin.php:5107
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1603
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2677
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1604
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2678
 #: templates/admin/mc-wizard-features.php:50
 #: templates/admin/mc-wizard-features.php:117
 #: templates/admin/mc-wizard-features.php:119
@@ -3364,40 +3368,40 @@ msgid "Analytics"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5108
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1604
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2678
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1605
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2679
 msgid "By analyzing individual user’s lists, you can tailor your marketing strategies to be more specific and effective, resulting in increased sales."
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5112
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1608
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1609
 msgid "Segment your audience"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5116
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1612
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1613
 msgid "Personalize email content"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5120
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1616
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1617
 msgid "Track customer journey"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5124
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1310
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1620
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1311
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1621
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:933
 msgid "Increase customer retention"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5128
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1624
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1625
 msgid "Predict future sales"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:5132
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1628
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1629
 msgid "Identify popular categories"
 msgstr ""
 
@@ -3686,13 +3690,18 @@ msgstr ""
 msgid "WPML String Translation plugin error %s. navigation to WPML->string translation page and try again."
 msgstr ""
 
-#: includes/class-wlfmc-ajax-handler.php:574
-#: includes/class-wlfmc-install.php:1640
+#: includes/class-wlfmc-ajax-handler.php:579
+#: includes/class-wlfmc-ajax-handler.php:599
+msgid "Wishlist Customer table updated."
+msgstr ""
+
+#: includes/class-wlfmc-ajax-handler.php:619
+#: includes/class-wlfmc-install.php:1644
 msgctxt "page_slug"
 msgid "wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-ajax-handler.php:629
+#: includes/class-wlfmc-ajax-handler.php:674
 #: includes/class-wlfmc-form-handler.php:124
 #: includes/class-wlfmc-form-handler.php:270
 msgid "you didn't select a variation for it"
@@ -3806,32 +3815,37 @@ msgstr ""
 msgid "You have unsubscribed and you will not receive any more emails and offers."
 msgstr ""
 
+#: includes/class-wlfmc-form-handler.php:651
+#: includes/class-wlfmc-shortcode.php:370
+msgid "Total Price:"
+msgstr ""
+
 #: includes/class-wlfmc-frontend.php:228
 msgid "MC Wishlist Counter"
 msgstr ""
 
-#: includes/class-wlfmc-frontend.php:1363
+#: includes/class-wlfmc-frontend.php:1368
 msgid "We are sorry, but this feature is available only if cookies on your browser are enabled."
 msgstr ""
 
-#: includes/class-wlfmc-frontend.php:1364
+#: includes/class-wlfmc-frontend.php:1369
 msgid "Another product is being added to the list, please wait until it is finished."
 msgstr ""
 
-#: includes/class-wlfmc-frontend.php:1365
+#: includes/class-wlfmc-frontend.php:1370
 msgid "Product added to cart successfully"
 msgstr ""
 
-#: includes/class-wlfmc-frontend.php:1366
+#: includes/class-wlfmc-frontend.php:1371
 msgid "Product could not be added to the cart because some requirements are not met."
 msgstr ""
 
-#: includes/class-wlfmc-frontend.php:1373
+#: includes/class-wlfmc-frontend.php:1378
 msgid "The link was copied to clipboard"
 msgstr ""
 
 #. translators: 1 error message
-#: includes/class-wlfmc-install.php:1350
+#: includes/class-wlfmc-install.php:1354
 #, php-format
 msgid "An error occurred after update to the version 1.6.3: %s"
 msgstr ""
@@ -4016,10 +4030,6 @@ msgstr ""
 msgid "Total Added Price:"
 msgstr ""
 
-#: includes/class-wlfmc-shortcode.php:370
-msgid "Total Price:"
-msgstr ""
-
 #: includes/class-wlfmc-shortcode.php:427
 msgid "Deny"
 msgstr ""
@@ -4053,94 +4063,94 @@ msgctxt "The template that shows price variation since addition to list."
 msgid "Price changed by %1$s%% from %2$s"
 msgstr ""
 
-#: includes/class-wlfmc.php:379
-#: includes/class-wlfmc.php:799
+#: includes/class-wlfmc.php:382
+#: includes/class-wlfmc.php:802
 msgid "The item cannot be added to this wishlist"
 msgstr ""
 
-#: includes/class-wlfmc.php:383
-#: includes/class-wlfmc.php:389
-#: includes/class-wlfmc.php:573
-#: includes/class-wlfmc.php:729
-#: includes/class-wlfmc.php:803
-#: includes/class-wlfmc.php:808
+#: includes/class-wlfmc.php:386
+#: includes/class-wlfmc.php:392
+#: includes/class-wlfmc.php:576
+#: includes/class-wlfmc.php:732
+#: includes/class-wlfmc.php:806
+#: includes/class-wlfmc.php:811
 msgid "An error occurred while adding the products to the wishlist."
 msgstr ""
 
-#: includes/class-wlfmc.php:476
-#: includes/class-wlfmc.php:646
+#: includes/class-wlfmc.php:479
+#: includes/class-wlfmc.php:649
 msgid "The item cannot be added to this lists"
 msgstr ""
 
-#: includes/class-wlfmc.php:481
+#: includes/class-wlfmc.php:484
 msgid "There are no products in the shopping cart"
 msgstr ""
 
 #. translators: %s wishlist name
-#: includes/class-wlfmc.php:575
-#: includes/class-wlfmc.php:731
+#: includes/class-wlfmc.php:578
+#: includes/class-wlfmc.php:734
 #, php-format
 msgid "An error occurred while adding the products to the %s list."
 msgstr ""
 
-#: includes/class-wlfmc.php:602
+#: includes/class-wlfmc.php:605
 msgid "An error occurred while saving the products for later(code:1)."
 msgstr ""
 
-#: includes/class-wlfmc.php:650
+#: includes/class-wlfmc.php:653
 msgid "An error occurred while adding the products to the list."
 msgstr ""
 
-#: includes/class-wlfmc.php:675
-#: includes/class-wlfmc.php:1141
-#: includes/class-wlfmc.php:1147
+#: includes/class-wlfmc.php:678
+#: includes/class-wlfmc.php:1144
+#: includes/class-wlfmc.php:1150
 msgid "Error. Unable to remove the product from the wishlist."
 msgstr ""
 
 #. translators: %s wishlist name
-#: includes/class-wlfmc.php:677
+#: includes/class-wlfmc.php:680
 #, php-format
 msgid "Error. Unable to remove the product from the %s list."
 msgstr ""
 
-#: includes/class-wlfmc.php:778
+#: includes/class-wlfmc.php:781
 msgid "An error occurred while adding the products to the next purchase cart(code:1)."
 msgstr ""
 
-#: includes/class-wlfmc.php:846
+#: includes/class-wlfmc.php:849
 msgid "The item cannot be added to next purchase cart"
 msgstr ""
 
-#: includes/class-wlfmc.php:850
+#: includes/class-wlfmc.php:853
 msgid "An error occurred while adding the products to the next purchase cart.(code:2)"
 msgstr ""
 
-#: includes/class-wlfmc.php:856
+#: includes/class-wlfmc.php:859
 msgid "An error occurred while adding the products to the next purchase cart.(code:3)"
 msgstr ""
 
-#: includes/class-wlfmc.php:862
+#: includes/class-wlfmc.php:865
 msgid "The product is already in your Save for later!"
 msgstr ""
 
-#: includes/class-wlfmc.php:958
+#: includes/class-wlfmc.php:961
 msgid "This product type not supported"
 msgstr ""
 
-#: includes/class-wlfmc.php:964
+#: includes/class-wlfmc.php:967
 msgid "The item cannot be added to waitlist"
 msgstr ""
 
-#: includes/class-wlfmc.php:968
+#: includes/class-wlfmc.php:971
 msgid "An error occurred while adding the products to the waitlist.(code:2)"
 msgstr ""
 
-#: includes/class-wlfmc.php:974
+#: includes/class-wlfmc.php:977
 msgid "An error occurred while adding the products to the waitlist.(code:3)"
 msgstr ""
 
-#: includes/class-wlfmc.php:1083
-#: includes/class-wlfmc.php:1089
+#: includes/class-wlfmc.php:1086
+#: includes/class-wlfmc.php:1092
 msgid "Error. Unable to remove the product from the next purchase cart."
 msgstr ""
 
@@ -6449,7 +6459,7 @@ msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:51
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:52
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1087
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1088
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-table.php:110
 #: templates/admin/mc-dashboard.php:62
 msgid "Reports"
@@ -6475,14 +6485,14 @@ msgid "Overview"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:210
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1878
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2493
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1879
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2494
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:48
 msgid "Users"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:212
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2567
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2568
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:49
 msgid "Products"
 msgstr ""
@@ -7112,281 +7122,281 @@ msgstr ""
 msgid "Styled and worded based on your settings"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1088
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1089
 #: templates/admin/mc-dashboard.php:63
 msgid "This is a summary of what is currently happening on your website’s wishlist."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1120
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1121
 msgid "Most Active Users"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1122
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1184
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1123
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1185
 msgid "See All"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1124
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1125
 msgid "Identify users who are highly engaged and ready for your marketing offers."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1147
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1148
 msgid "Potential customers"
 msgstr ""
 
 #. translators: %1$d is the number of potential customers, %2$s is the product name with a link.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1157
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1158
 #, php-format
 msgid "%1$d Potential customers for %2$s"
 msgstr ""
 
 #. translators: %d is the number of potential customers who have added the product to their wishlist.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1164
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1165
 #, php-format
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Invite them to buy it right now with different ideas, such as a contest, on-sale automation, or even a webinar for them, with a special coupon provided at the end. Start increasing your revenue and don't lose this opportunity"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1170
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1288
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1171
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1289
 msgid "Create Automation"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1182
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1183
 msgid "Most Favorite Product"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1186
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1187
 msgid "Discover which product is the most favored by users."
 msgstr ""
 
 #. translators: %s is the number of positive reviews lost, displayed in a styled HTML heading.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1209
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1210
 #, php-format
 msgid "%s <strong>Positive Review Lost!</strong>"
 msgstr ""
 
 #. translators: %s is the product name with a styled HTML link.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1215
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1216
 #, php-format
 msgid "Lost Potential Review for %s"
 msgstr ""
 
 #. translators: %1$d is the number of users with the product on their wishlist, %2$d is the estimated number of positive reviews possible from an email campaign.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1222
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1223
 #, php-format
 msgid "With %1$d users who have this product on their wishlist, you can gain at least %2$d positive reviews by running a email campaign for its users. Set conditions for a big deal for all those who send the best reviews under this product."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1232
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1233
 msgid "Run Campaign"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1243
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1244
 msgid "Gain potential customers."
 msgstr ""
 
 #. translators: %d is the number of out-of-stock products.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1247
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1248
 #, php-format
 msgid "With %d out-of-stock products, you must immediately convert potential customers on your product pages into leads and boost sales by promoting similar or alternative available products to them."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1257
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1258
 msgid "Active Waitlist Button"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1269
-msgid "Newsletter"
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1270
+msgid "Lists & Product Follow-up Emails"
 msgstr ""
 
 #. translators: %s is the product name with a styled HTML link.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1276
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1277
 #, php-format
 msgid "Build a newsletter for: %s"
 msgstr ""
 
 #. translators: %d is the number of potential customers who have added the product to their wishlist.
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1282
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1283
 #, php-format
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Design an email automation with 5 emails that send them a group of related videos, blog posts, and other reviews about this product to increase user motivation to buy it faster. Then, provide a dedicated coupon, all within MoreConvert automation part."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1306
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1307
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:907
 msgid "Active automated emails for users to receive invitations to buy products they like and add to their list with highly personalized emails and increase sales."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1314
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1315
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:937
 msgid "Save 20 hours every week"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1318
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1319
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:941
 msgid "Increase customer loyalty"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1322
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1323
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:945
 msgid "Real-time tracking"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1326
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1327
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:949
 msgid "Better targeting"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1330
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1331
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:953
 msgid "Gain valuable insights"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1854
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1855
 msgid "Filters"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1856
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1857
 msgid "OR"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1859
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1860
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:314
 msgid "Conditions"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1861
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1862
 msgid "Or"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1862
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1863
 msgid "And"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1866
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1867
 msgid "Condition Type"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1869
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1870
 msgid "Please, Select Filter Type"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1873
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1920
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1947
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1973
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1874
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1921
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1948
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1974
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:286
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:299
 msgid "List Type"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1874
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1996
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1875
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1997
 msgid "List Status"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1880
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1881
 msgid "Fields"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1881
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1882
 msgid "Roles"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1882
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1883
 msgid "Activity"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1886
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1887
 msgid "Orders"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1888
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1889
 msgid "Order Status"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1892
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1893
 msgid "Marketing Toolkits"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1894
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1895
 msgid "Campaigns State"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1895
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1896
 msgid "Automations State"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1905
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2015
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2037
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2100
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2175
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2214
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2236
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2331
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2366
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1906
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2016
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2038
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2101
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2176
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2215
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2237
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2332
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2367
 msgid "Operate"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1908
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1909
 msgid "Have"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1909
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1910
 msgid "Did not have"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1910
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1911
 msgid "Have any"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1911
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1912
 msgid "Did not have any"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1926
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1978
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1927
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1979
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:72
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:293
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:306
 msgid "All Waitlist"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1927
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1979
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1928
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1980
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:74
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:294
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:307
 msgid "-- On Sale"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1928
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1980
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1929
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1981
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:76
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:295
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:308
 msgid "-- Back in Stock"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1929
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1981
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1930
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1982
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:78
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:296
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:309
 msgid "-- Low Stock"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1930
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1982
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1931
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1983
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:80
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:297
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:310
 msgid "-- Price Change"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1931
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1957
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1983
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1932
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1958
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1984
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:82
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:155
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:298
@@ -7394,119 +7404,119 @@ msgstr ""
 msgid "Next Purchase Cart"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1932
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1933
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:86
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:290
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:303
 msgid "All Lists"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1953
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1954
 msgid "Waitlist On Sale"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1954
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1955
 msgid "Waitlist Back in Stock"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1955
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1956
 msgid "Waitlist Low Stock"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1956
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1957
 msgid "Waitlist Price Change"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1984
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1985
 msgid "Any Lists"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1985
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1986
 msgid "All lists together"
-msgstr ""
-
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1999
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2200
-msgid "Product Count"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2000
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2201
-msgid "Total price"
+msgid "Product Count"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2001
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2135
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2202
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2271
-msgid "Product(s)"
+msgid "Total price"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2002
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2152
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2136
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2203
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2288
-msgid "Product(s) Category"
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2272
+msgid "Product(s)"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2003
-msgid "Product Added to List Date"
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2153
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2204
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2289
+msgid "Product(s) Category"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2004
-msgid "Product Purchase Date"
+msgid "Product Added to List Date"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2018
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2217
-msgid "Equal to"
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2005
+msgid "Product Purchase Date"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2019
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2218
-msgid "Not equal to"
+msgid "Equal to"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2020
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2219
-msgid "Lower than"
+msgid "Not equal to"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2021
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2220
+msgid "Lower than"
+msgstr ""
+
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2022
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2221
 msgid "Higher than"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2040
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2041
 msgid "Is"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2041
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2042
 msgid "Is before"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2042
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2043
 msgid "Is on or before"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2043
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2044
 msgid "Is after"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2044
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2045
 msgid "Is on or after"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2045
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2046
 msgid "Is between"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2046
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2047
 msgid "Is not between"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2062
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2080
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2063
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2081
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:53
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:322
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:323
@@ -7514,223 +7524,223 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2103
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2239
-msgid "Include"
-msgstr ""
-
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2104
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2240
-msgid "Does not include"
+msgid "Include"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2105
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2241
-msgid "Include any"
+msgid "Does not include"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2106
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2242
+msgid "Include any"
+msgstr ""
+
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2107
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2243
 msgid "Does not include any"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2121
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2257
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2383
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2122
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2258
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2384
 msgid "Value"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2178
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2179
 msgid "Buy through Mc Coupon"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2179
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2180
 msgid "Buy through Mc List"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2180
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2181
 msgid "Without Mc Lists"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2181
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2182
 msgid "All orders"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2197
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2198
 msgid "Condition"
-msgstr ""
-
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2334
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2369
-msgid "Equals"
 msgstr ""
 
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2335
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2370
+msgid "Equals"
+msgstr ""
+
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2336
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2371
 msgid "Does not equal"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2356
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2357
 msgid "Commenting any content"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2357
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2358
 msgid "Commenting specific content"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2358
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2359
 msgid "Post Creation/Edit"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2371
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2372
 msgid "Contains"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2372
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2373
 msgid "Does no contain"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2373
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2374
 msgid "Is set"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2374
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2375
 msgid "Is not set"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2393
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2394
 msgid "product(s)|post(s)|page(s)"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2414
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2415
 msgid "was sent"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2415
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2416
 msgid "was not sent"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2416
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2417
 msgid "was opened"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2417
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2418
 msgid "was not opened"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2418
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2419
 msgid "was clicked"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2419
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2420
 msgid "was not clicked"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2430
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2431
 msgid "Active in"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2431
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2432
 msgid "Not active in"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2432
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2433
 msgid "Has completed"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2440
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2441
 msgid "Campaigns"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2450
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2451
 msgid "Automations"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2475
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2476
 msgid "Apply Filter"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2495
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2496
 msgid "Find a specific group of users by setting different conditions"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2516
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2575
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2635
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2517
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2576
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2636
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:971
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:1149
 msgid "Search"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2526
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2527
 msgid "Set conditions based on users' Role, Purchase history, Products on lists and so more."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2530
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2531
 msgid "Check out your user lists to get what they're into and how they act."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2534
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2535
 msgid "Track down folks who haven't been active, reach out to them with campaigns."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2538
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2539
 msgid "Find list-loving customers and give them sweet deals on their favorite stuff."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2542
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2543
 msgid "Find users who are into high-value items and create special offers for them."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2546
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2547
 msgid "Find users who are influencers and partner up with them for marketing campaigns."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2550
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2551
 msgid "Export users to telemarketing and other marketing channels you want."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2585
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2586
 msgid "Ensure that popular items, frequently added to lists, are always in stock."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2589
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2590
 msgid "Improve suggestions for similar products to boost sales."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2593
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2594
 msgid "Optimize prices based on what customers are willing to pay for frequently added products."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2597
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2598
 msgid "Identify popular products for more informed inventory and marketing decisions."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2601
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2602
 msgid "Identify top product descriptions by list additions and purchases; optimize others accordingly."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2618
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2619
 msgid "User lists"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2645
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2646
 msgid "Visit each user lists without any limitation."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2649
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2650
 msgid "Discover each lists sales and conversion rate."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2653
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2654
 msgid "Get insight about lists engagement and idea to make it better."
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2721
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2722
 msgid "All paid status"
 msgstr ""
 
-#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2722
+#: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2723
 msgid "All unpaid status"
 msgstr ""
 

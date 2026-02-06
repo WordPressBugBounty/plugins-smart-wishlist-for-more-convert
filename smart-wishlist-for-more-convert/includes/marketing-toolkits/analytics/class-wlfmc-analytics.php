@@ -350,7 +350,6 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 		 * @param WC_Order $order Order object.
 		 */
 		public function save_order_customer_id( WC_Order $order ) {
-			global $wpdb;
 			if ( ! is_user_logged_in() ) {
 				$customer = WLFMC_Wishlist_Factory::get_current_customer( false, 'edit' );
 				if ( $customer->is_session_based() ) {

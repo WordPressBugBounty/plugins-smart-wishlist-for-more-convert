@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.9
+ * @version 1.9.12
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.9.9';
+		public $version = '1.9.12';
 
 		/**
 		 * Plugin database version
@@ -205,6 +205,9 @@ if ( ! class_exists( 'WLFMC' ) ) {
 
 			// remove from lists after product removed.
 			add_action( 'woocommerce_before_delete_product', array( $this, 'delete_products' ), 10, 1 );
+
+			// add user to customer table if not exists.
+			add_action( 'user_register', array( $this, 'auto_create_customer_on_registration' ), 10, 1 );
 
 			// update wishlist data.
 			add_filter( 'wlfmc_update_wishlists_data', array( $this, 'update_wishlists_data' ) );
@@ -1600,6 +1603,30 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		}
 
 		/* === GENERAL METHODS === */
+
+		/**
+		 * Create wishlist customer for newly registered/created user
+		 *
+		 * @param int $user_id User id.
+		 * @since 1.9.11
+		 */
+		public function auto_create_customer_on_registration( $user_id ) {
+			$user_id = (int) $user_id;
+			if ( $user_id <= 0 ) {
+				return;
+			}
+
+			global $wpdb;
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT customer_id FROM $wpdb->wlfmc_wishlist_customers WHERE user_id = %d LIMIT 1", $user_id ) ); //phpcs:ignore WordPress.DB.DirectDatabaseQuery
+
+			if ( $exists ) {
+				return;
+			}
+
+			$customer = new WLFMC_Customer();
+			$customer->set_user_id( $user_id );
+			$customer->save();
+		}
 
 		/**
 		 * Checks whether current user can add to the wishlist

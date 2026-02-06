@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.8.2
-Stable tag: 1.9.9
+Tested up to: 6.9
+Stable tag: 1.9.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,27 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.12 =
+
+* Tested: WC 10.4.3
+* Fixed: fix add counter to menu utf-8 bugs.
+* Fixed: fix load svg sanitize autoload.
+
+= 1.9.11 =
+
+* Tested: WC 10.3.6
+* Tested: WP 6.9
+* Added: Add the total price to the PDF file( premium version).
+* Fixed: fix analytics filters and calculate recipient in campaign.
+* Improved: add new customer after user registration.
+
+= 1.9.10 =
+
+* Tested: WC 10.3.5
+* Tested: WP 6.8.3
+* Fixed: fix option framework.
+
 
 = 1.9.9 =
 

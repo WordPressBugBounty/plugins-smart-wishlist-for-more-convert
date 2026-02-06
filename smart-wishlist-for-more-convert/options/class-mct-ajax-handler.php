@@ -163,7 +163,6 @@ if ( ! class_exists( 'MCT_Ajax_Handler' ) ) {
 			} else {
 				wp_send_json_error( array( 'message' => __( 'Failed validate form.', 'mct-options' ) ) );
 			}
-
 		}
 
 		/**
@@ -177,7 +176,7 @@ if ( ! class_exists( 'MCT_Ajax_Handler' ) ) {
 				'/search-posts',
 				array(
 					'methods'             => 'GET',
-					'callback'            => array( 'MCT_Ajax_Handler', 'search_posts' ),// TODO: FIX permission6
+					'callback'            => array( 'MCT_Ajax_Handler', 'search_posts' ), // TODO: FIX permission6
 					'permission_callback' => array( 'MCT_Ajax_Handler', 'get_rest_permission' ),
 				)
 			);
@@ -243,16 +242,18 @@ if ( ! class_exists( 'MCT_Ajax_Handler' ) ) {
 		public static function search_users( $request ) {
 			$search_term = isset( $request['search_term'] ) ? sanitize_text_field( $request['search_term'] ) : '';
 
-			$users = get_users( array(
-				'search' => "*{$search_term}*",
-				'fields' => array( 'ID', 'user_login', 'user_email' ),
-				'number' => 20,
-			));
+			$users = get_users(
+				array(
+					'search' => "*{$search_term}*",
+					'fields' => array( 'ID', 'user_login', 'user_email' ),
+					'number' => 20,
+				)
+			);
 
 			$results = array();
 			foreach ( $users as $user ) {
 				$results[] = array(
-					'id' => $user->ID,
+					'id'   => $user->ID,
 					'text' => $user->user_login . ' (' . $user->user_email . ')',
 				);
 			}

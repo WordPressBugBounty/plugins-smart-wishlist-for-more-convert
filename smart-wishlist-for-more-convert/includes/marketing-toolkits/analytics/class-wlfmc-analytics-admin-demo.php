@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.7.3
- * @version 1.9.6
+ * @version 1.9.11
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1008,6 +1008,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Admin_Demo' ) ) {
 		/**
 		 * Display the overview.
 		 *
+		 * @version 1.9.11
 		 * @return void
 		 */
 		public function display_overview() {
@@ -1266,7 +1267,7 @@ if ( ! class_exists( 'WLFMC_Analytics_Admin_Demo' ) ) {
 										<img width="60" height="60" src="<?php echo esc_url( MC_WLFMC_URL ); ?>assets/backend/images/analytics/newsletter.svg" alt=""/>
 										<h2>
 											<strong>
-												<?php esc_attr_e( 'Newsletter', 'wc-wlfmc-wishlist' ); ?>
+												<?php esc_attr_e( 'Lists & Product Follow-up Emails', 'wc-wlfmc-wishlist' ); ?>
 											</strong>
 										</h2>
 									</div>

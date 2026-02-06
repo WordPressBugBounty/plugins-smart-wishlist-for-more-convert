@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.11
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -135,7 +135,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * Update plugin tables ajaxify.
 		 *
 		 * @since 1.6.3
-		 * @version 1.7.6
+		 * @version 1.9.11
 		 */
 		public static function ajax_update_table_database_callback() {
 			global $wpdb;
@@ -552,6 +552,51 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 							),
 							admin_url( 'admin.php' )
 						),
+					)
+				);
+			} elseif ( 'update_customer_table' === $version ) {
+				$limit = 100;
+				$users = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+					$wpdb->prepare(
+						"
+				        SELECT u.ID
+				        FROM $wpdb->users u
+				        LEFT JOIN $wpdb->wlfmc_wishlist_customers c ON c.user_id = u.ID
+				        WHERE c.customer_id IS NULL
+				        LIMIT %d OFFSET %d
+				    ",
+						$limit,
+						$offset
+					)
+				);
+
+				if ( empty( $users ) ) {
+					delete_option( 'wlfmc_need_update_tables' );
+					wp_send_json_success(
+						array(
+							'offset'     => 0,
+							'percentage' => 100,
+							'message'    => __( 'Wishlist Customer table updated.', 'wc-wlfmc-wishlist' ),
+						)
+					);
+				}
+
+				foreach ( $users as $user ) {
+					$customer = new WLFMC_Customer();
+					$customer->set_user_id( $user->ID );
+					$customer->save();
+				}
+
+				$total_users   = (int) $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				$current_batch = floor( $offset / $limit ) + 1;
+				$total_batches = ceil( $total_users / $limit );
+				$percent       = min( 100, round( $current_batch / max( 1, $total_batches ) * 100 ) );
+
+				wp_send_json_success(
+					array(
+						'offset'     => $offset + $limit,
+						'percentage' => $percent,
+						'message'    => __( 'Wishlist Customer table updated.', 'wc-wlfmc-wishlist' ),
 					)
 				);
 			}

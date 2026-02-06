@@ -41,9 +41,11 @@ wp_enqueue_script( 'wc-enhanced-select' );
 		if ( is_array( $value ) && ! empty( $value ) ) {
 			foreach ( $value as $current_category_slug ) {
 				$current_category = get_term_by( 'slug', $current_category_slug, 'product_cat' );
-				?>
-				<option value="<?php echo esc_attr( $current_category_slug ); ?>" selected="selected"><?php echo esc_html( htmlspecialchars( wp_kses_post( $current_category->name ) ) ); ?></option>
-				<?php
+				if ( $current_category && is_object( $current_category ) ) {
+					?>
+					<option value="<?php echo esc_attr( $current_category_slug ); ?>" selected="selected"><?php echo esc_html( htmlspecialchars( wp_kses_post( $current_category->name ) ) ); ?></option>
+					<?php
+				}
 			}
 		}
 		?>

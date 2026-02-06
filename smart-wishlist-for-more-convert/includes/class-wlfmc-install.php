@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.11
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -551,6 +551,10 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			if ( version_compare( $current_db_version, '1.3.4', '<' ) ) {
 
 				$this->update_1_9_6();
+			}
+
+			if ( version_compare( $current_version, '1.9.11', '<' ) ) {
+				update_option( 'wlfmc_need_update_tables', 'update_customer_table' );
 			}
 
 			$this->register_current_version();

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 1.9.8
+ * @version 1.9.11
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -544,7 +544,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		/**
 		 * Update tables
 		 *
-		 * @version 1.7.6
+		 * @version 1.9.11
 		 * @return void
 		 */
 		public function update_tables() {
@@ -553,7 +553,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			}
 
 			$version = get_option( 'wlfmc_need_update_tables' );
-			if ( '1.6.3' === $version || '1.7.0' === $version || '1.7.6' === $version ) {
+			if ( '1.6.3' === $version || '1.7.0' === $version || '1.7.6' === $version || 'update_customer_table' === $version ) {
 				$message = '';
 				if ( '1.6.3' === $version ) {
 					$options = new MCT_Options( 'wlfmc_options' );
@@ -571,6 +571,10 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						return;
 					}
 					$message = esc_html__( 'We need to update the WPML String Translation plugin tables. This ensures that the WPML plugin works well with the text in MC WooCommerce Wishlist. Thank you for your cooperation.', 'wc-wlfmc-wishlist' );
+				}
+
+				if ( 'update_customer_table' === $version ) {
+					$message = esc_html__( 'We need to update the Wishlist Customers table. Thank you for your cooperation.', 'wc-wlfmc-wishlist' );
 				}
 				$this->styles();
 				?>
@@ -607,7 +611,8 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 													if ( response.data.redirect ){
 														window.location.href = response.data.redirect;
 													} else {
-														location.reload();
+														//location.reload();
+														$('#wlfmc-update-tables-admin-notice').remove();
 													}
 
 												} else {

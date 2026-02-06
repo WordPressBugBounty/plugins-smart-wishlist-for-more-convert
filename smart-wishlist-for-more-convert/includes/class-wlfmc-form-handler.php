@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.11
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -600,7 +600,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 		 * Download wishlist as pdf file
 		 *
 		 * @return void
-		 * @version 1.9.2
+		 * @version 1.9.11
 		 * @since 1.4.4
 		 */
 		public static function download_pdf_file() {
@@ -637,6 +637,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 							'product-quantity',
 							'product-price',
 							'product-price-variation',
+							'total-price',
 						),
 						'column_widths'          => array(
 							'product-thumbnail'    => '65px',
@@ -647,6 +648,7 @@ if ( ! class_exists( 'WLFMC_Form_Handler' ) ) {
 							'product-stock-status' => '75px',
 							'product-date-added'   => '75px',
 						),
+						'total_price_text'       => $options->get_option( 'total_price_text', __( 'Total Price:', 'wc-wlfmc-wishlist' ) ),
 						'empty_wishlist_content' => $options->get_option( 'empty_wishlist_content', esc_html__( 'You have not added any products to your wishlist.', 'wc-wlfmc-wishlist' ) ),
 					)
 				),

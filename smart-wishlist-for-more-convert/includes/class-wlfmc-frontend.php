@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 1.9.12
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -79,16 +79,16 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			add_action( 'init', array( $this, 'add_button' ) );
 			add_filter( 'body_class', array( $this, 'add_body_class' ) );
 
-            // list notices.
-            add_filter( 'wlfmc_list_notices', array( $this, 'list_notices' ), 10 ,2 );
+			// list notices.
+			add_filter( 'wlfmc_list_notices', array( $this, 'list_notices' ), 10, 2 );
 
-            // wishlist view.
+			// wishlist view.
 			add_action( 'wlfmc_main_wishlist_content', array( $this, 'main_wishlist_content' ), 10, 1 );
 
-            // Subscribe setting.
-            add_action( 'wlfmc_table_after_share', array( $this, 'add_unsubscribe_notice' ) ,10 ,2 );
-            add_action( 'wlfmc_before_login_notice', array( $this, 'add_gdpr_notice' ), 10, 2 );
-            // dashboard page.
+			// Subscribe setting.
+			add_action( 'wlfmc_table_after_share', array( $this, 'add_unsubscribe_notice' ), 10, 2 );
+			add_action( 'wlfmc_before_login_notice', array( $this, 'add_gdpr_notice' ), 10, 2 );
+			// dashboard page.
 			$options               = new MCT_Options( 'wlfmc_options' );
 			$enable_myaccount_link = $options->get_option( 'wishlist_enable_myaccount_link', false );
 			$wishlist_page_id      = get_option( 'wlfmc_wishlist_page_id' );
@@ -162,22 +162,22 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			add_action( 'template_redirect', array( $this, 'private_wishlist_404' ) );
 		}
 
-        /**
-         * Print woocommerce notices and return notice count.
-         *
-         * @param bool|int $notices notice count.
-         * @param bool|string $is_cache_enabled is cache enabled.
-         * @return int|bool
-         */
-        public function list_notices( $notices , $is_cache_enabled ) {
-	        if ( function_exists( 'wc_print_notices' ) && isset( WC()->session ) && ( ! wlfmc_is_true( apply_filters( 'wlfmc_is_page_cache_enabled', $is_cache_enabled ) ) || wp_doing_ajax() ) ) {
-		        wc_print_notices();
-	        }
-	        if ( function_exists( 'wc_notice_count' ) && isset( WC()->session ) ) {
-		        $notices = wc_notice_count();
-	        }
-	        return $notices;
-        }
+		/**
+		 * Print woocommerce notices and return notice count.
+		 *
+		 * @param bool|int    $notices notice count.
+		 * @param bool|string $is_cache_enabled is cache enabled.
+		 * @return int|bool
+		 */
+		public function list_notices( $notices, $is_cache_enabled ) {
+			if ( function_exists( 'wc_print_notices' ) && isset( WC()->session ) && ( ! wlfmc_is_true( apply_filters( 'wlfmc_is_page_cache_enabled', $is_cache_enabled ) ) || wp_doing_ajax() ) ) {
+				wc_print_notices();
+			}
+			if ( function_exists( 'wc_notice_count' ) && isset( WC()->session ) ) {
+				$notices = wc_notice_count();
+			}
+			return $notices;
+		}
 
 		/**
 		 * Add wishlist name to a tab in wishlist page in pro version
@@ -185,7 +185,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * @param array $lists enabled lists.
 		 *
 		 * @return array
-         * @version 1.8.2
+		 * @version 1.8.2
 		 */
 		public function enable_wishlist( $lists ) {
 			$options                      = new MCT_Options( 'wlfmc_options' );
@@ -312,7 +312,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 *
 		 * @return string
 		 *
-		 * @version 1.8.7
+		 * @version 1.9.12
 		 */
 		public function add_to_menu( string $nav_menu, stdClass $args ): string {
 			if ( strpos( $nav_menu, 'href="#wlfmc-wishlist"' ) !== false || strpos( $nav_menu, "href='#wlfmc-wishlist'" ) !== false ) {
@@ -325,27 +325,35 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				$content = ob_get_clean();
 				if ( class_exists( 'DOMDocument' ) ) {
 					$use_mb = function_exists( 'mb_convert_encoding' ) && PHP_VERSION_ID < 80200;
-					$dom    = new DOMDocument();
+					$dom    = new DOMDocument( '1.0', 'UTF-8' );
 					libxml_use_internal_errors( true );
 					if ( $use_mb ) {
 						$nav_menu = mb_convert_encoding( $nav_menu, 'HTML-ENTITIES', 'UTF-8' );
 					}
+					$nav_menu = '<?xml encoding="UTF-8" ?>' .
+								'<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' .
+								$nav_menu;
+
 					$dom->loadHTML( $nav_menu );
 					$links  = $dom->getElementsByTagName( 'a' );
 					$length = $links->length;
 
-					for ( $i = $length - 1; $i > - 1; $i -- ) {
+					for ( $i = $length - 1; $i > - 1; $i-- ) {
 						$link = $links->item( $i );
 
 						if ( '#wlfmc-wishlist' === $link->getAttribute( 'href' ) ) {
 							// phpcs:disable WordPress.NamingConventions.ValidVariableName
 							$parent            = $link->parentNode;
 							$parent->nodeValue = '';
-							$tmpDoc            = new DOMDocument();
-							if ( $use_mb && '' !== $content ) {
-								$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-							}
+							$tmpDoc            = new DOMDocument( '1.0', 'UTF-8' );
 							if ( '' !== $content ) {
+								if ( $use_mb ) {
+									$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
+								}
+								$content = '<?xml encoding="UTF-8" ?>' .
+											'<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' .
+											$content;
+
 								$tmpDoc->loadHTML( $content );
 
 								foreach ( $tmpDoc->getElementsByTagName( 'body' )->item( 0 )->childNodes as $node ) {
@@ -426,7 +434,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			$index_position = apply_filters( 'wlfmc_myaccount_position_wishlist', 1, $menu_links );
 
 			return array_slice( $menu_links, 0, $index_position, true ) + array( $this->endpoint => $this->page_title ) + array_slice( $menu_links, $index_position, null, true );
-
 		}
 
 		/**
@@ -465,7 +472,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				flush_rewrite_rules();
 				update_option( 'wlfmc_' . $this->list_type . '_endpoint_previous', $this->endpoint );
 			}
-
 		}
 
 		/**
@@ -501,7 +507,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		public function add_button() {
 			$options = new MCT_Options( 'wlfmc_options' );
 
-            if ( ! wlfmc_is_true( $options->get_option( 'wishlist_enable', '0' ) ) ) {
+			if ( ! wlfmc_is_true( $options->get_option( 'wishlist_enable', '0' ) ) ) {
 				return;
 			}
 
@@ -609,7 +615,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 									add_action( $v['hook'], array( $this, 'wlfmc_single_flex_' . $position ), $v['priority'] );
 								}
 							}
-							//break;
+							// break;
 						}
 					}
 				}
@@ -691,7 +697,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 									add_action( $v['hook'], array( $this, 'wlfmc_loop_flex_' . $position ), $v['priority'] );
 								}
 							}
-							//break;
+							// break;
 						}
 					}
 				}
@@ -860,12 +866,12 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		/**
 		 * Display metaData in wishlist page for each item
 		 *
-         * @param string         $item_meta_date item meda.
+		 * @param string         $item_meta_date item meda.
 		 * @param array|null     $meta Product meta.
 		 * @param Array          $cart_item of other cart item data.
 		 * @param WLFMC_Wishlist $wishlist Current wishlist.
 		 *
-         * @version 1.7.6
+		 * @version 1.7.6
 		 * @return string
 		 */
 		public function item_meta_data( $item_meta_date, $meta, $cart_item, $wishlist ) {
@@ -880,23 +886,24 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 							continue;
 						}
 						$product = wc_get_product( isset( $meta_row['variation_id'] ) && '' !== $meta_row['variation_id'] ? $meta_row['variation_id'] : $meta_row['product_id'] );
-						/*if ( ! $product || ( isset( $meta_row['quantity'] ) && ! floatval( $meta_row['quantity'] ) > 0 ) ) {
+						/*
+						if ( ! $product || ( isset( $meta_row['quantity'] ) && ! floatval( $meta_row['quantity'] ) > 0 ) ) {
 							continue;
 						}*/
 						if ( ! $product || ! isset( $meta_row['quantity'] ) || ! floatval( $meta_row['quantity'] ) > 0 ) {
 							continue;
 						}
 
-						$cart_item_row = array(
+						$cart_item_row       = array(
 							'product_id'   => $meta_row['product_id'],
 							'variation_id' => isset( $meta_row['variation_id'] ) && '' !== $meta_row['variation_id'] ? $meta_row['variation_id'] : '',
 							'variation'    => $meta_row['attributes'] ?? '',
 							'quantity'     => $meta_row['quantity'],
 							'data'         => $product,
 						);
-						$cart_item_row = array_merge( $cart_item_row, $meta_row );
-						$item_meta_date_tmp .=  '<li>';
-						$item_meta_date_tmp .=  '<dl>' . esc_attr( $product->get_title() ) . ' <strong>&times; ' . esc_attr( $meta_row['quantity'] ) . '</strong></dl>';
+						$cart_item_row       = array_merge( $cart_item_row, $meta_row );
+						$item_meta_date_tmp .= '<li>';
+						$item_meta_date_tmp .= '<dl>' . esc_attr( $product->get_title() ) . ' <strong>&times; ' . esc_attr( $meta_row['quantity'] ) . '</strong></dl>';
 
 						if ( $product->is_type( 'variation' ) ) {
 							?>
@@ -916,15 +923,15 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						$item_meta_date_tmp .= '</li>';
 					}
 				}
-                $item_meta_date  .= '<ul class="wlfmc-table-item-meta-data">' . $item_meta_date_tmp ;
+				$item_meta_date .= '<ul class="wlfmc-table-item-meta-data">' . $item_meta_date_tmp;
 				remove_filter( 'woocommerce_get_item_data', array( 'WC_PB_BS_Display', 'bundle_sell_data' ), 10 );
 				$cart_item['key'] = $cart_item['key'] ?? '';
 				$meta_data        = wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
 				$item_meta_date  .= $meta_data ? '<li class="none-style">' . wp_kses_post( $meta_data ) . '</li>' : '';
-                $item_meta_date  .= '</ul>';
+				$item_meta_date  .= '</ul>';
 
 			}
-            return $item_meta_date;
+			return $item_meta_date;
 		}
 
 		/**
@@ -936,7 +943,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * @param WLFMC_Wishlist_Item $item Wishlist item object.
 		 * @param array               $cart_item extra cart item data we want to pass into the item.
 		 *
-         * @version 1.8.7
+		 * @version 1.8.7
 		 * @return mixed|void
 		 */
 		public function add_to_cart_validation( $passed, $product, $meta, $item, $cart_item ) {
@@ -1157,27 +1164,27 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		/**
 		 * Include add unsubscribe notice
 		 *
-		 * @param array $var Array of variables to pass to the template.
+		 * @param array          $var Array of variables to pass to the template.
 		 * @param WLFMC_Wishlist $wishlist Current wishlist.
-         *
+		 *
 		 * @return void
 		 */
-        public function add_unsubscribe_notice( $wishlist, $var ) {
-	        if ( wlfmc_is_true( $var['unsubscribed'] )  ) {
-		        wlfmc_get_template( 'mc-unsubscribed-notice.php', $var );
-	        }
-        }
+		public function add_unsubscribe_notice( $wishlist, $var ) {
+			if ( wlfmc_is_true( $var['unsubscribed'] ) ) {
+				wlfmc_get_template( 'mc-unsubscribed-notice.php', $var );
+			}
+		}
 
 		/**
 		 * Include GDPR notice
 		 *
-		 * @param array $var Array of variables to pass to the template.
+		 * @param array          $var Array of variables to pass to the template.
 		 * @param WLFMC_Wishlist $wishlist Current wishlist.
 		 *
 		 * @return void
 		 */
 		public function add_gdpr_notice( $wishlist, $var ) {
-            if ( wlfmc_is_true( $var['gdpr_enable'] ) ) {
+			if ( wlfmc_is_true( $var['gdpr_enable'] ) ) {
 				wlfmc_get_template( 'mc-gdpr-notice.php', $var );
 			}
 		}
@@ -1261,23 +1268,22 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * Enqueue styles, scripts and other stuffs needed in the <head>.
 		 *
 		 * @return void
-         * @version 1.7.7
+		 * @version 1.7.7
 		 */
 		public function enqueue_styles_and_stuffs() {
 
 			// main plugin style.
 			wp_enqueue_style( 'wlfmc-main' );
 
-            if ( apply_filters( 'wlfmc_inline_css_enable', true ) ) {
-	            // custom style.
-	            $custom_css = $this->build_custom_css();
+			if ( apply_filters( 'wlfmc_inline_css_enable', true ) ) {
+				// custom style.
+				$custom_css = $this->build_custom_css();
 
-	            if ( $custom_css ) {
+				if ( $custom_css ) {
 
-		            wp_add_inline_style( 'wlfmc-main', $custom_css );
-	            }
-            }
-
+					wp_add_inline_style( 'wlfmc-main', $custom_css );
+				}
+			}
 		}
 
 		/**
@@ -1294,7 +1300,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			wp_enqueue_script( 'jquery-popupoverlay' );
 
 			wp_enqueue_script( 'wlfmc-main' );
-
 		}
 
 		/**
@@ -1309,7 +1314,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			$ajax_mode  = $options->get_option( 'ajax_mode', 'admin-ajax.php' );
 			$login_need = $options->get_option( 'login_need_text', __( 'to use your Wishlist: <br><a href="{login_url}">Login right now</a>', 'wc-wlfmc-wishlist' ) );
 
-			$login_need       = str_replace(
+			$login_need     = str_replace(
 				array(
 					'{login_url}',
 					'{signup_url}',
@@ -1320,9 +1325,9 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				),
 				$login_need
 			);
-			$lang             = null;
-			$wishlist_items   = array();
-			//$merge_lists      = defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_is_true( $options->get_option( 'multi_list_enable', '0' ) ) && wlfmc_is_true( $options->get_option( 'merge_lists', '0' ) );
+			$lang           = null;
+			$wishlist_items = array();
+			// $merge_lists      = defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_is_true( $options->get_option( 'multi_list_enable', '0' ) ) && wlfmc_is_true( $options->get_option( 'merge_lists', '0' ) );
 			$is_cache_enabled = wlfmc_is_true( $options->get_option( 'is_cache_enabled', '1' ) );
 			if ( ! $is_cache_enabled ) {
 				if ( defined( 'ICL_SITEPRESS_VERSION' ) ) { // wpml current  language.
@@ -1351,14 +1356,14 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 					'wishlist_items'        => $wishlist_items,
 					'click_behavior'        => $options->get_option( 'click_wishlist_button_behavior', 'just-add' ),
 					'wishlist_page_url'     => WLFMC()->get_wc_wishlist_url(),
-			        'multi_wishlist'        => false,
+					'multi_wishlist'        => false,
 					'enable_ajax_loading'   => $options->get_option( 'ajax_loading', '1' ),
 					'ajax_loader_url'       => MC_WLFMC_URL . 'assets/frontend/images/ajax-loader-alt.svg',
 					'remove_from_wishlist_after_add_to_cart' => 'added-to-cart' === $options->get_option( 'remove_from_wishlist', 'none' ),
 					'fragments_index_glue'  => apply_filters( 'wlfmc_fragments_index_glue', '.' ),
 					'is_rtl'                => is_rtl(),
 					'toast_position'        => 'default',
-                    'merge_lists'           => false,
+					'merge_lists'           => false,
 					'labels'                => array(
 						'cookie_disabled'            => esc_html__( 'We are sorry, but this feature is available only if cookies on your browser are enabled.', 'wc-wlfmc-wishlist' ),
 						'product_adding'             => esc_html__( 'Another product is being added to the list, please wait until it is finished.', 'wc-wlfmc-wishlist' ),
@@ -1377,11 +1382,11 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						'add_to_wishlist_action'      => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_add_to_wishlist' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_add_to_wishlist' : 'wlfmc_wp_rest_add_to_wishlist' ),
 						'remove_from_wishlist_action' => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_remove_from_wishlist' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_remove_from_wishlist' : 'wlfmc_wp_rest_remove_from_wishlist' ),
 						'delete_item_action'          => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_delete_item' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_delete_item' : 'wlfmc_wp_rest_delete_item' ),
-						'load_fragments'              => 'wlfmc_load_fragments', //'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_fragments' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_fragments' : 'wlfmc_wp_rest_load_fragments' ),
+						'load_fragments'              => 'wlfmc_load_fragments', // 'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_fragments' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_fragments' : 'wlfmc_wp_rest_load_fragments' ),
 						'load_automations'            => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_automations' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_automations' : 'wlfmc_wp_rest_load_automations' ),
 						'update_item_quantity'        => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_update_item_quantity' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_update_item_quantity' : 'wlfmc_wp_rest_update_item_quantity' ),
 						'change_layout'               => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_layout' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_layout' : 'wlfmc_wp_rest_change_layout' ),
-                        'gdpr_action'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_gdpr_status' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_gdpr_status' : 'wlfmc_wp_rest_change_gdpr_status' ),
+						'gdpr_action'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_gdpr_status' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_gdpr_status' : 'wlfmc_wp_rest_change_gdpr_status' ),
 					),
 					'ajax_nonce'            => array(),
 				),
@@ -2664,7 +2669,8 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				$generated_code .= '.uael-woo-product-wrapper { position:relative;}';
 			}
 
-			/*if ( defined( 'ASTRA_PRO_SITES_VER' ) ) {
+			/*
+			if ( defined( 'ASTRA_PRO_SITES_VER' ) ) {
 				$generated_code .= '.wlfmc-wishlist-table .last-column .quantity .minus, .wlfmc-wishlist-table .last-column .quantity .plus {margin: 0 !important;width:30px}';
 			}*/
 
@@ -2672,7 +2678,6 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 			$generated_code .= $options->get_option( 'custom_css', true );
 
 			return $generated_code;
-
 		}
 
 		/**
@@ -2753,19 +2758,18 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 */
 		public function decode_fragment_options( $options ) {
 			if ( ! empty( $options ) ) {
-                $has_svg = wlfmc_is_true( $options['is_svg_icon'] ?? false );
+				$has_svg = wlfmc_is_true( $options['is_svg_icon'] ?? false );
 				foreach ( $options as $id => $value ) {
 					if ( 'true' === $value ) {
 						$options[ $id ] = true;
 					} elseif ( 'false' === $value ) {
 						$options[ $id ] = false;
 					} elseif ( null !== $value ) {
-                        if ( $has_svg && strpos( $value, '<svg' ) !== false && in_array( $id, array( 'empty_icon', 'has_item_icon', 'icon', 'added_icon' ), true ) ) {
-	                        $options[ $id ] = wlfmc_sanitize_svg( $value );
-                        } else {
-	                        $options[ $id ] = wp_kses_post( wp_unslash( $value ) );
-                        }
-
+						if ( $has_svg && strpos( $value, '<svg' ) !== false && in_array( $id, array( 'empty_icon', 'has_item_icon', 'icon', 'added_icon' ), true ) ) {
+							$options[ $id ] = wlfmc_sanitize_svg( $value );
+						} else {
+							$options[ $id ] = wp_kses_post( wp_unslash( $value ) );
+						}
 					}
 				}
 			}
