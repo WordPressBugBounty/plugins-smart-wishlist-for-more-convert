@@ -3,18 +3,18 @@
  * Plugin Name: MoreConvert Wishlist for WooCommerce
  * Plugin URI: https://moreconvert.com/smart-wishlist-for-more-convert
  * Description: With the MoreConvert Wishlist for WooCommerce plugin, your website users can add their favorite products to the wishlist. Then you can persuade them to buy products on their wishlist through the magic of our Marketing Toolkits.
- * Version: 1.9.12
+ * Version: 1.9.13
  * Author: MoreConvert
  * Author URI: https://moreconvert.com
  * Text Domain: wc-wlfmc-wishlist
  * Domain Path: /languages/
  * Requires PHP: 7.2.5
  * WC requires at least: 5.8
- * WC tested up to: 10.4.3
+ * WC tested up to: 10.5.2
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.12
+ * @version 1.9.13
  */
 
 /**

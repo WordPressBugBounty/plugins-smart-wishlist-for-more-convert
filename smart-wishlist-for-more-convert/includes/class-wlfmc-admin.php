@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.9.11';
+		public $rollback_version = '1.9.12';
 
 		/**
 		 * Minimum pro version
