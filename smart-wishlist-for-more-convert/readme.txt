@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.9.1
-Stable tag: 1.9.13
+Tested up to: 6.9.4
+Stable tag: 1.9.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,12 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.14 =
+
+* Tested: WP 6.9.4
+* Tested: WC 10.7
+* Added: Added the ability to import Wishlist from TI Woocommerce Wishlist Plugin( Premium version).
 
 = 1.9.13 =
 
