@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.6.2
- * @verison 1.9.6
+ * @verison 1.9.15
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -196,6 +196,8 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 		 * Update customer data
 		 *
 		 * @param WLFMC_Customer $customer Customer to save on db, with $changes property.
+		 *
+		 * @version 1.9.15
 		 */
 		public function update( &$customer ) {
 
@@ -230,6 +232,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				$columns = array(
 					'first_name'        => '%s',
 					'last_name'         => '%s',
+					'token'             => '%s',
 					'email'             => '%s',
 					'phone'             => '%s',
 					'email_verified'    => '%d',
@@ -245,6 +248,7 @@ if ( ! class_exists( 'WLFMC_Customer_Data_Store' ) ) {
 				$values  = array(
 					$customer->get_first_name(),
 					$customer->get_last_name(),
+					$customer->get_token(),
 					$customer->get_email(),
 					$customer->get_phone(),
 					$customer->is_email_verified(),
