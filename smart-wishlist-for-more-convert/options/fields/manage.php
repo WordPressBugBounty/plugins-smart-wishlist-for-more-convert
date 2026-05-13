@@ -76,7 +76,7 @@ $mct_fields = new MCT_Fields();
 		</thead>
 		<tbody>
 		<?php
-		for ( $i = 0; $i <= $field['count'] - 1; $i ++ ) {
+		for ( $i = 0; $i <= $field['count'] - 1; $i++ ) {
 			?>
 
 			<tr class="manage-row">
@@ -125,7 +125,7 @@ $mct_fields = new MCT_Fields();
 
 </div>
 <?php
-for ( $i = 0; $i <= $field['count'] - 1; $i ++ ) :
+for ( $i = 0; $i <= $field['count'] - 1; $i++ ) :
 	// print table of fields.
 	?>
 	<div class="mct-manage-item mct-article" id="<?php echo esc_attr( $field_id ); ?>_<?php echo esc_attr( $i ); ?>" style="display: none">

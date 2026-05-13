@@ -2,40 +2,36 @@
 # This file is distributed under the same license as the MoreConvert Wishlist for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: smart-wishlist-for-more-convert 1.9.15\n"
+"Project-Id-Version: smart-wishlist-for-more-convert 1.9.17\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "Last-Translator: MoreConvert\n"
 "Language-Team: MoreConvert\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-24T13:31:34+00:00\n"
+"POT-Creation-Date: 2026-05-13T12:30:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: wc-wlfmc-wishlist\n"
 
 #. Plugin Name of the plugin
-#: smart-wishlist-for-more-convert.php
 msgid "MoreConvert Wishlist for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: smart-wishlist-for-more-convert.php
 msgid "https://moreconvert.com/smart-wishlist-for-more-convert"
 msgstr ""
 
 #. Description of the plugin
-#: smart-wishlist-for-more-convert.php
 msgid "With the MoreConvert Wishlist for WooCommerce plugin, your website users can add their favorite products to the wishlist. Then you can persuade them to buy products on their wishlist through the magic of our Marketing Toolkits."
 msgstr ""
 
 #. Author of the plugin
-#: smart-wishlist-for-more-convert.php
-#: includes/class-wlfmc-admin.php:968
-#: includes/class-wlfmc-admin.php:3228
-#: includes/class-wlfmc-admin.php:3981
-#: includes/class-wlfmc-admin.php:4752
-#: includes/class-wlfmc-admin.php:5807
+#: includes/class-wlfmc-admin.php:971
+#: includes/class-wlfmc-admin.php:3231
+#: includes/class-wlfmc-admin.php:3984
+#: includes/class-wlfmc-admin.php:4748
+#: includes/class-wlfmc-admin.php:5820
 #: includes/elementor/class-wlfmc-elementor.php:133
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:129
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:153
@@ -47,7 +43,6 @@ msgid "MoreConvert"
 msgstr ""
 
 #. Author URI of the plugin
-#: smart-wishlist-for-more-convert.php
 msgid "https://moreconvert.com"
 msgstr ""
 
@@ -179,13 +174,11 @@ msgstr ""
 
 #. translators: %s version
 #: includes/class-wlfmc-admin-notice.php:562
-#, php-format
 msgid "To ensure proper functionality of the MoreConvert Wishlist plugin version %s and above, it is necessary to update the database tables. Please note that both the premium and free versions of MoreConvert are temporarily unavailable at this time."
 msgstr ""
 
 #. translators: %s version
 #: includes/class-wlfmc-admin-notice.php:566
-#, php-format
 msgid "In our previous version, certain bilingual websites experienced interference issues. To ensure smooth operation of the MoreConvert (former MC Wishlist) plugin, version %s and above, it's essential to update the database tables."
 msgstr ""
 
@@ -214,480 +207,479 @@ msgstr ""
 msgid "Update tables"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:121
-#: includes/class-wlfmc-admin.php:985
+#: includes/class-wlfmc-admin.php:123
+#: includes/class-wlfmc-admin.php:988
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:268
 msgid "General"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:122
+#: includes/class-wlfmc-admin.php:124
 msgid "Appearance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:123
-#: includes/class-wlfmc-admin.php:434
-#: includes/class-wlfmc-admin.php:2461
+#: includes/class-wlfmc-admin.php:125
+#: includes/class-wlfmc-admin.php:436
+#: includes/class-wlfmc-admin.php:2464
 msgid "Social Share"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:124
+#: includes/class-wlfmc-admin.php:126
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:194
 msgid "Marketing"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:132
+#: includes/class-wlfmc-admin.php:134
 msgid "Caching Optimization & Performance Improvement"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:133
+#: includes/class-wlfmc-admin.php:135
 msgid "To improve wishlist speed and functionality, adjust settings based on your cache plugin, hosting, and server configuration."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:136
+#: includes/class-wlfmc-admin.php:138
 msgid "Type of ajax operations"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:140
+#: includes/class-wlfmc-admin.php:142
 msgid "wp loaded hook"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:141
+#: includes/class-wlfmc-admin.php:143
 msgid "Wp rest api"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:142
+#: includes/class-wlfmc-admin.php:144
 msgid "admin-ajax.php (Recommended)"
 msgstr ""
 
 #. translators: admin url of permalink structure
-#: includes/class-wlfmc-admin.php:145
-#, php-format
+#: includes/class-wlfmc-admin.php:147
 msgid "If you select the \"Wp rest api\" option, the %s must be changed to \"Post name\"."
 msgstr ""
 
 #. translators: admin url of permalink structure
-#: includes/class-wlfmc-admin.php:145
-#: includes/class-wlfmc-admin.php:2278
+#: includes/class-wlfmc-admin.php:147
+#: includes/class-wlfmc-admin.php:2281
 msgid "permalink structure"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:149
+#: includes/class-wlfmc-admin.php:151
 msgid "Show loading Ajax operations"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:152
+#: includes/class-wlfmc-admin.php:154
 msgid "If your site speed is slow, you should activate this feature."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:155
-#: includes/class-wlfmc-admin.php:5734
+#: includes/class-wlfmc-admin.php:157
+#: includes/class-wlfmc-admin.php:5747
 msgid "Cache protection"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:158
-#: includes/class-wlfmc-admin.php:5737
+#: includes/class-wlfmc-admin.php:160
+#: includes/class-wlfmc-admin.php:5750
 msgid "Learn how to disable caching for the lists tables."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:159
-#: includes/class-wlfmc-admin.php:5738
+#: includes/class-wlfmc-admin.php:161
+#: includes/class-wlfmc-admin.php:5751
 msgid "If a caching plugin or hosting caching is enabled on your website and the wishlist is not working properly, enable this option."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:162
+#: includes/class-wlfmc-admin.php:164
 msgid "CSS Print Method"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:163
+#: includes/class-wlfmc-admin.php:165
 msgid "This option allows you to manage your CSS file separately and utilize optimization for faster and better loading."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:164
-#: includes/class-wlfmc-admin.php:410
-#: includes/class-wlfmc-admin.php:503
-#: includes/class-wlfmc-admin.php:1048
-#: includes/class-wlfmc-admin.php:1062
-#: includes/class-wlfmc-admin.php:2353
-#: includes/class-wlfmc-admin.php:2364
-#: includes/class-wlfmc-admin.php:2426
-#: includes/class-wlfmc-admin.php:2437
-#: includes/class-wlfmc-admin.php:2959
+#: includes/class-wlfmc-admin.php:166
+#: includes/class-wlfmc-admin.php:412
+#: includes/class-wlfmc-admin.php:506
+#: includes/class-wlfmc-admin.php:1051
+#: includes/class-wlfmc-admin.php:1065
+#: includes/class-wlfmc-admin.php:2356
+#: includes/class-wlfmc-admin.php:2367
+#: includes/class-wlfmc-admin.php:2429
+#: includes/class-wlfmc-admin.php:2440
+#: includes/class-wlfmc-admin.php:2962
 msgid "Just for premium users"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:177
+#: includes/class-wlfmc-admin.php:179
 msgid "GDPR settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:180
+#: includes/class-wlfmc-admin.php:182
 msgid "Enable GDPR Compliance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:183
+#: includes/class-wlfmc-admin.php:185
 msgid "When enabled, no emails will be sent until users agree to the GDPR terms."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:191
+#: includes/class-wlfmc-admin.php:193
 msgid "Advanced settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:192
+#: includes/class-wlfmc-admin.php:194
 msgid "These settings are not necessary and you can use them if you want."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:195
+#: includes/class-wlfmc-admin.php:197
 msgid "Login URL"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:197
+#: includes/class-wlfmc-admin.php:199
 msgid "This link is used in places where the user will be invited to login."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:199
+#: includes/class-wlfmc-admin.php:201
 msgid "if you use default wordpress login page, Leave the field."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:201
+#: includes/class-wlfmc-admin.php:203
 msgid "Example: https://yourdomain.com/login"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:205
+#: includes/class-wlfmc-admin.php:207
 msgid "Sign-up URL"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:207
+#: includes/class-wlfmc-admin.php:209
 msgid "This link is used in places where the user will be invited to Sign-up."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:209
+#: includes/class-wlfmc-admin.php:211
 msgid "if you use default wordpress sign-up page, Leave the field."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:211
+#: includes/class-wlfmc-admin.php:213
 msgid "Example: https://yourdomain.com/register"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:215
+#: includes/class-wlfmc-admin.php:217
 msgid "Live support chat"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:218
+#: includes/class-wlfmc-admin.php:220
 msgid "With this option enabled, you can ask us your questions from the chat box inside the plugin, and we will solve your problem quickly"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:225
+#: includes/class-wlfmc-admin.php:227
 msgid "Data Transfer Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:229
+#: includes/class-wlfmc-admin.php:231
 msgid "Export Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:232
+#: includes/class-wlfmc-admin.php:234
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-products-table-demo.php:292
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-users-table-demo.php:147
 msgid "Export"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:233
+#: includes/class-wlfmc-admin.php:235
 msgid "This feature allows you to download a backup file of your current plugin settings. This can be useful if you want to transfer your settings to another website or keep a copy for safekeeping."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:239
+#: includes/class-wlfmc-admin.php:241
 msgid "Import Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:242
+#: includes/class-wlfmc-admin.php:244
 msgid "Import"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:243
+#: includes/class-wlfmc-admin.php:245
 msgid "This feature allows you to upload a backup file of previously exported plugin settings. This can be useful if you need to restore your settings after updating the plugin or moving to a new website."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:245
+#: includes/class-wlfmc-admin.php:247
 msgid "Select Json File"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:246
+#: includes/class-wlfmc-admin.php:248
 msgid "Select This File"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:252
+#: includes/class-wlfmc-admin.php:254
 msgid "Remove all data"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:253
+#: includes/class-wlfmc-admin.php:255
 msgid "Uncheck , if you want to prevent data loss when deleting the plugin"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:266
+#: includes/class-wlfmc-admin.php:268
 msgid "Popup and Tooltip Global appearance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:269
+#: includes/class-wlfmc-admin.php:271
 msgid "Popup position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:273
+#: includes/class-wlfmc-admin.php:275
 msgid "Middle"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:274
+#: includes/class-wlfmc-admin.php:276
 msgid "Down left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:275
+#: includes/class-wlfmc-admin.php:277
 msgid "Down right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:276
+#: includes/class-wlfmc-admin.php:278
 msgid "Top right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:277
+#: includes/class-wlfmc-admin.php:279
 msgid "Top left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:280
+#: includes/class-wlfmc-admin.php:282
 msgid "Specify the position of the pop up on the website page. There are 5 modes for the pop up position. Middle mode is recommended."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:284
+#: includes/class-wlfmc-admin.php:286
 msgid "Popup box style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:288
+#: includes/class-wlfmc-admin.php:290
 msgid "Title color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:293
+#: includes/class-wlfmc-admin.php:295
 msgid "Content color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:298
-#: includes/class-wlfmc-admin.php:365
-#: includes/class-wlfmc-admin.php:671
-#: includes/class-wlfmc-admin.php:719
-#: includes/class-wlfmc-admin.php:1571
-#: includes/class-wlfmc-admin.php:1987
-#: includes/class-wlfmc-admin.php:2528
-#: includes/class-wlfmc-admin.php:2817
-#: includes/class-wlfmc-admin.php:3141
+#: includes/class-wlfmc-admin.php:300
+#: includes/class-wlfmc-admin.php:367
+#: includes/class-wlfmc-admin.php:674
+#: includes/class-wlfmc-admin.php:722
+#: includes/class-wlfmc-admin.php:1574
+#: includes/class-wlfmc-admin.php:1990
+#: includes/class-wlfmc-admin.php:2531
+#: includes/class-wlfmc-admin.php:2820
+#: includes/class-wlfmc-admin.php:3144
 msgid "Background color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:303
-#: includes/class-wlfmc-admin.php:529
-#: includes/class-wlfmc-admin.php:681
-#: includes/class-wlfmc-admin.php:714
-#: includes/class-wlfmc-admin.php:1581
-#: includes/class-wlfmc-admin.php:1997
-#: includes/class-wlfmc-admin.php:2538
-#: includes/class-wlfmc-admin.php:2616
-#: includes/class-wlfmc-admin.php:3146
+#: includes/class-wlfmc-admin.php:305
+#: includes/class-wlfmc-admin.php:532
+#: includes/class-wlfmc-admin.php:684
+#: includes/class-wlfmc-admin.php:717
+#: includes/class-wlfmc-admin.php:1584
+#: includes/class-wlfmc-admin.php:2000
+#: includes/class-wlfmc-admin.php:2541
+#: includes/class-wlfmc-admin.php:2619
+#: includes/class-wlfmc-admin.php:3149
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:2141
 msgid "Border color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:308
-#: includes/class-wlfmc-admin.php:521
-#: includes/class-wlfmc-admin.php:1635
-#: includes/class-wlfmc-admin.php:2055
-#: includes/class-wlfmc-admin.php:2564
-#: includes/class-wlfmc-admin.php:2624
-#: includes/class-wlfmc-admin.php:3151
+#: includes/class-wlfmc-admin.php:310
+#: includes/class-wlfmc-admin.php:524
+#: includes/class-wlfmc-admin.php:1638
+#: includes/class-wlfmc-admin.php:2058
+#: includes/class-wlfmc-admin.php:2567
+#: includes/class-wlfmc-admin.php:2627
+#: includes/class-wlfmc-admin.php:3154
 msgid "Border radius"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:312
+#: includes/class-wlfmc-admin.php:314
 msgid "You can define the radius for all 4 corners of the popup (look at the gif)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:318
-#: includes/class-wlfmc-admin.php:2991
+#: includes/class-wlfmc-admin.php:320
+#: includes/class-wlfmc-admin.php:2994
 msgid "Icon color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:323
+#: includes/class-wlfmc-admin.php:325
 msgid "Icon background color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:331
+#: includes/class-wlfmc-admin.php:333
 msgid "tooltip styles"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:335
+#: includes/class-wlfmc-admin.php:337
 msgid "Customize style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:340
-#: includes/class-wlfmc-admin.php:1708
-#: includes/class-wlfmc-admin.php:2138
+#: includes/class-wlfmc-admin.php:342
+#: includes/class-wlfmc-admin.php:1711
+#: includes/class-wlfmc-admin.php:2141
 msgid "direction"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:344
-#: includes/class-wlfmc-admin.php:1712
-#: includes/class-wlfmc-admin.php:2142
+#: includes/class-wlfmc-admin.php:346
+#: includes/class-wlfmc-admin.php:1715
+#: includes/class-wlfmc-admin.php:2145
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:264
 msgid "Top"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:345
-#: includes/class-wlfmc-admin.php:1713
-#: includes/class-wlfmc-admin.php:2143
+#: includes/class-wlfmc-admin.php:347
+#: includes/class-wlfmc-admin.php:1716
+#: includes/class-wlfmc-admin.php:2146
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:265
 msgid "Bottom"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:346
-#: includes/class-wlfmc-admin.php:1714
-#: includes/class-wlfmc-admin.php:2144
+#: includes/class-wlfmc-admin.php:348
+#: includes/class-wlfmc-admin.php:1717
+#: includes/class-wlfmc-admin.php:2147
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:266
 msgid "Right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:347
-#: includes/class-wlfmc-admin.php:1715
-#: includes/class-wlfmc-admin.php:2145
+#: includes/class-wlfmc-admin.php:349
+#: includes/class-wlfmc-admin.php:1718
+#: includes/class-wlfmc-admin.php:2148
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:267
 msgid "Left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:353
+#: includes/class-wlfmc-admin.php:355
 msgid "These tooltip settings are intended for use with share buttons and buttons on list pages."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:356
+#: includes/class-wlfmc-admin.php:358
 msgid "color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:374
-#: includes/class-wlfmc-admin.php:3206
+#: includes/class-wlfmc-admin.php:376
+#: includes/class-wlfmc-admin.php:3209
 msgid "border radius"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:378
+#: includes/class-wlfmc-admin.php:380
 msgid "You can define the radius for all 4 corners of the tooltip (look at the gif)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:389
-#: includes/class-wlfmc-admin.php:1732
-#: includes/class-wlfmc-admin.php:2165
+#: includes/class-wlfmc-admin.php:391
+#: includes/class-wlfmc-admin.php:1735
+#: includes/class-wlfmc-admin.php:2168
 msgid "Tooltip gets text from button text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:390
+#: includes/class-wlfmc-admin.php:392
 msgid "e.g. 10px, 15rem, 13em etc for border radius."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:394
+#: includes/class-wlfmc-admin.php:396
 msgid "Alert styles"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:401
+#: includes/class-wlfmc-admin.php:403
 msgid "Alert Styles"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:409
+#: includes/class-wlfmc-admin.php:411
 msgid "When this setting is ON, you can customize the appearance of toast notifications for success and error messages, Otherwise, the default settings will be applied."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:417
+#: includes/class-wlfmc-admin.php:419
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:281
 msgid "Additional CSS"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:420
+#: includes/class-wlfmc-admin.php:422
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:421
+#: includes/class-wlfmc-admin.php:423
 msgid "This feature allows you to add your own custom CSS code to modify the appearance of your website. Use this feature if you want to make specific design changes that cannot be done through the plugin's existing styling options."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:448
+#: includes/class-wlfmc-admin.php:451
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:281
 msgid "Share Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:449
+#: includes/class-wlfmc-admin.php:452
 msgid "Enable this option to let users share their Wishlist on social media"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:454
+#: includes/class-wlfmc-admin.php:457
 msgid "Share position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:459
+#: includes/class-wlfmc-admin.php:462
 msgid "Popup (pro)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:460
+#: includes/class-wlfmc-admin.php:463
 msgid "After table"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:471
-#: includes/class-wlfmc-admin.php:5684
+#: includes/class-wlfmc-admin.php:474
+#: includes/class-wlfmc-admin.php:5697
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:302
 msgid "Active share buttons"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:472
-#: includes/class-wlfmc-admin.php:5685
+#: includes/class-wlfmc-admin.php:475
+#: includes/class-wlfmc-admin.php:5698
 msgid "Which social media icons show on the sharing bar?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:475
-#: includes/class-wlfmc-admin.php:556
-#: includes/class-wlfmc-admin.php:3372
-#: includes/class-wlfmc-admin.php:5688
+#: includes/class-wlfmc-admin.php:478
+#: includes/class-wlfmc-admin.php:559
+#: includes/class-wlfmc-admin.php:3375
+#: includes/class-wlfmc-admin.php:5701
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:306
 #: templates/mc-wishlist-view.php:591
 msgid "Facebook"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:476
-#: includes/class-wlfmc-admin.php:3373
-#: includes/class-wlfmc-admin.php:5689
+#: includes/class-wlfmc-admin.php:479
+#: includes/class-wlfmc-admin.php:3376
+#: includes/class-wlfmc-admin.php:5702
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:307
 msgid "Facebook messenger"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:477
-#: includes/class-wlfmc-admin.php:567
-#: includes/class-wlfmc-admin.php:3374
-#: includes/class-wlfmc-admin.php:5690
+#: includes/class-wlfmc-admin.php:480
+#: includes/class-wlfmc-admin.php:570
+#: includes/class-wlfmc-admin.php:3377
+#: includes/class-wlfmc-admin.php:5703
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:308
 #: templates/mc-wishlist-view.php:599
 msgid "Twitter(X)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:478
-#: includes/class-wlfmc-admin.php:589
-#: includes/class-wlfmc-admin.php:3375
-#: includes/class-wlfmc-admin.php:5691
+#: includes/class-wlfmc-admin.php:481
+#: includes/class-wlfmc-admin.php:592
+#: includes/class-wlfmc-admin.php:3378
+#: includes/class-wlfmc-admin.php:5704
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:309
 #: templates/mc-wishlist-view.php:623
 msgid "Whatsapp"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:479
-#: includes/class-wlfmc-admin.php:600
-#: includes/class-wlfmc-admin.php:882
-#: includes/class-wlfmc-admin.php:3376
-#: includes/class-wlfmc-admin.php:5692
+#: includes/class-wlfmc-admin.php:482
+#: includes/class-wlfmc-admin.php:603
+#: includes/class-wlfmc-admin.php:885
+#: includes/class-wlfmc-admin.php:3379
+#: includes/class-wlfmc-admin.php:5705
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:310
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:554
 #: templates/mc-wishlist-view.php:631
 msgid "Telegram"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:480
-#: includes/class-wlfmc-admin.php:611
-#: includes/class-wlfmc-admin.php:3377
-#: includes/class-wlfmc-admin.php:5693
+#: includes/class-wlfmc-admin.php:483
+#: includes/class-wlfmc-admin.php:614
+#: includes/class-wlfmc-admin.php:3380
+#: includes/class-wlfmc-admin.php:5706
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:311
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-users-table-demo.php:105
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:431
@@ -696,222 +688,222 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:481
-#: includes/class-wlfmc-admin.php:3378
-#: includes/class-wlfmc-admin.php:5694
+#: includes/class-wlfmc-admin.php:484
+#: includes/class-wlfmc-admin.php:3381
+#: includes/class-wlfmc-admin.php:5707
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:312
 msgid "Share link"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:482
-#: includes/class-wlfmc-admin.php:622
-#: includes/class-wlfmc-admin.php:3379
-#: includes/class-wlfmc-admin.php:3667
+#: includes/class-wlfmc-admin.php:485
+#: includes/class-wlfmc-admin.php:625
+#: includes/class-wlfmc-admin.php:3382
 #: includes/class-wlfmc-admin.php:3670
-#: includes/class-wlfmc-admin.php:5695
+#: includes/class-wlfmc-admin.php:3673
+#: includes/class-wlfmc-admin.php:5708
 #: includes/class-wlfmc-shortcode.php:361
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:313
 msgid "Download pdf"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:494
-#: includes/class-wlfmc-admin.php:5711
+#: includes/class-wlfmc-admin.php:497
+#: includes/class-wlfmc-admin.php:5724
 msgid "In what medias do you prefer your user to be able to share his / her wishlist?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:501
+#: includes/class-wlfmc-admin.php:504
 msgid "Transfer to My Lists Button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:502
+#: includes/class-wlfmc-admin.php:505
 msgid "This feature enables users to seamlessly transfer products from one list to own."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:517
+#: includes/class-wlfmc-admin.php:520
 msgid "Sharing style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:534
-#: includes/class-wlfmc-admin.php:686
-#: includes/class-wlfmc-admin.php:1586
-#: includes/class-wlfmc-admin.php:2002
-#: includes/class-wlfmc-admin.php:2543
+#: includes/class-wlfmc-admin.php:537
+#: includes/class-wlfmc-admin.php:689
+#: includes/class-wlfmc-admin.php:1589
+#: includes/class-wlfmc-admin.php:2005
+#: includes/class-wlfmc-admin.php:2546
 msgid "Border hover color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:552
+#: includes/class-wlfmc-admin.php:555
 msgid "Sharing colors"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:578
+#: includes/class-wlfmc-admin.php:581
 #: templates/mc-wishlist-view.php:607
 msgid "Messenger"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:633
-#: includes/class-wlfmc-admin.php:3539
+#: includes/class-wlfmc-admin.php:636
 #: includes/class-wlfmc-admin.php:3542
+#: includes/class-wlfmc-admin.php:3545
 #: includes/class-wlfmc-shortcode.php:351
 msgid "Copy"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:657
+#: includes/class-wlfmc-admin.php:660
 msgid "Copy button colors"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:661
-#: includes/class-wlfmc-admin.php:709
-#: includes/class-wlfmc-admin.php:937
-#: includes/class-wlfmc-admin.php:1506
-#: includes/class-wlfmc-admin.php:1542
-#: includes/class-wlfmc-admin.php:1913
-#: includes/class-wlfmc-admin.php:1954
-#: includes/class-wlfmc-admin.php:2496
+#: includes/class-wlfmc-admin.php:664
+#: includes/class-wlfmc-admin.php:712
+#: includes/class-wlfmc-admin.php:940
+#: includes/class-wlfmc-admin.php:1509
+#: includes/class-wlfmc-admin.php:1545
+#: includes/class-wlfmc-admin.php:1916
+#: includes/class-wlfmc-admin.php:1957
+#: includes/class-wlfmc-admin.php:2499
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:610
 msgid "Color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:666
-#: includes/class-wlfmc-admin.php:1511
-#: includes/class-wlfmc-admin.php:1547
-#: includes/class-wlfmc-admin.php:1918
-#: includes/class-wlfmc-admin.php:1959
-#: includes/class-wlfmc-admin.php:2501
+#: includes/class-wlfmc-admin.php:669
+#: includes/class-wlfmc-admin.php:1514
+#: includes/class-wlfmc-admin.php:1550
+#: includes/class-wlfmc-admin.php:1921
+#: includes/class-wlfmc-admin.php:1962
+#: includes/class-wlfmc-admin.php:2504
 msgid "Hover color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:676
-#: includes/class-wlfmc-admin.php:1576
-#: includes/class-wlfmc-admin.php:1992
-#: includes/class-wlfmc-admin.php:2533
+#: includes/class-wlfmc-admin.php:679
+#: includes/class-wlfmc-admin.php:1579
+#: includes/class-wlfmc-admin.php:1995
+#: includes/class-wlfmc-admin.php:2536
 msgid "Background hover color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:705
+#: includes/class-wlfmc-admin.php:708
 msgid "Copy field style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:745
+#: includes/class-wlfmc-admin.php:748
 msgid "Email Marketing Processing Management"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:748
+#: includes/class-wlfmc-admin.php:751
 msgid "Server-Sent Emails per Hour"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:751
+#: includes/class-wlfmc-admin.php:754
 msgid "Default: The server sends 20 emails hourly via Wishlist email marketing options. To adjust, check with hosting support for permissible hourly email limits, and consider emails from other plugins, like WooCommerce orders."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:754
+#: includes/class-wlfmc-admin.php:757
 msgid "Reset Sending Cycles"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:757
+#: includes/class-wlfmc-admin.php:760
 msgid "Reset"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:758
+#: includes/class-wlfmc-admin.php:761
 msgid "All previous cycle between complete automation and running a new automation will be cleared and all automation cycle rules will be cleared for all users."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:765
+#: includes/class-wlfmc-admin.php:768
 msgid "Email Marketing Defaults"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:768
+#: includes/class-wlfmc-admin.php:771
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:286
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:579
 msgid "From \"name\""
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:773
+#: includes/class-wlfmc-admin.php:776
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:291
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:580
 msgid "From \"Email address\""
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:778
+#: includes/class-wlfmc-admin.php:781
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:448
 msgid "Email template"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:784
+#: includes/class-wlfmc-admin.php:787
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:454
 msgid "Simple Template"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:785
+#: includes/class-wlfmc-admin.php:788
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:455
 msgid "HTML Woocommerce"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:786
+#: includes/class-wlfmc-admin.php:789
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:456
 msgid "MC Template"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:792
+#: includes/class-wlfmc-admin.php:795
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:463
 msgid "Email MC template"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:793
+#: includes/class-wlfmc-admin.php:796
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:464
 msgid "You can change the details of the custom email template from here."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:816
+#: includes/class-wlfmc-admin.php:819
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:487
 msgid "Logo"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:818
+#: includes/class-wlfmc-admin.php:821
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:490
 msgid "Upload your site logo or select it from your host"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:829
+#: includes/class-wlfmc-admin.php:832
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:500
 msgid "Avatar"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:831
+#: includes/class-wlfmc-admin.php:834
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:503
 msgid "Upload an image of your email sender to show on the email"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:848
+#: includes/class-wlfmc-admin.php:851
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:520
 msgid "Email sender full name"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:850
+#: includes/class-wlfmc-admin.php:853
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:522
 msgid "Ana Ride"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:853
+#: includes/class-wlfmc-admin.php:856
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:525
 msgid "Role of email sender"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:855
+#: includes/class-wlfmc-admin.php:858
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:527
 msgid "Customer Manager"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:871
+#: includes/class-wlfmc-admin.php:874
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:543
 msgid "Social links"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:873
+#: includes/class-wlfmc-admin.php:876
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:545
 msgid "Add another social link"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:877
+#: includes/class-wlfmc-admin.php:880
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:49
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:549
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-item-table.php:95
@@ -919,401 +911,401 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:881
+#: includes/class-wlfmc-admin.php:884
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:553
 msgid "Instagram"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:883
+#: includes/class-wlfmc-admin.php:886
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:555
 msgid "Reddit"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:884
+#: includes/class-wlfmc-admin.php:887
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:556
 msgid "whatsapp"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:885
+#: includes/class-wlfmc-admin.php:888
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:557
 msgid "dribbble"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:886
+#: includes/class-wlfmc-admin.php:889
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:558
 msgid "amazon"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:887
+#: includes/class-wlfmc-admin.php:890
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:559
 msgid "spotify"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:888
+#: includes/class-wlfmc-admin.php:891
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:560
 msgid "behance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:889
+#: includes/class-wlfmc-admin.php:892
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:561
 msgid "location"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:890
+#: includes/class-wlfmc-admin.php:893
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:562
 msgid "tumblr"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:891
+#: includes/class-wlfmc-admin.php:894
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:563
 msgid "pinterest"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:892
+#: includes/class-wlfmc-admin.php:895
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:564
 msgid "youtube"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:893
+#: includes/class-wlfmc-admin.php:896
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:565
 msgid "linkedin"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:894
+#: includes/class-wlfmc-admin.php:897
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:566
 msgid "twitter(X)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:895
+#: includes/class-wlfmc-admin.php:898
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:567
 msgid "facebook"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:900
+#: includes/class-wlfmc-admin.php:903
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:572
 msgid "URL"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:906
+#: includes/class-wlfmc-admin.php:909
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:579
 msgid "Social links style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:910
+#: includes/class-wlfmc-admin.php:913
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:583
 msgid "Image Shape"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:914
+#: includes/class-wlfmc-admin.php:917
 #: includes/class-wlfmc-install.php:865
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:784
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:587
 msgid "Default"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:915
+#: includes/class-wlfmc-admin.php:918
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:588
 msgid "Circle"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:916
+#: includes/class-wlfmc-admin.php:919
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:589
 msgid "Outlined circle"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:917
+#: includes/class-wlfmc-admin.php:920
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:590
 msgid "Outlined square"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:918
+#: includes/class-wlfmc-admin.php:921
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:591
 msgid "Square"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:919
+#: includes/class-wlfmc-admin.php:922
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:592
 msgid "Square rounded"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:924
+#: includes/class-wlfmc-admin.php:927
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:597
 msgid "Image size"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:932
+#: includes/class-wlfmc-admin.php:935
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:605
 msgid "Image color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:936
+#: includes/class-wlfmc-admin.php:939
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:609
 msgid "Black"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:938
+#: includes/class-wlfmc-admin.php:941
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:611
 msgid "Grey"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:948
+#: includes/class-wlfmc-admin.php:951
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:621
 msgid "Open links in new tab"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:986
+#: includes/class-wlfmc-admin.php:989
 msgid "\"Add to wishlist\" Button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:987
+#: includes/class-wlfmc-admin.php:990
 msgid "Wishlist Page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:988
+#: includes/class-wlfmc-admin.php:991
 msgid "Header Counter"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:996
+#: includes/class-wlfmc-admin.php:999
 msgid "Display Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:997
+#: includes/class-wlfmc-admin.php:1000
 msgid "You only need to set them once after installing the plugin."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1002
+#: includes/class-wlfmc-admin.php:1005
 msgid "Enable wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1013
-#: includes/class-wlfmc-admin.php:5386
+#: includes/class-wlfmc-admin.php:1016
+#: includes/class-wlfmc-admin.php:5399
 msgid "Wishlist Display"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1016
+#: includes/class-wlfmc-admin.php:1019
 msgid "Do you want the wishlist to be visible only to members or all users of your website"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1018
-#: includes/class-wlfmc-admin.php:5390
+#: includes/class-wlfmc-admin.php:1021
+#: includes/class-wlfmc-admin.php:5403
 msgid "Show to All users"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1019
-#: includes/class-wlfmc-admin.php:5391
+#: includes/class-wlfmc-admin.php:1022
+#: includes/class-wlfmc-admin.php:5404
 msgid "Show to Logged-in Users Only"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1028
+#: includes/class-wlfmc-admin.php:1031
 msgid "Guest User Lock"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1029
+#: includes/class-wlfmc-admin.php:1032
 msgid "If you want a comprehensive and accurate analytics section, make the login require."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1030
+#: includes/class-wlfmc-admin.php:1033
 msgid "Guests can see the button, but only members can use it. If they try, they'll see an error message and need to log in or sign up to use its features."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1047
+#: includes/class-wlfmc-admin.php:1050
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:157
 msgid "Multi-List"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1061
+#: includes/class-wlfmc-admin.php:1064
 msgid "Save For Later"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1085
+#: includes/class-wlfmc-admin.php:1088
 msgid "\"Add to Wishlist\" Button <span style=\"color:#fd5d00\">Actions</span>"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1099
-#: includes/class-wlfmc-admin.php:5630
+#: includes/class-wlfmc-admin.php:1102
+#: includes/class-wlfmc-admin.php:5643
 msgid "\"Add to Wishlist\" Button Reaction"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1102
+#: includes/class-wlfmc-admin.php:1105
 msgid "Specify the action when users click the \"Add to Wishlist\" button."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1104
-#: includes/class-wlfmc-admin.php:5634
+#: includes/class-wlfmc-admin.php:1107
+#: includes/class-wlfmc-admin.php:5647
 msgid "No Reaction, Just Add to Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1105
-#: includes/class-wlfmc-admin.php:5635
+#: includes/class-wlfmc-admin.php:1108
+#: includes/class-wlfmc-admin.php:5648
 msgid "Popup Message for Wishlist Status"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1106
-#: includes/class-wlfmc-admin.php:5636
+#: includes/class-wlfmc-admin.php:1109
+#: includes/class-wlfmc-admin.php:5649
 msgid "Go to Wishlist Page After Adding To Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1122
-#: includes/class-wlfmc-admin.php:5642
+#: includes/class-wlfmc-admin.php:1125
+#: includes/class-wlfmc-admin.php:5655
 msgid "Second click action"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1126
-#: includes/class-wlfmc-admin.php:5646
+#: includes/class-wlfmc-admin.php:1129
+#: includes/class-wlfmc-admin.php:5659
 #: includes/class-wlfmc-shortcode.php:539
 msgid "Remove from wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1127
-#: includes/class-wlfmc-admin.php:5647
+#: includes/class-wlfmc-admin.php:1130
+#: includes/class-wlfmc-admin.php:5660
 msgid "Go to the wishlist page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1128
-#: includes/class-wlfmc-admin.php:5648
+#: includes/class-wlfmc-admin.php:1131
+#: includes/class-wlfmc-admin.php:5661
 msgid "Display \"Product Already in Wishlist\" Alert"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1130
-#: includes/class-wlfmc-admin.php:5650
+#: includes/class-wlfmc-admin.php:1133
+#: includes/class-wlfmc-admin.php:5663
 msgid "After the product is added to the wishlist, What should happen if the user clicks the wishlist button again?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1144
+#: includes/class-wlfmc-admin.php:1147
 msgid "Show for out-of-stock"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1145
+#: includes/class-wlfmc-admin.php:1148
 msgid "Enable the “ add to wishlist” button for out-of-stock products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1148
+#: includes/class-wlfmc-admin.php:1151
 msgid "By activating this option, the Add to wishlist button will be displayed in out of stock products."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1159
+#: includes/class-wlfmc-admin.php:1162
 msgid "Popup Message for Wishlist Status Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1177
+#: includes/class-wlfmc-admin.php:1180
 msgid "Customize the popup appearance and content when the user clicks the list button."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1180
+#: includes/class-wlfmc-admin.php:1183
 msgid "Popup size"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1181
+#: includes/class-wlfmc-admin.php:1184
 msgid "If you want to use a photo in the pop up, choose large size for it."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1184
+#: includes/class-wlfmc-admin.php:1187
 msgid "Small"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1185
-#: includes/class-wlfmc-admin.php:1236
+#: includes/class-wlfmc-admin.php:1188
+#: includes/class-wlfmc-admin.php:1239
 msgid "Large"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1192
+#: includes/class-wlfmc-admin.php:1195
 msgid "Specify the size of the pop up. There are two modes, small and large. In large mode you can use the product photo for pop up."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1195
+#: includes/class-wlfmc-admin.php:1198
 msgid "Use featured image for pop up"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1196
+#: includes/class-wlfmc-admin.php:1199
 msgid "Enable if use featured image for pop up"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1211
+#: includes/class-wlfmc-admin.php:1214
 msgid "Popup image"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1227
-#: includes/class-wlfmc-admin.php:1250
+#: includes/class-wlfmc-admin.php:1230
+#: includes/class-wlfmc-admin.php:1253
 msgid "The maximum image size should be 400 * 400 pixels."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1230
+#: includes/class-wlfmc-admin.php:1233
 msgid "Popup image Size"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1234
+#: includes/class-wlfmc-admin.php:1237
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1235
+#: includes/class-wlfmc-admin.php:1238
 msgid "Medium"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1237
+#: includes/class-wlfmc-admin.php:1240
 msgid "Manual"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1254
+#: includes/class-wlfmc-admin.php:1257
 msgid "Popup image sizes"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1258
+#: includes/class-wlfmc-admin.php:1261
 msgid "Image width"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1266
+#: includes/class-wlfmc-admin.php:1269
 msgid "Image height"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1293
+#: includes/class-wlfmc-admin.php:1296
 msgid "Popup title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1294
 #: includes/class-wlfmc-admin.php:1297
+#: includes/class-wlfmc-admin.php:1300
 msgid "Added to Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1304
-#: includes/class-wlfmc-admin.php:1311
+#: includes/class-wlfmc-admin.php:1307
+#: includes/class-wlfmc-admin.php:1314
 msgid "You can use the following placeholders: <code>{product_name}</code>,<code>{product_price}</code>"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1305
+#: includes/class-wlfmc-admin.php:1308
 msgid "Select the title of the pop up. No need to change and you can use the default text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1308
+#: includes/class-wlfmc-admin.php:1311
 msgid "Popup content"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1312
-#: includes/class-wlfmc-admin.php:1319
-#: includes/class-wlfmc-admin.php:3691
-#: includes/class-wlfmc-admin.php:3717
+#: includes/class-wlfmc-admin.php:1315
+#: includes/class-wlfmc-admin.php:1322
+#: includes/class-wlfmc-admin.php:3694
+#: includes/class-wlfmc-admin.php:3720
 msgid "See your favorite product on Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1321
+#: includes/class-wlfmc-admin.php:1324
 msgid "Select the content of the pop up. No need to change and you can use the default text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1324
+#: includes/class-wlfmc-admin.php:1327
 msgid "Add pop up button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1328
+#: includes/class-wlfmc-admin.php:1331
 msgid "Close pop up"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1329
+#: includes/class-wlfmc-admin.php:1332
 msgid "Sign-up or login"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1330
-#: includes/class-wlfmc-admin.php:4499
-#: includes/class-wlfmc-admin.php:4500
-#: includes/class-wlfmc-admin.php:4836
+#: includes/class-wlfmc-admin.php:1333
+#: includes/class-wlfmc-admin.php:4501
+#: includes/class-wlfmc-admin.php:4502
+#: includes/class-wlfmc-admin.php:4831
 #: includes/class-wlfmc-ajax-handler.php:621
 #: includes/class-wlfmc-frontend.php:196
 #: includes/class-wlfmc-install.php:1646
@@ -1331,20 +1323,21 @@ msgstr ""
 #: templates/admin/mc-wizard-features.php:43
 #: templates/admin/mc-wizard-features.php:68
 #: templates/admin/mc-wizard-features.php:70
+#: assets/backend/js/add-to-list-block.js:101
 #: src/backend/js/add-to-list-block.js:116
 msgid "Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1331
-#: includes/class-wlfmc-admin.php:2784
+#: includes/class-wlfmc-admin.php:1334
+#: includes/class-wlfmc-admin.php:2787
 msgid "Custom url"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1335
-#: includes/class-wlfmc-admin.php:3845
+#: includes/class-wlfmc-admin.php:1338
 #: includes/class-wlfmc-admin.php:3848
-#: includes/class-wlfmc-admin.php:3949
+#: includes/class-wlfmc-admin.php:3851
 #: includes/class-wlfmc-admin.php:3952
+#: includes/class-wlfmc-admin.php:3955
 #: includes/class-wlfmc-install.php:778
 #: includes/class-wlfmc-shortcode.php:538
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:303
@@ -1353,997 +1346,993 @@ msgstr ""
 msgid "View My Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1345
+#: includes/class-wlfmc-admin.php:1348
 msgid "Close"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1358
-#: includes/class-wlfmc-admin.php:1642
-#: includes/class-wlfmc-admin.php:2062
-#: includes/class-wlfmc-admin.php:2571
-#: includes/class-wlfmc-admin.php:2789
-#: includes/class-wlfmc-admin.php:3213
+#: includes/class-wlfmc-admin.php:1361
+#: includes/class-wlfmc-admin.php:1645
+#: includes/class-wlfmc-admin.php:2065
+#: includes/class-wlfmc-admin.php:2574
+#: includes/class-wlfmc-admin.php:2792
+#: includes/class-wlfmc-admin.php:3216
 msgid "You can define the radius for all 4 corners of the button (look at the gif)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1366
+#: includes/class-wlfmc-admin.php:1369
 msgid "These settings are related to the pop up button. You can consider more than one button for your pop up."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1369
+#: includes/class-wlfmc-admin.php:1372
 msgid "Popup Appearance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1379
+#: includes/class-wlfmc-admin.php:1382
 msgid "Change appearance"
 msgstr ""
 
 #. translators: 1: single product page text
-#: includes/class-wlfmc-admin.php:1388
-#: includes/class-wlfmc-admin.php:1749
-#: includes/class-wlfmc-admin.php:2182
-#, php-format
+#: includes/class-wlfmc-admin.php:1391
+#: includes/class-wlfmc-admin.php:1752
+#: includes/class-wlfmc-admin.php:2185
 msgid "\"Add to wishlist\" Button %s"
 msgstr ""
 
 #. translators: 1: single product page text
-#: includes/class-wlfmc-admin.php:1388
+#: includes/class-wlfmc-admin.php:1391
 msgid "on Single Product Page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1389
+#: includes/class-wlfmc-admin.php:1392
 msgid "Design your wishlist button on your product page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1399
+#: includes/class-wlfmc-admin.php:1402
 msgid "Button position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1405
-#: includes/class-wlfmc-admin.php:5414
+#: includes/class-wlfmc-admin.php:1408
+#: includes/class-wlfmc-admin.php:5427
 msgid "Before \"add to cart\" form"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1406
-#: includes/class-wlfmc-admin.php:5415
+#: includes/class-wlfmc-admin.php:1409
+#: includes/class-wlfmc-admin.php:5428
 msgid "After \"add to cart\" form"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1407
-#: includes/class-wlfmc-admin.php:1779
-#: includes/class-wlfmc-admin.php:2218
-#: includes/class-wlfmc-admin.php:5416
-#: includes/class-wlfmc-admin.php:5543
-#: includes/integrations/woostify.php:282
-#: includes/integrations/woostify.php:305
+#: includes/class-wlfmc-admin.php:1410
+#: includes/class-wlfmc-admin.php:1782
+#: includes/class-wlfmc-admin.php:2221
+#: includes/class-wlfmc-admin.php:5429
+#: includes/class-wlfmc-admin.php:5556
+#: includes/integrations/woostify.php:280
+#: includes/integrations/woostify.php:303
 msgid "Before \"add to cart\" button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1408
-#: includes/class-wlfmc-admin.php:1780
-#: includes/class-wlfmc-admin.php:2219
-#: includes/class-wlfmc-admin.php:5417
-#: includes/class-wlfmc-admin.php:5544
-#: includes/integrations/woostify.php:283
-#: includes/integrations/woostify.php:306
+#: includes/class-wlfmc-admin.php:1411
+#: includes/class-wlfmc-admin.php:1783
+#: includes/class-wlfmc-admin.php:2222
+#: includes/class-wlfmc-admin.php:5430
+#: includes/class-wlfmc-admin.php:5557
+#: includes/integrations/woostify.php:281
+#: includes/integrations/woostify.php:304
 msgid "After \"add to cart\" button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1409
-#: includes/class-wlfmc-admin.php:1777
-#: includes/class-wlfmc-admin.php:2213
-#: includes/class-wlfmc-admin.php:5418
-#: includes/class-wlfmc-admin.php:5541
-#: includes/integrations/woostify.php:280
-#: includes/integrations/woostify.php:303
+#: includes/class-wlfmc-admin.php:1412
+#: includes/class-wlfmc-admin.php:1780
+#: includes/class-wlfmc-admin.php:2216
+#: includes/class-wlfmc-admin.php:5431
+#: includes/class-wlfmc-admin.php:5554
+#: includes/integrations/woostify.php:278
+#: includes/integrations/woostify.php:301
 msgid "On image - top left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1410
-#: includes/class-wlfmc-admin.php:1778
-#: includes/class-wlfmc-admin.php:2214
-#: includes/class-wlfmc-admin.php:5419
-#: includes/class-wlfmc-admin.php:5542
-#: includes/integrations/woostify.php:281
-#: includes/integrations/woostify.php:304
+#: includes/class-wlfmc-admin.php:1413
+#: includes/class-wlfmc-admin.php:1781
+#: includes/class-wlfmc-admin.php:2217
+#: includes/class-wlfmc-admin.php:5432
+#: includes/class-wlfmc-admin.php:5555
+#: includes/integrations/woostify.php:279
+#: includes/integrations/woostify.php:302
 msgid "On image - top right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1411
-#: includes/class-wlfmc-admin.php:5420
+#: includes/class-wlfmc-admin.php:1414
+#: includes/class-wlfmc-admin.php:5433
 msgid "On image - bottom left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1412
-#: includes/class-wlfmc-admin.php:5421
+#: includes/class-wlfmc-admin.php:1415
+#: includes/class-wlfmc-admin.php:5434
 msgid "On image - bottom right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1413
-#: includes/class-wlfmc-admin.php:5422
+#: includes/class-wlfmc-admin.php:1416
+#: includes/class-wlfmc-admin.php:5435
 msgid "After summary"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1414
-#: includes/class-wlfmc-admin.php:1781
-#: includes/class-wlfmc-admin.php:5423
-#: includes/class-wlfmc-admin.php:5545
+#: includes/class-wlfmc-admin.php:1417
+#: includes/class-wlfmc-admin.php:1784
+#: includes/class-wlfmc-admin.php:5436
+#: includes/class-wlfmc-admin.php:5558
 #: includes/integrations/woodmart.php:106
 #: includes/integrations/woodmart.php:110
 #: includes/integrations/woodmart.php:149
 #: includes/integrations/woodmart.php:153
-#: includes/integrations/woostify.php:284
-#: includes/integrations/woostify.php:307
+#: includes/integrations/woostify.php:282
+#: includes/integrations/woostify.php:305
 msgid "Use shortcode"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1417
+#: includes/class-wlfmc-admin.php:1420
 msgid "button position on the product page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1421
-#: includes/class-wlfmc-admin.php:1791
-#: includes/class-wlfmc-admin.php:5427
-#: includes/class-wlfmc-admin.php:5549
+#: includes/class-wlfmc-admin.php:1424
+#: includes/class-wlfmc-admin.php:1794
+#: includes/class-wlfmc-admin.php:5440
+#: includes/class-wlfmc-admin.php:5562
 msgid "Shortcode button"
 msgstr ""
 
 #. translators: 1: create a page link  2: shortcode
-#: includes/class-wlfmc-admin.php:1424
-#: includes/class-wlfmc-admin.php:1794
-#: includes/class-wlfmc-admin.php:2301
-#: includes/class-wlfmc-admin.php:2846
-#: includes/class-wlfmc-admin.php:5431
-#: includes/class-wlfmc-admin.php:5553
+#: includes/class-wlfmc-admin.php:1427
+#: includes/class-wlfmc-admin.php:1797
+#: includes/class-wlfmc-admin.php:2304
+#: includes/class-wlfmc-admin.php:2849
+#: includes/class-wlfmc-admin.php:5444
+#: includes/class-wlfmc-admin.php:5566
 msgid "learn more on how to use it."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1429
-#: includes/class-wlfmc-admin.php:5436
-msgid "Use this shortcode to specify a custom position. Just copy this shortcode wherever you want the button to be displayed."
-msgstr ""
-
 #: includes/class-wlfmc-admin.php:1432
-#: includes/class-wlfmc-admin.php:1807
-msgid "Button type"
+#: includes/class-wlfmc-admin.php:5449
+msgid "Use this shortcode to specify a custom position. Just copy this shortcode wherever you want the button to be displayed."
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:1435
 #: includes/class-wlfmc-admin.php:1810
+msgid "Button type"
+msgstr ""
+
+#: includes/class-wlfmc-admin.php:1438
+#: includes/class-wlfmc-admin.php:1813
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:156
 #: includes/integrations/woodmart.php:115
 msgid "Icon only"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1436
-#: includes/class-wlfmc-admin.php:1811
+#: includes/class-wlfmc-admin.php:1439
+#: includes/class-wlfmc-admin.php:1814
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:157
 msgid "Text only"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1437
-#: includes/class-wlfmc-admin.php:1812
+#: includes/class-wlfmc-admin.php:1440
+#: includes/class-wlfmc-admin.php:1815
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:158
 msgid "Icon and text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1441
-#: includes/class-wlfmc-admin.php:1816
+#: includes/class-wlfmc-admin.php:1444
+#: includes/class-wlfmc-admin.php:1819
 msgid "Select the button appearance. It is better to test different modes and choose the most compatible with the theme."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1444
-#: includes/class-wlfmc-admin.php:1823
+#: includes/class-wlfmc-admin.php:1447
+#: includes/class-wlfmc-admin.php:1826
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:352
 msgid "Default button style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1445
-#: includes/class-wlfmc-admin.php:1824
+#: includes/class-wlfmc-admin.php:1448
+#: includes/class-wlfmc-admin.php:1827
 msgid "Enable if use theme default styles for icon and text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1448
+#: includes/class-wlfmc-admin.php:1451
 msgid "Do you want the button settings to be automatically aligned with your theme?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1451
-#: includes/class-wlfmc-admin.php:1833
+#: includes/class-wlfmc-admin.php:1454
+#: includes/class-wlfmc-admin.php:1836
 msgid "Button icon"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1452
+#: includes/class-wlfmc-admin.php:1455
 msgid "This icon is also used as a pop-up icon."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1459
-#: includes/class-wlfmc-admin.php:1850
+#: includes/class-wlfmc-admin.php:1462
+#: includes/class-wlfmc-admin.php:1853
 msgid "Custom icon (svg)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1471
-#: includes/class-wlfmc-admin.php:1490
-#: includes/class-wlfmc-admin.php:1870
-#: includes/class-wlfmc-admin.php:1897
-#: includes/class-wlfmc-admin.php:2887
-#: includes/class-wlfmc-admin.php:2903
+#: includes/class-wlfmc-admin.php:1474
+#: includes/class-wlfmc-admin.php:1493
+#: includes/class-wlfmc-admin.php:1873
+#: includes/class-wlfmc-admin.php:1900
+#: includes/class-wlfmc-admin.php:2890
+#: includes/class-wlfmc-admin.php:2906
 msgid "Open your SVG file on a notepad and copy the code on this field.Please input the SVG code with your desired color."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1474
-#: includes/class-wlfmc-admin.php:1873
+#: includes/class-wlfmc-admin.php:1477
+#: includes/class-wlfmc-admin.php:1876
 msgid "\"product added\" custom icon (svg)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1494
-#: includes/class-wlfmc-admin.php:1901
+#: includes/class-wlfmc-admin.php:1497
+#: includes/class-wlfmc-admin.php:1904
 msgid "Icon style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1498
-#: includes/class-wlfmc-admin.php:1534
-#: includes/class-wlfmc-admin.php:1905
-#: includes/class-wlfmc-admin.php:1946
-#: includes/class-wlfmc-admin.php:2506
-#: includes/class-wlfmc-admin.php:3181
+#: includes/class-wlfmc-admin.php:1501
+#: includes/class-wlfmc-admin.php:1537
+#: includes/class-wlfmc-admin.php:1908
+#: includes/class-wlfmc-admin.php:1949
+#: includes/class-wlfmc-admin.php:2509
+#: includes/class-wlfmc-admin.php:3184
 msgid "Font size"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1526
-#: includes/class-wlfmc-admin.php:1562
-#: includes/class-wlfmc-admin.php:1662
-#: includes/class-wlfmc-admin.php:1937
-#: includes/class-wlfmc-admin.php:1978
-#: includes/class-wlfmc-admin.php:2086
-#: includes/class-wlfmc-admin.php:2520
-#: includes/class-wlfmc-admin.php:2555
-#: includes/class-wlfmc-admin.php:2598
-#: includes/class-wlfmc-admin.php:3066
-#: includes/class-wlfmc-admin.php:3162
-#: includes/class-wlfmc-admin.php:3217
+#: includes/class-wlfmc-admin.php:1529
+#: includes/class-wlfmc-admin.php:1565
+#: includes/class-wlfmc-admin.php:1665
+#: includes/class-wlfmc-admin.php:1940
+#: includes/class-wlfmc-admin.php:1981
+#: includes/class-wlfmc-admin.php:2089
+#: includes/class-wlfmc-admin.php:2523
+#: includes/class-wlfmc-admin.php:2558
+#: includes/class-wlfmc-admin.php:2601
+#: includes/class-wlfmc-admin.php:3069
+#: includes/class-wlfmc-admin.php:3165
+#: includes/class-wlfmc-admin.php:3220
 msgid "e.g. 10px, 15rem, 13em etc."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1530
-#: includes/class-wlfmc-admin.php:1941
+#: includes/class-wlfmc-admin.php:1533
+#: includes/class-wlfmc-admin.php:1944
 msgid "Text style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1567
+#: includes/class-wlfmc-admin.php:1570
 msgid "Button colors"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1601
-#: includes/class-wlfmc-admin.php:2021
+#: includes/class-wlfmc-admin.php:1604
+#: includes/class-wlfmc-admin.php:2024
 msgid "Button sizes"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1605
-#: includes/class-wlfmc-admin.php:2025
-#: includes/class-wlfmc-admin.php:2575
-#: includes/class-wlfmc-admin.php:3197
+#: includes/class-wlfmc-admin.php:1608
+#: includes/class-wlfmc-admin.php:2028
+#: includes/class-wlfmc-admin.php:2578
+#: includes/class-wlfmc-admin.php:3200
 msgid "Border width"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1613
-#: includes/class-wlfmc-admin.php:2033
+#: includes/class-wlfmc-admin.php:1616
+#: includes/class-wlfmc-admin.php:2036
 msgid "Width"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1627
-#: includes/class-wlfmc-admin.php:2047
-#: includes/class-wlfmc-admin.php:2583
-#: includes/class-wlfmc-admin.php:3189
+#: includes/class-wlfmc-admin.php:1630
+#: includes/class-wlfmc-admin.php:2050
+#: includes/class-wlfmc-admin.php:2586
+#: includes/class-wlfmc-admin.php:3192
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:549
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:1110
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:1353
 msgid "Height"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1645
-#: includes/class-wlfmc-admin.php:2065
+#: includes/class-wlfmc-admin.php:1648
+#: includes/class-wlfmc-admin.php:2068
 msgid "Margin"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1652
-#: includes/class-wlfmc-admin.php:2072
+#: includes/class-wlfmc-admin.php:1655
+#: includes/class-wlfmc-admin.php:2075
 msgid "You can define the margin for all 4 side of the button. to move the button left, put the margin like 0px 0px 0px -15px"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1666
-#: includes/class-wlfmc-admin.php:2090
+#: includes/class-wlfmc-admin.php:1669
+#: includes/class-wlfmc-admin.php:2093
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:208
 msgid "Separate icon and text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1670
-#: includes/class-wlfmc-admin.php:1703
-#: includes/class-wlfmc-admin.php:2094
-#: includes/class-wlfmc-admin.php:2133
+#: includes/class-wlfmc-admin.php:1673
+#: includes/class-wlfmc-admin.php:1706
+#: includes/class-wlfmc-admin.php:2097
+#: includes/class-wlfmc-admin.php:2136
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:641
 msgid "Activation"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1675
-#: includes/class-wlfmc-admin.php:2099
-#: includes/class-wlfmc-admin.php:2653
+#: includes/class-wlfmc-admin.php:1678
+#: includes/class-wlfmc-admin.php:2102
+#: includes/class-wlfmc-admin.php:2656
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:221
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:2218
 msgid "Separator color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1691
-#: includes/class-wlfmc-admin.php:2115
+#: includes/class-wlfmc-admin.php:1694
+#: includes/class-wlfmc-admin.php:2118
 msgid "Separate icon and text boxes with a vertical line"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1699
+#: includes/class-wlfmc-admin.php:1702
 msgid "Button tooltip styles"
 msgstr ""
 
 #. translators: %s is a placeholder for a link to global settings.
-#: includes/class-wlfmc-admin.php:1735
-#: includes/class-wlfmc-admin.php:2168
-#, php-format
+#: includes/class-wlfmc-admin.php:1738
+#: includes/class-wlfmc-admin.php:2171
 msgid "Modify the tooltip style from %s."
 msgstr ""
 
 #. translators: The text for the link to global settings.
-#: includes/class-wlfmc-admin.php:1740
-#: includes/class-wlfmc-admin.php:2173
+#: includes/class-wlfmc-admin.php:1743
+#: includes/class-wlfmc-admin.php:2176
 msgid "global settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1749
+#: includes/class-wlfmc-admin.php:1752
 msgid "on Product Listings/Loops"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1750
+#: includes/class-wlfmc-admin.php:1753
 msgid "Design your wishlist button on your shop page and other loops."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1762
+#: includes/class-wlfmc-admin.php:1765
 msgid "Show \"add to Wishlist\" in listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1763
+#: includes/class-wlfmc-admin.php:1766
 msgid "Enable the \"add to Wishlist\" feature in WooCommerce products' listing"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1766
+#: includes/class-wlfmc-admin.php:1769
 msgid "By activating this option, the Add to wishlist button will be displayed in all lists."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1769
+#: includes/class-wlfmc-admin.php:1772
 msgid "Button position in listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1770
+#: includes/class-wlfmc-admin.php:1773
 msgid "Choose where to show \"Add to Wishlist\" button or link in WooCommerce products' listing."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1788
+#: includes/class-wlfmc-admin.php:1791
 msgid "Select the button position to view in the lists. Preferably similar to the button position on the product page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:1983
+#: includes/class-wlfmc-admin.php:1986
 msgid "Button color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2129
+#: includes/class-wlfmc-admin.php:2132
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:250
 msgid "Button tooltip"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2182
+#: includes/class-wlfmc-admin.php:2185
 msgid "on Gutenberg listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2196
+#: includes/class-wlfmc-admin.php:2199
 msgid "Show \"add to Wishlist\" in gutenberg listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2197
+#: includes/class-wlfmc-admin.php:2200
 msgid "Enable the \"add to Wishlist\" feature in WooCommerce products' gutenberg listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2204
+#: includes/class-wlfmc-admin.php:2207
 msgid "By activating this option, the Add to wishlist button will be displayed in all gutenberg lists."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2207
+#: includes/class-wlfmc-admin.php:2210
 msgid "Button position in gutenberg listings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2208
+#: includes/class-wlfmc-admin.php:2211
 msgid "Choose where to show \"Add to Wishlist\" button or link in WooCommerce products' gutenberg listings."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2215
+#: includes/class-wlfmc-admin.php:2218
 msgid "After title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2216
+#: includes/class-wlfmc-admin.php:2219
 msgid "Before price"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2217
+#: includes/class-wlfmc-admin.php:2220
 msgid "After price"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2231
+#: includes/class-wlfmc-admin.php:2234
 msgid "Select the button position to view in the gutenberg lists. Preferably similar to the button position on the product page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2244
+#: includes/class-wlfmc-admin.php:2247
 msgid "Wishlist Page Display Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2245
+#: includes/class-wlfmc-admin.php:2248
 msgid "Choose details of your wishlist page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2254
+#: includes/class-wlfmc-admin.php:2257
 msgid "User's Wishlist Page Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2255
+#: includes/class-wlfmc-admin.php:2258
 msgid "it will show for site logged in users when they want to see their wishlists."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2259
+#: includes/class-wlfmc-admin.php:2262
 msgid "Display on WooCommerce My Account"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2260
+#: includes/class-wlfmc-admin.php:2263
 msgid "Display on the Guest List Page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2261
+#: includes/class-wlfmc-admin.php:2264
 msgid "Display on a custom user panel"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2265
+#: includes/class-wlfmc-admin.php:2268
 msgid "WooCommerce My Account Wishlist page slug"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2271
+#: includes/class-wlfmc-admin.php:2274
 msgid "Invalid format. Use letters, numbers, and hyphens (-) only, with no spaces or other special characters."
 msgstr ""
 
 #. translators: admin url of permalink structure
-#: includes/class-wlfmc-admin.php:2278
-#, php-format
+#: includes/class-wlfmc-admin.php:2281
 msgid "Please update the %s if the requested page encounters a 404 error."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2281
+#: includes/class-wlfmc-admin.php:2284
 msgid "Custom URL"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2290
+#: includes/class-wlfmc-admin.php:2293
 msgid "Show Link to Wishlist in my account"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2299
+#: includes/class-wlfmc-admin.php:2302
 msgid "Guest Wishlist page"
 msgstr ""
 
 #. translators: 1: create a page link  2: shortcode
-#: includes/class-wlfmc-admin.php:2301
-#, php-format
+#: includes/class-wlfmc-admin.php:2304
 msgid "%1$s or Add %2$s shortcode to a any page you want."
 msgstr ""
 
 #. translators: 1: create a page link  2: shortcode
-#: includes/class-wlfmc-admin.php:2301
+#: includes/class-wlfmc-admin.php:2304
 msgid "click to build a new page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2307
+#: includes/class-wlfmc-admin.php:2310
 msgid "Wishlist page needs to be selected so the plugin knows where it is. You should choose it upon installation of the plugin or create it manually."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2313
-#: includes/class-wlfmc-admin.php:2748
+#: includes/class-wlfmc-admin.php:2316
+#: includes/class-wlfmc-admin.php:2751
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:291
 msgid "Login notice"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2314
+#: includes/class-wlfmc-admin.php:2317
 msgid "Show login notice for guests on wishlist page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2321
+#: includes/class-wlfmc-admin.php:2324
 msgid "It helps you to generate more leads."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2329
+#: includes/class-wlfmc-admin.php:2332
 msgid "In-List Actions Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2332
-#: includes/class-wlfmc-admin.php:5655
+#: includes/class-wlfmc-admin.php:2335
+#: includes/class-wlfmc-admin.php:5668
 msgid "List Products Auto-Removal"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2336
-#: includes/class-wlfmc-admin.php:5659
+#: includes/class-wlfmc-admin.php:2339
+#: includes/class-wlfmc-admin.php:5672
 msgid "Keep Product in List Permanently"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2337
-#: includes/class-wlfmc-admin.php:5660
+#: includes/class-wlfmc-admin.php:2340
+#: includes/class-wlfmc-admin.php:5673
 msgid "Remove Product After Adding to Cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2338
-#: includes/class-wlfmc-admin.php:5661
+#: includes/class-wlfmc-admin.php:2341
+#: includes/class-wlfmc-admin.php:5674
 msgid "Remove Product After Order Completion"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2339
-#: includes/class-wlfmc-admin.php:5662
+#: includes/class-wlfmc-admin.php:2342
+#: includes/class-wlfmc-admin.php:5675
 msgid "Remove Product After Order Processing"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2342
+#: includes/class-wlfmc-admin.php:2345
 msgid "Remove from wishlist or any other lists based on this condition will happen."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2345
+#: includes/class-wlfmc-admin.php:2348
 msgid "Redirect to the cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2348
+#: includes/class-wlfmc-admin.php:2351
 msgid "It works for the \"add all to cart\" button and the \"add to cart\" option in the action button and \"add to cart\" button in the lists."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2351
+#: includes/class-wlfmc-admin.php:2354
 msgid "Product Transfer"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2352
+#: includes/class-wlfmc-admin.php:2355
 msgid "This feature enables users to seamlessly transfer products from one list to another. Please note that this functionality only can be used within wishlists and multi-lists."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2362
+#: includes/class-wlfmc-admin.php:2365
 msgid "Open New Tab for External Product Add to Cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2363
+#: includes/class-wlfmc-admin.php:2366
 msgid "It is essential for affiliate products to open in a new tab and keep users active on your website."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2378
+#: includes/class-wlfmc-admin.php:2381
 msgid "Wishlist Table Items Display"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2379
+#: includes/class-wlfmc-admin.php:2382
 msgid "Choose options of your wishlist table."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2387
+#: includes/class-wlfmc-admin.php:2390
 msgid "Items show for wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2390
+#: includes/class-wlfmc-admin.php:2393
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:145
 msgid "Checkboxes"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2391
+#: includes/class-wlfmc-admin.php:2394
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:146
 msgid "Product name"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2392
+#: includes/class-wlfmc-admin.php:2395
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:147
 msgid "Product rating"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2393
+#: includes/class-wlfmc-admin.php:2396
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:148
 #: templates/mc-wishlist-pdf.php:210
 msgid "Product image"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2394
+#: includes/class-wlfmc-admin.php:2397
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:149
 msgid "Product variations selected by the user (e.g. size or color)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2395
+#: includes/class-wlfmc-admin.php:2398
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:150
 msgid "Product price"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2396
+#: includes/class-wlfmc-admin.php:2399
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:151
 #: templates/emails/email-list-items.php:28
 #: templates/mc-wishlist-pdf.php:170
 msgid "Quantity"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2397
+#: includes/class-wlfmc-admin.php:2400
 msgid "Product stock (show if product is unavailable)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2398
+#: includes/class-wlfmc-admin.php:2401
 msgid "Date on which the product was added to the wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2399
+#: includes/class-wlfmc-admin.php:2402
 msgid "Add to cart option for each product"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2400
+#: includes/class-wlfmc-admin.php:2403
 msgid "Button to remove product from wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2413
+#: includes/class-wlfmc-admin.php:2416
 msgid "Under wishlist table show"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2416
-#: includes/class-wlfmc-admin.php:3321
-#: includes/class-wlfmc-admin.php:3334
-#: includes/class-wlfmc-admin.php:3347
+#: includes/class-wlfmc-admin.php:2419
+#: includes/class-wlfmc-admin.php:3324
+#: includes/class-wlfmc-admin.php:3337
+#: includes/class-wlfmc-admin.php:3350
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:259
 msgid "All together Actions button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2417
-#: includes/class-wlfmc-admin.php:3322
-#: includes/class-wlfmc-admin.php:3335
-#: includes/class-wlfmc-admin.php:3348
+#: includes/class-wlfmc-admin.php:2420
+#: includes/class-wlfmc-admin.php:3325
+#: includes/class-wlfmc-admin.php:3338
+#: includes/class-wlfmc-admin.php:3351
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:270
 msgid "\"Add All to Cart\" button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2425
+#: includes/class-wlfmc-admin.php:2428
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:182
 msgid "Total Price Display"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2435
+#: includes/class-wlfmc-admin.php:2438
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:220
 msgid "Enable Drag & Drop products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2436
+#: includes/class-wlfmc-admin.php:2439
 msgid "Empower users to rearrange their product on list to reflect their priorities"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2446
+#: includes/class-wlfmc-admin.php:2449
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:231
 msgid "Select view mode"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2450
+#: includes/class-wlfmc-admin.php:2453
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:234
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:239
 msgid "List"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2451
+#: includes/class-wlfmc-admin.php:2454
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:235
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:240
 msgid "Grid"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2452
+#: includes/class-wlfmc-admin.php:2455
 msgid "Both( Default Grid ) - pro"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2453
+#: includes/class-wlfmc-admin.php:2456
 msgid "Both( Default List ) - pro"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2471
+#: includes/class-wlfmc-admin.php:2474
 msgid "Change Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2479
+#: includes/class-wlfmc-admin.php:2482
 msgid "Wishlist Page Appearance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2486
+#: includes/class-wlfmc-admin.php:2489
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:248
 msgid "Wishlist default template"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2492
+#: includes/class-wlfmc-admin.php:2495
 msgid "Buttons Text Style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2524
+#: includes/class-wlfmc-admin.php:2527
 msgid "Buttons Color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2559
+#: includes/class-wlfmc-admin.php:2562
 msgid "Buttons Style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2602
+#: includes/class-wlfmc-admin.php:2605
 msgid "Wishlist items style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2606
+#: includes/class-wlfmc-admin.php:2609
 msgid "Thumbnail background color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2608
+#: includes/class-wlfmc-admin.php:2611
 msgid "Your image must be SVG or png for this section to be effective.."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2628
+#: includes/class-wlfmc-admin.php:2631
 msgid "You can define the radius for all 4 corners of the grid (look at the gif)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2635
+#: includes/class-wlfmc-admin.php:2638
 msgid "Item background color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2645
+#: includes/class-wlfmc-admin.php:2648
 msgid "Item background hover color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2670
+#: includes/class-wlfmc-admin.php:2673
 msgid "\"Add to Cart\" Button Appearance"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2671
+#: includes/class-wlfmc-admin.php:2674
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:1154
 msgid "Apply button style for add to cart button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2682
+#: includes/class-wlfmc-admin.php:2685
 msgid "Disable Quantity Padding"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2683
+#: includes/class-wlfmc-admin.php:2686
 msgid "If the quantity input field has a blank space and is not displaying anything, enable this."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2688
+#: includes/class-wlfmc-admin.php:2691
 msgid "Quantity field style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2689
+#: includes/class-wlfmc-admin.php:2692
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:1398
 msgid "Apply styling to quantity field"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2690
+#: includes/class-wlfmc-admin.php:2693
 msgid "Ensure it is displayed correctly after setting; some themes are incompatible with this setting."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2700
+#: includes/class-wlfmc-admin.php:2703
 msgid "Pagination style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2701
+#: includes/class-wlfmc-admin.php:2704
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:1623
 msgid "Apply wishlist page style for pagination bar"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2709
+#: includes/class-wlfmc-admin.php:2712
 msgid "Theme settings are used for pagination; by activating this section, coordinate it with the wishlist page style."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2717
+#: includes/class-wlfmc-admin.php:2720
 msgid "Empty Wishlist Content"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2724
+#: includes/class-wlfmc-admin.php:2727
 msgid "Empty wishlist title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2727
 #: includes/class-wlfmc-admin.php:2730
+#: includes/class-wlfmc-admin.php:2733
 #: includes/class-wlfmc-shortcode.php:212
 msgid "YOUR WISHLIST IS EMPTY!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2733
-#: includes/class-wlfmc-admin.php:3964
+#: includes/class-wlfmc-admin.php:2736
+#: includes/class-wlfmc-admin.php:3967
 msgid "Empty wishlist content"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2736
 #: includes/class-wlfmc-admin.php:2739
-#: includes/class-wlfmc-admin.php:3967
+#: includes/class-wlfmc-admin.php:2742
 #: includes/class-wlfmc-admin.php:3970
+#: includes/class-wlfmc-admin.php:3973
 #: includes/class-wlfmc-form-handler.php:652
 #: includes/class-wlfmc-shortcode.php:213
 #: includes/class-wlfmc-shortcode.php:852
 msgid "You have not added any products to your wishlist."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2749
+#: includes/class-wlfmc-admin.php:2752
 msgid "Turn guest users into leads by inviting them to sign up on the wishlist page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2767
+#: includes/class-wlfmc-admin.php:2770
 msgid "Content"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2770
+#: includes/class-wlfmc-admin.php:2773
 msgid "Write a text for Notify that creates FOMO"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2771
+#: includes/class-wlfmc-admin.php:2774
 msgid "Warning! You Will Lose Your Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2771
+#: includes/class-wlfmc-admin.php:2774
 msgid "If you do not sign-up or log in to your account right now , you will probably lose your list after leaving the site."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2777
+#: includes/class-wlfmc-admin.php:2780
 msgid "Add button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2780
+#: includes/class-wlfmc-admin.php:2783
 msgid "Adjust the text of the notification buttons to have the most impact"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2782
+#: includes/class-wlfmc-admin.php:2785
 msgid "login"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2783
-#: includes/class-wlfmc-admin.php:2804
+#: includes/class-wlfmc-admin.php:2786
+#: includes/class-wlfmc-admin.php:2807
 msgid "Sign-up"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2794
+#: includes/class-wlfmc-admin.php:2797
 msgid "Login"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2819
+#: includes/class-wlfmc-admin.php:2822
 msgid "We suggest you choose red, orange and yellow."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2833
+#: includes/class-wlfmc-admin.php:2836
 msgid "Wishlist header counter"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2834
+#: includes/class-wlfmc-admin.php:2837
 msgid "Add a counter icon on the header or any spot you choose to show wishlist items and include a mini wishlist."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2835
+#: includes/class-wlfmc-admin.php:2838
 msgid "Wishlist product counter"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2845
+#: includes/class-wlfmc-admin.php:2848
 msgid "Add counter to menu"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2846
+#: includes/class-wlfmc-admin.php:2849
 msgid "Use shortcode to place it in the desired location <code>[wlfmc_wishlist_counter]</code>"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2854
+#: includes/class-wlfmc-admin.php:2857
 msgid "Counter position (Menu item order)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2855
+#: includes/class-wlfmc-admin.php:2858
 msgid "Define the position of the counter in the list of menu items."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2858
+#: includes/class-wlfmc-admin.php:2861
 msgid "Allows you to add the wishlist counter as a menu item and apply its position."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2867
+#: includes/class-wlfmc-admin.php:2870
 msgid "\"wishlist\" counter icon"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2874
+#: includes/class-wlfmc-admin.php:2877
 msgid "Custom zero icon svg"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2886
+#: includes/class-wlfmc-admin.php:2889
 msgid "Define a custom icon for when no product is added to the wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2890
+#: includes/class-wlfmc-admin.php:2893
 msgid "Custom added icon svg"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2902
+#: includes/class-wlfmc-admin.php:2905
 msgid "Define a custom icon for when at least one product is on the wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2906
+#: includes/class-wlfmc-admin.php:2909
 msgid "Icon width"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2920
+#: includes/class-wlfmc-admin.php:2923
 msgid "Show \"wishlist\" counter text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2925
+#: includes/class-wlfmc-admin.php:2928
 msgid "\"wishlist\" counter text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2928
 #: includes/class-wlfmc-admin.php:2931
+#: includes/class-wlfmc-admin.php:2934
 msgid "Wishlist - "
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2940
+#: includes/class-wlfmc-admin.php:2943
 msgid "Show Product Count"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2945
 #: includes/class-wlfmc-admin.php:2948
+#: includes/class-wlfmc-admin.php:2951
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:276
 msgid "Hide Zero Counts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2958
+#: includes/class-wlfmc-admin.php:2961
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:289
 msgid "Hide Counter for Empty list"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2960
+#: includes/class-wlfmc-admin.php:2963
 msgid "By enabling this option, if there are no products available in the list, the counter will be hidden completely."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2969
+#: includes/class-wlfmc-admin.php:2972
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:301
 msgid "Products number position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2973
+#: includes/class-wlfmc-admin.php:2976
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:304
 msgid "Right side of the text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2974
+#: includes/class-wlfmc-admin.php:2977
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:305
 msgid "Left side of the text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2975
+#: includes/class-wlfmc-admin.php:2978
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:306
 msgid "On icon - top right"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2976
+#: includes/class-wlfmc-admin.php:2979
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:307
 msgid "On icon - top left"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:2987
+#: includes/class-wlfmc-admin.php:2990
 msgid "Counter style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3002
+#: includes/class-wlfmc-admin.php:3005
 msgid "Icon Font size"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3016
+#: includes/class-wlfmc-admin.php:3019
 msgid "Font Weight"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3030
+#: includes/class-wlfmc-admin.php:3033
 msgid "inherit"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3040
+#: includes/class-wlfmc-admin.php:3043
 msgid "Number Background color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3055
+#: includes/class-wlfmc-admin.php:3058
 msgid "Text color"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3069
+#: includes/class-wlfmc-admin.php:3072
 #: includes/integrations/blocksy/wishlist-counter/options.php:26
 #: includes/integrations/kadence/header-mobile-wishlist-options.php:20
 #: includes/integrations/kadence/header-wishlist-options.php:22
@@ -2352,7 +2341,7 @@ msgid "Display mini wishlist for counter"
 msgstr ""
 
 #. translators: %1$s is a help text or tooltip, %2$s is an HTML span indicating if .
-#: includes/class-wlfmc-admin.php:3072
+#: includes/class-wlfmc-admin.php:3075
 #: includes/functions.php:587
 #: includes/integrations/blocksy/wishlist-counter/options.php:12
 #: includes/integrations/kadence/header-mobile-wishlist-options.php:24
@@ -2361,7 +2350,7 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3073
+#: includes/class-wlfmc-admin.php:3076
 #: includes/integrations/blocksy/wishlist-counter/options.php:13
 #: includes/integrations/kadence/header-mobile-wishlist-options.php:27
 #: includes/integrations/kadence/header-wishlist-options.php:29
@@ -2369,7 +2358,7 @@ msgstr ""
 msgid "Show on hover"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3074
+#: includes/class-wlfmc-admin.php:3077
 #: includes/integrations/blocksy/wishlist-counter/options.php:14
 #: includes/integrations/kadence/header-mobile-wishlist-options.php:30
 #: includes/integrations/kadence/header-wishlist-options.php:32
@@ -2377,7 +2366,7 @@ msgstr ""
 msgid "Show on click"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3079
+#: includes/class-wlfmc-admin.php:3082
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:217
 #: includes/integrations/blocksy/wishlist-counter/options.php:37
 #: includes/integrations/kadence/header-mobile-wishlist-options.php:42
@@ -2386,451 +2375,450 @@ msgstr ""
 msgid "Add Link For \"Wishlist\" Counter Title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3092
+#: includes/class-wlfmc-admin.php:3095
 msgid "Mini-Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3093
+#: includes/class-wlfmc-admin.php:3096
 msgid "A preview of the user's wishlist that can be shown as a shortcut to the main wishlist, usually displayed in a dropdown or sidebar."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3102
+#: includes/class-wlfmc-admin.php:3105
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:343
 msgid "Mini wishlist position mode"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3105
+#: includes/class-wlfmc-admin.php:3108
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:346
 msgid "Absolute position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3106
+#: includes/class-wlfmc-admin.php:3109
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:347
 msgid "Fixed position"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3111
+#: includes/class-wlfmc-admin.php:3114
 msgid "Z-index mini wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3122
+#: includes/class-wlfmc-admin.php:3125
 msgid "Maximum products in mini wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3127
+#: includes/class-wlfmc-admin.php:3130
 msgid "Wishlist button position in mini wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3131
+#: includes/class-wlfmc-admin.php:3134
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:372
 msgid "After products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3132
+#: includes/class-wlfmc-admin.php:3135
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:373
 msgid "Before products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3137
+#: includes/class-wlfmc-admin.php:3140
 msgid "Mini wishlist style"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3155
+#: includes/class-wlfmc-admin.php:3158
 msgid "You can define the radius for all 4 corners of the counter (look at the gif)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3165
+#: includes/class-wlfmc-admin.php:3168
 msgid "Mini wishlist button colors"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3177
+#: includes/class-wlfmc-admin.php:3180
 msgid "Mini wishlist button sizes"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3245
+#: includes/class-wlfmc-admin.php:3248
 #: includes/functions.php:706
 msgid "Global Texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3246
+#: includes/class-wlfmc-admin.php:3249
 msgid "Wishlist Texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3254
+#: includes/class-wlfmc-admin.php:3257
 msgid "Global Text Management"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3405
+#: includes/class-wlfmc-admin.php:3408
 msgid "\"Actions\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3408
 #: includes/class-wlfmc-admin.php:3411
+#: includes/class-wlfmc-admin.php:3414
 #: includes/class-wlfmc-shortcode.php:343
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:54
 msgid "Actions"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3420
+#: includes/class-wlfmc-admin.php:3423
 msgid "\"Add to cart\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3423
 #: includes/class-wlfmc-admin.php:3426
+#: includes/class-wlfmc-admin.php:3429
 #: includes/class-wlfmc-shortcode.php:344
 msgid "Add to cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3429
+#: includes/class-wlfmc-admin.php:3432
 msgid "\"Remove\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3432
 #: includes/class-wlfmc-admin.php:3435
+#: includes/class-wlfmc-admin.php:3438
 #: includes/class-wlfmc-shortcode.php:345
 msgid "Remove"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3438
+#: includes/class-wlfmc-admin.php:3441
 msgid "\"Apply\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3441
 #: includes/class-wlfmc-admin.php:3444
+#: includes/class-wlfmc-admin.php:3447
 #: includes/class-wlfmc-shortcode.php:348
 msgid "Apply"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3447
+#: includes/class-wlfmc-admin.php:3450
 msgid "\"Add all to cart\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3450
 #: includes/class-wlfmc-admin.php:3453
+#: includes/class-wlfmc-admin.php:3456
 #: includes/class-wlfmc-shortcode.php:346
 msgid "Add all to cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3462
+#: includes/class-wlfmc-admin.php:3465
 msgid "Share label and  tooltip custom text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3463
+#: includes/class-wlfmc-admin.php:3466
 msgid "It will show on the tooltip and labels text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3466
+#: includes/class-wlfmc-admin.php:3469
 msgid "Share tooltip text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3467
 #: includes/class-wlfmc-admin.php:3470
-#: includes/class-wlfmc-admin.php:5668
+#: includes/class-wlfmc-admin.php:3473
+#: includes/class-wlfmc-admin.php:5681
 #: includes/class-wlfmc-shortcode.php:352
 msgid "Share"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3475
+#: includes/class-wlfmc-admin.php:3478
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist.php:333
 msgid "Sharing title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3476
+#: includes/class-wlfmc-admin.php:3479
 msgid "Wishlist title used for sharing"
 msgstr ""
 
 #. translators: %s: site name
-#: includes/class-wlfmc-admin.php:3478
 #: includes/class-wlfmc-admin.php:3481
-#, php-format
+#: includes/class-wlfmc-admin.php:3484
 msgid "My Wishlist on %s"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3490
+#: includes/class-wlfmc-admin.php:3493
 msgid "Enter the title that you would like to display as your ad when your user is sharing it."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3493
+#: includes/class-wlfmc-admin.php:3496
 msgid "Sharing Popup Title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3494
 #: includes/class-wlfmc-admin.php:3497
+#: includes/class-wlfmc-admin.php:3500
 #: includes/class-wlfmc-shortcode.php:353
 msgid "Share your list"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3502
+#: includes/class-wlfmc-admin.php:3505
 msgid "\"Share on:\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3505
 #: includes/class-wlfmc-admin.php:3508
+#: includes/class-wlfmc-admin.php:3511
 #: includes/class-wlfmc-shortcode.php:349
 msgid "Share on:"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3517
+#: includes/class-wlfmc-admin.php:3520
 msgid "Copy field label"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3520
 #: includes/class-wlfmc-admin.php:3523
+#: includes/class-wlfmc-admin.php:3526
 #: includes/class-wlfmc-shortcode.php:350
 msgid "Or copy the link"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3536
+#: includes/class-wlfmc-admin.php:3539
 msgid "\"Copy button\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3555
+#: includes/class-wlfmc-admin.php:3558
 msgid "\"Share on facebook\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3558
 #: includes/class-wlfmc-admin.php:3561
+#: includes/class-wlfmc-admin.php:3564
 #: includes/class-wlfmc-shortcode.php:354
 msgid "Share on facebook"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3570
+#: includes/class-wlfmc-admin.php:3573
 msgid "\"Share with messenger\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3573
 #: includes/class-wlfmc-admin.php:3576
+#: includes/class-wlfmc-admin.php:3579
 #: includes/class-wlfmc-shortcode.php:355
 msgid "Share with messenger"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3585
+#: includes/class-wlfmc-admin.php:3588
 msgid "\"Share on twitter(X)\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3588
 #: includes/class-wlfmc-admin.php:3591
+#: includes/class-wlfmc-admin.php:3594
 msgid "Share on Twitter(X)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3600
+#: includes/class-wlfmc-admin.php:3603
 msgid "\"Share on whatsApp\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3603
 #: includes/class-wlfmc-admin.php:3606
+#: includes/class-wlfmc-admin.php:3609
 #: includes/class-wlfmc-shortcode.php:357
 msgid "Share on whatsApp"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3615
+#: includes/class-wlfmc-admin.php:3618
 msgid "\"Share on Telegram\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3618
 #: includes/class-wlfmc-admin.php:3621
+#: includes/class-wlfmc-admin.php:3624
 #: includes/class-wlfmc-shortcode.php:358
 msgid "Share on Telegram"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3630
+#: includes/class-wlfmc-admin.php:3633
 msgid "\"Share with email\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3633
 #: includes/class-wlfmc-admin.php:3636
+#: includes/class-wlfmc-admin.php:3639
 #: includes/class-wlfmc-shortcode.php:359
 msgid "Share with email"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3645
+#: includes/class-wlfmc-admin.php:3648
 msgid "\"Click to copy the link\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3648
 #: includes/class-wlfmc-admin.php:3651
+#: includes/class-wlfmc-admin.php:3654
 #: includes/class-wlfmc-shortcode.php:360
 msgid "Click to copy the link"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3664
+#: includes/class-wlfmc-admin.php:3667
 msgid "\"Download pdf\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3683
+#: includes/class-wlfmc-admin.php:3686
 msgid "GDPR texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3686
+#: includes/class-wlfmc-admin.php:3689
 msgid "GDPR Notice Text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3688
-#: includes/class-wlfmc-admin.php:3714
+#: includes/class-wlfmc-admin.php:3691
+#: includes/class-wlfmc-admin.php:3717
 msgid "The text displayed to users to request their agreement with GDPR terms. This text should include a link to the privacy policy page."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3694
+#: includes/class-wlfmc-admin.php:3697
 #: includes/class-wlfmc-shortcode.php:425
 msgid "We Value Your Privacy"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3694
+#: includes/class-wlfmc-admin.php:3697
 #: includes/class-wlfmc-shortcode.php:425
 msgid "We track products and lists you create to improve your experience, personalize offers, and enhance service. Our team may access list details for this purpose. By continuing, you agree to these terms."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3697
+#: includes/class-wlfmc-admin.php:3700
 msgid "Accept Button Text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3698
+#: includes/class-wlfmc-admin.php:3701
 #: includes/class-wlfmc-shortcode.php:426
 msgid "Accept"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3703
+#: includes/class-wlfmc-admin.php:3706
 msgid "Decline Button Text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3704
+#: includes/class-wlfmc-admin.php:3707
 msgid "Decline"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3712
+#: includes/class-wlfmc-admin.php:3715
 msgid "UnSubscribed Notice Text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3720
+#: includes/class-wlfmc-admin.php:3723
 msgid "Your email has been successfully unsubscribed! To receive exclusive discounts and amazing offers, please subscribe now."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3723
+#: includes/class-wlfmc-admin.php:3726
 msgid "Subscribe Button Text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3724
+#: includes/class-wlfmc-admin.php:3727
 #: includes/class-wlfmc-shortcode.php:433
 msgid "Agree, Subscribe Me"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3734
+#: includes/class-wlfmc-admin.php:3737
 msgid "No access texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3737
+#: includes/class-wlfmc-admin.php:3740
 msgid "No access title"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3738
+#: includes/class-wlfmc-admin.php:3741
 #: includes/class-wlfmc-shortcode.php:259
 msgid "Access Denied"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3743
+#: includes/class-wlfmc-admin.php:3746
 msgid "No access message"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3746
+#: includes/class-wlfmc-admin.php:3749
 msgid "You do not have permission. Please log in or signup to access this content."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3759
+#: includes/class-wlfmc-admin.php:3762
 msgid "Alert Notification Texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3760
+#: includes/class-wlfmc-admin.php:3763
 msgid "You can choose your desired text for the items below."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3774
+#: includes/class-wlfmc-admin.php:3777
 msgid "\"Force to login\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3775
+#: includes/class-wlfmc-admin.php:3778
 msgid "You can use <code>{login_url}</code> or <code>{signup_url}</code> in the text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3776
+#: includes/class-wlfmc-admin.php:3779
 #: includes/class-wlfmc-frontend.php:1315
 msgid "to use your Wishlist: <br><a href=\"{login_url}\">Login right now</a>"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3783
+#: includes/class-wlfmc-admin.php:3786
 msgid "it will show when users have to log in to add to the wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3786
+#: includes/class-wlfmc-admin.php:3789
 msgid "\"Product added\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3787
+#: includes/class-wlfmc-admin.php:3790
 msgid "Enter the text of the message displayed when the user adds a product to the Wishlist. leave empty for disable message."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3788
 #: includes/class-wlfmc-admin.php:3791
+#: includes/class-wlfmc-admin.php:3794
 msgid "Product added!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3794
+#: includes/class-wlfmc-admin.php:3797
 msgid "After the user clicks on the Add to wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3797
+#: includes/class-wlfmc-admin.php:3800
 msgid "\"Product removed\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3798
+#: includes/class-wlfmc-admin.php:3801
 msgid "Enter the text of the message displayed when the user removed a product from the Wishlist,leave empty for disable message"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3799
 #: includes/class-wlfmc-admin.php:3802
+#: includes/class-wlfmc-admin.php:3805
 msgid "Product Removed!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3805
+#: includes/class-wlfmc-admin.php:3808
 msgid "After the user clicks on the remove from wishlist button, a notification bar will be displayed. You can display the default text or any other text on this notification bar."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3808
+#: includes/class-wlfmc-admin.php:3811
 msgid "\"Product already in Wishlist\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3809
+#: includes/class-wlfmc-admin.php:3812
 msgid "Enter the text for the message displayed when the user will try to add a product that is already in the Wishlist,leave empty for disable message"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3810
 #: includes/class-wlfmc-admin.php:3813
+#: includes/class-wlfmc-admin.php:3816
 #: includes/class-wlfmc.php:398
 #: includes/class-wlfmc.php:817
 msgid "The product is already in your Wishlist!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3816
+#: includes/class-wlfmc-admin.php:3819
 msgid "If the product already exists in the user's wishlist and she/he clicks the Add to wishlist button again, this text will be displayed."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3824
+#: includes/class-wlfmc-admin.php:3827
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:281
 msgid "Button and tooltip custom text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3825
+#: includes/class-wlfmc-admin.php:3828
 msgid "It will show on the tooltip and button text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3833
-#: includes/class-wlfmc-admin.php:5611
+#: includes/class-wlfmc-admin.php:3836
+#: includes/class-wlfmc-admin.php:5624
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:289
 msgid "\"Add To Wishlist\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3836
 #: includes/class-wlfmc-admin.php:3839
-#: includes/class-wlfmc-admin.php:5613
+#: includes/class-wlfmc-admin.php:3842
+#: includes/class-wlfmc-admin.php:5626
 #: includes/class-wlfmc-install.php:777
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:52
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:292
@@ -2839,149 +2827,149 @@ msgstr ""
 msgid "Add To Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3842
+#: includes/class-wlfmc-admin.php:3845
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:300
 msgid "\"View My Wishlist\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3857
+#: includes/class-wlfmc-admin.php:3860
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:311
 msgid "\"Remove From Wishlist\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3860
 #: includes/class-wlfmc-admin.php:3863
+#: includes/class-wlfmc-admin.php:3866
 #: includes/class-wlfmc-install.php:779
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:314
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:315
 msgid "Remove From Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3872
+#: includes/class-wlfmc-admin.php:3875
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:322
 msgid "\"Already In Wishlist\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3875
 #: includes/class-wlfmc-admin.php:3878
+#: includes/class-wlfmc-admin.php:3881
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:325
 msgid "Already In Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3892
+#: includes/class-wlfmc-admin.php:3895
 msgid "Page custom text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3893
+#: includes/class-wlfmc-admin.php:3896
 msgid "It will show on the tooltip and label text."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3901
+#: includes/class-wlfmc-admin.php:3904
 msgid "Wishlist name"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3902
-#: includes/class-wlfmc-admin.php:5379
+#: includes/class-wlfmc-admin.php:3905
+#: includes/class-wlfmc-admin.php:5392
 msgid "This phrase is used for tabs, menus, and wherever you need a title for the Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3903
 #: includes/class-wlfmc-admin.php:3906
-#: includes/class-wlfmc-admin.php:5380
+#: includes/class-wlfmc-admin.php:3909
+#: includes/class-wlfmc-admin.php:5393
 #: includes/class-wlfmc-shortcode.php:98
 #: includes/class-wlfmc-wishlist.php:384
 #: templates/emails/mc-template.php:56
 msgid "My Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3911
+#: includes/class-wlfmc-admin.php:3914
 msgid "\"Add all to cart\" tooltip text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3917
-#: includes/class-wlfmc-admin.php:3919
+#: includes/class-wlfmc-admin.php:3920
+#: includes/class-wlfmc-admin.php:3922
 #: includes/class-wlfmc-shortcode.php:347
 msgid "All products on the Wishlist will be added to the cart (except out-of-stock products and variable products without specifying the variable)."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3933
+#: includes/class-wlfmc-admin.php:3936
 msgid "Mini Wishlist Texts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3946
+#: includes/class-wlfmc-admin.php:3949
 msgid "Mini wishlist button text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3955
+#: includes/class-wlfmc-admin.php:3958
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:407
 msgid "\"Total products\" text"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:3958
 #: includes/class-wlfmc-admin.php:3961
+#: includes/class-wlfmc-admin.php:3964
 #: includes/class-wlfmc-shortcode.php:839
 #: includes/elementor/widgets/class-wlfmc-elementor-wishlist-counter.php:410
 msgid "Total products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4061
+#: includes/class-wlfmc-admin.php:4065
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:211
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1872
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-statistics-table-demo.php:47
 msgid "Lists"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4106
+#: includes/class-wlfmc-admin.php:4110
 msgid "Added to list"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4247
+#: includes/class-wlfmc-admin.php:4250
 msgid "MC Wishlist Page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4342
+#: includes/class-wlfmc-admin.php:4344
 msgid "Previous version not found."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4347
+#: includes/class-wlfmc-admin.php:4349
 msgid "Rollback to previous version disabled."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4364
+#: includes/class-wlfmc-admin.php:4366
 msgid "Plugin not found."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4402
+#: includes/class-wlfmc-admin.php:4404
 msgid "Rollback to Previous Version"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4409
+#: includes/class-wlfmc-admin.php:4411
 msgid "MC Wishlist Rollback to previous version"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4462
-#: includes/class-wlfmc-admin.php:4463
+#: includes/class-wlfmc-admin.php:4464
+#: includes/class-wlfmc-admin.php:4465
 msgid "MC Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4472
-#: includes/class-wlfmc-admin.php:4473
+#: includes/class-wlfmc-admin.php:4474
+#: includes/class-wlfmc-admin.php:4475
 #: includes/functions.php:575
 msgid "Fast Setup"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4481
-#: includes/class-wlfmc-admin.php:4482
+#: includes/class-wlfmc-admin.php:4483
+#: includes/class-wlfmc-admin.php:4484
 msgid "Dashboard"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4490
-#: includes/class-wlfmc-admin.php:4491
+#: includes/class-wlfmc-admin.php:4492
+#: includes/class-wlfmc-admin.php:4493
 msgid "Global"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4508
-#: includes/class-wlfmc-admin.php:4509
+#: includes/class-wlfmc-admin.php:4510
+#: includes/class-wlfmc-admin.php:4511
 msgid "Email Automation"
 msgstr ""
 
@@ -2990,93 +2978,90 @@ msgstr ""
 msgid "Text Customization"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4635
+#: includes/class-wlfmc-admin.php:4633
 msgid "Wishlist Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4636
+#: includes/class-wlfmc-admin.php:4634
 #: includes/functions.php:827
 #: templates/admin/mc-dashboard.php:115
 msgid "Global Settings"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4637
+#: includes/class-wlfmc-admin.php:4635
 msgid "Submit Bugs"
 msgstr ""
 
 #. translators: %s: old version
-#: includes/class-wlfmc-admin.php:4641
-#, php-format
+#: includes/class-wlfmc-admin.php:4639
 msgid "Are you sure you want to revert to the previous version of the plugin (%s)? (in case there is an issue)"
 msgstr ""
 
 #. translators: %s: old version
-#: includes/class-wlfmc-admin.php:4641
+#: includes/class-wlfmc-admin.php:4639
 msgid "Rollback"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4661
-#: includes/class-wlfmc-admin.php:5760
+#: includes/class-wlfmc-admin.php:4658
+#: includes/class-wlfmc-admin.php:5773
 #: includes/functions.php:845
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4662
-#: includes/class-wlfmc-admin.php:5722
-#: includes/class-wlfmc-admin.php:5755
+#: includes/class-wlfmc-admin.php:4659
+#: includes/class-wlfmc-admin.php:5735
+#: includes/class-wlfmc-admin.php:5768
 msgid "Support"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4663
+#: includes/class-wlfmc-admin.php:4660
 msgid "Get Pro"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4695
+#: includes/class-wlfmc-admin.php:4692
 msgid "Making a page ..."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4696
+#: includes/class-wlfmc-admin.php:4693
 msgid "Sending ..."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4697
+#: includes/class-wlfmc-admin.php:4694
 msgid "Resetting ..."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4698
+#: includes/class-wlfmc-admin.php:4695
 msgid "All previous cycle between complete automation and running a new automation will be cleared and all automation cycle rules will be cleared for all users.  Do you agree to delete this information?"
 msgstr ""
 
 #. translators: %s: decimal
-#: includes/class-wlfmc-admin.php:4700
-#, php-format
+#: includes/class-wlfmc-admin.php:4697
 msgid "Please enter with one decimal point (%s) without thousand separators."
 msgstr ""
 
 #. translators: %s: price decimal separator
-#: includes/class-wlfmc-admin.php:4702
-#, php-format
+#: includes/class-wlfmc-admin.php:4699
 msgid "Please enter with one monetary decimal point (%s) without thousand separators and currency symbols."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4703
+#: includes/class-wlfmc-admin.php:4700
 msgid "Value of the coupon(percent)."
 msgstr ""
 
 #. translators: %s: currency symbol
-#: includes/class-wlfmc-admin.php:4705
+#: includes/class-wlfmc-admin.php:4702
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:387
 msgid "Value of the coupon."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4753
+#: includes/class-wlfmc-admin.php:4749
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:130
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:154
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:177
 msgid "MoreConvert Setting"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4754
+#: includes/class-wlfmc-admin.php:4750
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:131
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:155
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:178
@@ -3084,47 +3069,47 @@ msgstr ""
 msgid "Gather leads and boost your sales with attention-grabbing lists for potential customers."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4796
+#: includes/class-wlfmc-admin.php:4791
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1048
 msgid "Created Lists"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4803
+#: includes/class-wlfmc-admin.php:4798
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1055
 msgid "Added Products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4817
+#: includes/class-wlfmc-admin.php:4812
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1069
 msgid "Send Emails"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4824
+#: includes/class-wlfmc-admin.php:4819
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1076
 msgid "Sales"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4839
+#: includes/class-wlfmc-admin.php:4834
 msgid "Set a wishlist button to your store and find out your user's favorite items"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4842
+#: includes/class-wlfmc-admin.php:4837
 msgid "Next Purchase Cart (Save for later)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4844
-#: includes/class-wlfmc-admin.php:4898
-#: includes/class-wlfmc-admin.php:4955
-#: includes/class-wlfmc-admin.php:5044
-#: includes/class-wlfmc-admin.php:5099
+#: includes/class-wlfmc-admin.php:4839
+#: includes/class-wlfmc-admin.php:4893
+#: includes/class-wlfmc-admin.php:4950
+#: includes/class-wlfmc-admin.php:5040
+#: includes/class-wlfmc-admin.php:5095
 msgid "PRO"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4851
-#: includes/class-wlfmc-admin.php:4907
-#: includes/class-wlfmc-admin.php:4962
-#: includes/class-wlfmc-admin.php:5052
-#: includes/class-wlfmc-admin.php:5107
+#: includes/class-wlfmc-admin.php:4846
+#: includes/class-wlfmc-admin.php:4902
+#: includes/class-wlfmc-admin.php:4957
+#: includes/class-wlfmc-admin.php:5048
+#: includes/class-wlfmc-admin.php:5103
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1306
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1405
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1504
@@ -3134,43 +3119,43 @@ msgstr ""
 msgid "Unlock Now!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4851
+#: includes/class-wlfmc-admin.php:4846
 msgid "MC Next Purchase Cart"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4852
+#: includes/class-wlfmc-admin.php:4847
 msgid "Allow users to save products that they want to delete from their cart to buy later and active smart offers and recommendations based on users’ intentions."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4856
+#: includes/class-wlfmc-admin.php:4851
 msgid "Increase Sales with Saved Carts"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4860
+#: includes/class-wlfmc-admin.php:4855
 msgid "Decrease Cart Abandonment"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4864
+#: includes/class-wlfmc-admin.php:4859
 msgid "Increase Average Order Value"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4868
+#: includes/class-wlfmc-admin.php:4863
 msgid "Cross-Selling Opportunities"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4872
+#: includes/class-wlfmc-admin.php:4867
 msgid "Stand out from competitors"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4876
+#: includes/class-wlfmc-admin.php:4871
 msgid "Email Marketing Opportunities"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4881
-#: includes/class-wlfmc-admin.php:4937
-#: includes/class-wlfmc-admin.php:4992
-#: includes/class-wlfmc-admin.php:5082
-#: includes/class-wlfmc-admin.php:5137
+#: includes/class-wlfmc-admin.php:4876
+#: includes/class-wlfmc-admin.php:4932
+#: includes/class-wlfmc-admin.php:4987
+#: includes/class-wlfmc-admin.php:5078
+#: includes/class-wlfmc-admin.php:5133
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1336
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1435
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1534
@@ -3179,11 +3164,11 @@ msgstr ""
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4887
-#: includes/class-wlfmc-admin.php:4943
-#: includes/class-wlfmc-admin.php:4998
-#: includes/class-wlfmc-admin.php:5088
-#: includes/class-wlfmc-admin.php:5143
+#: includes/class-wlfmc-admin.php:4882
+#: includes/class-wlfmc-admin.php:4938
+#: includes/class-wlfmc-admin.php:4993
+#: includes/class-wlfmc-admin.php:5084
+#: includes/class-wlfmc-admin.php:5139
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1342
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1441
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1540
@@ -3192,12 +3177,12 @@ msgstr ""
 msgid "Learn More"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4894
+#: includes/class-wlfmc-admin.php:4889
 #: templates/admin/mc-wizard-features.php:85
 msgid "Set a button for your users on their cart page and prevent them from deleting products when they aren't ready to buy."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4897
+#: includes/class-wlfmc-admin.php:4892
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1926
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1953
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1978
@@ -3208,99 +3193,101 @@ msgstr ""
 #: templates/admin/mc-wizard-features.php:44
 #: templates/admin/mc-wizard-features.php:75
 #: templates/admin/mc-wizard-features.php:77
+#: assets/backend/js/add-to-list-block.js:102
 #: src/backend/js/add-to-list-block.js:117
 msgid "Multi-list"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4901
+#: includes/class-wlfmc-admin.php:4896
 msgid "Set a multi-list button to your store and allow to create of different lists depending on their needs"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4907
+#: includes/class-wlfmc-admin.php:4902
 msgid "MC Multi-List"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4908
+#: includes/class-wlfmc-admin.php:4903
 msgid "With MC Multi-list, you allow your users to create multiple lists and share them everywhere, and you have a chance to offer them based on their lists automatically!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4912
+#: includes/class-wlfmc-admin.php:4907
 msgid "Efficient Product Categorization"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4916
+#: includes/class-wlfmc-admin.php:4911
 msgid "Separate Lists for Different Occasions"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4920
+#: includes/class-wlfmc-admin.php:4915
 msgid "List Sharing with Friends and Family"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4924
+#: includes/class-wlfmc-admin.php:4919
 msgid "Creating Orders for Clients"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4928
+#: includes/class-wlfmc-admin.php:4923
 msgid "Lists for B2B Sales"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4932
+#: includes/class-wlfmc-admin.php:4927
 msgid "Personalized Email Campaigns"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4953
-#: includes/class-wlfmc-admin.php:4962
+#: includes/class-wlfmc-admin.php:4948
+#: includes/class-wlfmc-admin.php:4957
 #: includes/elementor/class-wlfmc-elementor.php:207
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1405
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-lists-table-demo.php:153
 #: templates/admin/mc-wizard-features.php:46
 #: templates/admin/mc-wizard-features.php:89
 #: templates/admin/mc-wizard-features.php:91
+#: assets/backend/js/add-to-list-block.js:103
 #: src/backend/js/add-to-list-block.js:118
 msgid "Waitlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4963
+#: includes/class-wlfmc-admin.php:4958
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1406
 msgid "Add a Customizable waitlist button, detailed waitlist page design, and counter option, you’ll never miss a sale again."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4967
+#: includes/class-wlfmc-admin.php:4962
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1410
 msgid "Pre-launch Waitlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4971
+#: includes/class-wlfmc-admin.php:4966
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1414
 msgid "Price Change Alert"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4975
+#: includes/class-wlfmc-admin.php:4970
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1418
 msgid "Flash Sale Waitlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4979
+#: includes/class-wlfmc-admin.php:4974
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1422
 msgid "Low Stock Alert"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4983
+#: includes/class-wlfmc-admin.php:4978
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1426
 msgid "Back in Stock Notification for Similar Products"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:4987
+#: includes/class-wlfmc-admin.php:4982
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1430
 msgid "Integrated with other lists"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5005
+#: includes/class-wlfmc-admin.php:5000
 #: templates/admin/mc-wizard-features.php:92
 msgid "Set a button on your product page and help users to notify when a product comes back in stock or its price has changed."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5037
+#: includes/class-wlfmc-admin.php:5033
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1306
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:906
 #: templates/admin/mc-wizard-features.php:103
@@ -3308,57 +3295,57 @@ msgstr ""
 msgid "Sequential Email Automation"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5040
+#: includes/class-wlfmc-admin.php:5036
 msgid "Set up once to send emails to users based on your terms"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5043
-#: includes/class-wlfmc-admin.php:5052
+#: includes/class-wlfmc-admin.php:5039
+#: includes/class-wlfmc-admin.php:5048
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1504
 msgid "One-Shot Email"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5053
+#: includes/class-wlfmc-admin.php:5049
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1505
 msgid "Select a specific group of users that add products to their lists and send them an email with dedicated coupons."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5057
+#: includes/class-wlfmc-admin.php:5053
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1509
 msgid "New Product Launch Announcement"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5061
+#: includes/class-wlfmc-admin.php:5057
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1513
 msgid "Cross-Selling and Upselling"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5065
+#: includes/class-wlfmc-admin.php:5061
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1517
 msgid "Seasonal Sales Promotion"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5069
+#: includes/class-wlfmc-admin.php:5065
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1521
 msgid "Re-engagement Campaigns"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5073
+#: includes/class-wlfmc-admin.php:5069
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1525
 msgid "Best-Selling Product Promotion"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5077
+#: includes/class-wlfmc-admin.php:5073
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1529
 msgid "One Time Personalized Recommendations"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5095
+#: includes/class-wlfmc-admin.php:5091
 msgid "Send emails to your selected subscribers"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5098
-#: includes/class-wlfmc-admin.php:5107
+#: includes/class-wlfmc-admin.php:5094
+#: includes/class-wlfmc-admin.php:5103
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1604
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2678
 #: templates/admin/mc-wizard-features.php:50
@@ -3367,293 +3354,293 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5108
+#: includes/class-wlfmc-admin.php:5104
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1605
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:2679
 msgid "By analyzing individual user’s lists, you can tailor your marketing strategies to be more specific and effective, resulting in increased sales."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5112
+#: includes/class-wlfmc-admin.php:5108
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1609
 msgid "Segment your audience"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5116
+#: includes/class-wlfmc-admin.php:5112
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1613
 msgid "Personalize email content"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5120
+#: includes/class-wlfmc-admin.php:5116
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1617
 msgid "Track customer journey"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5124
+#: includes/class-wlfmc-admin.php:5120
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1311
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1621
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:933
 msgid "Increase customer retention"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5128
+#: includes/class-wlfmc-admin.php:5124
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1625
 msgid "Predict future sales"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5132
+#: includes/class-wlfmc-admin.php:5128
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1629
 msgid "Identify popular categories"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5150
+#: includes/class-wlfmc-admin.php:5146
 msgid "Find out the ways you can boost your sales based on users' activities"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5158
+#: includes/class-wlfmc-admin.php:5154
 msgid "4+ WordPress Retargeting Strategies for 2023"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5163
+#: includes/class-wlfmc-admin.php:5159
 msgid "Ultimate Guide to Increase WooCommerce Sales | Step-by-Step"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5168
+#: includes/class-wlfmc-admin.php:5164
 msgid "Improve User Experience in WooCommerce [10 Unique Ways]"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5173
+#: includes/class-wlfmc-admin.php:5169
 msgid "5+ Magic Ways to Increase Online Sales with Wishlists"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5360
+#: includes/class-wlfmc-admin.php:5373
 msgid "Welcome"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5362
+#: includes/class-wlfmc-admin.php:5375
 msgid "Welcome To More Convert Challenge!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5363
+#: includes/class-wlfmc-admin.php:5376
 msgid "How to Sell More Without More Traffic?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5364
+#: includes/class-wlfmc-admin.php:5377
 msgid "You made the best decision by choosing the MC Wishlist; our goal is you can sell more, not to entertain your user with some buttons and lists 😉 Ready to have some simple settings together?"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5367
+#: includes/class-wlfmc-admin.php:5380
 msgid "Page Setup"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5368
+#: includes/class-wlfmc-admin.php:5381
 msgid "Page Setup Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5369
+#: includes/class-wlfmc-admin.php:5382
 msgid "Enter a name for the Wishlist page. This name will be used for the user menu in the WooCommerce user panel."
 msgstr ""
 
 #. translators: %s is a link to the Wishlist settings page.
-#: includes/class-wlfmc-admin.php:5372
-#, php-format
+#: includes/class-wlfmc-admin.php:5385
 msgid "All settings of this step and the next steps can be changed through the %s."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5373
-#: includes/class-wlfmc-admin.php:5624
+#. translators: %s is a link to the Wishlist settings page.
+#. translators: %1$s is a link to the Wishlist settings page., %2$s is a link to the Global settings page.
+#: includes/class-wlfmc-admin.php:5386
+#: includes/class-wlfmc-admin.php:5637
 msgid "MC Wishlist > wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5378
+#: includes/class-wlfmc-admin.php:5391
 msgid "Wishlist page name"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5398
+#: includes/class-wlfmc-admin.php:5411
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:113
 msgid "Button"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5399
+#: includes/class-wlfmc-admin.php:5412
 msgid "Button Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5400
+#: includes/class-wlfmc-admin.php:5413
 msgid "Choose where the Add to Wishlist button is displayed on the product page and the listings (like the shop page)."
 msgstr ""
 
 #. translators: %s is a link to the Wishlist button settings page.
-#: includes/class-wlfmc-admin.php:5403
-#, php-format
+#: includes/class-wlfmc-admin.php:5416
 msgid "You can change the color and icon of the button later from %s"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5404
+#. translators: %s is a link to the Wishlist button settings page.
+#: includes/class-wlfmc-admin.php:5417
 msgid "MC Wishlist > wishlist(button tab & text tab)"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5409
+#: includes/class-wlfmc-admin.php:5422
 msgid "Button position on product page"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5412
-#: includes/class-wlfmc-admin.php:5536
+#: includes/class-wlfmc-admin.php:5425
+#: includes/class-wlfmc-admin.php:5549
 msgid "These settings are the default and may not sync with your Theme. In that case, you should use the plugin shortcodes."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5447
-#: includes/class-wlfmc-admin.php:5456
-#: includes/class-wlfmc-admin.php:5465
-#: includes/class-wlfmc-admin.php:5474
-#: includes/class-wlfmc-admin.php:5483
-#: includes/class-wlfmc-admin.php:5492
-#: includes/class-wlfmc-admin.php:5501
-#: includes/class-wlfmc-admin.php:5510
-#: includes/class-wlfmc-admin.php:5519
-#: includes/class-wlfmc-admin.php:5568
-#: includes/class-wlfmc-admin.php:5577
-#: includes/class-wlfmc-admin.php:5586
-#: includes/class-wlfmc-admin.php:5595
+#: includes/class-wlfmc-admin.php:5460
+#: includes/class-wlfmc-admin.php:5469
+#: includes/class-wlfmc-admin.php:5478
+#: includes/class-wlfmc-admin.php:5487
+#: includes/class-wlfmc-admin.php:5496
+#: includes/class-wlfmc-admin.php:5505
+#: includes/class-wlfmc-admin.php:5514
+#: includes/class-wlfmc-admin.php:5523
+#: includes/class-wlfmc-admin.php:5532
+#: includes/class-wlfmc-admin.php:5581
+#: includes/class-wlfmc-admin.php:5590
+#: includes/class-wlfmc-admin.php:5599
+#: includes/class-wlfmc-admin.php:5608
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:764
 msgid "Preview:"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5535
+#: includes/class-wlfmc-admin.php:5548
 msgid "Button position on listing"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5618
+#: includes/class-wlfmc-admin.php:5631
 msgid "Processing"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5619
+#: includes/class-wlfmc-admin.php:5632
 msgid "Processing Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5620
+#: includes/class-wlfmc-admin.php:5633
 msgid "Adjust the behavior of the Wishlist button after clicking on it and after clicking again."
 msgstr ""
 
-#. translators: %1$s is a link to the Wishlist settings page, %2$s is a link to the Global settings page.
-#: includes/class-wlfmc-admin.php:5623
-#, php-format
+#. translators: %1$s is a link to the Wishlist settings page., %2$s is a link to the Global settings page.
+#: includes/class-wlfmc-admin.php:5636
 msgid "you can change the pop up details and other settings from %1$s and %2$s"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5625
+#: includes/class-wlfmc-admin.php:5638
 msgid "MC Wishlist > global"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5669
+#: includes/class-wlfmc-admin.php:5682
 msgid "Share Options"
 msgstr ""
 
 #. translators: %1$s is a link to the Global Share settings page, %2$s is a link to the Wishlist Page settings page.
-#: includes/class-wlfmc-admin.php:5672
-#, php-format
+#: includes/class-wlfmc-admin.php:5685
 msgid "you can change the marketing details from %1$s and %2$s"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5673
+#. translators: %1$s is a link to the Global Share settings page, %2$s is a link to the Wishlist Page settings page.
+#: includes/class-wlfmc-admin.php:5686
 msgid "MC Wishlist > global > share tab"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5674
+#: includes/class-wlfmc-admin.php:5687
 msgid "MC Wishlist > wishlist > page tab"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5679
+#: includes/class-wlfmc-admin.php:5692
 msgid "Users share their Wishlist on social media"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5716
+#: includes/class-wlfmc-admin.php:5729
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:62
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:63
 msgid "Features"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5717
+#: includes/class-wlfmc-admin.php:5730
 msgid "Choose the plan that fits your needs"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5718
+#: includes/class-wlfmc-admin.php:5731
 msgid "Each plan includes a set of features designed to enhance your WordPress site. Choose the plan that best meets your needs."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5719
+#: includes/class-wlfmc-admin.php:5732
 msgid "You can always upgrade anytime later from the MoreConvert dashboard if needed. Starter is great for beginners, but Premium offers more advanced features."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5723
+#: includes/class-wlfmc-admin.php:5736
 msgid "Support Options"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5724
+#: includes/class-wlfmc-admin.php:5737
 msgid "Your satisfaction is very important to us, if you have an idea, problem or question, let us know, we will try to answer you very quickly.<br>Our goal and yours is to increase sales, I hope we succeed in this challenge."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5728
+#: includes/class-wlfmc-admin.php:5741
 msgid "Enable support chat option to get fast and online support"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5742
+#: includes/class-wlfmc-admin.php:5755
 msgid "I want to get more and better features of this plugin with data track permission (non-personal) to help improve it."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5749
+#: includes/class-wlfmc-admin.php:5762
 msgid "Ready!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5751
+#: includes/class-wlfmc-admin.php:5764
 msgid "Congratulations! Everything is set!"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5752
+#: includes/class-wlfmc-admin.php:5765
 msgid "You can have more and more detailed settings from the plugin settings.<br>This plugin is very powerful, and we are developing it tremendously to work on your sales in various ways.<br>To support us, be sure to keep the plugin active and let us know your ideas."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5765
+#: includes/class-wlfmc-admin.php:5778
 msgid "About Premium"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5770
+#: includes/class-wlfmc-admin.php:5783
 msgid "Go To Dashboard"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5901
+#: includes/class-wlfmc-admin.php:5914
 msgid "Notification for Back in Stock and On Sale"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5902
+#: includes/class-wlfmc-admin.php:5915
 msgid "Multiple Lists And Save Cart For Later"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5903
+#: includes/class-wlfmc-admin.php:5916
 msgid "Advanced Reports with filter options and export"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5904
+#: includes/class-wlfmc-admin.php:5917
 msgid "More Customization Options and +100 integration"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5905
+#: includes/class-wlfmc-admin.php:5918
 msgid "Total Price Of Lists, Items Price Changes in the Wishlist"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5906
+#: includes/class-wlfmc-admin.php:5919
 msgid "Automatic Email Marketing and One-Shot Campaigns"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5911
+#: includes/class-wlfmc-admin.php:5924
 #: includes/functions.php:877
 #: includes/functions.php:880
 msgid "Get MoreConvert Pro"
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5912
+#: includes/class-wlfmc-admin.php:5925
 msgid "Switch to MoreConvert Pro: Faster site, Fewer plugins, Essential options."
 msgstr ""
 
-#: includes/class-wlfmc-admin.php:5922
+#: includes/class-wlfmc-admin.php:5935
 msgid "Discover MoreConvert Pro now"
 msgstr ""
 
@@ -3686,7 +3673,6 @@ msgstr ""
 
 #. translators:  %s: error message
 #: includes/class-wlfmc-ajax-handler.php:509
-#, php-format
 msgid "WPML String Translation plugin error %s. navigation to WPML->string translation page and try again."
 msgstr ""
 
@@ -3713,7 +3699,6 @@ msgstr ""
 
 #. translators: %d is the number of minutes.
 #: includes/class-wlfmc-date-formatter.php:206
-#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] ""
@@ -3721,7 +3706,6 @@ msgstr[1] ""
 
 #. translators: %d is the number of hours.
 #: includes/class-wlfmc-date-formatter.php:210
-#, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] ""
@@ -3733,7 +3717,6 @@ msgstr ""
 
 #. translators: %d is the number of days.
 #: includes/class-wlfmc-date-formatter.php:217
-#, php-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] ""
@@ -3741,7 +3724,6 @@ msgstr[1] ""
 
 #. translators: %d is the number of week.
 #: includes/class-wlfmc-date-formatter.php:222
-#, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
 msgstr[0] ""
@@ -3749,7 +3731,6 @@ msgstr[1] ""
 
 #. translators: %d is the number of month.
 #: includes/class-wlfmc-date-formatter.php:226
-#, php-format
 msgid "%d month ago"
 msgid_plural "%d months ago"
 msgstr[0] ""
@@ -3757,7 +3738,6 @@ msgstr[1] ""
 
 #. translators: %d is the number of year.
 #: includes/class-wlfmc-date-formatter.php:230
-#, php-format
 msgid "%d year ago"
 msgid_plural "%d years ago"
 msgstr[0] ""
@@ -3775,7 +3755,6 @@ msgstr ""
 #. translators: %s: Number of successful operations .
 #: includes/class-wlfmc-form-handler.php:197
 #: includes/class-wlfmc-form-handler.php:325
-#, php-format
 msgid "%s item have been correctly added to the cart"
 msgid_plural "%s items have been correctly added to the cart"
 msgstr[0] ""
@@ -3783,7 +3762,6 @@ msgstr[1] ""
 
 #. translators: %s: Number of successful operations .
 #: includes/class-wlfmc-form-handler.php:201
-#, php-format
 msgid "%s item have been correctly removed"
 msgid_plural "%s items have been correctly removed"
 msgstr[0] ""
@@ -3791,7 +3769,6 @@ msgstr[1] ""
 
 #. translators: 1. Destination wishlist name.
 #: includes/class-wlfmc-form-handler.php:207
-#, php-format
 msgid "The items have been correctly moved to %s"
 msgstr ""
 
@@ -3846,7 +3823,6 @@ msgstr ""
 
 #. translators: 1 error message
 #: includes/class-wlfmc-install.php:1354
-#, php-format
 msgid "An error occurred after update to the version 1.6.3: %s"
 msgstr ""
 
@@ -3915,13 +3891,11 @@ msgstr ""
 
 #. Translators: %s Order number.
 #: includes/class-wlfmc-privacy.php:295
-#, php-format
 msgid "Removed wishlist %s."
 msgstr ""
 
 #. Translators: %s Order number.
 #: includes/class-wlfmc-privacy.php:299
-#, php-format
 msgid "Wishlist %s has been retained."
 msgstr ""
 
@@ -4058,7 +4032,6 @@ msgstr ""
 
 #. translators: 1. % of reduction/increase in price. 2: original product price.
 #: includes/class-wlfmc-wishlist-item.php:604
-#, php-format
 msgctxt "The template that shows price variation since addition to list."
 msgid "Price changed by %1$s%% from %2$s"
 msgstr ""
@@ -4089,7 +4062,6 @@ msgstr ""
 #. translators: %s wishlist name
 #: includes/class-wlfmc.php:578
 #: includes/class-wlfmc.php:734
-#, php-format
 msgid "An error occurred while adding the products to the %s list."
 msgstr ""
 
@@ -4109,7 +4081,6 @@ msgstr ""
 
 #. translators: %s wishlist name
 #: includes/class-wlfmc.php:680
-#, php-format
 msgid "Error. Unable to remove the product from the %s list."
 msgstr ""
 
@@ -4767,7 +4738,6 @@ msgstr ""
 
 #. translators: %1$s is a help text or tooltip, %2$s is an HTML span indicating if .
 #: includes/functions.php:587
-#, php-format
 msgid "Test Mode %1$s %2$s"
 msgstr ""
 
@@ -5709,7 +5679,6 @@ msgstr ""
 
 #. translators: %1$s: product name , %2$: error notice .
 #: includes/functions.php:1785
-#, php-format
 msgid "We couldn't add %1$s to the cart because: %2$s"
 msgstr ""
 
@@ -6175,8 +6144,8 @@ msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
 #: includes/gutenberg/class-wlfmc-gutenberg.php:139
+#: assets/backend/js/add-to-list-block.js:66
 #: src/backend/js/add-to-list-block.js:65
-#, php-format,js-format
 msgid "The %s feature requires the Pro version of the plugin."
 msgstr ""
 
@@ -6214,7 +6183,6 @@ msgstr ""
 #: includes/integrations/flatsome.php:317
 #: includes/integrations/flatsome.php:409
 #: includes/integrations/flatsome.php:502
-#, php-format
 msgid "To change the settings of this section, please refer to the %s."
 msgstr ""
 
@@ -6311,13 +6279,13 @@ msgstr ""
 
 #: includes/integrations/generatepress.php:48
 #: includes/integrations/go.php:48
-#: includes/integrations/woostify.php:78
+#: includes/integrations/woostify.php:76
 msgid "Mc Wishlist Counter"
 msgstr ""
 
 #: includes/integrations/generatepress.php:66
 #: includes/integrations/go.php:66
-#: includes/integrations/woostify.php:100
+#: includes/integrations/woostify.php:98
 msgid "Mc Waitlist Counter"
 msgstr ""
 
@@ -6444,12 +6412,12 @@ msgstr ""
 msgid "For Woodmart Theme archive pages, just \"icon only\" mode is supported."
 msgstr ""
 
-#: includes/integrations/woostify.php:122
+#: includes/integrations/woostify.php:120
 msgid "Mc Lists Counter"
 msgstr ""
 
-#: includes/integrations/woostify.php:279
-#: includes/integrations/woostify.php:302
+#: includes/integrations/woostify.php:277
+#: includes/integrations/woostify.php:300
 msgid "Default Woostify Theme"
 msgstr ""
 
@@ -7146,13 +7114,11 @@ msgstr ""
 
 #. translators: %1$d is the number of potential customers, %2$s is the product name with a link.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1158
-#, php-format
 msgid "%1$d Potential customers for %2$s"
 msgstr ""
 
 #. translators: %d is the number of potential customers who have added the product to their wishlist.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1165
-#, php-format
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Invite them to buy it right now with different ideas, such as a contest, on-sale automation, or even a webinar for them, with a special coupon provided at the end. Start increasing your revenue and don't lose this opportunity"
 msgstr ""
 
@@ -7171,19 +7137,16 @@ msgstr ""
 
 #. translators: %s is the number of positive reviews lost, displayed in a styled HTML heading.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1210
-#, php-format
 msgid "%s <strong>Positive Review Lost!</strong>"
 msgstr ""
 
 #. translators: %s is the product name with a styled HTML link.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1216
-#, php-format
 msgid "Lost Potential Review for %s"
 msgstr ""
 
 #. translators: %1$d is the number of users with the product on their wishlist, %2$d is the estimated number of positive reviews possible from an email campaign.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1223
-#, php-format
 msgid "With %1$d users who have this product on their wishlist, you can gain at least %2$d positive reviews by running a email campaign for its users. Set conditions for a big deal for all those who send the best reviews under this product."
 msgstr ""
 
@@ -7197,7 +7160,6 @@ msgstr ""
 
 #. translators: %d is the number of out-of-stock products.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1248
-#, php-format
 msgid "With %d out-of-stock products, you must immediately convert potential customers on your product pages into leads and boost sales by promoting similar or alternative available products to them."
 msgstr ""
 
@@ -7211,13 +7173,11 @@ msgstr ""
 
 #. translators: %s is the product name with a styled HTML link.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1277
-#, php-format
 msgid "Build a newsletter for: %s"
 msgstr ""
 
 #. translators: %d is the number of potential customers who have added the product to their wishlist.
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1283
-#, php-format
 msgid "Create an automation for the potential %d customers who have added the specific product to their wishlist. Design an email automation with 5 emails that send them a group of related videos, blog posts, and other reviews about this product to increase user motivation to buy it faster. Then, provide a dedicated coupon, all within MoreConvert automation part."
 msgstr ""
 
@@ -7783,7 +7743,6 @@ msgstr ""
 #. translators: %d : guest customer_id
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-top-users-table.php:49
 #: includes/marketing-toolkits/analytics/demo-tables/class-wlfmc-analytics-users-table-demo.php:51
-#, php-format
 msgid "Guest (#%d)"
 msgstr ""
 
@@ -7826,7 +7785,6 @@ msgstr ""
 
 #. translators: 1: list type
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics.php:342
-#, php-format
 msgid "Added by %s"
 msgstr ""
 
@@ -8030,7 +7988,6 @@ msgstr ""
 
 #. translators: %s: woocommerce document url
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:395
-#, php-format
 msgid "Check this box if the coupon grants free shipping. A <a href=\"%s\" target=\"_blank\">free shipping method</a> must be enabled in your shipping zone and be set to require \"a valid free shipping coupon\" (see the \"Free Shipping Requires\" setting)."
 msgstr ""
 
@@ -8088,7 +8045,6 @@ msgstr ""
 
 #. translators: %s: do not translated ,this is a placeholder
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:637
-#, php-format
 msgid "Reminder email %s"
 msgstr ""
 
@@ -8111,7 +8067,6 @@ msgstr ""
 
 #. translators: %s: do not translated ,this is a placeholder
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:653
-#, php-format
 msgid "%s day(s)"
 msgstr ""
 
@@ -8244,7 +8199,6 @@ msgstr ""
 
 #. translators: %s: automation report name
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:1007
-#, php-format
 msgid "%s Automation Reports"
 msgstr ""
 
@@ -8342,7 +8296,6 @@ msgstr ""
 
 #. translators: %s: email address
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:318
-#, php-format
 msgid "Email sent to %s."
 msgstr ""
 
@@ -8360,7 +8313,6 @@ msgstr ""
 
 #. translators: %s: field name
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:587
-#, php-format
 msgid "%s is a required field."
 msgstr ""
 
@@ -8739,6 +8691,10 @@ msgstr ""
 msgid "Show products total"
 msgstr ""
 
+#: smart-wishlist-for-more-convert.php:276
+msgid "is enabled but not effective. It requires WooCommerce to work."
+msgstr ""
+
 #: templates/admin/mc-dashboard.php:35
 msgid "Welcome to MoreConvert 🎉"
 msgstr ""
@@ -9019,7 +8975,6 @@ msgstr ""
 #. translators: %s is date added label.
 #: templates/mc-wishlist-view.php:282
 #: templates/mc-wishlist-view.php:463
-#, php-format
 msgid "Added on: %s"
 msgstr ""
 
@@ -9029,39 +8984,41 @@ msgid "Select All Product"
 msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
+#: assets/backend/js/add-to-list-block.js:36
 #: src/backend/js/add-to-list-block.js:31
-#, js-format
 msgid "MC Add to %s"
 msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
+#: assets/backend/js/add-to-list-block.js:38
 #: src/backend/js/add-to-list-block.js:36
-#, js-format
 msgid "A button to add products to %s."
 msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
+#: assets/backend/js/add-to-list-block.js:42
 #: src/backend/js/add-to-list-block.js:45
-#, js-format
 msgid "add to %s"
 msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
+#: assets/backend/js/add-to-list-block.js:71
 #: src/backend/js/add-to-list-block.js:75
-#, js-format
 msgid "Add to %s"
 msgstr ""
 
 #. translators: %s is the type of list (e.g., Wishlist, Multi-list, Waitlist).
+#: assets/backend/js/add-to-list-block.js:76
 #: src/backend/js/add-to-list-block.js:87
-#, js-format
 msgid "%s Settings"
 msgstr ""
 
+#: assets/backend/js/add-to-list-block.js:78
 #: src/backend/js/add-to-list-block.js:92
 msgid "Treat as Single Product Page"
 msgstr ""
 
+#: assets/backend/js/add-to-list-block.js:79
 #: src/backend/js/add-to-list-block.js:93
 msgid "Enable if this button is on a single product context."
 msgstr ""

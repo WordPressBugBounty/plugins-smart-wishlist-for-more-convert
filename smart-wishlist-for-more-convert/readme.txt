@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.9.4
-Stable tag: 1.9.15
+Tested up to: 6.9
+Stable tag: 1.9.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,16 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.17 =
+
+* Fixed: fix image corrupted.
+
+= 1.9.16 =
+
+* Fixed: Various PHPCS and PHPCBF errors.
+* Added: Owner verification for multilist – now checks user ownership before updating, changing privacy, or removing a list( Premium version).
+* Added: Owner verification before changing GDPR status.
 
 = 1.9.15 =
 

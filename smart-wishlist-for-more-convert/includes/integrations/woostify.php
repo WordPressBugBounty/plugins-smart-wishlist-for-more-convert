@@ -33,7 +33,6 @@ function wlfmc_woostify_integrate() {
 		add_filter( 'woostify_single_product_group_buttons', 'wlfmc_woostify_fix_single_bottom_on_image_position' );
 
 	}
-
 }
 
 /**
@@ -49,7 +48,6 @@ function wlfmc_after_setup_woostify() {
 		add_action( 'woostify_site_tool_before_second_item', 'wlfmc_woostify_header_counters' );
 		add_action( 'customize_register', 'wlfmc_woostify_customizer', 20 );
 	}
-
 }
 
 /**

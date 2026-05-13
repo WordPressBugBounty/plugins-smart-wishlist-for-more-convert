@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
- * @version 1.9.6
+ * @version 1.9.16
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -133,6 +133,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		 *
 		 * @param array $data $_POST data.
 		 *
+		 * @version 1.9.16
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function change_gdpr_status( array $data ) {
@@ -143,6 +144,9 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 				die();
 			}
 			$customer = wlfmc_get_customer( $customer_id );
+			if ( ! $customer || ! $customer->is_current_user_owner() ) {
+				return rest_ensure_response( array( 'result' => false ) );
+			}
 			if ( 'unsubscribe' === $action ) {
 				WLFMC_Wishlist_Factory::unsubscribe_customer( $customer );
 			} else {

@@ -55,7 +55,6 @@ if ( ! class_exists( 'MCT_Admin' ) ) {
 
 			add_action( 'admin_init', array( $this, 'save_option' ) );
 			add_action( 'admin_init', array( $this, 'reset_option' ) );
-
 		}
 
 		/**
@@ -386,7 +385,6 @@ if ( ! class_exists( 'MCT_Admin' ) ) {
 					exit;
 				}
 			}
-
 		}
 
 		/**
@@ -605,8 +603,5 @@ if ( ! class_exists( 'MCT_Admin' ) ) {
 
 			return $all_fields;
 		}
-
-
 	}
 }
-

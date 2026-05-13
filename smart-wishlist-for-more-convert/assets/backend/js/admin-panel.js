@@ -22,7 +22,7 @@ jQuery(function ($) {
     }
   };
   mct_coupon_actions.init();
-  var ImportByCsv = function ImportByCsv(action, offset, element) {
+  var _ImportByCsv = function ImportByCsv(action, offset, element) {
     $.ajax({
       url: wlfmc_wishlist_admin.ajax_url,
       data: {
@@ -46,7 +46,7 @@ jQuery(function ($) {
               showSnack(response.data.message, 'success');
             }, 2000);
           } else {
-            ImportByCsv(action, parseInt(response.data.offset), element);
+            _ImportByCsv(action, parseInt(response.data.offset), element);
           }
         } else {
           element.text(element.data('label'));
@@ -60,7 +60,7 @@ jQuery(function ($) {
       window.console.log(response);
     });
   };
-  var ImportByAction = function ImportByAction(action, offset, element) {
+  var _ImportByAction = function ImportByAction(action, offset, element) {
     $.ajax({
       url: wlfmc_wishlist_admin.ajax_url,
       data: {
@@ -83,7 +83,7 @@ jQuery(function ($) {
               showSnack(response.data.message, 'success');
             }, 2000);
           } else {
-            ImportByAction(action, parseInt(response.data.offset), element);
+            _ImportByAction(action, parseInt(response.data.offset), element);
           }
         } else {
           element.text(element.data('label'));
@@ -100,13 +100,13 @@ jQuery(function ($) {
   $(document.body).on('click', '.wlfmc-import-by-csv .mct_action_file_button', function (e) {
     var element = $(this);
     e.preventDefault();
-    ImportByCsv(element.closest('.wlfmc-import-by-csv').data('action'), 0, element);
+    _ImportByCsv(element.closest('.wlfmc-import-by-csv').data('action'), 0, element);
     return false;
   });
   $(document.body).on('click', '.wlfmc-import-by-action', function (e) {
     var element = $(this);
     e.preventDefault();
-    ImportByAction(element.data('action'), 0, element);
+    _ImportByAction(element.data('action'), 0, element);
     return false;
   });
   $(document.body).on('change', '.wc_input_price[type=text], .wc_input_decimal[type=text]', function () {

@@ -164,6 +164,5 @@ if ( ! class_exists( 'MCT_Options' ) ) {
 			$this->options = $new_options;
 			update_option( $this->option_id, $new_options );
 		}
-
 	}
 }

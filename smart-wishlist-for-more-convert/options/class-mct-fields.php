@@ -229,8 +229,8 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 			$this->subtitle             = $args['subtitle'] ?? '';
 			$this->class_array          = $args['class_array'] ?? array();
 			$this->ajax_saving          = $args['ajax_saving'] ?? false;
-            $this->sticky_buttons       = $args['sticky_buttons'] ?? false;
-            $this->back_to_dashboard    = $args['back_to_dashboard'] ?? false;
+			$this->sticky_buttons       = $args['sticky_buttons'] ?? false;
+			$this->back_to_dashboard    = $args['back_to_dashboard'] ?? false;
 			$this->field_values         = $args['field_values'] ?? false;
 			$this->fields               = $args['fields'] ?? false;
 			$this->add_form_tag         = $args['add_form_tag'] ?? true;
@@ -267,7 +267,7 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					'saved_options'        => $this->saved_options,
 					'ajax_saving'          => $this->ajax_saving,
 					'sticky_buttons'       => $this->sticky_buttons,
-                    'back_to_dashboard'    => $this->back_to_dashboard,
+					'back_to_dashboard'    => $this->back_to_dashboard,
 					'field_values'         => $this->field_values,
 					'fields'               => $this->fields,
 					'add_form_tag'         => $this->add_form_tag,
@@ -298,10 +298,10 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					$active_tab              = isset( $_GET['tab'] ) && '' !== $_GET['tab'] ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 					$type_class              = isset( $_GET['type'] ) && 'class' === $_GET['type'];
 					$has_sidebar             = ! empty( $this->sidebar );
-                    $container_sticky_start  = $this->sticky_buttons ? '<div class="mct-sticky-container">' : '';
+					$container_sticky_start  = $this->sticky_buttons ? '<div class="mct-sticky-container">' : '';
 					$container_sticky_middle = $this->sticky_buttons ? '</div><div class="mct-sticky-holder"></div><div class="mct-sticky">' : '';
 					$container_sticky_end    = $this->sticky_buttons ? '</div>' : '';
-                    $sticky_class            = $this->sticky_buttons ? 'mct-article' : 'mt-20';
+					$sticky_class            = $this->sticky_buttons ? 'mct-article' : 'mt-20';
 					// phpcs:enable
 					?>
 					<div class="wrap mct-wrapper">
@@ -322,12 +322,12 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 								?>
 							</div>
 						<?php endif; ?>
-                        <div class="message-holder">
-                            <h1 class="wp-heading-inline no-mar"></h1>
-                            <?php $this->message(); ?>
-                        </div>
+						<div class="message-holder">
+							<h1 class="wp-heading-inline no-mar"></h1>
+							<?php $this->message(); ?>
+						</div>
 
-                        <?php if ( '' !== $this->sections && ! empty( $this->sections ) ) : ?>
+						<?php if ( '' !== $this->sections && ! empty( $this->sections ) ) : ?>
 							<div
 								class="mct-section-wrapper" <?php echo '' !== $active_section ? 'style="display: none"' : ''; ?>>
 								<div class="mct-options">
@@ -364,10 +364,10 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 
 								<div class="mct-options <?php echo $has_sidebar ? 'has-sidebar' : ''; ?>">
 									<div class="mct-inside ">
-										<?php do_action( 'mct_start_mct-inside', $this );?>
+										<?php do_action( 'mct_start_mct-inside', $this ); ?>
 										<?php if ( true === $this->add_form_tag && false === $type_class ) : ?>
 										<form method="post" action="" class="mct-inside-inner mct-form <?php echo $this->ajax_saving ? 'mc-ajax-saving' : ''; ?>">
-                                        <?php endif; ?>
+										<?php endif; ?>
 
 											<?php if ( '' !== $this->sections && ! empty( $this->sections ) ) : ?>
 												<div class="d-flex space-between mct-fix-mar ">
@@ -390,7 +390,7 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 												<hr>
 											<?php endif; ?>
 
-                                            <?php echo wp_kses_post( $container_sticky_start ); ?>
+											<?php echo wp_kses_post( $container_sticky_start ); ?>
 
 											<?php if ( isset( $option['tabs'] ) && is_array( $option['tabs'] ) && ! empty( $option['tabs'] ) ) : ?>
 												<nav class="nav-tab-wrapper mct-tabs">
@@ -465,15 +465,15 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 
 											<?php endif; ?>
 
-                                            <?php echo wp_kses_post( $container_sticky_middle ); ?>
+											<?php echo wp_kses_post( $container_sticky_middle ); ?>
 
 											<?php if ( ( empty( $this->sections ) ) && false === $type_class ) : ?>
 												<div class="<?php echo esc_attr( $sticky_class ); ?>">
-                                                    <div class="d-flex space-between ">
-	                                                    <?php wp_nonce_field( 'mct-' . $k, 'mct-' . $k . '-nonce' ); ?>
-                                                        <input type="hidden" name="mct-option_id" value="<?php echo esc_attr( $this->id ); ?>" />
-                                                        <input type="hidden" name="mct-form-options" value='<?php echo wp_json_encode( $this->get_main_key_options() ); ?>'>
-                                                        <button class="btn-primary min-width-btn ico-btn save-btn  mct-save-btn" name="mct-action" value="<?php echo esc_attr( $k ); ?>" type="submit">
+													<div class="d-flex space-between ">
+														<?php wp_nonce_field( 'mct-' . $k, 'mct-' . $k . '-nonce' ); ?>
+														<input type="hidden" name="mct-option_id" value="<?php echo esc_attr( $this->id ); ?>" />
+														<input type="hidden" name="mct-form-options" value='<?php echo wp_json_encode( $this->get_main_key_options() ); ?>'>
+														<button class="btn-primary min-width-btn ico-btn save-btn  mct-save-btn" name="mct-action" value="<?php echo esc_attr( $k ); ?>" type="submit">
 														<svg width="21" x="0px" y="0px" viewBox="0 0 486 486" xml:space="preserve">
 															<g>
 																<path d="M473.7,485.75c6.8,0,12.3-5.5,12.3-12.3v-359.8c0-3.6-1.6-7-4.3-9.3L363,2.85c-0.2-0.2-0.4-0.3-0.6-0.4
@@ -491,20 +491,20 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 															</g>
 														</svg>
 														<?php esc_html_e( 'Save Settings', 'mct-options' ); ?></button>
-                                                        <button class="btn-secondary min-width-btn  mct-reset-btn"
-                                                                name="mct-reset"
-                                                                value="<?php echo esc_attr( $k ); ?>"
-                                                                type="submit"><?php esc_html_e( 'Reset Settings', 'mct-options' ); ?></button>
-                                                    </div>
+														<button class="btn-secondary min-width-btn  mct-reset-btn"
+																name="mct-reset"
+																value="<?php echo esc_attr( $k ); ?>"
+																type="submit"><?php esc_html_e( 'Reset Settings', 'mct-options' ); ?></button>
+													</div>
 												</div>
 											<?php endif; ?>
 
 											<?php echo wp_kses_post( $container_sticky_end ); ?>
 
-                                        <?php if ( true === $this->add_form_tag && false === $type_class ) : ?>
-                                            </form>
-                                        <?php endif; ?>
-                                        <?php do_action( 'mct_end_mct-inside', $this );?>
+										<?php if ( true === $this->add_form_tag && false === $type_class ) : ?>
+											</form>
+										<?php endif; ?>
+										<?php do_action( 'mct_end_mct-inside', $this ); ?>
 									</div>
 									<?php if ( true === $has_sidebar ) : ?>
 										<div
@@ -515,21 +515,21 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 														<?php echo isset( $sidebar['image'] ) ? wp_kses_post( '<figure>' . $sidebar['image'] . '</figure>' ) : ''; ?>
 														<?php echo isset( $sidebar['title'] ) ? wp_kses_post( '<h2 class="sidebar-title">' . $sidebar['title'] . '</h2>' ) : ''; ?>
 														<?php echo isset( $sidebar['desc'] ) ? wp_kses_post( '<p>' . $sidebar['desc'] . '</p>' ) : ''; ?>
-                                                        <?php echo isset( $sidebar['content'] ) ? wp_kses_post( '<div class="sidebar-content">' . $sidebar['content'] . '</div>' ) : ''; ?>
+														<?php echo isset( $sidebar['content'] ) ? wp_kses_post( '<div class="sidebar-content">' . $sidebar['content'] . '</div>' ) : ''; ?>
 														<?php if ( ! empty( $sidebar['button'] ) ) : ?>
 															<p>
 																<a target="<?php echo isset( $sidebar['button']['btn_target'] ) ? esc_attr( $sidebar['button']['btn_target'] ) : '_blank'; ?>" class="<?php echo esc_attr( $sidebar['button']['btn_class'] ); ?>" href="<?php echo esc_url( $sidebar['button']['btn_url'] ); ?>"><?php echo wp_kses_post( $sidebar['button']['btn_label'] ); ?></a>
 															</p>
 														<?php endif; ?>
 														<?php if ( ! empty( $sidebar['buttons'] ) ) : ?>
-                                                            <?php foreach ( $sidebar['buttons'] as $button ) : ?>
-                                                                <p>
-                                                                    <a target="<?php echo isset( $button['btn_target'] ) ? esc_attr( $button['btn_target'] ) : '_blank'; ?>" class="<?php echo esc_attr( $button['btn_class'] ); ?>" href="<?php echo esc_url( $button['btn_url'] ); ?>"><?php echo wp_kses_post( $button['btn_label'] ); ?></a>
-                                                                </p>
-                                                            <?php endforeach;?>
+															<?php foreach ( $sidebar['buttons'] as $button ) : ?>
+																<p>
+																	<a target="<?php echo isset( $button['btn_target'] ) ? esc_attr( $button['btn_target'] ) : '_blank'; ?>" class="<?php echo esc_attr( $button['btn_class'] ); ?>" href="<?php echo esc_url( $button['btn_url'] ); ?>"><?php echo wp_kses_post( $button['btn_label'] ); ?></a>
+																</p>
+															<?php endforeach; ?>
 														<?php endif; ?>
 														<?php echo isset( $sidebar['footer_content'] ) ? wp_kses_post( '<div class="sidebar-footer-content">' . $sidebar['footer_content'] . '</div>' ) : ''; ?>
-                                                    </div>
+													</div>
 												<?php endforeach; ?>
 											</div>
 										</div>
@@ -546,14 +546,14 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					// phpcs:disable WordPress.Security.NonceVerification.Recommended
 					$current_step = isset( $_GET['step'] ) && '' !== $_GET['step'] ? sanitize_text_field( wp_unslash( $_GET['step'] ) ) : array_keys( $this->steps )[0];
 					$action_url   = wp_nonce_url(
-                        add_query_arg(
-                            array(
-                                'step' => 'ready',
-                                'mct-' . $this->id . '-wizard-finish' => 1,
-                            )
-                        ),
-                 'mct-' . $this->id . '-wizard-finish-nonce'
-                    );
+						add_query_arg(
+							array(
+								'step' => 'ready',
+								'mct-' . $this->id . '-wizard-finish' => 1,
+							)
+						),
+						'mct-' . $this->id . '-wizard-finish-nonce'
+					);
 					// phpcs:enable
 					?>
 					<div class="wrap mct-wrapper mct-wizard">
@@ -574,10 +574,10 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 								?>
 							</div>
 						<?php endif; ?>
-                        <div class="message-holder">
-                            <h1 class="wp-heading-inline no-mar"></h1>
+						<div class="message-holder">
+							<h1 class="wp-heading-inline no-mar"></h1>
 							<?php $this->message(); ?>
-                        </div>
+						</div>
 						<div class="mct-options ">
 							<ul class="steps">
 								<?php foreach ( $this->steps as $k => $step ) : ?>
@@ -662,11 +662,11 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 									</div>
 								<?php endforeach; ?>
 							</form>
-                            <?php if ( $this->back_to_dashboard ) : ?>
+							<?php if ( $this->back_to_dashboard ) : ?>
 							<p class="center-align">
-								<a class="btn-primary brown-btn " href="<?php echo 'ready' === $current_step ? esc_url( admin_url() ) : esc_url(  wp_nonce_url( add_query_arg( 'mct-' . $this->id . '-wizard-skip', '1', admin_url() ), 'mct-' . $this->id . '-wizard-skip-nonce' ) ); ?>"><?php esc_attr_e( 'Back to WordPress Dashboard', 'mct-options' ); ?></a>
+								<a class="btn-primary brown-btn " href="<?php echo 'ready' === $current_step ? esc_url( admin_url() ) : esc_url( wp_nonce_url( add_query_arg( 'mct-' . $this->id . '-wizard-skip', '1', admin_url() ), 'mct-' . $this->id . '-wizard-skip-nonce' ) ); ?>"><?php esc_attr_e( 'Back to WordPress Dashboard', 'mct-options' ); ?></a>
 							</p>
-                            <?php endif;?>
+							<?php endif; ?>
 						</div>
 					</div>
 				<?php endif; ?>
@@ -690,10 +690,10 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 								?>
 							</div>
 						<?php endif; ?>
-                        <div class="message-holder">
-                            <h1 class="wp-heading-inline no-mar"></h1>
+						<div class="message-holder">
+							<h1 class="wp-heading-inline no-mar"></h1>
 							<?php $this->message(); ?>
-                        </div>
+						</div>
 						<div class="mct-options">
 							<div class="mct-article ">
 								<div class="article-title">
@@ -778,10 +778,10 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 								?>
 							</div>
 						<?php endif; ?>
-                        <div class="message-holder">
-                            <h1 class="wp-heading-inline no-mar"></h1>
+						<div class="message-holder">
+							<h1 class="wp-heading-inline no-mar"></h1>
 							<?php $this->message(); ?>
-                        </div>
+						</div>
 						<div class="mct-options">
 							<?php
 							if ( is_callable( $this->class_array ) ) {
@@ -815,7 +815,7 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 										</li>
 									<?php endforeach; ?>
 								</ul>
-							<?php endif;?>
+							<?php endif; ?>
 							<div class="ajax-message-holder"></div>
 							<form id="<?php echo esc_attr( $this->id ); ?>_form" class="ajax-wizard-form mct-form <?php echo $this->ajax_saving ? 'mc-ajax-saving' : ''; ?>" method="post"  action="">
 								<?php foreach ( $this->steps as $k => $step ) : ?>
@@ -824,31 +824,31 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 											<h2><?php echo esc_attr( $step['title'] ); ?></h2>
 											<div class="d-flex f-center gap-5">
 												<?php if ( isset( $step['doc'] ) ) : ?>
-                                                    <!-- MCT Document -->
-                                                    <a href="<?php echo esc_url( $step['doc'] ); ?>" target="_blank" class="btn-flat article-guide">
+													<!-- MCT Document -->
+													<a href="<?php echo esc_url( $step['doc'] ); ?>" target="_blank" class="btn-flat article-guide">
 														<?php esc_attr_e( 'Section Guide', 'mct-options' ); ?>
 														<?php if ( isset( $step['help'] ) ) : ?>
-                                                            <!-- MCT Help Tip -->
-                                                            <div class="mct-help-tip-wrap no-float">
-                                                                <span class="mct-help-tip-dec">
-                                                                    <?php if ( isset( $step['help_image'] ) && ! empty( $step['help_image'] ) ) : ?>
-                                                                        <img src="<?php echo esc_url( $step['help_image'] ); ?>"/>
-                                                                    <?php endif; ?>
-                                                                    <p><?php echo wp_kses_post( $step['help'] ); ?></p>
-                                                                </span>
-                                                            </div>
+															<!-- MCT Help Tip -->
+															<div class="mct-help-tip-wrap no-float">
+																<span class="mct-help-tip-dec">
+																	<?php if ( isset( $step['help_image'] ) && ! empty( $step['help_image'] ) ) : ?>
+																		<img src="<?php echo esc_url( $step['help_image'] ); ?>"/>
+																	<?php endif; ?>
+																	<p><?php echo wp_kses_post( $step['help'] ); ?></p>
+																</span>
+															</div>
 														<?php endif; ?>
-                                                    </a>
+													</a>
 												<?php elseif ( isset( $step['help'] ) ) : ?>
-                                                    <!-- MCT Help Tip -->
-                                                    <div class="mct-help-tip-wrap no-float">
-                                                        <span class="mct-help-tip-dec">
-                                                            <?php if ( isset( $step['help_image'] ) && ! empty( $step['help_image'] ) ) : ?>
-                                                                <img src="<?php echo esc_url( $step['help_image'] ); ?>"/>
-                                                            <?php endif; ?>
-                                                            <p><?php echo wp_kses_post( $step['help'] ); ?></p>
-                                                        </span>
-                                                    </div>
+													<!-- MCT Help Tip -->
+													<div class="mct-help-tip-wrap no-float">
+														<span class="mct-help-tip-dec">
+															<?php if ( isset( $step['help_image'] ) && ! empty( $step['help_image'] ) ) : ?>
+																<img src="<?php echo esc_url( $step['help_image'] ); ?>"/>
+															<?php endif; ?>
+															<p><?php echo wp_kses_post( $step['help'] ); ?></p>
+														</span>
+													</div>
 												<?php endif; ?>
 											</div>
 										</div>
@@ -1083,11 +1083,11 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 				$field_id   = $field['id'] ?? $name;
 				$class      = $field['class'] ?? '';
 				$links      = $field['links'] ?? '';
-                $options_id = $this->id;
-                if ( isset( $field['remove_name'] ) && true === $field['remove_name'] ) {
-	                $name  = '';
-                    $value = $field['default'] ?? $value;
-                }
+				$options_id = $this->id;
+				if ( isset( $field['remove_name'] ) && true === $field['remove_name'] ) {
+					$name  = '';
+					$value = $field['default'] ?? $value;
+				}
 
 				if ( isset( $field['dependencies'] ) ) {
 					if ( isset( $field['dependencies']['id'] ) ) {
@@ -1104,7 +1104,6 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 
 				include $field_template;
 			}
-
 		}
 
 		/**
@@ -1150,7 +1149,7 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					$dependencies .= " data-repdeps='" . wp_json_encode( $field['dependencies'] ) . "'";
 				}
 				if ( isset( $field['remove_name'] ) && true === $field['remove_name'] ) {
-					$name = '';
+					$name  = '';
 					$value = $field['default'] ?? $value;
 				}
 				include $field_template;
@@ -1213,7 +1212,7 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 				}
 				$name = $name . '[' . $index . '][' . $field_key . ']';
 				if ( isset( $field['remove_name'] ) && true === $field['remove_name'] ) {
-					$name = '';
+					$name  = '';
 					$value = $field['default'] ?? $value;
 				}
 				include $field_template;
@@ -1458,17 +1457,17 @@ if ( ! class_exists( 'MCT_Fields' ) ) {
 					'not-access'   => $this->get_message( '<strong>' . __( 'You cannot access to save changes.', 'mct-options' ) . '</strong>', 'error', false ),
 				)
 			);
-            $output = '';
-            if ( ! empty( $message ) ) {
-	            foreach ( $message as $key => $value ) {
-		            if ( isset( $_GET[ $key ] ) ) {
-			            $output .= wp_kses_post( $value );
-		            }
-	            }
-            }
-            if ( '' !== $output ) {
-	           echo wp_kses_post( '<div class="message-holder"><h1 class="wp-heading-inline no-mar"></h1>' . $output . '</div>' );
-            }
+			$output  = '';
+			if ( ! empty( $message ) ) {
+				foreach ( $message as $key => $value ) {
+					if ( isset( $_GET[ $key ] ) ) {
+						$output .= wp_kses_post( $value );
+					}
+				}
+			}
+			if ( '' !== $output ) {
+				echo wp_kses_post( '<div class="message-holder"><h1 class="wp-heading-inline no-mar"></h1>' . $output . '</div>' );
+			}
 
 			// phpcs:enable
 		}

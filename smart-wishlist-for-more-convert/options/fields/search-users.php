@@ -43,7 +43,7 @@ wp_enqueue_script( 'wc-enhanced-select' );
 		foreach ( $value as $_user_id ) {
 			$_user = get_user( $_user_id );
 			if ( is_object( $_user ) ) {
-				echo '<option value="' . esc_attr( $_user_id ) . '"' . selected( true, true, false ) . '>' . esc_html( wp_strip_all_tags( $_user->user_login . ' (' . $_user->user_email . ')') ) . '</option>';
+				echo '<option value="' . esc_attr( $_user_id ) . '"' . selected( true, true, false ) . '>' . esc_html( wp_strip_all_tags( $_user->user_login . ' (' . $_user->user_email . ')' ) ) . '</option>';
 			}
 		}
 	}

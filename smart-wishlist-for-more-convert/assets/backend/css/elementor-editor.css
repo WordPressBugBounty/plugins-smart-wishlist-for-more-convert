@@ -4,8 +4,8 @@
 
 #elementor-panel-category-WLFMC_WishList {
   -webkit-box-ordinal-group: -998;
-  -ms-flex-order: -999;
-  order: -999;
+      -ms-flex-order: -999;
+          order: -999;
 }
 
 #elementor-panel-category-WLFMC_WishList .elementor-panel-category-title::after {
