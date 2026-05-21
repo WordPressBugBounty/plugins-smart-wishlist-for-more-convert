@@ -7,6 +7,10 @@
 
 namespace Kadence_Wlfmc;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 ?>
 <div class="site-header-item site-header-focus-item" data-section="kadence_customizer_mobile_wishlist">
 	<?php

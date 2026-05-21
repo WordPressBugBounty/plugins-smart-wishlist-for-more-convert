@@ -9,6 +9,10 @@
 
 namespace Kadence_Wlfmc;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 /**
  * Main Header_Wishlist class
  */

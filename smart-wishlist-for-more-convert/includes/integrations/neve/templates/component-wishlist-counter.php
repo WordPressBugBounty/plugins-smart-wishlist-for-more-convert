@@ -11,6 +11,10 @@
 use WLFMC_Neve\Wishlist_Counter;
 use function HFG\component_setting;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 $enable_mini_wishlist = component_setting( Wishlist_Counter::DISPLAY_MINI_WISHLIST );
 $show_products        = 'counter-only' !== $enable_mini_wishlist;
 $show_list_on_hover   = 'on-click' !== $enable_mini_wishlist;

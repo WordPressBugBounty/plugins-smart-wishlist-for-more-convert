@@ -10,6 +10,10 @@ namespace Kadence_Wlfmc;
 use Kadence\Theme_Customizer;
 use function Kadence\kadence;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 Theme_Customizer::add_settings(
 	array(
 		'mobile_display_mini_wishlist_for_counter' => array(

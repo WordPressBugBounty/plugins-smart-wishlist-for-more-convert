@@ -16,6 +16,11 @@
  * @var $unsubscribed_button_title  string
  * @var $customer_id                int
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $nonce = wp_create_nonce( 'wlfmc_change_gdpr_status' );
 if ( $unsubscribed ) : ?>
 	<tr>

@@ -13,6 +13,11 @@ use HFG\Core\Components\Abstract_Component;
 use HFG\Core\Settings\Manager as SettingsManager;
 use HFG\Main;
 use function HFG\component_setting;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 /**
  * Class Wishlist_Counter
  *

@@ -16,6 +16,10 @@
  * @var $attr array|mixed|string attributes.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 $enable_mini_wishlist = blocksy_default_akg( 'display_mini_wishlist_for_counter', $atts, 'counter-only' );
 $show_products        = 'counter-only' !== $enable_mini_wishlist;
 $show_list_on_hover   = 'on-click' !== $enable_mini_wishlist;

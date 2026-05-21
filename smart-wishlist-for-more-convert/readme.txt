@@ -3,12 +3,12 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 6.9
-Stable tag: 1.9.17
+Tested up to: 7.0
+Stable tag: 1.9.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-**Free:** WooCommerce Wishlist, Email automation, Elementor and **Premium:** Back-in-Stock Notifier, Save For Later, Multi-lists, reports, Email Marketing
+Free: WC Wishlist, Email automation, Elementor Widgets. Premium: Back-in-Stock Notifier, Save for Later, Multi-lists, Reports, Email Marketing.
 
 == Description ==
 
@@ -303,6 +303,11 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.9.18 =
+
+* Tested: WP 7.0
+* Fixed: Various PHPCS and PHPCBF errors.
+
 = 1.9.17 =
 
 * Fixed: fix image corrupted.
@@ -310,7 +315,7 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 = 1.9.16 =
 
 * Fixed: Various PHPCS and PHPCBF errors.
-* Added: Owner verification for multilist – now checks user ownership before updating, changing privacy, or removing a list( Premium version).
+* Added: Owner verification for multilist – now checks user ownership before updating, changing privacy, or removing a list(Premium version).
 * Added: Owner verification before changing GDPR status.
 
 = 1.9.15 =

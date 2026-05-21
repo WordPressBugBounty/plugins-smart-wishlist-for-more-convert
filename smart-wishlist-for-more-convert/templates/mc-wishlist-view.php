@@ -445,7 +445,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 													$passed_validation,
 													$item,
 													$meta
-												);
+												);// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 												?>
 											<?php elseif ( has_action( 'wlfmc_table_product_' . $product->get_type() . '_add_to_cart_button' ) ) : ?>
 												<?php do_action( 'wlfmc_table_product_' . $product->get_type() . '_add_to_cart_button', $item, $wishlist, $product, $cart_item, $permalink ); ?>

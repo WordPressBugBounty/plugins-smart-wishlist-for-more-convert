@@ -374,7 +374,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
+					'exclude'   => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'line_height',
 						'text_decoration',
 					),
@@ -391,7 +391,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 				array(
 					'name'           => 'icon_typography',
 					'label'          => esc_html__( 'Icon font size', 'wc-wlfmc-wishlist' ),
-					'exclude'        => array(
+					'exclude'        => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'font_family',
 						'font_weight',
 						'text_transform',
@@ -681,7 +681,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Add_To_Wishlist' ) ) {
 				array(
 					'name'           => 'border',
 					'selector'       => '{{WRAPPER}} .wlfmc-add-button a',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),

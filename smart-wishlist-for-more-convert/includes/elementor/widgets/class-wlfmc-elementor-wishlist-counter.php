@@ -484,7 +484,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'  => array(
+					'exclude'  => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'line_height',
 						'text_decoration',
 					),
@@ -598,7 +598,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 				array(
 					'name'           => 'border',
 					'selector'       => '{{WRAPPER}} .wlfmc-products-counter-wrapper .wlfmc-view-wishlist-link',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'     => __( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -690,7 +690,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'  => array(
+					'exclude'  => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'line_height',
 						'text_decoration',
 					),
@@ -869,7 +869,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist_Counter' ) ) {
 				array(
 					'name'           => 'icon_typography',
 					'label'          => esc_html__( 'Icon font size', 'wc-wlfmc-wishlist' ),
-					'exclude'        => array(
+					'exclude'        => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'font_family',
 						'font_weight',
 						'text_transform',

@@ -8,6 +8,10 @@
  * @version 1.9.9
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 $link_options = array(
 	'counter-only' => __( 'Disabled', 'wc-wlfmc-wishlist' ),
 	'on-hover'     => __( 'Show on hover', 'wc-wlfmc-wishlist' ),

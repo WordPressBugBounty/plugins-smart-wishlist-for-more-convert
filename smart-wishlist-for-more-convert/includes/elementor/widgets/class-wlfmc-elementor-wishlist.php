@@ -405,10 +405,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
-						'line_height',
-
-					),
+					'exclude'   => array( 'line_height' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'condition' => array( 'search_list_customize' => 'true' ),
 					'selector'  => '{{WRAPPER}} .wlfmc-wishlist-table-header  .wlfmc-dropdown-input',
 				)
@@ -500,7 +497,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'search_list_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-wishlist-table-header  .wlfmc-dropdown-input',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -863,7 +860,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'border',
 					'selector'       => '{{WRAPPER}} .wlfmc-wishlist-table-header .button,{{WRAPPER}} .wlfmc-default-table .wlfmc-wishlist-footer .apply-btn,{{WRAPPER}} .wlfmc-default-table.add-to-card-same-button tr td.last-column .button:not(.minus):not(.plus),{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer .button,{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer button[type="submit"],{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer input[type="submit"],{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer select, {{WRAPPER}} .wlfmc-default-table.qty-same-button input.qty , {{WRAPPER}} .wlfmc-default-table.qty-same-button .quantity .button',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -966,10 +963,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
-						'line_height',
-
-					),
+					'exclude'   => array( 'line_height' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'condition' => array( 'select_customize' => 'true' ),
 					'selector'  => '{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer select',
 				)
@@ -1061,7 +1055,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'select_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer select',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -1178,10 +1172,6 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
-						// 'line_height',
-
-					),
 					'condition' => array(
 						'add_to_cart_customize'     => 'true',
 						'button_add_to_cart_style!' => 'true',
@@ -1297,7 +1287,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'add_to_cart_button_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-default-table tr td.last-column .button:not(.minus):not(.plus)',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -1423,7 +1413,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
+					'exclude'   => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'text_transform',
 						'font_style',
 						'text_decoration',
@@ -1545,7 +1535,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'qty_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-default-table input.qty',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -1648,7 +1638,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'    => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'   => array(
+					'exclude'   => array( // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 						'text_transform',
 						'font_style',
 						'font_weight',
@@ -1817,7 +1807,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'pagination_border',
 					'selector'       => '{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer nav.wishlist-pagination ul li span,{{WRAPPER}} .wlfmc-default-table  .wlfmc-wishlist-footer nav.wishlist-pagination ul li a',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'width'  => array(
 							'label'   => esc_html__( 'Border Width', 'wc-wlfmc-wishlist' ),
@@ -1922,7 +1912,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 					'global'   => array(
 						'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 					),
-					'exclude'  => array( 'text_decoration' ),
+					'exclude'  => array( 'text_decoration' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'selector' => '{{WRAPPER}} .wlfmc-default-table a.product-name strong',
 				)
 			);
@@ -2156,7 +2146,7 @@ if ( ! class_exists( 'WLFMC_Elementor_Wishlist' ) ) {
 				array(
 					'name'           => 'item_border',
 					'separator'      => 'before',
-					'exclude'        => array( 'color' ),
+					'exclude'        => array( 'color' ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 					'fields_options' => array(
 						'border' => array(
 							'default'   => 'solid',

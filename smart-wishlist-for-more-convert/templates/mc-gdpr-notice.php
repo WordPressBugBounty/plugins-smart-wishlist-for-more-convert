@@ -17,6 +17,11 @@
  * @var $gdpr_denied_button_title  string
  * @var $customer_id               int
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $nonce = wp_create_nonce( 'wlfmc_change_gdpr_status' );
 if ( $gdpr_enable ) : ?>
 	<div class="wlfmc-gdpr-notice-wrapper">

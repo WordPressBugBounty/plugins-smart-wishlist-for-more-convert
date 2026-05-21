@@ -1085,8 +1085,8 @@ if ( ! class_exists( 'WLFMC_Automation_Admin' ) ) {
 						<?php foreach ( $saved_options['offer_emails'] as $k => $email ) : ?>
 							<?php
 							$row            = $this->current_automation->get_email_key_states( $k );
-							$current_status = ( ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all' ); // phpcs: WordPress.Security.NonceVerification
-							$current_key    = ( ! empty( $_REQUEST['email_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['email_key'] ) ) : '' ); // phpcs: WordPress.Security.NonceVerification
+							$current_status = ( ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all' ); // phpcs:ignore WordPress.Security.NonceVerification
+							$current_key    = ( ! empty( $_REQUEST['email_key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['email_key'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 							$filter_url        = add_query_arg(
 								array(

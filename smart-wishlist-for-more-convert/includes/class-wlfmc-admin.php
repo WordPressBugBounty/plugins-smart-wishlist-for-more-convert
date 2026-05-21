@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.9.16
+ * @version 1.9.18
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.9.15';
+		public $rollback_version = '1.9.17';
 
 		/**
 		 * Minimum pro version
@@ -1734,7 +1734,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														),
 														'help' => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
 														'desc' => sprintf(
-														// translators: %s is a placeholder for a link to global settings.
+														// translators: 1: tooltip url, 2: is a placeholder for a link to global settings.
 															__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
 															sprintf(
 																'<a href="%s" target="_blank">%s</a>',
@@ -2304,7 +2304,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														'desc' => sprintf( __( '%1$s or Add %2$s shortcode to a any page you want.', 'wc-wlfmc-wishlist' ), '<a class="wlfmc-built-wishlist-page" href="#">' . __( 'click to build a new page', 'wc-wlfmc-wishlist' ) . '</a>', '<code>[wlfmc_wishlist]</code>' ) . '<a href="https://moreconvert.com/4rrt" target="_blank">' . __( 'learn more on how to use it.', 'wc-wlfmc-wishlist' ) . '</a>',
 														'type' => 'page-select',
 														'show_links' => true,
-														'exclude' => $this->get_all_wc_page_ids(),
+														'exclude' => $this->get_all_wc_page_ids(), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 														'class' => 'select2-trigger',
 														'default' => get_option( 'wlfmc_wishlist_page_id' ),
 														'help' => __( 'Wishlist page needs to be selected so the plugin knows where it is. You should choose it upon installation of the plugin or create it manually.', 'wc-wlfmc-wishlist' ),
@@ -3481,6 +3481,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														'default' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
 														'type' => 'text',
 														'custom_attributes' => array(
+															/* translators: %s: site name */
 															'placeholder' => sprintf( __( 'My Wishlist on %s', 'wc-wlfmc-wishlist' ), get_bloginfo( 'name' ) ),
 														),
 														'translatable' => true,
@@ -5632,7 +5633,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 									'title'       => __( 'Processing Options', 'wc-wlfmc-wishlist' ),
 									'top_desc'    => __( 'Adjust the behavior of the Wishlist button after clicking on it and after clicking again.', 'wc-wlfmc-wishlist' ),
 									'bottom_desc' => sprintf(
-										// translators: %1$s is a link to the Wishlist settings page., %2$s is a link to the Global settings page.
+										// translators: 1: is a link to the Wishlist settings page., 2: is a link to the Global settings page.
 										__( 'you can change the pop up details and other settings from %1$s and %2$s', 'wc-wlfmc-wishlist' ),
 										'<a href="' . esc_url( $wishlist_setting_url ) . '" target="_blank">' . __( 'MC Wishlist > wishlist', 'wc-wlfmc-wishlist' ) . '</a>',
 										'<a href="' . esc_url( $global_url ) . '" target="_blank">' . __( 'MC Wishlist > global', 'wc-wlfmc-wishlist' ) . '</a>'
@@ -5927,7 +5928,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 				<div class="">
 					<ul class="wlfmc-responsive-columns" style="font-weight:600">
 						<?php foreach ( $features as $feature ) : ?>
-							<li class="d-flex f-center gap-5"><?php echo '<img src="' . MC_WLFMC_URL . 'assets/backend/images/addons.svg" width="30" height="32" />' . esc_attr( $feature ); ?></li>
+							<li class="d-flex f-center gap-5"><?php echo '<img src="' . esc_url( MC_WLFMC_URL . 'assets/backend/images/addons.svg' ) . '" width="30" height="32" />' . esc_attr( $feature ); ?></li>
 						<?php endforeach; ?>
 					</ul>
 				</div>

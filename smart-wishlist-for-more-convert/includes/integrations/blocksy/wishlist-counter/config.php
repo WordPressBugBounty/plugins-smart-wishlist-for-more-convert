@@ -8,6 +8,10 @@
  * @version 1.9.6
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
 $config = array(
 	'name'              => __( 'Wishlist Counter', 'wc-wlfmc-wishlist' ),
 	'clone'             => true,
