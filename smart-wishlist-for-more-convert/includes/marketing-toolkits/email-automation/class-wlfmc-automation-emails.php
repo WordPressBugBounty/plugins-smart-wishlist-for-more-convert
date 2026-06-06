@@ -82,10 +82,12 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 
 				$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->wlfmc_wishlist_offers SET status='clicked' WHERE track_code=%s AND status IN ('opened' ,'sent') ", $key ) );// phpcs:ignore WordPress.DB
 
-				$url = html_entity_decode( remove_query_arg( 'wlfmc_ae_track_c' ) );
+				$url = esc_url_raw( html_entity_decode( remove_query_arg( 'wlfmc_ae_track_c' ) ) );
 
-				header( "location: $url" );
-				die;
+				$safe_url = wp_validate_redirect( $url, home_url( '/' ) );
+
+				wp_safe_redirect( $safe_url );
+				exit;
 
 			}
 			if ( array_key_exists( 'wlfmc_ae_track_o', $wp->query_vars ) ) {
@@ -100,6 +102,11 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 					array( '%s' ),
 					array( '%s', '%s' )
 				);
+
+				if ( ob_get_length() ) {
+					ob_clean();
+				}
+
 				header( 'Content-Type: image/png' );
 				header( 'Pragma-directive: no-cache' );
 				header( 'Cache-directive: no-cache' );

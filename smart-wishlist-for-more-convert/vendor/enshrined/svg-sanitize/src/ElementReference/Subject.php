@@ -27,7 +27,7 @@ class Subject
      * Subject constructor.
      *
      * @param \DOMElement $element
-     * @param integer         $useNestingLimit
+     * @param int         $useNestingLimit
      */
     public function __construct(\DOMElement $element, $useNestingLimit)
     {
@@ -53,7 +53,7 @@ class Subject
 
     /**
      * @param array $subjects   Previously processed subjects
-     * @param integer   $level      The current level of nesting.
+     * @param int   $level      The current level of nesting.
      * @return bool
      * @throws \enshrined\svgSanitize\Exceptions\NestingException
      */

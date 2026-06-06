@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.9.18
+Stable tag: 1.9.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,14 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.19 =
+
+* Tested: WC 10.8.1
+* Tweak: Upgraded the internal SVG sanitization dependency (`enshrined/svg-sanitize`) to version ^0.22.0 for improved security auditing and modern PHP 8.x compatibility.
+* Fixed: Enhanced security compliance in email tracking mechanisms to prevent potential open redirection exploits.
+* Tweak: Hardened redirection flow inside email tracking triggers using WordPress native safe redirect functions.
+* Fixed: Added strict capability checks (`install_plugins` and `activate_plugins`) to the core plugin installer handler to prevent unauthorized execution by low-privileged users(premium version).
 
 = 1.9.18 =
 

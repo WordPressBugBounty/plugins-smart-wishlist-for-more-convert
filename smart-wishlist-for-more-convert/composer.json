@@ -14,6 +14,6 @@
     "homepage": "https://moreconvert.com/smart-wishlist-for-more-convert/",
     "license": "GPL-3.0",
     "require": {
-        "enshrined/svg-sanitize" : "^0.15.4"
+        "enshrined/svg-sanitize" : "^0.22.0"
     }
 }

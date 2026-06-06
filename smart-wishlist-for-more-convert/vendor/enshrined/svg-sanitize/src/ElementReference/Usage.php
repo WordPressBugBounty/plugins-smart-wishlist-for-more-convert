@@ -15,7 +15,7 @@ class Usage
 
     /**
      * @param Subject $subject
-     * @param integer $count
+     * @param int $count
      */
     public function __construct(Subject $subject, $count = 1)
     {
@@ -24,7 +24,7 @@ class Usage
     }
 
     /**
-     * @param integer $by
+     * @param int $by
      */
     public function increment($by = 1)
     {
