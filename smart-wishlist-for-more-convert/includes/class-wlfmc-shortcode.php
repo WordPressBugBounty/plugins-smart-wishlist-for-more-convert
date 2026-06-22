@@ -272,7 +272,15 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				if ( defined( 'MC_WLFMC_PREMIUM' ) ) {
 					$show_total_price   = $show_total_price && 0 < $wishlist->count_items();
 					$enable_drag_n_drop = $enable_drag_n_drop && 1 < $wishlist->count_items() && $wishlist->current_user_can( 'drag_n_drop' ) && ! $no_interactions;
-					$pagination         = ! $enable_drag_n_drop && $pagination;
+					/**
+					 * Filter whether Drag & Drop should disable pagination.
+					 *
+					 * @param bool $disable_pagination Default is false (pagination stays active).
+					 */
+					$disable_pagination_on_drag_drop = apply_filters( 'wlfmc_disable_pagination_on_drag_drop', false );
+					if ( $disable_pagination_on_drag_drop ) {
+						$pagination = ! $enable_drag_n_drop && $pagination;
+					}
 				}
 
 				// sets current page, number of pages and element offset.

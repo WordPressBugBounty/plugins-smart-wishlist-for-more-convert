@@ -81,6 +81,7 @@ $unique_id = wp_unique_id(); ?>
 					class="<?php echo esc_attr( $classes_add ); ?>"
 					data-popup-id="add_to_list_popup"
 					data-exclude-default="false"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'wlfmc_add_to_list_nonce' ) ); ?>"
 					data-product-id="<?php echo esc_attr( $product_id ); ?>"
 					data-product-type="<?php echo esc_attr( $product_type ); ?>"
 					data-parent-product-id="<?php echo esc_attr( $parent_product_id ); ?>">
@@ -129,6 +130,7 @@ $unique_id = wp_unique_id(); ?>
 			<a
 				href="#" rel="nofollow"
 				<?php echo ( '' !== $button_label_add ) ? '' : 'aria-label="' . esc_attr_x( 'Add to wishlist', 'aria-label text', 'wc-wlfmc-wishlist' ) . '"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'wlfmc_add_to_list_nonce' ) ); ?>"
 				data-product-id="<?php echo esc_attr( $product_id ); ?>"
 				data-product-type="<?php echo esc_attr( $product_type ); ?>"
 				data-parent-product-id="<?php echo esc_attr( $parent_product_id ); ?>"

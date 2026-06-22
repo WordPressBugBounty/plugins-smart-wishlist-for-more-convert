@@ -1548,11 +1548,49 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 	function wlfmc_process_product_data( $product_type, $atts, $prod_id, $quantity ) {
 		$variations = array();
 		if ( in_array( $product_type, array( 'variable', 'variation', 'variable-subscription' ), true ) ) {
+			/*
 			foreach ( $_REQUEST as $key => $value ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( 'attribute_' !== substr( $key, 0, 10 ) || '' === $value ) {
 					continue;
 				}
 				$variations['attributes'][ sanitize_title( wp_unslash( $key ) ) ] = wp_unslash( $value );
+			}*/
+
+			$product = wc_get_product( $prod_id );
+			if ( $product ) {
+				if ( $product->is_type( 'variation' ) ) {
+					$parent_id      = $product->get_parent_id();
+					$parent_product = wc_get_product( $parent_id );
+					$attributes     = $parent_product ? $parent_product->get_attributes() : array();
+				} else {
+					$attributes = $product->get_attributes();
+				}
+
+				foreach ( $_REQUEST as $key => $value ) {
+					if ( 'attribute_' !== substr( $key, 0, 10 ) || '' === $value ) {
+						continue;
+					}
+
+					$attribute_name = str_replace( 'attribute_', '', sanitize_title( $key ) );
+
+					if ( isset( $attributes[ $attribute_name ] ) ) {
+						$attribute = $attributes[ $attribute_name ];
+
+						if ( $attribute['is_variation'] ) {
+							if ( $attribute['is_taxonomy'] ) {
+								$sanitized_value = sanitize_title( wp_unslash( $value ) );
+							} else {
+								$sanitized_value = html_entity_decode( wc_clean( wp_unslash( $value ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+							}
+
+							if ( ! empty( $sanitized_value ) || '0' === $sanitized_value ) {
+								$variations['attributes'][ sanitize_title( $key ) ] = $sanitized_value;
+							}
+						}
+					} else {
+						$variations['attributes'][ sanitize_title( wp_unslash( $key ) ) ] = sanitize_title( wp_unslash( $value ) );
+					}
+				}
 			}
 		}
 

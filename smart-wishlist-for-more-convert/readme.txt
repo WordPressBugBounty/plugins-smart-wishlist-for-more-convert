@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.9.19
+Stable tag: 1.9.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,17 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 1.9.20 =
+
+* Added: New filter "wlfmc_disable_pagination_on_drag_drop" to control whether Drag & Drop automatically disables pagination.
+* Updated: Pagination now stays active by default when Drag & Drop is enabled, instead of being overridden.
+* Tweak: Refactored conditional logic to apply the new filter, preserving legacy behavior when filter returns true.
+* Fixed: Unauthenticated Stored XSS vulnerability in variation attributes by implementing proper validation and sanitization using WooCommerce core functions before storing data in product_meta.
+* Fixed: Missing CSRF protection by adding mandatory Nonce validation for all AJAX endpoints.
+* Added: Nonce tokens to all frontend AJAX requests for enhanced security.
+* Improved: Output escaping for variation data on the wishlist page (wp_kses_post) as a defense-in-depth measure.
+* Tweak: Updated JavaScript to seamlessly handle new Nonce tokens with every AJAX call.
+
 = 1.9.19 =
 
 * Tested: WC 10.8.1
@@ -356,98 +367,5 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Added: Add the total price to the PDF file( premium version).
 * Fixed: fix analytics filters and calculate recipient in campaign.
 * Improved: add new customer after user registration.
-
-= 1.9.10 =
-
-* Tested: WC 10.3.5
-* Tested: WP 6.8.3
-* Fixed: fix option framework.
-
-
-= 1.9.9 =
-
-* Tested: WC 10.2.1
-* Added: Gutenberg blocks for "Add to Wishlist", "Add to Multilist" (Premium feature), and "Add to Waitlist" (Premium feature) buttons.
-* Fixed: Resolved issue with sending emails in the campaign (Premium feature).
-* Fixed: Corrected bug in deleting email logs.
-
-= 1.9.8 =
-
-* Tested: WC 10.1.2
-* Fixed: fix WOFF2 font icon display issues.
-* Added: Touch event support for tooltips on mobile devices.
-* Fixed: fix An issue after sending a manual campaign or deleting a campaign (Premium feature).
-* Added: add event notices.
-
-= 1.9.7 =
-
-* Fixed: fix reported bugs on update premium plugin.
-
-= 1.9.6 =
-
-* Tested: WP 6.8.2
-* Tested: WC 10.1.1
-* Added: added subscribe waitlist as a separate list and all in one place.
-* Added: added email log for all emails sent in the plugin.
-* Added: added ability to edit guest user details in user profile in analytics.
-* Added: added replace Twitter icon with X icon.
-* Added: added table for unsubscribed emails with ability to add and remove emails.
-* Added: added wooCommerce price format in email template placeholders.
-* Fixed: fix bug in _load_textdomain_just_in_time.
-* Fixed: fix timezone in front-end and back-end.
-* Fixed: fix sort and screen options in admin tables.
-* Fixed: fix drafting campaigns and sending campaigns from inside analytics sections.
-* Fixed: fix bug related to filter in analytics.
-* Fixed: fix reported bugs.
-
-= 1.9.5 =
-
-* Fixed: fix option framework.
-
-= 1.9.4 =
-
-* Tested: WC 9.9.5
-* Added: added `wlfmc_send_automation_emails_schedule` filter for change automation cron schedule.
-* Added: added `wlfmc_send_campaign_emails_schedule` filter for change campaign cron schedule (Premium feature).
-* Added: added `wlfmc_automation_trigger_emails_schedule` filter for change waitlist cron schedule (Premium feature).
-* Fixed: fix user phone field in analytics page.
-* Added: added `wlfmc_waitlist_change_on_sale_state_after_trigger` filter for disable change on_sale state after trigger event.
-* Added: added `wlfmc_waitlist_change_price_change_state_after_trigger` filter for disable change price_change state after trigger event.
-* Added: added `wlfmc_waitlist_change_low_stock_state_after_trigger` filter for disable change low_stock state after trigger event.
-* Added: added `wlfmc_waitlist_change_back_in_stock_state_after_trigger` filter for disable change back_in_stock state after trigger event.
-* Fixed: fix Email Automation timezone mismatch
-
-= 1.9.3 =
-
-* Tested: WC 9.8.5
-* Fixed: Fix astra theme loop position bugs.
-* Fixed: Fix ObjectCache reported bugs.
-* Fixed: Fix reported analytics table bugs.
-* Added: Add import waitlist by csv (Premium feature).
-
-= 1.9.2 =
-
-* Tested: WP 6.8.1
-* Tested: WC 9.8.3
-* Added: add product sku to pdf.
-* Fixed: fixed reported vulnerabilities.
-* Fixed: fixed PHP Notice "Function _load_textdomain_just_in_time was called incorrectly".
-
-= 1.9.1 =
-
-* Tested: WP 6.8
-* Tested: WC 9.8.1
-* Added: `wlfmc_before_automation_insert_emails` filter to allow trigger third-party plugins.
-* Fixed: duplicated `wlfmc_table_start_last_column` hook and replace second hook with `wlfmc_table_end_last_column` hook.
-* Added: add new hooks for change shop_url and checkout_url and list_url in campaigns and automations.
-* Updated: integrate with new version of advanced-product-fields-for-woocommerce-pro version 3.0.5.
-
-= 1.9.0 =
-
-* Tested: WC 9.7.1
-* Added: `wlfmc_email_headers` filter to allow modification of email headers, including support for adding BCC and CC.
-* Fixed: resolved data-store issues.
-* Fixed: security by fixing SQL injection vulnerabilities.
-
 
 [See changelog for all versions](https://moreconvert.com/changelog/).

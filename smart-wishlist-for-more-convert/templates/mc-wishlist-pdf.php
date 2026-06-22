@@ -237,7 +237,7 @@ if ( ! empty( $page_title ) && in_array( 'list-title', $items_show, true ) ) :
 											/**
 											 * @var $product WC_Product_Variation
 											 */
-											echo wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+											echo wp_kses_post( wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ) );
 
 											?>
 										</td>

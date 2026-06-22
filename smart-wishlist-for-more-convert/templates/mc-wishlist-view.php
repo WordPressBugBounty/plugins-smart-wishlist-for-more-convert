@@ -292,7 +292,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 											/**
 											 * @var $product WC_Product_Variation
 											 */
-											echo wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+											echo wp_kses_post( wc_get_formatted_variation( ! empty( $meta['attributes'] ) ? array_combine( array_map( 'rawurldecode', array_keys( $meta['attributes'] ) ), $meta['attributes'] ) : $product ) );
 
 											?>
 										</div>
@@ -355,7 +355,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 											<!-- Add to cart button -->
 
-											<?php if ( apply_filters( 'wlfmc_product_add_to_cart_button', true, $item, $product, $cart_item ) ) : // ! empty( $meta ) ?>
+											<?php if ( apply_filters( 'wlfmc_product_add_to_cart_button', true, $item, $product, $cart_item ) ) : ?>
 												<?php
 
 												$add_to_cart_url   = wp_nonce_url(
@@ -376,8 +376,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 														wc_clear_notices();
 													}
 												}
-												$add_to_cart_text    = apply_filters( 'wlfmc_read_more_text', __( 'Read more', 'woocommerce' ), $product, $passed_validation );
-												$select_options_text = apply_filters( 'wlfmc_select_options_text', __( 'Select options', 'woocommerce' ), $product, $passed_validation );
+												$add_to_cart_text    = apply_filters( 'wlfmc_read_more_text', __( 'Read more', 'wc-wlfmc-wishlist' ), $product, $passed_validation );
+												$select_options_text = apply_filters( 'wlfmc_select_options_text', __( 'Select options', 'wc-wlfmc-wishlist' ), $product, $passed_validation );
 												switch ( $product->get_type() ) {
 													case 'external':
 														$can_add_with_ajax = false;
@@ -427,25 +427,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 													$meta
 												);
 												$button_class      = ' add_to_cart_button button ' . ( $can_add_with_ajax && 'yes' === get_option( 'woocommerce_enable_ajax_add_to_cart' ) ? 'wlfmc_ajax_add_to_cart' : '' );
-												echo apply_filters(
-													'wlfmc_product_with_meta_add_to_cart_link',
-													sprintf(
-														'<a href="%s" data-item_id="%d" data-wishlist_id="%d" data-product_id="%d"  data-quantity="%s" class="%s" data-nonce="%s" %s >%s</a>',
-														esc_url( $add_to_cart_url ),
-														esc_attr( $item->get_id() ),
-														esc_attr( $wishlist_id ),
-														esc_attr( $product->get_id() ),
-														esc_attr( $item->get_quantity() ),
-														esc_attr( $button_class ),
-														esc_attr( wp_create_nonce( 'wlfmc_add_to_cart_from_wishlist' ) ),
-														! empty( $button_attributes ) ? wc_implode_html_attributes( $button_attributes ) : '',
-														esc_html( $add_to_cart_text )
-													),
-													$product,
-													$passed_validation,
-													$item,
-													$meta
-												);// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+												echo wp_kses_post(
+													apply_filters(
+														'wlfmc_product_with_meta_add_to_cart_link',
+														sprintf(
+															'<a href="%s" data-item_id="%d" data-wishlist_id="%d" data-product_id="%d"  data-quantity="%s" class="%s" data-nonce="%s" %s >%s</a>',
+															esc_url( $add_to_cart_url ),
+															esc_attr( $item->get_id() ),
+															esc_attr( $wishlist_id ),
+															esc_attr( $product->get_id() ),
+															esc_attr( $item->get_quantity() ),
+															esc_attr( $button_class ),
+															esc_attr( wp_create_nonce( 'wlfmc_add_to_cart_from_wishlist' ) ),
+															! empty( $button_attributes ) ? wc_implode_html_attributes( $button_attributes ) : '',
+															esc_html( $add_to_cart_text )
+														),
+														$product,
+														$passed_validation,
+														$item,
+														$meta
+													)
+												);
 												?>
 											<?php elseif ( has_action( 'wlfmc_table_product_' . $product->get_type() . '_add_to_cart_button' ) ) : ?>
 												<?php do_action( 'wlfmc_table_product_' . $product->get_type() . '_add_to_cart_button', $item, $wishlist, $product, $cart_item, $permalink ); ?>
@@ -487,7 +489,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_image', '<img class="empty-image" src="' . esc_url( MC_WLFMC_URL ) . 'assets/frontend/images/access-denied.svg" width="296" height="215">', $atts ) );
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_title', '' !== $no_access_title ? '<h3 class="empty-title">' . $no_access_title . '</h3>' : '', $atts ) );
 						echo do_shortcode( apply_filters( 'wlfmc_no_access_message', '' !== $no_access_content ? '<div class="empty-content">' . $no_access_content . '</div>' : '', $atts ) );
-						echo wp_kses_post( apply_filters( 'wlfmc_no_access_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'woocommerce' ) . '</a>', $atts ) );
+						echo wp_kses_post( apply_filters( 'wlfmc_no_access_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'wc-wlfmc-wishlist' ) . '</a>', $atts ) );
 						?>
 					</td>
 				</tr>
@@ -498,7 +500,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_image', '<img class="empty-image" src="' . esc_url( MC_WLFMC_URL ) . 'assets/frontend/images/empty-wishlist.svg" width="400" height="216">', $wishlist, $atts ) );
 							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_title', '' !== $empty_wishlist_title ? '<h3 class="empty-title">' . $empty_wishlist_title . '</h3>' : '', $wishlist, $atts ) );
 							echo do_shortcode( apply_filters( 'wlfmc_no_product_in_wishlist_message', '' !== $empty_wishlist_content ? '<div class="empty-content">' . $empty_wishlist_content . '</div>' : '', $wishlist, $atts ) );
-							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'woocommerce' ) . '</a>', $wishlist, $atts ) );
+							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'wc-wlfmc-wishlist' ) . '</a>', $wishlist, $atts ) );
 						?>
 					</td>
 				</tr>

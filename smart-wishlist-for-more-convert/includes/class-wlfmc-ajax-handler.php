@@ -755,6 +755,9 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * @version 1.3.3
 		 */
 		public static function add_to_wishlist() {
+
+			check_ajax_referer( 'wlfmc_add_to_list_nonce', 'nonce' );
+
 			$result = false;
 			try {
 				$result  = WLFMC()->add();
