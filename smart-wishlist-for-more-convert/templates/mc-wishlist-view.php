@@ -99,7 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="<?php echo esc_attr( $login_notice_class ); ?>">
 			<?php if ( isset( $login_notice_content ) && '' !== $login_notice_content ) : ?>
 				<div class="wlfmc-notice-content">
-					<?php echo do_shortcode( $login_notice_content ); ?>
+					<?php echo wp_kses_post( do_shortcode( $login_notice_content ) ); ?>
 				</div>
 			<?php endif; ?>
 			<?php if ( isset( $login_notice_buttons ) ) : ?>
@@ -488,7 +488,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_image', '<img class="empty-image" src="' . esc_url( MC_WLFMC_URL ) . 'assets/frontend/images/access-denied.svg" width="296" height="215">', $atts ) );
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_title', '' !== $no_access_title ? '<h3 class="empty-title">' . $no_access_title . '</h3>' : '', $atts ) );
-						echo do_shortcode( apply_filters( 'wlfmc_no_access_message', '' !== $no_access_content ? '<div class="empty-content">' . $no_access_content . '</div>' : '', $atts ) );
+						echo wp_kses_post( do_shortcode( apply_filters( 'wlfmc_no_access_message', '' !== $no_access_content ? '<div class="empty-content">' . $no_access_content . '</div>' : '', $atts ) ) );
 						echo wp_kses_post( apply_filters( 'wlfmc_no_access_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'wc-wlfmc-wishlist' ) . '</a>', $atts ) );
 						?>
 					</td>
@@ -499,7 +499,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php
 							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_image', '<img class="empty-image" src="' . esc_url( MC_WLFMC_URL ) . 'assets/frontend/images/empty-wishlist.svg" width="400" height="216">', $wishlist, $atts ) );
 							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_title', '' !== $empty_wishlist_title ? '<h3 class="empty-title">' . $empty_wishlist_title . '</h3>' : '', $wishlist, $atts ) );
-							echo do_shortcode( apply_filters( 'wlfmc_no_product_in_wishlist_message', '' !== $empty_wishlist_content ? '<div class="empty-content">' . $empty_wishlist_content . '</div>' : '', $wishlist, $atts ) );
+							echo wp_kses_post( do_shortcode( apply_filters( 'wlfmc_no_product_in_wishlist_message', '' !== $empty_wishlist_content ? '<div class="empty-content">' . $empty_wishlist_content . '</div>' : '', $wishlist, $atts ) ) );
 							echo wp_kses_post( apply_filters( 'wlfmc_no_product_in_wishlist_button', '<a href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '" class="wc-forward button empty-button">' . esc_html__( 'Go to shop', 'wc-wlfmc-wishlist' ) . '</a>', $wishlist, $atts ) );
 						?>
 					</td>

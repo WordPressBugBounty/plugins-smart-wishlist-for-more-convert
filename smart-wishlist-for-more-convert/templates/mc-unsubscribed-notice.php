@@ -28,7 +28,7 @@ if ( $unsubscribed ) : ?>
 			<div class="wlfmc-unsubscribe-notice-wrapper">
 				<?php if ( isset( $unsubscribed_content ) && '' !== $unsubscribed_content ) : ?>
 					<div class="wlfmc-notice-content">
-						<?php echo do_shortcode( $unsubscribed_content ); ?>
+						<?php echo wp_kses_post( do_shortcode( $unsubscribed_content ) ); ?>
 					</div>
 				<?php endif; ?>
 				<div class="wlfmc-notice-buttons">

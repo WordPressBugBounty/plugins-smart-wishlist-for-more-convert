@@ -27,7 +27,7 @@ if ( $gdpr_enable ) : ?>
 	<div class="wlfmc-gdpr-notice-wrapper">
 		<?php if ( isset( $gdpr_content ) && '' !== $gdpr_content ) : ?>
 			<div class="wlfmc-notice-content">
-				<?php echo do_shortcode( $gdpr_content ); ?>
+				<?php echo wp_kses_post( do_shortcode( $gdpr_content ) ); ?>
 			</div>
 		<?php endif; ?>
 		<div class="wlfmc-notice-buttons">

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MoreConvert Wishlist for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: smart-wishlist-for-more-convert 1.9.20\n"
+"Project-Id-Version: smart-wishlist-for-more-convert 1.9.21\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "Last-Translator: MoreConvert\n"
 "Language-Team: MoreConvert\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-21T21:29:04+00:00\n"
+"POT-Creation-Date: 2026-07-07T18:25:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wc-wlfmc-wishlist\n"
@@ -813,13 +813,13 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:771
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:286
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:579
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:582
 msgid "From \"name\""
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:776
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:291
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:580
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:583
 msgid "From \"Email address\""
 msgstr ""
 
@@ -7881,7 +7881,7 @@ msgid "General options"
 msgstr ""
 
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:277
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:578
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:581
 msgid "Automation name"
 msgstr ""
 
@@ -8304,25 +8304,33 @@ msgstr ""
 msgid "There was a problem sending the email."
 msgstr ""
 
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:488
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:342
+msgid "You cannot access to preview template."
+msgstr ""
+
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:491
 msgid "You cannot access to create new automation"
 msgstr ""
 
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:552
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:555
 msgid "You cannot access to update automation"
 msgstr ""
 
 #. translators: %s: field name
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:587
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:590
 msgid "%s is a required field."
 msgstr ""
 
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:603
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:606
 msgid "All changes are saved."
 msgstr ""
 
-#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:605
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:608
 msgid "This automation not exists."
+msgstr ""
+
+#: includes/marketing-toolkits/email-automation/class-wlfmc-automation-ajax-handler.php:627
+msgid "You cannot access to preview this email."
 msgstr ""
 
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-item-table.php:50
@@ -8863,7 +8871,7 @@ msgstr ""
 
 #: templates/mc-add-to-wishlist.php:80
 #: templates/mc-add-to-wishlist.php:132
-#: templates/mc-add-to-wishlist.php:225
+#: templates/mc-add-to-wishlist.php:226
 msgctxt "aria-label text"
 msgid "Add to wishlist"
 msgstr ""
@@ -8885,7 +8893,7 @@ msgctxt "aria-label text"
 msgid "Remove from wishlist"
 msgstr ""
 
-#: templates/mc-add-to-wishlist.php:177
+#: templates/mc-add-to-wishlist.php:178
 #: templates/mc-wishlist-view.php:307
 msgctxt "aria-label text"
 msgid "Close"

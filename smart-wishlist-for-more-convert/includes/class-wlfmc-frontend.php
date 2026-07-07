@@ -1388,7 +1388,9 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						'change_layout'               => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_layout' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_layout' : 'wlfmc_wp_rest_change_layout' ),
 						'gdpr_action'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_gdpr_status' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_gdpr_status' : 'wlfmc_wp_rest_change_gdpr_status' ),
 					),
-					'ajax_nonce'            => array(),
+					'ajax_nonce'            => array(
+						'load_fragments' => wp_create_nonce( 'load_fragments_nonce' ),
+					),
 				),
 				$ajax_mode,
 				$options

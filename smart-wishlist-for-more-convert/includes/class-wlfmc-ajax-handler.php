@@ -919,6 +919,9 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * @version 1.7.9
 		 */
 		public static function delete_item() {
+			if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_delete_item' ) ) {
+				wp_send_json_error();
+			}
 			$item_id   = isset( $_POST['item_id'] ) ? intval( $_POST['item_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			$fragments = isset( $_REQUEST['fragments'] ) ? wp_unslash( $_REQUEST['fragments'] ) : false;// phpcs:ignore WordPress.Security
 			$return    = array(
@@ -994,6 +997,10 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * @return void
 		 */
 		public static function load_fragments() {
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'load_fragments_nonce' ) ) {
+				wp_send_json_error();
+			}
+
 			$fragment_json = isset( $_FILES['fragments_file']['tmp_name'] ) && is_uploaded_file( $_FILES['fragments_file']['tmp_name'] ) ? file_get_contents( $_FILES['fragments_file']['tmp_name'] ) : false;// phpcs:ignore
 			$fragments     = $fragment_json ? json_decode( $fragment_json, true ) : false;
 			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) { // wpml current  language.

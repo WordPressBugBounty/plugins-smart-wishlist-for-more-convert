@@ -152,6 +152,7 @@ $unique_id = wp_unique_id(); ?>
 					data-product-id="<?php echo esc_attr( $product_id ); ?>"
 					data-product-type="<?php echo esc_attr( $product_type ); ?>"
 					data-parent-product-id="<?php echo esc_attr( $parent_product_id ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'wlfmc_delete_item' ) ); ?>"
 					data-e-disable-page-transition
 					class="wlfmc_delete_item <?php echo esc_attr( $classes_exists ); ?>">
 					<?php echo $is_svg_icon && strpos( $added_icon, '<svg' ) !== false ? '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $added_icon ) . '</i>' : wp_kses_post( $added_icon ); ?><?php echo ( '' !== $button_label_remove ) ? '<span>' . wp_kses_post( $button_label_remove ) . '</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -185,7 +186,7 @@ $unique_id = wp_unique_id(); ?>
 					<?php endif; ?>
 					<div class="wlfmc-parent-product-price hide" style="display:none"><?php echo wp_kses_post( $product_price ); ?></div>
 					<div class="wlfmc-popup-desc">
-						<?php echo do_shortcode( $popup_content ); ?>
+						<?php echo wp_kses_post( do_shortcode( $popup_content ) ); ?>
 					</div>
 				</div>
 				<div class="wlfmc-popup-footer">

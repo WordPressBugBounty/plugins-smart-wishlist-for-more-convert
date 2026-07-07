@@ -69,7 +69,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 
 			check_ajax_referer( 'ajax-nonce', 'key' );
 
-			if ( ! apply_filters( 'wlfmc_can_reset_sending_cycle', true ) ) {
+			if ( ! apply_filters( 'wlfmc_can_reset_sending_cycle', true ) || ! current_user_can( 'manage_options' ) ) {
 				wp_send_json(
 					array(
 						'message' => __( 'You cannot access to reset sending cycle', 'wc-wlfmc-wishlist' ),
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 		public static function test_callback() {
 			check_ajax_referer( 'ajax-nonce', 'key' );
 
-			if ( ! apply_filters( 'wlfmc_can_send_test_mail', true ) ) {
+			if ( ! apply_filters( 'wlfmc_can_send_test_mail', true ) || ! current_user_can( 'manage_options' ) ) {
 				wp_send_json(
 					array(
 						'message' => __( 'You cannot access to send test mail', 'wc-wlfmc-wishlist' ),
@@ -338,6 +338,9 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 		 */
 		public static function preview_template() {
 			check_ajax_referer( 'ajax-nonce', 'key' );
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( array( 'html' => __( 'You cannot access to preview template.', 'wc-wlfmc-wishlist' ) ) );
+			}
 			$email_type             = isset( $_POST['template'] ) ? sanitize_text_field( wp_unslash( $_POST['template'] ) ) : '';
 			$email_heading          = isset( $_POST['heading'] ) ? sanitize_text_field( wp_unslash( $_POST['heading'] ) ) : '';
 			$email_content          = isset( $_POST['content'] ) ? wp_kses_post( wp_unslash( $_POST['content'] ) ) : '';
@@ -482,7 +485,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 
 			check_ajax_referer( 'ajax-nonce', 'key' );
 
-			if ( ! apply_filters( 'wlfmc_can_create_automation', true ) ) {
+			if ( ! apply_filters( 'wlfmc_can_create_automation', true ) || ! current_user_can( 'manage_options' ) ) {
 				wp_send_json(
 					array(
 						'errors' => __( 'You cannot access to create new automation', 'wc-wlfmc-wishlist' ),
@@ -546,7 +549,7 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 			if ( ! isset( $_POST['options'] ) ) {
 				return;
 			}
-			if ( ! apply_filters( 'wlfmc_can_update_automation', true ) ) {
+			if ( ! apply_filters( 'wlfmc_can_update_automation', true ) || ! current_user_can( 'manage_options' ) ) {
 				wp_send_json(
 					array(
 						'errors' => __( 'You cannot access to update automation', 'wc-wlfmc-wishlist' ),
@@ -619,6 +622,9 @@ if ( ! class_exists( 'WLFMC_Automation_Ajax_Handler' ) ) {
 			global $wpdb;
 			if ( ! isset( $_REQUEST['wlfmc_preview_offer_id'] ) || ! check_admin_referer( 'wlfmc_preview_email' ) ) {
 				return;
+			}
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_die( __( 'You cannot access to preview this email.', 'wc-wlfmc-wishlist' ) );
 			}
 			$offer_id = absint( wp_unslash( $_REQUEST['wlfmc_preview_offer_id'] ) );
 			if ( $offer_id ) {

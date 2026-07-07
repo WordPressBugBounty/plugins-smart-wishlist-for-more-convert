@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.9.20
+Stable tag: 1.9.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -302,6 +302,13 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 1.9.21 =
+
+* Tested: WC 10.9.4
+* Added: Added nonce validation for delete_item and load_fragments AJAX actions to prevent cross‑site request forgery (CSRF).
+* Added: Enforced current_user_can( 'manage_options' ) capability checks on all administrative AJAX endpoints to ensure only authorized users can trigger them.
+* Fixed: Escaped all echo do_shortcode() outputs using wp_kses_post to mitigate potential XSS vulnerabilities.
 
 = 1.9.20 =
 
