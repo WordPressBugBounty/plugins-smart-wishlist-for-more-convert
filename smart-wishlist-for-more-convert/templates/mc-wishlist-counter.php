@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.8.3
+ * @version 2.0.0
  */
 
 /**
@@ -47,18 +47,38 @@
  * @var $has_items                  bool
  * @var $count_items                int
  * @var $merge_lists                bool
+ * @var $icon_prefix_class
+ * @var $empty_icon
+ * @var $has_item_icon
+ * @var $counter_type
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+$empty_icon_html    = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $empty_icon ) . '"></i>' : htmlspecialchars_decode( $empty_icon );
+$has_item_icon_html = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $has_item_icon ) . '"></i>' : htmlspecialchars_decode( $has_item_icon );
 ?>
 <div <?php echo $hide_counter_if_no_items && ( ! $has_items ) ? 'style="display:none"' : ''; ?>
-	class="wlfmc-counter-wrapper <?php echo esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"
+	class="wlfmc-counter-wrapper <?php echo 'unique_' . esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"
 	data-id="<?php echo esc_attr( $unique_id ); ?>"
+	data-counter-type="<?php echo esc_attr( $counter_type ); ?>"
+	data-empty-icon="<?php echo esc_attr( $empty_icon_html ); ?>"
+	data-has-items-icon="<?php echo esc_attr( $has_item_icon_html ); ?>"
+	data-wishlist-url="<?php echo esc_url( $wishlist_url ); ?>"
+	data-wishlist-token="<?php echo esc_attr( $wishlist_token ); ?>"
+	data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"
 	data-fragment-options="<?php echo esc_attr( wp_json_encode( $fragment_options ) ); ?>"
-	data-fragment-ref="wishlist_counter">
+	data-hide-zero="<?php echo $hide_zero_products_number ? '1' : '0'; ?>"
+	data-hide-if-empty="<?php echo $hide_counter_if_no_items ? '1' : '0'; ?>"
+	data-button-text="<?php echo esc_attr( $button_text ); ?>"
+	data-total-text="<?php echo esc_attr( $total_text ); ?>"
+	data-button-position="<?php echo esc_attr( $wishlist_link_position ); ?>"
+		data-show-totals="<?php echo $show_totals ? '1' : '0'; ?>"
+		data-show-button="<?php echo $show_button ? '1' : '0'; ?>"
+		data-show-counter="<?php echo $show_counter ? '1' : '0'; ?>"
+		data-products-number-position="<?php echo esc_attr( $products_number_position ); ?>"
+		data-per-page="<?php echo esc_attr( $per_page ); ?>">
 	<?php if ( $show_icon || $show_text ) : ?>
 		<a href="<?php echo $add_link_title && ! $show_products ? esc_url( $wishlist_url ) : '#'; ?>"
 			data-id="<?php echo esc_attr( $unique_id ); ?>"
@@ -193,7 +213,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div  <?php echo $hide_counter_if_no_items && ( ! $has_items ) ? 'style="display:none"' : ''; ?>
 		class="wlfmc-counter-wrapper  <?php echo 'wrapper_' . esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"
 		data-fragment-options="<?php echo esc_attr( wp_json_encode( $dropdown_fragment_options ) ); ?>"
-		data-fragment-ref="wishlist_counter">
+		data-fragment-ref="wishlist_counter"
+		data-id="<?php echo esc_attr( $unique_id ); ?>"
+		data-counter-type="<?php echo esc_attr( $counter_type ); ?>"
+		data-empty-icon="<?php echo esc_attr( $empty_icon_html ); ?>"
+		data-has-items-icon="<?php echo esc_attr( $has_item_icon_html ); ?>"
+		data-wishlist-url="<?php echo esc_url( $wishlist_url ); ?>"
+		data-wishlist-token="<?php echo esc_attr( $wishlist_token ); ?>"
+		data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"
+		data-hide-zero="<?php echo $hide_zero_products_number ? '1' : '0'; ?>"
+		data-hide-if-empty="<?php echo $hide_counter_if_no_items ? '1' : '0'; ?>"
+		data-button-text="<?php echo esc_attr( $button_text ); ?>"
+		data-total-text="<?php echo esc_attr( $total_text ); ?>"
+		data-button-position="<?php echo esc_attr( $wishlist_link_position ); ?>"
+		data-show-totals="<?php echo $show_totals ? '1' : '0'; ?>"
+		data-show-button="<?php echo $show_button ? '1' : '0'; ?>"
+		data-show-counter="<?php echo $show_counter ? '1' : '0'; ?>"
+		data-products-number-position="<?php echo esc_attr( $products_number_position ); ?>"
+		data-per-page="<?php echo esc_attr( $per_page ); ?>">
 		<div
 			data-id="<?php echo esc_attr( $unique_id ); ?>"
 			class="wlfmc-counter-items wlfmc-products-counter-wishlist <?php echo esc_attr( 'dropdown_' . $unique_id ); ?> position-<?php echo esc_attr( $position_mode ); ?> wlfmc-counter-dropdown wlfmc-products-counter-dropdown">
@@ -288,3 +325,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 <?php endif; ?>
+<!-- Counter Item Template -->
+<script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-item-<?php echo esc_attr( $unique_id ); ?>">
+	<div id="wlfmc-row-{{ data.product_id }}"
+		data-item-id="{{ data.item_id }}"
+		data-row-id="{{ data.product_id }}"
+		data-wishlist-id="{{ data.wishlist_id }}"
+		data-wishlist-token="{{ data.wishlist_token }}"
+		class="d-flex gap-10 wlfmc-counter-item<# if ( data.pending ) { #> wlfmc-pending<# } #>">
+		<a class="product-thumbnail" href="{{ data.url || '#' }}">
+			{{{ data.image }}}
+		</a>
+		<div class="max-100">
+			<a class="product-name" href="{{ data.url || '#' }}">
+				{{ data.name }}
+			</a>
+			<div class="product-price price d-flex space-between">
+				<span>{{{ data.price }}}</span>
+				<a href="{{ data.remove_url || '#' }}"
+					aria-label="<?php echo esc_attr_x( 'Remove from wishlist', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>"
+					class="remove_from_wishlist wlfmc-remove-from-list"
+					data-nonce="{{ data.remove_nonce }}"
+					title="<?php echo esc_attr( apply_filters( 'wlfmc_remove_product_wishlist_message_title', __( 'Remove this product', 'wc-wlfmc-wishlist' ) ) ); ?>"
+					data-e-disable-page-transition>
+					<i class="wlfmc-icon-close"></i>
+				</a>
+			</div>
+			<# if ( data.list_name ) { #>
+			<div class="wlfmc-badge">{{ data.list_name }}</div>
+			<# } #>
+		</div>
+	</div>
+</script>
+
+<!-- Counter Empty State Template -->
+<script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-empty-<?php echo esc_attr( $unique_id ); ?>">
+	<div class="wlfmc-wishlist-empty<?php echo 'waitlist' === $counter_type ? ' wlfmc-' . esc_attr( $counter_type ) . '-empty' : ''; ?>">
+		<?php
+		// Use appropriate empty message filter based on counter type.
+		$empty_filter = 'waitlist' === $counter_type
+			? 'wlfmc_no_product_in_counter_waitlist_message'
+			: 'wlfmc_no_product_in_counter_wishlist_message';
+		echo wp_kses_post( apply_filters( $empty_filter, $empty_wishlist_content, null ) );
+		?>
+	</div>
+</script>
+

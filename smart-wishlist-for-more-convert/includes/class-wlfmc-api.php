@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
- * @version 1.9.16
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -55,6 +55,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		 *
 		 * @param WP_REST_Request $request  The request object.
 		 *
+		 * @verison 2.0.0
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function do_action( WP_REST_Request $request ) {
@@ -62,8 +63,14 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 			$data   = $request->get_body_params();
 			$action = sanitize_key( $data['action'] );
 
-			if ( ! in_array(
-				$action,
+			/**
+			 * Filter the list of allowed REST actions.
+			 * Premium modules can append their own actions via this filter.
+			 *
+			 * @param array $allowed Allowed action names.
+			 */
+			$allowed = apply_filters(
+				'wlfmc_rest_allowed_actions',
 				array(
 					'wlfmc_wp_rest_add_to_wishlist',
 					'wlfmc_wp_rest_remove_from_wishlist',
@@ -73,15 +80,62 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 					'wlfmc_wp_rest_load_automations',
 					'wlfmc_wp_rest_change_layout',
 					'wlfmc_wp_rest_change_gdpr_status',
-				),
-				true
-			) ) {
+					'wlfmc_wp_rest_modern_sync',
+				)
+			);
+
+			if ( ! in_array( $action, (array) $allowed, true ) ) {
 				return rest_ensure_response( array( 'result' => false ) );
 			}
 
-			$action = str_replace( 'wlfmc_wp_rest_', '', $action );
+			$short = str_replace( 'wlfmc_wp_rest_', '', $action );
 
-			return self::$action( $data );
+			// Default handler map; every entry delegates to ONE shared payload builder.
+			$handlers = array(
+				'add_to_wishlist'      => array( 'WLFMC_Api', 'add_to_wishlist' ),
+				'remove_from_wishlist' => array( 'WLFMC_Api', 'remove_from_wishlist' ),
+				'update_item_quantity' => array( 'WLFMC_Api', 'update_item_quantity' ),
+				'delete_item'          => array( 'WLFMC_Api', 'delete_item' ),
+				'load_fragments'       => array( 'WLFMC_Api', 'load_fragments' ),
+				'load_automations'     => array( 'WLFMC_Api', 'load_automations' ),
+				'change_layout'        => array( 'WLFMC_Api', 'change_layout' ),
+				'change_gdpr_status'   => array( 'WLFMC_Api', 'change_gdpr_status' ),
+				'modern_sync'          => array( 'WLFMC_Api', 'modern_sync' ),
+			);
+
+			/**
+			 * Filter the handler for a given short action name.
+			 * Modules (premium) can route their own actions without duplicating
+			 * the free plugin dispatcher.
+			 *
+			 * @param callable|null $handler Handler callable or null.
+			 * @param string        $short   Short action name (prefix stripped).
+			 * @param array         $data    Request data.
+			 */
+			$handler = apply_filters( 'wlfmc_rest_action_handler', $handlers[ $short ] ?? null, $short, $data );
+
+			if ( ! $handler || ! is_callable( $handler ) ) {
+				return rest_ensure_response( array( 'result' => false ) );
+			}
+
+			return call_user_func( $handler, $data );
+		}
+
+		/**
+		 * Modern data-sync REST twin. Shares the exact same payload builder as admin-ajax.
+		 *
+		 * @param array $data Request data.
+		 *
+		 * @since 2.0.0
+		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
+		 */
+		public static function modern_sync( array $data ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+			return rest_ensure_response(
+				array(
+					'success' => true,
+					'data'    => WLFMC_Ajax_Handler::get_sync_payload(),
+				)
+			);
 		}
 
 		/**
@@ -157,179 +211,60 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		}
 
 		/**
-		 * Add to wishlist from ajax call
+		 * Add to wishlist from ajax call.
+		 * Delegates to the shared payload builder used by admin-ajax as well.
 		 *
 		 * @param array $data $_POST data.
 		 *
+		 * @version 2.0.0
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function add_to_wishlist( array $data ) {
-
-			$result = false;
-
-			$args = array(
-				'add_to_wishlist'     => 0,
-				'wishlist_id'         => 0,
-				'quantity'            => 1,
-				'user_id'             => false,
-				'dateadded'           => '',
-				'wishlist_name'       => '',
-				'wishlist_visibility' => 0,
-			);
-			$args = wp_parse_args( $data, $args );
-
-			try {
-				$result  = WLFMC()->add( $args );
-				$return  = 'true';
-				$message = '';
-
-			} catch ( WLFMC_Exception $e ) {
-				$return  = $e->getTextualCode();
-				$message = apply_filters( 'wlfmc_error_adding_to_wishlist_message', $e->getMessage() );
-			} catch ( Exception $e ) {
-				$return  = 'error';
-				$message = apply_filters( 'wlfmc_error_adding_to_wishlist_message', $e->getMessage() );
-			}
-			$product_id = isset( $data['add_to_wishlist'] ) ? intval( $data['add_to_wishlist'] ) : false; // phpcs:ignore WordPress.Security
-			$fragments  = isset( $data['fragments'] ) ? json_decode( wp_unslash( $data['fragments'] ), true ) : false;// phpcs:ignore WordPress.Security
-
-			$found_item    = false;
-			$found_in_list = false;
-			if ( 'exists' === $return ) {
-				$found_in_list = wlfmc_get_wishlist( false );
-				$found_item    = $found_in_list ? $found_in_list->get_product( $product_id ) : false;
-			}
-			$wishlist_url = WLFMC()->get_wc_wishlist_url( 'wishlist', 'last_operation' );
-
 			return rest_ensure_response(
 				apply_filters(
 					'wlfmc_rest_add_return_params',
-					array(
-						'prod_id'      => $product_id,
-						'result'       => $return,
-						'message'      => $message,
-						'wishlist_url' => $wishlist_url,
-						'fragments'    => WLFMC_Ajax_Handler::refresh_fragments( $fragments ),
-						'wishlist_id'  => $result ? $result['wishlist_id'] : ( $found_in_list ? $found_in_list->get_id() : false ),
-						'item_id'      => $result ? $result['item_id'] : ( $found_item ? $found_item->get_id() : false ),
-						'customer_id'  => $result ? $result['customer_id'] : ( $found_item ? $found_item->get_customer_id() : false ),
-					)
+					WLFMC_Ajax_Handler::get_add_payload( $data )
 				)
 			);
 		}
 
 		/**
-		 * Remove item from a wishlist
+		 * Remove item from a wishlist.
+		 * Delegates to the shared payload builder used by admin-ajax as well.
 		 *
 		 * @param array $data $_POST data.
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function remove_from_wishlist( array $data ) {
-			$fragments = isset( $data['fragments'] ) ? wp_unslash( $data['fragments'] ) : false;
-			$return    = false;
-			$result    = false;
-
-			$args = array(
-				'remove_from_wishlist' => 0,
-				'wishlist_id'          => 0,
-				'user_id'              => false,
-				'merge_lists'          => false,
-			);
-			$args = wp_parse_args( $data, $args );
-			try {
-				$result  = WLFMC()->remove( $args );
-				$return  = 'true';
-				$message = '';
-			} catch ( Exception $e ) {
-				$message = $e->getMessage();
-			}
-
-			return rest_ensure_response(
-				array(
-					'result'    => $return,
-					'message'   => $message,
-					'count'     => $result ? $result['count'] : false,
-					'fragments' => WLFMC_Ajax_Handler::refresh_fragments( $fragments ),
-				)
-			);
+			return rest_ensure_response( WLFMC_Ajax_Handler::get_remove_payload( $data ) );
 		}
 
 		/**
-		 * Remove item from a wishlist
-		 * Differs from remove from wishlist, since this accepts item id instead of product id
+		 * Remove item from a wishlist by item id.
+		 * Delegates to the shared payload builder used by admin-ajax as well.
 		 *
 		 * @param array $data $_POST data.
 		 *
-		 * @version 1.7.9
+		 * @verison 2.0.0
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function delete_item( array $data ) {
-
-			$item_id   = isset( $data['item_id'] ) ? intval( $data['item_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$fragments = isset( $data['fragments'] ) ? wp_unslash( $data['fragments'] ) : false;
-			$return    = array(
-				'result' => false,
-			);
-
-			if ( $item_id ) {
-				$item = WLFMC_Wishlist_Factory::get_wishlist_item( $item_id );
-
-				if ( $item ) {
-
-					$wishlist = $item->get_wishlist();
-
-					if ( $wishlist && $wishlist->current_user_can( 'remove_from_wishlist' ) ) {
-						$item->delete();
-						$return = array(
-							'result'    => 'true',
-							'message'   => '',
-							'fragments' => WLFMC_Ajax_Handler::refresh_fragments( $fragments ),
-						);
-					}
-				}
-			}
-
-			return rest_ensure_response( $return );
+			return rest_ensure_response( WLFMC_Ajax_Handler::get_delete_item_payload( $data ) );
 		}
 
 		/**
-		 * Update quantity of an item in wishlist
+		 * Update quantity of an item in wishlist.
+		 * Delegates to the shared payload builder used by admin-ajax as well.
 		 *
 		 * @param array $data $_POST data.
 		 *
+		 * @version 2.0.0
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function update_item_quantity( array $data ) {
-			$wishlist_token = isset( $data['wishlist_token'] ) ? sanitize_text_field( wp_unslash( $data['wishlist_token'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$product_id     = isset( $data['product_id'] ) ? intval( $data['product_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$new_quantity   = isset( $data['quantity'] ) ? intval( $data['quantity'] ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
-			$cart_item_key  = isset( $data['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $data['cart_item_key'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$fragments      = isset( $data['fragments'] ) ? wp_unslash( $data['fragments'] ) : false;
-
-			if ( ! $wishlist_token || ! $product_id ) {
-				die();
-			}
-
-			$wishlist = wlfmc_get_wishlist( $wishlist_token );
-
-			if ( ! $wishlist || ! $wishlist->current_user_can( 'update_quantity' ) ) {
-				die();
-			}
-
-			$item = $wishlist->get_product( $cart_item_key ? $cart_item_key : $product_id );
-
-			if ( ! $item ) {
-				die();
-			}
-
-			do_action( 'wlfmc_before_item_quantity_update', $cart_item_key, $new_quantity, $item->get_quantity(), $item );
-
-			$item->set_quantity( $new_quantity );
-			$item->save();
-
-			return rest_ensure_response( array( 'fragments' => WLFMC_Ajax_Handler::refresh_fragments( $fragments ) ) );
+			return rest_ensure_response( WLFMC_Ajax_Handler::get_update_item_quantity_payload( $data ) );
 		}
 
 		/**

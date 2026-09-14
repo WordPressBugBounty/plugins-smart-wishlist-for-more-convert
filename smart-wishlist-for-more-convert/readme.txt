@@ -3,8 +3,8 @@
 Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
-Tested up to: 7.0
-Stable tag: 1.9.21
+Tested up to: 7.1
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,7 @@ Free: WC Wishlist, Email automation, Elementor Widgets. Premium: Back-in-Stock N
 
 **Free Version:**
 - **WooCommerce Wishlist:** Create wishlists easily.
+- Now with Optimistic UI, Smart Queuing, Caching, Offline Support, Automatic Rollback & Blazing-Fast Performance!
 - Beautiful icons in various positions + shortcodes
 - **Elementor Widgets:** Customize with Elementor
 - [**Over 100 integrations** with plugins and themes.](https://moreconvert.com/integrations//?utm_source=wordpressorg&utm_content=preview)
@@ -303,6 +304,20 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
+= 2.0.0 =
+
+* Tested: WP 7.1
+* Tested: WC 11.1
+* New: Completely rebuilt front-end engine — all wishlist, waitlist, and multi-list actions now update instantly without page reloads, making the shopping experience noticeably faster and smoother.
+* New: Real-time cross-tab synchronization — add, remove, or reorder items in one browser tab and every other open tab updates automatically, no refresh needed.
+* New: Instant visual feedback on every action — counters, mini-wishlists, and button states react immediately on click so customers never feel a delay.
+* New [Premium]: Enhanced drag-and-drop sorting with fluid drop animations, plus live multi-list and Save-for-Later counter sync across all tabs.
+* New: Improved accessibility and keyboard navigation for all popups, tooltips, and dropdowns on desktop and mobile.
+* Fixed: Fix SQL Injection vulnerability in ORDER BY clauses across admin list tables.
+* Added: new filter "wlfmc_show_multi_list_count" for multi-list count badge visibility.
+* Added: new filter "wlfmc_show_meta_data_by_default" for product components visibility.
+* Added: add dual icon support for add-to-list button
+
 = 1.9.21 =
 
 * Tested: WC 10.9.4
@@ -328,51 +343,5 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Fixed: Enhanced security compliance in email tracking mechanisms to prevent potential open redirection exploits.
 * Tweak: Hardened redirection flow inside email tracking triggers using WordPress native safe redirect functions.
 * Fixed: Added strict capability checks (`install_plugins` and `activate_plugins`) to the core plugin installer handler to prevent unauthorized execution by low-privileged users(premium version).
-
-= 1.9.18 =
-
-* Tested: WP 7.0
-* Fixed: Various PHPCS and PHPCBF errors.
-
-= 1.9.17 =
-
-* Fixed: fix image corrupted.
-
-= 1.9.16 =
-
-* Fixed: Various PHPCS and PHPCBF errors.
-* Added: Owner verification for multilist – now checks user ownership before updating, changing privacy, or removing a list(Premium version).
-* Added: Owner verification before changing GDPR status.
-
-= 1.9.15 =
-
-* Fixed: Fix authentication bypass in waitlist email verification( Premium version).
-
-
-= 1.9.14 =
-
-* Tested: WP 6.9.4
-* Tested: WC 10.7
-* Added: Added the ability to import Wishlist from TI Woocommerce Wishlist Plugin( Premium version).
-
-= 1.9.13 =
-
-* Tested: WP 6.9.1
-* Tested: WC 10.5.2
-* Added: added previously subscribed date to the waitlist subscribers table( Premium version).
-
-= 1.9.12 =
-
-* Tested: WC 10.4.3
-* Fixed: fix add counter to menu utf-8 bugs.
-* Fixed: fix load svg sanitize autoload.
-
-= 1.9.11 =
-
-* Tested: WC 10.3.6
-* Tested: WP 6.9
-* Added: Add the total price to the PDF file( premium version).
-* Fixed: fix analytics filters and calculate recipient in campaign.
-* Improved: add new customer after user registration.
 
 [See changelog for all versions](https://moreconvert.com/changelog/).

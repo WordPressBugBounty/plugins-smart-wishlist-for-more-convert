@@ -632,7 +632,7 @@ i.wlfmc-svg svg.e-font-icon-svg {
           flex-direction: row-reverse;
 }
 
-.wlfmc-valign, .wlfmc-inline-buttons-no-mar, .wlfmc-wishlist-page .wlfmc-lists-header a, .wlfmc-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-unsubscribe-notice-wrapper .wlfmc-notice-buttons, .wlfmc-gdpr-notice-wrapper .wlfmc-notice-buttons, .wlfmc-notice-wrapper .wlfmc-notice-buttons, .wlfmc-multi-list-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-waitlist-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-tabs a.nav-tab, .wlfmc-list nav.wishlist-pagination ul li a, .wlfmc-list nav.wishlist-pagination ul li span, .wlfmc-lists nav.wishlist-pagination ul li a, .wlfmc-lists nav.wishlist-pagination ul li span, .wlfmc-list .wlfmc-remove-from-list, .wlfmc-list .product-components, .wlfmc-list .product-move, .wlfmc-list .product-copy, .wlfmc-wishlist-table.wishlist-default-style input[type=submit], .wlfmc-wishlist-table.wishlist-default-style button[type=submit], .wlfmc-wishlist-table.wishlist-default-style.add-to-card-same-button .button:not(.minus):not(.plus):not([style="display:none"]), .wlfmc-share .wlfmc-copy-container .copy-link-trigger, .wlfmc-share .wlfmc-copy-container, .wlfmc-share ul.share-items i, .wlfmc-share ul.share-items, .wlfmc-popup .wlfmc-popup-header-bordered i, .wlfmc-popup .wlfmc-btn {
+.wlfmc-valign, .wlfmc-inline-buttons-no-mar, .wlfmc-wishlist-page .wlfmc-lists-header a, .wlfmc-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-unsubscribe-notice-wrapper .wlfmc-notice-buttons, .wlfmc-gdpr-notice-wrapper .wlfmc-notice-buttons, .wlfmc-notice-wrapper .wlfmc-notice-buttons, .wlfmc-multi-list-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-waitlist-guest-notice-wrapper .wlfmc-notice-buttons, .wlfmc-tabs a.nav-tab, .wlfmc-list nav.wishlist-pagination ul li a, .wlfmc-list nav.wishlist-pagination ul li span, .wlfmc-lists nav.wishlist-pagination ul li a, .wlfmc-lists nav.wishlist-pagination ul li span, .wlfmc-list .wlfmc-remove-from-list, .wlfmc-list .product-components, .wlfmc-list .product-move, .wlfmc-list .product-copy, .wlfmc-wishlist-table.wishlist-default-style input[type=submit], .wlfmc-wishlist-table.wishlist-default-style button[type=submit], .wlfmc-wishlist-table.wishlist-default-style.add-to-card-same-button .button:not(.minus):not(.plus):not([style="display:none"]), .wlfmc-share .wlfmc-copy-container .copy-link-trigger, .wlfmc-share .wlfmc-copy-container, .wlfmc-share ul.share-items i, .wlfmc-share ul.share-items, .wlfmc-popup .wlfmc-popup-header-bordered i {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
   display: flex !important;
@@ -687,6 +687,93 @@ i.wlfmc-svg svg.e-font-icon-svg {
   text-decoration: none !important;
 }
 
+/* ==========================================================================
+   Skeleton Loading State for Pending Items
+   ========================================================================== */
+.wlfmc-pending {
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+  position: relative;
+  overflow: hidden;
+  background: transparent !important;
+  border: none !important;
+}
+.wlfmc-pending a, .wlfmc-pending button, .wlfmc-pending input, .wlfmc-pending select, .wlfmc-pending span, .wlfmc-pending i, .wlfmc-pending svg {
+  color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  text-shadow: none !important;
+}
+.wlfmc-pending .product-thumbnail img {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+.wlfmc-pending .product-thumbnail {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  max-height: 50px !important;
+  min-height: 50px !important;
+  border-radius: 4px !important;
+  background-color: #f0f0f0;
+  background-image: -webkit-gradient(linear, left top, right top, from(#f0f0f0), color-stop(50%, #e0e0e0), to(#f0f0f0)) !important;
+  background-image: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+          animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+}
+.wlfmc-pending .product-name {
+  text-indent: -9999px;
+  margin-bottom: 8px !important;
+  border-radius: 4px !important;
+  background-color: #f0f0f0;
+  background-image: -webkit-gradient(linear, left top, right top, from(#f0f0f0), color-stop(50%, #e0e0e0), to(#f0f0f0)) !important;
+  background-image: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+          animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+}
+.wlfmc-pending .product-price > span {
+  display: block;
+  height: 14px !important;
+  width: 40% !important;
+  border-radius: 4px !important;
+  background-color: #f0f0f0 !important;
+  background-image: -webkit-gradient(linear, left top, right top, from(#f0f0f0), color-stop(50%, #e0e0e0), to(#f0f0f0)) !important;
+  background-image: linear-gradient(90deg, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%) !important;
+  background-size: 200% 100% !important;
+  -webkit-animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+          animation: wlfmc-skeleton-shimmer 1.5s infinite linear !important;
+}
+.wlfmc-pending {
+  /* Hide the remove button completely during skeleton state */
+}
+.wlfmc-pending .remove_from_wishlist {
+  display: none !important;
+}
+
+/* 3. Skeleton Shimmer Animation Keyframes */
+@-webkit-keyframes wlfmc-skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes wlfmc-skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 .wlfmc-fields:not(:last-child) {
   margin-bottom: 15px;
 }
@@ -888,6 +975,15 @@ html.popup_visible, html.popup_visible body {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   line-height: 36px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .wlfmc-popup .wlfmc-btn.btn-block {
   width: 100%;
@@ -1655,6 +1751,22 @@ html.popup_visible, html.popup_visible body {
   border-bottom-right-radius: inherit;
   border-bottom-left-radius: inherit;
 }
+.wlfmc-list.sortable.view-mode-grid .wishlist-items-wrapper:not(.wishlist-empty) tr.ui-sortable-placeholder {
+  display: inline-block !important;
+  vertical-align: top;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.wlfmc-list.sortable.view-mode-grid .wishlist-items-wrapper:not(.wishlist-empty) tr.ui-sortable-placeholder td {
+  display: none !important;
+}
+.wlfmc-list.wlfmc-sortable-active .wishlist-items-wrapper:not(.wishlist-empty) tr {
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+}
 
 .wlfmc-list .button:not(.loading):not(.add_to_cart_button):before, .wlfmc-list .button:not(.loading):not(.add_to_cart_button):after, .wlfmc-lists .button:not(.loading):not(.add_to_cart_button):before, .wlfmc-lists .button:not(.loading):not(.add_to_cart_button):after {
   display: none;
@@ -1825,6 +1937,28 @@ html.popup_visible, html.popup_visible body {
 .wlfmc-meta-data .wlfmc-table-item-meta-data .variation dd {
   float: right;
 }
+/* ─────────────────────────────────────────────
+   Drag & Drop floating helper wrapper.
+   Appended to <body>, must live outside table scope.
+────────────────────────────────────────────── */
+.wlfmc-sortable-helper {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  border-radius: 10px;
+  overflow: hidden;
+  -webkit-box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 4px 10px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18), 0 4px 10px rgba(0, 0, 0, 0.08);
+  opacity: 0.92;
+  will-change: top, left;
+  -webkit-transition: none !important;
+  transition: none !important;
+}
+.wlfmc-sortable-helper .wlfmc-wishlist-table {
+  border-spacing: 0 !important;
+  margin: 0 !important;
+}
+
 .wlfmc-save-for-later-table-wrapper {
   width: 100%;
   overflow-x: auto;
@@ -2676,6 +2810,44 @@ input.wlfmc-dropdown-input {
 .wlfmc-add-to-multi-list:not(.wlfmc-btn-type-icon) .wlfmc-custom-btn i {
   display: inline-block;
 }
+.wlfmc-add-to-multi-list:not(.exists) .wlfmc-icon-state-added {
+  display: none !important;
+}
+.wlfmc-add-to-multi-list.exists .wlfmc-icon-state-default {
+  display: none;
+}
+
+.wlfmc-multi-list-count {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 9px;
+  background: #f5f5f5;
+  color: #8e8989;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0 4px;
+  position: absolute !important;
+  top: 6px;
+  right: 5px;
+  z-index: -1;
+  margin: 0 !important;
+}
+
+.wlfmc-multi-list-count.has-items {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
 
 .wlfmc-add-to-waitlist {
   display: inline-block;
@@ -2763,6 +2935,12 @@ input.wlfmc-dropdown-input {
 }
 .wlfmc-add-to-wishlist.exists.show-exists-after-add .wlfmc-existsinwishlist {
   display: inline-block !important;
+}
+.wlfmc-add-to-wishlist:not(.exists) .wlfmc-addtomergelists .wlfmc-icon-state-added {
+  display: none !important;
+}
+.wlfmc-add-to-wishlist.exists .wlfmc-addtomergelists .wlfmc-icon-state-default {
+  display: none;
 }
 
 .wlfmc-add-button a {
@@ -3406,6 +3584,7 @@ input.wlfmc-dropdown-input {
   pointer-events: none;
   position: fixed;
   z-index: 999999;
+  overflow-anchor: none;
 }
 #toast-container * {
   -webkit-box-sizing: border-box;

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1462,13 +1462,39 @@ if ( ! function_exists( 'wlfmc_remove_empty_html_tags' ) ) {
 	 *
 	 * @param string $html html code.
 	 *
+	 * @version 2.0.0
 	 * @return array|string|string[]|null
 	 */
 	function wlfmc_remove_empty_html_tags( $html ) {
+		if ( ! is_string( $html ) || '' === $html ) {
+			return '';
+		}
+
+		// Match empty tags with OR without attributes
+		$pattern = '~<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(\\s|&nbsp;|&#160;)*</\\1>~';
+
 		do {
 			$old_html = $html;
-			$html     = preg_replace( '#<([^<]+?)\s[^>]*>(\s|&nbsp;)*</\1>#', '', $html ?? '' );
+			$result   = preg_replace( $pattern, '', $html );
+
+			// Guard against PCRE errors (backtrack limit, etc.)
+			if ( null === $result ) {
+				// Log the error for debugging, return original content unchanged
+				if ( function_exists( 'wc_get_logger' ) ) {
+					wc_get_logger()->warning(
+						sprintf(
+							'wlfmc_remove_empty_html_tags: preg_replace failed with error code %d',
+							preg_last_error()
+						),
+						array( 'source' => 'wlfmc' )
+					);
+				}
+				return $old_html;
+			}
+
+			$html = $result;
 		} while ( $html !== $old_html );
+
 		return $html;
 	}
 }

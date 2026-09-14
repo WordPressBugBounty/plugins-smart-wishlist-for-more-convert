@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.11
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -398,7 +398,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * @param string $current_db_version Version from which we're updating.
 		 *
 		 * @since 1.0.1
-		 * @version 1.9.3
+		 * @version 2.0.0
 		 */
 		public function update( string $current_version, string $current_db_version ) {
 
@@ -555,6 +555,10 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 
 			if ( version_compare( $current_version, '1.9.11', '<' ) ) {
 				update_option( 'wlfmc_need_update_tables', 'update_customer_table' );
+			}
+
+			if ( ! empty( $current_version ) && version_compare( $current_version, '2.0.0', '<' ) ) {
+				$this->update_2_0_0();
 			}
 
 			$this->register_current_version();
@@ -1633,6 +1637,39 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 			}
 		}
 
+		/**
+		 * Update to 2.0.0
+		 *
+		 * Enable modern architecture by default only for new installations.
+		 * Existing installations keep the legacy behavior unless already changed.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @return void
+		 */
+		private function update_2_0_0() {
+
+			$options  = new MCT_Options( 'wlfmc_options' );
+			$sentinel = '__wlfmc_not_set__';
+
+			$current_value = $options->get_option( 'use_modern_architecture', $sentinel );
+
+			/**
+			 * Existing installations without an explicit saved value
+			 * must remain on the legacy architecture.
+			 */
+			if ( $sentinel === $current_value ) {
+				log_me( 'update worked' );
+				$options->update_option( 'use_modern_architecture', '0', 'global-settings' );
+			}
+
+			/**
+			 * Show one-time activation notice if the feature is currently disabled.
+			 */
+			if ( function_exists( 'wlfmc_is_true' ) && ! wlfmc_is_true( $options->get_option( 'use_modern_architecture', '0' ) ) ) {
+				update_option( 'wlfmc_modern_architecture_notice_status', 'pending' );
+			}
+		}
 
 		/**
 		 * Add a page "Wishlist".

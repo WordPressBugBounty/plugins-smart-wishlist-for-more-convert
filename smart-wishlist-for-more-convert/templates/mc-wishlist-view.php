@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.9
+ * @version 2.0.0
  */
 
 /**
@@ -168,10 +168,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 					?>
 					<?php if ( $product->exists() ) : ?>
+						<?php
+						/**
+						 * Filter whether product meta data (components) should be visible by default.
+						 *
+						 * When true, the meta data section is shown without requiring a click.
+						 *
+						 * @param bool                $show     Whether to show meta data by default. Default false.
+						 * @param WLFMC_Wishlist_Item $item     Current wishlist item.
+						 * @param WLFMC_Wishlist      $wishlist Current wishlist.
+						 * @param array               $atts     Template attributes.
+						 */
+						$show_meta_by_default = apply_filters( 'wlfmc_show_meta_data_by_default', false, $item, $wishlist, $atts );
+						?>
 						<tr id="wlfmc-row-<?php echo esc_attr( $item->get_product_id() ); ?>"
 							data-row-id="<?php echo esc_attr( $item->get_product_id() ); ?>"
 							data-item-id="<?php echo esc_attr( $item->get_id() ); ?>"
-							class="wlfmc-table-item">
+							class="wlfmc-table-item<?php echo ( '' !== $item_meta_date && $show_meta_by_default ) ? ' show-meta-data' : ''; ?>">
 							<?php if ( $enable_drag_n_drop ) : ?>
 								<td class="sortable-handle" aria-label="<?php echo esc_attr_x( 'Sort', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>">
 									<i class="wlfmc-icon-drag-drop"></i>
@@ -301,7 +314,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php endif; ?>
 
 									<?php if ( '' !== $item_meta_date ) : ?>
-										<div class="wlfmc-meta-data wlfmc-absolute-meta-data" style="display:none">
+										<div class="wlfmc-meta-data wlfmc-absolute-meta-data" style="display:<?php echo $show_meta_by_default ? 'block' : 'none'; ?>">
 											<p class="d-flex  f-center-item space-between">
 												<span><i class="wlfmc-icon-components"></i>&nbsp;<?php echo esc_html( apply_filters( 'wlfmc_product_components_title', esc_html__( 'Product components', 'wc-wlfmc-wishlist' ) ) ); ?></span>
 												<a href="#" class="close-components" aria-label="<?php echo esc_attr_x( 'Close', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>"><i class="wlfmc-icon-close"></i></a>
@@ -472,7 +485,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</td>
 						</tr>
 						<?php if ( '' !== $item_meta_date ) : ?>
-							<tr class="wlfmc-row-meta-data hide parent-row-id-<?php echo esc_attr( $item->get_product_id() ); ?>" >
+							<tr class="wlfmc-row-meta-data <?php echo $show_meta_by_default ? '' : ' hide'; ?> parent-row-id-<?php echo esc_attr( $item->get_product_id() ); ?>" >
 								<td colspan="3">
 									<div class="wlfmc-meta-data" >
 										<?php echo wp_kses_post( $item_meta_date ); ?>

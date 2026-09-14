@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,6 +24,11 @@ if ( ! class_exists( 'WLFMC_Exception' ) ) {
 		private $error_codes = array(
 			0 => 'error',
 			1 => 'exists',
+			2 => 'nonce_invalid',
+			3 => 'validation_failed',
+			4 => 'permission_denied',
+			5 => 'not_found',
+			6 => 'server_error',
 		);
 
 		/**

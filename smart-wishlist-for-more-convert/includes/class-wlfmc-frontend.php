@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.12
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1238,9 +1238,12 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 * Register scripts and styles required by the plugin
 		 *
 		 * @return void
-		 * @version 1.6.8
+		 * @version 2.0.0
 		 */
 		public function register_styles_and_stuffs() {
+
+			$options   = new MCT_Options( 'wlfmc_options' );
+			$is_modern = wlfmc_is_true( $options->get_option( 'use_modern_architecture', '1' ) );
 
 			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 			$deps   = apply_filters( 'wlfmc_main_script_deps', array( 'jquery', 'hoverIntent', 'wp-util' ) );
@@ -1250,10 +1253,33 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				wp_register_style( 'wlfmc-main', MC_WLFMC_URL . 'assets/frontend/css/style' . $suffix . '.css', null, WLFMC_VERSION );
 			}
 
-			wp_register_script( 'toastr', MC_WLFMC_URL . 'assets/frontend/js/toastr' . $suffix . '.js', array( 'jquery' ), WLFMC_VERSION, true );
+			if ( ! $is_modern ) {
+				wp_register_script( 'toastr', MC_WLFMC_URL . 'assets/frontend/js/toastr' . $suffix . '.js', array( 'jquery' ), WLFMC_VERSION, true );
+				wp_register_script( 'jquery-popupoverlay', MC_WLFMC_URL . 'assets/frontend/js/jquery.popupoverlay' . $suffix . '.js', array( 'jquery' ), WLFMC_VERSION, true );
+			}
+			if ( $is_modern ) {
+				$deps = apply_filters( 'wlfmc_main_modern_script_deps', array( 'wp-util' ) );
 
-			wp_register_script( 'jquery-popupoverlay', MC_WLFMC_URL . 'assets/frontend/js/jquery.popupoverlay' . $suffix . '.js', array( 'jquery' ), WLFMC_VERSION, true );
-			if ( defined( 'MC_WLFMC_PREMIUM' ) ) {
+				if ( defined( 'MC_WLFMC_PREMIUM' ) ) {
+					wp_register_script(
+						'wlfmc-main',
+						MC_WLFMC_URL . 'assets/frontend/js/modern/modern-premium-bundle' . $suffix . '.js',
+						$deps,
+						WLFMC_VERSION,
+						true
+					);
+				} else {
+					wp_register_script(
+						'wlfmc-main',
+						MC_WLFMC_URL . 'assets/frontend/js/modern/modern-free-bundle' . $suffix . '.js',
+						$deps,
+						WLFMC_VERSION,
+						true
+					);
+				}
+				wp_script_add_data( 'wlfmc-main', 'defer', true );
+
+			} elseif ( defined( 'MC_WLFMC_PREMIUM' ) ) {
 				wp_register_script( 'wlfmc-main', MC_WLFMC_URL . 'assets/frontend/js/main-premium' . $suffix . '.js', $deps, WLFMC_VERSION, true );
 			} else {
 				wp_register_script( 'wlfmc-main', MC_WLFMC_URL . 'assets/frontend/js/main' . $suffix . '.js', $deps, WLFMC_VERSION, true );
@@ -1289,15 +1315,20 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		/**
 		 * Enqueue plugin scripts.
 		 *
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public function enqueue_scripts() {
 
+			$options   = new MCT_Options( 'wlfmc_options' );
+			$is_modern = wlfmc_is_true( $options->get_option( 'use_modern_architecture', '1' ) );
+
 			wp_localize_script( 'wlfmc-main', 'wlfmc_l10n', $this->get_localize() );
 
-			wp_enqueue_script( 'toastr' );
-
-			wp_enqueue_script( 'jquery-popupoverlay' );
+			if ( ! $is_modern ) {
+				wp_enqueue_script( 'toastr' );
+				wp_enqueue_script( 'jquery-popupoverlay' );
+			}
 
 			wp_enqueue_script( 'wlfmc-main' );
 		}
@@ -1307,7 +1338,7 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 		 *
 		 * @return array Array with variables to be localized inside js
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 */
 		public function get_localize() {
 			$options    = new MCT_Options( 'wlfmc_options' );
@@ -1336,7 +1367,20 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 				} elseif ( function_exists( 'pll_current_language' ) ) { // polylang current language.
 					$lang = pll_current_language();
 				}
-				$wishlist_items = WLFMC_Ajax_Handler::get_current_items();
+				// Localize initial items WITH server-rendered display data so the
+				// client can hydrate stores and counters synchronously, before any request.
+				$wishlist_items = array_map(
+					function ( $item ) {
+						$display = WLFMC_Ajax_Handler::get_item_display_data_for_counter( WLFMC_Wishlist_Factory::get_wishlist_item( $item['item_id'] ) );
+						return array(
+							'product_id'  => $item['product_id'],
+							'wishlist_id' => $item['wishlist_id'],
+							'item_id'     => $item['item_id'],
+							'display'     => $display ? $display : array(),
+						);
+					},
+					WLFMC_Ajax_Handler::get_current_items()
+				);
 			}
 			return apply_filters(
 				'wlfmc_localize_script',
@@ -1376,6 +1420,12 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						'popup_title'                => $options->get_option( 'popup_title' ),
 						'popup_content'              => $options->get_option( 'popup_content' ),
 						'link_copied'                => apply_filters( 'wlfmc_the_link_was_copied_message', __( 'The link was copied to clipboard', 'wc-wlfmc-wishlist' ) ),
+						// Modern architecture i18n keys
+						'session_expired'            => esc_html__( 'Your session has expired, please log in again.', 'wc-wlfmc-wishlist' ),
+						'operation_failed'           => esc_html__( 'Operation failed. Please try again.', 'wc-wlfmc-wishlist' ),
+						'add_to_cart_failed'         => esc_html__( 'Failed to add to cart.', 'wc-wlfmc-wishlist' ),
+						'network_error'              => esc_html__( 'Network error. Please check your connection and try again.', 'wc-wlfmc-wishlist' ),
+						'storage_volatile_warning'   => esc_html__( 'Your lists may not persist in this browsing mode.', 'wc-wlfmc-wishlist' ),
 					),
 					'actions'               => array(
 						'add_to_cart_action'          => 'wlfmc_add_to_cart',
@@ -1384,13 +1434,20 @@ if ( ! class_exists( 'WLFMC_Frontend' ) ) {
 						'delete_item_action'          => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_delete_item' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_delete_item' : 'wlfmc_wp_rest_delete_item' ),
 						'load_fragments'              => 'wlfmc_load_fragments', // 'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_fragments' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_fragments' : 'wlfmc_wp_rest_load_fragments' ),
 						'load_automations'            => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_load_automations' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_load_automations' : 'wlfmc_wp_rest_load_automations' ),
+						'modern_sync'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_modern_sync' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_modern_sync' : 'wlfmc_wp_rest_modern_sync' ),
 						'update_item_quantity'        => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_update_item_quantity' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_update_item_quantity' : 'wlfmc_wp_rest_update_item_quantity' ),
 						'change_layout'               => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_layout' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_layout' : 'wlfmc_wp_rest_change_layout' ),
 						'gdpr_action'                 => 'admin-ajax.php' === $ajax_mode ? 'wlfmc_change_gdpr_status' : ( 'wp_loaded' === $ajax_mode ? 'wlfmc_wp_loaded_change_gdpr_status' : 'wlfmc_wp_rest_change_gdpr_status' ),
 					),
 					'ajax_nonce'            => array(
 						'load_fragments' => wp_create_nonce( 'load_fragments_nonce' ),
+						'sync_nonce'     => wp_create_nonce( 'wlfmc_modern_actions' ),
 					),
+					// Modern data TODO : fix this
+					'userId'                => get_current_user_id(),
+					'sessionId'             => WLFMC_Session()->maybe_get_session_id(),
+					'isLoggedIn'            => is_user_logged_in() ? 'true' : 'false',
+					'login_url'             => apply_filters( 'wlfmc_login_url', esc_url( $options->get_option( 'login_url', wp_login_url(), true ) ) ),
 				),
 				$ajax_mode,
 				$options

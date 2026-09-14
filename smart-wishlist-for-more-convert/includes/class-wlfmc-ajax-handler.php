@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.16
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * Performs all required add_actions to handle forms
 		 *
 		 * @return void
-		 * @version 1.3.3
+		 * @version 2.0.0
 		 */
 		public static function init() {
 
@@ -81,6 +81,201 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 			// Change layouts.
 			add_action( 'wp_ajax_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
 			add_action( 'wp_ajax_nopriv_wlfmc_change_gdpr_status', array( 'WLFMC_Ajax_Handler', 'change_gdpr_status' ) );
+
+			// Sync modern data.
+			add_action( 'wp_ajax_wlfmc_modern_sync', array( 'WLFMC_Ajax_Handler', 'ajax_sync' ) );
+			add_action( 'wp_ajax_nopriv_wlfmc_modern_sync', array( 'WLFMC_Ajax_Handler', 'ajax_sync' ) );
+		}
+
+		/**
+		 * Sync modern data.
+		 *
+		 * @since 2.0.0
+		 * @return void
+		 */
+		public static function ajax_sync() {
+			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'wlfmc_modern_actions' ) ) {
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
+			}
+
+			wp_send_json_success( self::get_sync_payload() );
+		}
+
+		/**
+		 * Build the modern data-sync payload. Shared by the admin-ajax handler and
+		 * the REST twin so both transports return the exact same structure.
+		 *
+		 * @since 2.0.0
+		 * @return array Structured wishlist/waitlist/lists state with display data.
+		 */
+		public static function get_sync_payload() {
+			$response = array(
+				'wishlist' => array(
+					'items' => array(),
+					'count' => 0,
+				),
+				'waitlist' => array(
+					'items' => array(),
+					'count' => 0,
+				),
+				'lists'    => array(
+					'items' => array(),
+					'count' => 0,
+				),
+			);
+
+			try {
+
+				$is_merged = defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_merge_multi_list();
+
+				if ( $is_merged ) {
+					// Merged mode: collect items from ALL wishlists (default + custom).
+					$all_wishlist_items = array();
+
+					$wishlists = WLFMC_Wishlist_Factory::get_current_customer( false )
+						? WLFMC_Wishlist_Factory::get_wishlists(
+							array(
+								'customer_id'      => WLFMC_Wishlist_Factory::get_current_customer( false )->get_id(),
+								'exclude_slugs'    => wlfmc_reserved_slugs(),
+								'exclude_default'  => false,
+								'return_wishlists' => true,
+							)
+						)
+						: array();
+
+					// Include default wishlist.
+					$default = WLFMC_Wishlist_Factory::get_default_wishlist();
+					if ( $default && ! in_array( $default->get_id(), array_column( $wishlists, 'id' ), true ) ) {
+						array_unshift( $wishlists, $default );
+					}
+
+					foreach ( $wishlists as $wl ) {
+						if ( ! $wl->current_user_can( 'view' ) ) {
+							continue;
+						}
+						foreach ( $wl->get_items() as $item ) {
+							$display                = self::get_item_display_data_for_counter( $item );
+							$display['list_name']   = $wl->get_formatted_name();
+							$display['wishlist_id'] = $wl->get_id();
+							$all_wishlist_items[]   = array(
+								'product_id'     => $item->get_product_id(),
+								'item_id'        => $item->get_id(),
+								'wishlist_id'    => $wl->get_id(),
+								'display'        => $display,
+								'remove_nonce'   => $display['remove_nonce'] ?? '',
+								'wishlist_token' => $display['wishlist_token'] ?? '',
+							);
+						}
+					}
+
+					$response['wishlist']['items'] = $all_wishlist_items;
+					$response['wishlist']['count'] = count( $all_wishlist_items );
+				} else {
+					// Normal mode: only the default wishlist.
+					$wishlist = WLFMC_Wishlist_Factory::get_default_wishlist();
+					if ( $wishlist && $wishlist->current_user_can( 'view' ) ) {
+						$response['wishlist']['items'] = array_map(
+							function ( $item ) {
+								$display = self::get_item_display_data_for_counter( $item );
+								return array(
+									'product_id'     => $item->get_product_id(),
+									'item_id'        => $item->get_id(),
+									'wishlist_id'    => $item->get_wishlist_id(),
+									'display'        => $display,
+									'remove_nonce'   => $display['remove_nonce'] ?? '',
+									'wishlist_token' => $display['wishlist_token'] ?? '',
+								);
+							},
+							$wishlist->get_items()
+						);
+						$response['wishlist']['count'] = $wishlist->count_items();
+					}
+				}
+
+				$waitlist = WLFMC_Wishlist_Factory::get_wishlist_by_slug( 'waitlist' );
+				if ( $waitlist && $waitlist->current_user_can( 'view' ) ) {
+					$items                         = $waitlist->get_items();
+					$response['waitlist']['items'] = array_map(
+						function ( $item ) {
+							$display = self::get_item_display_data_for_counter( $item, 'waitlist' );
+							return array(
+								'product_id'     => $item->get_product_id(),
+								'item_id'        => $item->get_id(),
+								'wishlist_id'    => $item->get_wishlist_id(),
+								'on_sale'        => $item->is_on_sale(),
+								'back_in_stock'  => $item->is_back_in_stock(),
+								'price_change'   => $item->is_price_change(),
+								'low_stock'      => $item->is_low_stock(),
+								'display'        => $display,
+								'remove_nonce'   => $display['remove_nonce'] ?? '',
+								'wishlist_token' => $display['wishlist_token'] ?? '',
+							);
+						},
+						$items
+					);
+					$response['waitlist']['count'] = $waitlist->count_items();
+				}
+
+				$customer    = WLFMC_Wishlist_Factory::get_current_customer( false );
+				$customer_id = $customer ? $customer->get_id() : 0;
+				if ( $customer_id > 0 ) {
+					$lists = WLFMC_Wishlist_Factory::get_wishlists(
+						array(
+							'customer_id'      => $customer_id,
+							'exclude_slugs'    => wlfmc_reserved_slugs(),
+							'exclude_default'  => false,
+							'return_wishlists' => true,
+							'orderby'          => 'dateadded',
+						)
+					);
+
+					$list_items = array();
+					foreach ( $lists as $list ) {
+						$items                         = $list->get_items();
+						$list_items[ $list->get_id() ] = array(
+							'id'          => $list->get_id(),
+							'name'        => $list->get_formatted_name(),
+							'description' => $list->get_formatted_description(),
+							'privacy'     => $list->get_privacy(),
+							'url'         => $list->get_url(),
+							'is_default'  => $list->is_default(),
+							'items'       => array_map(
+								function ( $item ) {
+									return array(
+										'product_id' => $item->get_product_id(),
+										'item_id'    => $item->get_id(),
+										'quantity'   => $item->get_quantity(),
+									);
+								},
+								$items
+							),
+							'count'       => $list->count_items(),
+						);
+					}
+					$response['lists'] = array(
+						'items' => $list_items,
+						'count' => count( $list_items ),
+					);
+				} else {
+					$response['lists'] = array(
+						'items' => array(),
+						'count' => 0,
+					);
+				}
+
+				return apply_filters( 'wlfmc_modern_sync_payload', $response );
+			} catch ( Exception $e ) {
+				return array(
+					'error'   => true,
+					'message' => $e->getMessage(),
+				);
+			}
 		}
 
 		/**
@@ -100,6 +295,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 *
 		 * @return false|void
 		 * @since 1.3.3
+		 * @version 2.0.0
 		 */
 		public static function wp_loaded_action() {
 			if ( is_null( filter_input( INPUT_POST, 'action' ) ) ) {
@@ -119,6 +315,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 					'wlfmc_wp_loaded_load_fragments',
 					'wlfmc_wp_loaded_change_layout',
 					'wlfmc_wp_loaded_change_gdpr_status',
+					'wlfmc_wp_loaded_modern_sync',
 				),
 				true
 			) ) {
@@ -128,6 +325,12 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 			remove_action( 'wp_loaded', 'WC_Form_Handler::add_to_cart_action', 20 );
 
 			$action = str_replace( 'wlfmc_wp_loaded_', '', $action );
+
+			if ( 'modern_sync' === $action ) {
+				self::ajax_sync();
+				return;
+			}
+
 			self::$action();
 		}
 
@@ -634,17 +837,86 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		}
 
 		/**
+		 * Get pre-rendered display data for counter items.
+		 * Applies all WC/WLFMC filters server-side to avoid client-side filter logic.
+		 *
+		 * @param WLFMC_Wishlist_Item $item The wishlist item.
+		 * @param string              $type 'wishlist' or 'waitlist'.
+		 *
+		 * @since 2.0.0
+		 * @return array Structured display data with rendered HTML.
+		 */
+		public static function get_item_display_data_for_counter( $item, $type = 'wishlist' ) {
+			$product = $item->get_product();
+			if ( ! $product || ! $product->exists() ) {
+				return array();
+			}
+
+			// Apply core WooCommerce filters for permalink consistency.
+			$cart_item = $item->get_cart_item( true );
+			$permalink = apply_filters( 'woocommerce_cart_item_permalink', $product->get_permalink( $cart_item ), $cart_item, '' );
+
+			// Apply WLFMC specific filters for title/price formatting.
+			$title = apply_filters( 'woocommerce_in_cartproduct_obj_title', $product->get_title(), $product );
+			$price = $item->get_formatted_product_price();
+			// Same image size as the counter template render to avoid visual jumps on confirm.
+			$image = $product->get_image();
+
+			// Generate removal URL with nonce.
+			$remove_url = add_query_arg(
+				array(
+					'remove_from_wishlist' => $item->get_product_id(),
+					'wishlist_id'          => $item->get_wishlist_id(),
+				),
+				wlfmc_get_current_url()
+			);
+
+			$display_data = array(
+				'product_id'     => $item->get_product_id(),
+				'item_id'        => $item->get_id(),
+				'wishlist_id'    => $item->get_wishlist_id(),
+				'wishlist_token' => $item->get_wishlist_token(),
+				'name'           => $title,
+				'price'          => $price,
+				'image'          => $image,
+				'url'            => $permalink,
+				'remove_url'     => $remove_url,
+				'remove_nonce'   => wp_create_nonce( 'wlfmc_remove_from_wishlist' ),
+			);
+
+			// Add list name badge for merged multi-lists.
+			if ( defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_merge_multi_list() && ! $item->get_wishlist()->is_default() ) {
+				$display_data['list_name'] = $item->get_wishlist()->get_formatted_name();
+			}
+
+			// Waitlist-specific fields.
+			if ( 'waitlist' === $type ) {
+				$display_data['on_sale']       = $item->is_on_sale();
+				$display_data['back_in_stock'] = $item->is_back_in_stock();
+				$display_data['price_change']  = $item->is_price_change();
+				$display_data['low_stock']     = $item->is_low_stock();
+			}
+
+			return apply_filters( 'wlfmc_counter_item_display_data', $display_data, $item, $type );
+		}
+
+		/**
 		 * Add to cart item
 		 *
 		 * @return void
 		 * @throws Exception If add to cart fails.
 		 * @since 1.4.2
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 */
 		public static function add_to_cart() {
 
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wlfmc_add_to_cart_from_wishlist' ) ) {
-				wp_send_json( array( 'result' => false ) );
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
 			$item_id     = isset( $_POST['lid'] ) ? absint( wp_unslash( $_POST['lid'] ) ) : '';// phpcs:ignore WordPress.Security.NonceVerification
 			$wishlist_id = isset( $_POST['wid'] ) ? absint( wp_unslash( $_POST['wid'] ) ) : '';// phpcs:ignore WordPress.Security.NonceVerification
@@ -752,15 +1024,67 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * Add to wishlist from ajax call
 		 *
 		 * @return void
-		 * @version 1.3.3
+		 * @version 2.0.0
 		 */
 		public static function add_to_wishlist() {
 
-			check_ajax_referer( 'wlfmc_add_to_list_nonce', 'nonce' );
+			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wlfmc_add_to_list_nonce' ) ) {
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
+			}
+			wp_send_json( self::get_add_payload( wp_unslash( $_REQUEST ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+
+		/**
+		 * Check whether the modern architecture is currently enabled.
+		 * Used to conditionally include display data (legacy clients ignore it,
+		 * but omitting it saves bandwidth).
+		 *
+		 * @since 2.0.0
+		 * @return bool
+		 */
+		private static function is_modern_architecture() {
+			static $cache = null;
+			if ( null === $cache ) {
+				$cache = class_exists( 'MCT_Options' )
+				&& wlfmc_is_true( ( new MCT_Options( 'wlfmc_options' ) )->get_option( 'use_modern_architecture', '1' ) );
+			}
+			return $cache;
+		}
+
+		/**
+		 * Build the add-to-wishlist response payload.
+		 * Shared by the admin-ajax handler and the REST twin so both transports
+		 * return the exact same structured data (no HTML fragments).
+		 *
+		 * @param array $data Request data ($_REQUEST / REST body params).
+		 *
+		 * @since 2.0.0
+		 * @return array Response payload with server-rendered display data.
+		 */
+		public static function get_add_payload( array $data ) {
 
 			$result = false;
+			$count  = 0;
+			$args   = wp_parse_args(
+				$data,
+				array(
+					'add_to_wishlist'     => 0,
+					'wishlist_id'         => 0,
+					'quantity'            => 1,
+					'user_id'             => false,
+					'dateadded'           => '',
+					'wishlist_name'       => '',
+					'wishlist_visibility' => 0,
+					'product_type'        => 'simple',
+				)
+			);
 			try {
-				$result  = WLFMC()->add();
+				$result  = WLFMC()->add( $args );
 				$return  = 'true';
 				$message = '';
 
@@ -771,8 +1095,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 				$return  = 'error';
 				$message = apply_filters( 'wlfmc_error_adding_to_wishlist_message', $e->getMessage() );
 			}
-			$product_id    = isset( $_REQUEST['add_to_wishlist'] ) ? intval( $_REQUEST['add_to_wishlist'] ) : false; // phpcs:ignore WordPress.Security
-			$fragments     = isset( $_REQUEST['fragments'] ) ? json_decode( wp_unslash( $_REQUEST['fragments'] ), true ) : false;// phpcs:ignore WordPress.Security
+			$product_id    = intval( $args['add_to_wishlist'] );
 			$found_item    = false;
 			$found_in_list = false;
 			if ( 'exists' === $return ) {
@@ -782,21 +1105,42 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 
 			$wishlist_url = WLFMC()->get_wc_wishlist_url( 'wishlist', 'last_operation' );
 
-			wp_send_json(
-				apply_filters(
-					'wlfmc_ajax_add_return_params',
-					array(
-						'prod_id'      => $product_id,
-						'result'       => $return,
-						'message'      => $message,
-						'fragments'    => self::refresh_fragments( $fragments ),
-						'wishlist_url' => $wishlist_url,
-						'wishlist_id'  => $result ? $result['wishlist_id'] : ( $found_in_list ? $found_in_list->get_id() : false ),
-						'item_id'      => $result ? $result['item_id'] : ( $found_item ? $found_item->get_id() : false ),
-						'customer_id'  => $result ? $result['customer_id'] : ( $found_item ? $found_item->get_customer_id() : false ),
-					)
-				)
+			$item = $result ? WLFMC_Wishlist_Factory::get_wishlist_item( $result['item_id'] ) : $found_item;
+
+			$wishlist_for_count = $result ? wlfmc_get_wishlist( $result['wishlist_id'] ) : $found_in_list;
+			if ( $wishlist_for_count ) {
+				if ( defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_merge_multi_list() ) {
+					$count = WLFMC_Wishlist_Factory::get_wishlist_items_count(
+						array(
+							'list_type'   => array( 'wishlist', 'lists' ),
+							'wishlist_id' => 'all',
+						)
+					);
+				} else {
+					$count = $wishlist_for_count->count_items();
+				}
+			}
+
+			$payload = array(
+				'success'      => true,
+				'count'        => $count,
+				'display'      => $item ? self::get_item_display_data_for_counter( $item ) : array(),
+				'prod_id'      => $product_id,
+				'result'       => $return,
+				'message'      => $message,
+				'wishlist_url' => $wishlist_url,
+				'wishlist_id'  => $result ? $result['wishlist_id'] : ( $found_in_list ? $found_in_list->get_id() : false ),
+				'item_id'      => $result ? $result['item_id'] : ( $found_item ? $found_item->get_id() : false ),
+				'customer_id'  => $result ? $result['customer_id'] : ( $found_item ? $found_item->get_customer_id() : false ),
 			);
+
+			// Legacy consumers may still request fragments explicitly; modern clients never do.
+			if ( ! empty( $data['fragments'] ) ) {
+				$fragments            = is_string( $data['fragments'] ) ? json_decode( wp_unslash( $data['fragments'] ), true ) : $data['fragments']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				$payload['fragments'] = self::refresh_fragments( $fragments );
+			}
+
+			return apply_filters( 'wlfmc_ajax_add_return_params', $payload );
 		}
 
 		/**
@@ -826,12 +1170,17 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		/**
 		 *  Change wishlist and other lists view layout.
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public static function change_layout() {
 			if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_change_layout' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
 			$new_layout = isset( $_POST['new_layout'] ) ? sanitize_key( $_POST['new_layout'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			if ( ! in_array( $new_layout, array( 'list', 'grid' ), true ) ) {
@@ -851,12 +1200,17 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 *  Change GDPR Status.
 		 *
 		 * @since 1.8.8
-		 * @version 1.9.16
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public static function change_gdpr_status() {
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wlfmc_change_gdpr_status' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
 			$action      = isset( $_POST['action_type'] ) ? sanitize_key( $_POST['action_type'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			$customer_id = isset( $_POST['cid'] ) ? absint( wp_unslash( $_POST['cid'] ) ) : false;
@@ -884,31 +1238,54 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * Remove from wishlist from ajax call
 		 *
 		 * @return void
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 */
 		public static function remove_from_wishlist() {
 			if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_remove_from_wishlist' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
-			$fragments = isset( $_REQUEST['fragments'] ) ? wp_unslash( $_REQUEST['fragments'] ) : false;// phpcs:ignore WordPress.Security
-			$return    = false;
-			$result    = false;
+			wp_send_json( self::get_remove_payload( wp_unslash( $_REQUEST ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+
+		/**
+		 * Build the remove-from-wishlist response payload.
+		 * Shared by the admin-ajax handler and the REST twin.
+		 *
+		 * @param array $data Request data.
+		 *
+		 * @since 2.0.0
+		 * @return array Response payload.
+		 */
+		public static function get_remove_payload( array $data ) {
+			$return = false;
+			$result = false;
+			$count  = false;
 			try {
-				$result  = WLFMC()->remove();
+				$result  = WLFMC()->remove( wp_parse_args( $data, array( 'merge_lists' => false ) ) );
 				$return  = 'true';
 				$message = '';
+				$count   = $result ? $result['count'] : false;
 			} catch ( Exception $e ) {
 				$message = $e->getMessage();
 			}
 
-			wp_send_json(
-				array(
-					'result'    => $return,
-					'message'   => $message,
-					'count'     => $result ? $result['count'] : false,
-					'fragments' => self::refresh_fragments( $fragments ),
-				)
+			$payload = array(
+				'result'  => $return,
+				'message' => $message,
+				'count'   => $count,
 			);
+
+			if ( ! empty( $data['fragments'] ) ) {
+				$fragments            = is_string( $data['fragments'] ) ? json_decode( wp_unslash( $data['fragments'] ), true ) : $data['fragments']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				$payload['fragments'] = self::refresh_fragments( $fragments );
+			}
+
+			return apply_filters( 'wlfmc_ajax_remove_return_params', $payload );
 		}
 
 		/**
@@ -916,15 +1293,32 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		 * Differs from remove from wishlist, since this accepts item id instead of product id
 		 *
 		 * @return void
-		 * @version 1.7.9
+		 * @version 2.0.0
 		 */
 		public static function delete_item() {
 			if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_delete_item' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
-			$item_id   = isset( $_POST['item_id'] ) ? intval( $_POST['item_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$fragments = isset( $_REQUEST['fragments'] ) ? wp_unslash( $_REQUEST['fragments'] ) : false;// phpcs:ignore WordPress.Security
-			$return    = array(
+			wp_send_json( self::get_delete_item_payload( wp_unslash( $_REQUEST ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
+
+		/**
+		 * Build the delete-item response payload.
+		 * Shared by the admin-ajax handler and the REST twin.
+		 *
+		 * @param array $data Request data.
+		 *
+		 * @since 2.0.0
+		 * @return array Response payload.
+		 */
+		public static function get_delete_item_payload( array $data ) {
+			$item_id = isset( $data['item_id'] ) ? intval( $data['item_id'] ) : false;
+			$return  = array(
 				'result' => false,
 			);
 
@@ -938,47 +1332,78 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 					if ( $wishlist && $wishlist->current_user_can( 'remove_from_wishlist' ) ) {
 						$item->delete();
 						$return = array(
-							'result'    => 'true',
-							'message'   => '',
-							'fragments' => self::refresh_fragments( $fragments ),
+							'result'  => 'true',
+							'message' => '',
+							'count'   => $wishlist->count_items(),
 						);
 					}
 				}
 			}
 
-			wp_send_json( $return );
+			if ( ! empty( $data['fragments'] ) ) {
+				$fragments           = is_string( $data['fragments'] ) ? json_decode( wp_unslash( $data['fragments'] ), true ) : $data['fragments']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				$return['fragments'] = self::refresh_fragments( $fragments );
+			}
+
+			return apply_filters( 'wlfmc_ajax_delete_item_return_params', $return );
 		}
 
 		/**
 		 * Update quantity of an item in wishlist
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public static function update_item_quantity() {
 			if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'wlfmc_wishlist_actions_nonce' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
-			$wishlist_token = isset( $_POST['wishlist_token'] ) ? sanitize_text_field( wp_unslash( $_POST['wishlist_token'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$product_id     = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$new_quantity   = isset( $_POST['quantity'] ) ? intval( $_POST['quantity'] ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
-			$cart_item_key  = isset( $_POST['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_item_key'] ) ) : false; // phpcs:ignore WordPress.Security.NonceVerification
-			$fragments      = isset( $_REQUEST['fragments'] ) ? wp_unslash( $_REQUEST['fragments'] ) : false;// phpcs:ignore WordPress.Security
+			wp_send_json( self::get_update_item_quantity_payload( wp_unslash( $_REQUEST ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		}
 
-			if ( ! $wishlist_token || ! $product_id ) {
-				die();
+		/**
+		 * Build the update-item-quantity response payload.
+		 * Shared by the admin-ajax handler and the REST twin.
+		 *
+		 * @param array $data Request data.
+		 *
+		 * @since 2.0.0
+		 * @return array Response payload.
+		 */
+		public static function get_update_item_quantity_payload( array $data ) {
+			$wishlist_token = isset( $data['wishlist_token'] ) ? sanitize_text_field( wp_unslash( $data['wishlist_token'] ) ) : false;
+			$product_id     = isset( $data['product_id'] ) ? intval( $data['product_id'] ) : false;
+			$new_quantity   = isset( $data['quantity'] ) ? intval( $data['quantity'] ) : 1;
+			$cart_item_key  = isset( $data['cart_item_key'] ) ? sanitize_text_field( wp_unslash( $data['cart_item_key'] ) ) : false;
+
+			if ( ! $wishlist_token || ! $product_id || ! $new_quantity ) {
+				return array(
+					'success' => false,
+					'message' => __( 'Invalid request parameters', 'wc-wlfmc-wishlist' ),
+				);
 			}
 
 			$wishlist = wlfmc_get_wishlist( $wishlist_token );
 
 			if ( ! $wishlist || ! $wishlist->current_user_can( 'update_quantity' ) ) {
-				die();
+				return array(
+					'success' => false,
+					'message' => __( 'Invalid request parameters', 'wc-wlfmc-wishlist' ),
+				);
 			}
 
 			$item = $wishlist->get_product( $cart_item_key ? $cart_item_key : $product_id );
 
 			if ( ! $item ) {
-				die();
+				return array(
+					'success' => false,
+					'message' => __( 'Item not found', 'wc-wlfmc-wishlist' ),
+				);
 			}
 
 			do_action( 'wlfmc_before_item_quantity_update', $cart_item_key, $new_quantity, $item->get_quantity(), $item );
@@ -986,19 +1411,33 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 			$item->set_quantity( $new_quantity );
 			$item->save();
 
-			wp_send_json( array( 'fragments' => self::refresh_fragments( $fragments ) ) );
-			// stops ajax call from further execution (no return value expected on answer body).
-			die();
+			$payload = array(
+				'success' => true,
+				'count'   => $wishlist->count_items(),
+			);
+
+			if ( ! empty( $data['fragments'] ) ) {
+				$fragments            = is_string( $data['fragments'] ) ? json_decode( wp_unslash( $data['fragments'] ), true ) : $data['fragments']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+				$payload['fragments'] = self::refresh_fragments( $fragments );
+			}
+
+			return apply_filters( 'wlfmc_ajax_update_quantity_return_params', $payload );
 		}
 
 		/**
 		 * Generated fragments to replace in the page
 		 *
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public static function load_fragments() {
 			if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'load_fragments_nonce' ) ) {
-				wp_send_json_error();
+				wp_send_json_error(
+					array(
+						'result'  => 'nonce_invalid',
+						'message' => __( 'Security validation failed. Please refresh the page.', 'wc-wlfmc-wishlist' ),
+					)
+				);
 			}
 
 			$fragment_json = isset( $_FILES['fragments_file']['tmp_name'] ) && is_uploaded_file( $_FILES['fragments_file']['tmp_name'] ) ? file_get_contents( $_FILES['fragments_file']['tmp_name'] ) : false;// phpcs:ignore

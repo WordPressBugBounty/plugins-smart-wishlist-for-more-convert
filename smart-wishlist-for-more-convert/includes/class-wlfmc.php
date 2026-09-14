@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.21
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.9.21';
+		public $version = '2.0.0';
 
 		/**
 		 * Plugin database version
@@ -441,7 +441,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @return array
 		 * @throws Exception|WLFMC_Exception When an error occurs with Add to Wishlist operation.
-		 * @version 1.7.6
+		 * @version 2.0.0
 		 */
 		public function add_to_lists( $atts = array() ) {
 			$defaults = array(
@@ -484,7 +484,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 					throw new WLFMC_Exception( esc_attr( apply_filters( 'wlfmc_no_product_in_cart_message', esc_html__( 'There are no products in the shopping cart', 'wc-wlfmc-wishlist' ) ) ), 1 );
 				}
 
-				$keys_to_unset = apply_filters(
+				$keys_to_unset  = apply_filters(
 					'wlfmc_remove_cart_keys',
 					array(
 						'key',
@@ -501,11 +501,12 @@ if ( ! class_exists( 'WLFMC' ) ) {
 						'data',
 					)
 				);
-				$errors        = array();
-				$exists        = array();
-				$action_count  = 0;
-				$last_list_id  = false;
-				$customer_id   = false;
+				$errors         = array();
+				$exists         = array();
+				$action_count   = 0;
+				$last_list_id   = false;
+				$customer_id    = false;
+				$cart_item_keys = array();
 				foreach ( $items as $cart_key => $cart_item ) {
 					if ( isset( $cart_item['composite_parent'] ) ) {
 						continue;
@@ -580,7 +581,9 @@ if ( ! class_exists( 'WLFMC' ) ) {
 							}
 						}
 					}
-
+					if ( $added_to_list ) {
+						$cart_item_keys[ $cart_key ] = $prod_id;
+					}
 					if ( $added_to_list && $remove_from_cart_all && $cart_key ) {
 						WC()->cart->remove_cart_item( $cart_key );
 						$update_cart = true;
@@ -593,6 +596,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 					'default_wishlist_id' => $default_wishlist_id,
 					'customer_id'         => $customer_id,
 					'update_cart'         => $update_cart,
+					'cart_item_keys'      => $cart_item_keys,
 					'errors'              => array_unique( $errors ),
 					'exists'              => ! empty( $exists ) ? sprintf( '%s Product(s) already in your list', implode( ',', $exists ) ) : '',
 				);
@@ -749,6 +753,8 @@ if ( ! class_exists( 'WLFMC' ) ) {
 				'customer_id'         => $customer_id,
 				'errors'              => $errors,
 				'update_cart'         => $update_cart,
+				'product_id'          => $prod_id,
+				'cart_item_key'       => $cart_item_key,
 			);
 		}
 

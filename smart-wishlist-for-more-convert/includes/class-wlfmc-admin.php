@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 1.9.21
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '1.9.20';
+		public $rollback_version = '1.9.21';
 
 		/**
 		 * Minimum pro version
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @return void
 		 *
-		 * @version 1.8.2
+		 * @version 2.0.0
 		 */
 		public function __construct() {
 			// install plugin, or update from older versions.
@@ -172,6 +172,21 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														),
 													),
 													'end-article-wishlist-optimization-settings' => array(
+														'type' => 'end',
+													),
+													'start-article-modern-architecture' => array(
+														'type'  => 'start',
+														'title' => __( 'Modern Architecture', 'wc-wlfmc-wishlist' ),
+														'desc'  => __( 'Enable the new modern architecture with optimistic UI, local cache, and queue system. This feature improves performance and user experience significantly.', 'wc-wlfmc-wishlist' ),
+													),
+													'use_modern_architecture' => array(
+														'label'   => __( 'Enable Modern Architecture', 'wc-wlfmc-wishlist' ),
+														'type'    => 'switch',
+														'default' => '1',
+														'help'    => __( 'When enabled, the plugin will use the new modern JavaScript architecture. This is a beta feature; please test thoroughly before enabling on production.', 'wc-wlfmc-wishlist' ),
+														'desc'    => __( 'If you encounter any issues, you can disable this option to revert to the legacy system.', 'wc-wlfmc-wishlist' ),
+													),
+													'end-article-modern-architecture' => array(
 														'type' => 'end',
 													),
 													'start-article-gdpr-settings' => array(
@@ -448,9 +463,10 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														),
 													),*/
 													'enable_share' => array(
-														'label' => __( 'Share Wishlist', 'wc-wlfmc-wishlist' ),
-														'desc' => __( 'Enable this option to let users share their Wishlist on social media', 'wc-wlfmc-wishlist' ),
-														'type' => 'switch',
+														'label'   => __( 'Enable Live Wishlist Sharing', 'wc-wlfmc-wishlist' ),
+														'desc'    => __( 'Allow users to share a dynamic link to their Wishlist. This link updates automatically in real-time—any item added or removed will be instantly reflected for viewers. This is a live sync, not a static snapshot or screenshot of the list.', 'wc-wlfmc-wishlist' ),
+														'help' => __( 'The shared URL is persistently linked to the user\'s current Wishlist state. It does not capture a fixed version; viewers will always see the most up-to-date contents.', 'wc-wlfmc-wishlist' ),
+														'type'    => 'switch',
 														'default' => '1',
 													),
 													'share_position' => array(
@@ -1091,10 +1107,6 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 															array(
 																'id' => 'wishlist_enable',
 																'value' => '1',
-															),
-															array(
-																'id' => 'is_merge_lists',
-																'value' => '0',
 															),
 														),
 													),

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 1.9.11
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @version 1.8.5
+		 * @version 2.0.0
 		 * @return void
 		 */
 		public function __construct() {
@@ -53,6 +53,131 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			add_action( 'admin_notices', array( $this, 'wpml_notice' ) );
 			add_action( 'admin_notices', array( $this, 'event_notices' ) );
 			add_filter( 'wlfmc_admin_menus', array( $this, 'add_admin_event_menu' ), 29, 2 );
+
+			add_action( 'admin_init', array( $this, 'modern_architecture_actions' ) );
+			add_action( 'admin_notices', array( $this, 'modern_architecture_notice' ) );
+		}
+
+		/**
+		 * Handle enable/dismiss actions for the modern architecture notice.
+		 *
+		 * @since 2.0.0
+		 * @return void
+		 */
+		public function modern_architecture_actions() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			// Direct enable action.
+			if ( isset( $_GET['wlfmc-enable-modern-architecture'] ) && '1' === $_GET['wlfmc-enable-modern-architecture'] ) {
+				$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+
+				if ( wp_verify_nonce( $nonce, 'wlfmc-enable-modern-architecture' ) && class_exists( 'MCT_Options' ) ) {
+					$options = new MCT_Options( 'wlfmc_options' );
+
+					$options->update_option( 'use_modern_architecture', '1', 'global-settings' );
+
+					update_option( 'wlfmc_modern_architecture_notice_status', 'enabled' );
+
+					wp_safe_redirect(
+						admin_url( 'admin.php?page=mc-global-settings#css_print_method' )
+					);
+					exit;
+				}
+			}
+
+			// Dismiss action.
+			if ( isset( $_GET['wlfmc-modern-architecture-dismiss'] ) && '1' === $_GET['wlfmc-modern-architecture-dismiss'] ) {
+				$nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+
+				if ( wp_verify_nonce( $nonce, 'wlfmc-modern-architecture-dismiss' ) ) {
+					update_option( 'wlfmc_modern_architecture_notice_status', 'dismissed' );
+
+					$redirect_url = remove_query_arg(
+						array(
+							'wlfmc-modern-architecture-dismiss',
+							'_wpnonce',
+						)
+					);
+
+					wp_safe_redirect( $redirect_url ? $redirect_url : admin_url() );
+					exit;
+				}
+			}
+		}
+
+		/**
+		 * Show a notice to existing users about the new modern architecture.
+		 *
+		 * @since 2.0.0
+		 * @return void
+		 */
+		public function modern_architecture_notice() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			// Limit the notice to dashboard, plugins screen and plugin pages.
+			$screen    = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			$screen_id = $screen ? $screen->base : '';
+			$parent_id = $screen && isset( $screen->parent_base ) ? $screen->parent_base : '';
+
+			if ( ! in_array( $screen_id, array( 'dashboard', 'plugins' ), true )
+				&& ! in_array( $parent_id, array( 'mc-wishlist-setup', 'mc-wishlist-dashboard', 'mc-features', 'mc-global-settings', 'mc-multi-list', 'mc-wishlist-settings', 'mc-save-for-later', 'mc-analytics', 'mc-email-automations', 'mc-campaigns' ), true )
+			) {
+				return;
+			}
+
+			$status = get_option( 'wlfmc_modern_architecture_notice_status', '' );
+
+			if ( 'pending' !== $status ) {
+				return;
+			}
+
+			if ( ! class_exists( 'MCT_Options' ) || ! function_exists( 'wlfmc_is_true' ) ) {
+				return;
+			}
+
+			$options = new MCT_Options( 'wlfmc_options' );
+
+			// If the user has already enabled the feature, hide the notice permanently.
+			if ( wlfmc_is_true( $options->get_option( 'use_modern_architecture', '0' ) ) ) {
+				update_option( 'wlfmc_modern_architecture_notice_status', 'enabled' );
+				return;
+			}
+
+			$this->styles();
+
+			$enable_url = add_query_arg(
+				array(
+					'wlfmc-enable-modern-architecture' => '1',
+					'_wpnonce'                         => wp_create_nonce( 'wlfmc-enable-modern-architecture' ),
+				),
+				admin_url( 'admin.php?page=mc-global-settings' )
+			);
+
+			$clean_url = $this->clean_url();
+
+			$dismiss_url = add_query_arg(
+				array(
+					'wlfmc-modern-architecture-dismiss' => '1',
+					'_wpnonce'                          => wp_create_nonce( 'wlfmc-modern-architecture-dismiss' ),
+				),
+				$clean_url ? $clean_url : admin_url()
+			);
+
+			$args = array(
+				'wrapper_class' => 'wlfmc-notice-info',
+				'title'         => esc_html__( 'Action Required: Enable and Test the New Modern Architecture', 'wc-wlfmc-wishlist' ),
+				'content'       => esc_html__( 'The new modern architecture delivers major performance and user experience improvements and is already enabled by default for new installations. Please enable it now and thoroughly test it on your store. If you encounter any issues, report them to our support team so we can resolve them as quickly as possible. Important: in a few upcoming versions, the legacy architecture will be permanently removed with no option to roll back, so testing the modern architecture now is essential to ensure a smooth transition for your store.', 'wc-wlfmc-wishlist' ),
+				'btn_title'     => esc_html__( 'Enable Modern Architecture', 'wc-wlfmc-wishlist' ),
+				'btn_class'     => 'btn-notice',
+				'btn_url'       => $enable_url,
+				'dismiss_url'   => $dismiss_url,
+			);
+
+			$this->output( $args, 'modern-architecture' );
 		}
 
 		/**
@@ -657,6 +782,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		 *
 		 * @param array       $args Array of arguments.
 		 * @param string|null $day the day it will be implemented.
+		 * @version 2.0.0
 		 */
 		public function output( $args, $day = null ) {
 			$this->styles();
@@ -733,13 +859,13 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 							<p class="wlfmc-notice-action-wrapper">
 								<?php if ( isset( $args['btn_desc'] ) && '' !== $args['btn_desc'] ) : ?>
 									<span class="wlfmc-btn-wrapper">
-										<a href="<?php echo esc_url( $args['btn_url'] ); ?>" class="<?php echo esc_attr( $args['btn_class'] ); ?>" target="<?php echo esc_attr( $args['btn_target'] ); ?>">
+										<a href="<?php echo esc_url( $args['btn_url'] ); ?>" class="<?php echo esc_attr( $args['btn_class'] ); ?>" target="<?php echo esc_attr( $args['btn_target'] ?? '_self' ); ?>">
 											<?php echo wp_kses_post( $args['btn_title'] ); ?>
 										</a>
 										<small><?php echo wp_kses_post( $args['btn_desc'] ); ?></small>
 									</span>
 								<?php else : ?>
-									<a href="<?php echo esc_url( $args['btn_url'] ); ?>" class="<?php echo esc_attr( $args['btn_class'] ); ?>" target="<?php echo esc_attr( $args['btn_target'] ); ?>">
+									<a href="<?php echo esc_url( $args['btn_url'] ); ?>" class="<?php echo esc_attr( $args['btn_class'] ); ?>" target="<?php echo esc_attr( $args['btn_target'] ?? '_self' ); ?>">
 										<?php echo wp_kses_post( $args['btn_title'] ); ?>
 									</a>
 								<?php endif; ?>

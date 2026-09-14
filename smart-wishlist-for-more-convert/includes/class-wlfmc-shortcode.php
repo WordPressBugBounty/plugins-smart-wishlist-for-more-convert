@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -757,8 +757,8 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 			$atts['merge_lists']      = $merge_lists;
 
 			if ( in_array( $button_type, array( 'icon', 'both' ), true ) ) {
-				$icon_html       = ( ! $atts['is_svg_icon'] ) ? '<i class="' . $atts['icon_prefix_class'] . $atts['icon'] . '"></i>' : $atts['icon'];
-				$added_icon_html = ( ! $atts['is_svg_icon'] ) ? '<i class="' . $atts['icon_prefix_class'] . $atts['added_icon'] . '"></i>' : $atts['added_icon'];
+				$icon_html       = ( ! $atts['is_svg_icon'] ) ? '<i class="wlfmc-icon-state-default ' . $atts['icon_prefix_class'] . $atts['icon'] . '"></i>' : $atts['icon'];
+				$added_icon_html = ( ! $atts['is_svg_icon'] ) ? '<i class="wlfmc-icon-state-added ' . $atts['icon_prefix_class'] . $atts['added_icon'] . '"></i>' : $atts['added_icon'];
 			} else {
 				$atts['is_svg_icon'] = false;
 				$icon_html           = '';
@@ -791,7 +791,7 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 		 * @return string  Rendered shortcode
 		 *
 		 * @since 1.4.0
-		 * @version 1.7.9
+		 * @version 2.0.0
 		 */
 		public static function wishlist_counter( $atts ) {
 			if ( defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE ) && ! current_user_can( 'manage_options' ) ) {
@@ -821,6 +821,7 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 
 			$additional_params = array(
 				'base_url'                  => wlfmc_get_current_url(),
+				'counter_type'              => 'wishlist',
 				// wishlist data.
 				'wishlist'                  => false,
 				'wishlist_token'            => '',

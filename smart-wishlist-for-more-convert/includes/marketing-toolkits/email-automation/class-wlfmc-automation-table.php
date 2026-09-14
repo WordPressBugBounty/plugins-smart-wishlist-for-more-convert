@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,6 +19,51 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 	 * Automation table
 	 */
 	class WLFMC_Automation_Table extends WP_List_Table {
+
+		/**
+		 * Validate and sanitize ORDER BY parameters to prevent SQL Injection.
+		 *
+		 * Using a strict allowlist is the only secure way to handle dynamic ORDER BY clauses.
+		 *
+		 * @param string|null $orderby         The requested orderby column.
+		 * @param string|null $order           The requested order direction.
+		 * @param array       $allowed_columns Array of allowed column names.
+		 * @param string      $default_orderby The default column if validation fails.
+		 * @return array
+		 */
+		protected static function get_validated_order_params( $orderby, $order, array $allowed_columns, $default_orderby ) {
+			$validated_orderby = $default_orderby;
+			if ( ! empty( $orderby ) && in_array( $orderby, $allowed_columns, true ) ) {
+				$validated_orderby = $orderby;
+			}
+
+			$validated_order = 'ASC';
+			$order           = strtoupper( (string) $order );
+			if ( in_array( $order, array( 'ASC', 'DESC' ), true ) ) {
+				$validated_order = $order;
+			}
+
+			return array(
+				'orderby' => $validated_orderby,
+				'order'   => $validated_order,
+			);
+		}
+
+		/**
+		 * Allowed columns for ORDER BY allowlist.
+		 *
+		 * @var array
+		 */
+		protected static $allowed_orderby_columns = array(
+			'ID',
+			'created_at',
+			'recipients',
+			'automation_name',
+			'open_rate',
+			'click_rate',
+			'net_total',
+			'is_active',
+		);
 
 		/**
 		 * Constructor
@@ -395,9 +440,14 @@ if ( ! class_exists( 'WLFMC_Automation_Table' ) ) {
 			$sql .= ' GROUP BY automation.ID';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				$orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
-				$order   = ! empty( $_REQUEST['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) : 'ASC';
-				$sql    .= sprintf( ' ORDER BY %s %s', esc_sql( $orderby ), esc_sql( $order ) );
+				$requested_orderby = sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) );
+				$requested_order   = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'ASC';
+
+				// Use static context workaround: instantiate to call trait method.
+				$allowed   = self::$allowed_orderby_columns;
+				$validated = self::get_validated_order_params( $requested_orderby, $requested_order, $allowed, 'created_at' );
+
+				$sql .= sprintf( ' ORDER BY %s %s', $validated['orderby'], $validated['order'] );
 			}
 			// phpcs:enable WordPress.Security.NonceVerification
 
