@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '2.0.0';
+		public $version = '2.0.1';
 
 		/**
 		 * Plugin database version
@@ -250,11 +250,11 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 * @param string $action The nonce action.
 		 * @return int|string
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.1
 		 * @since 1.7.1
 		 */
 		public function maybe_update_nonce_user_logged_out( $uid, $action ) {
-			if ( empty( $uid ) ) {
+			if ( empty( $uid ) && false === wlfmc_is_true( apply_filters( 'wlfmc_is_page_cache_enabled', true ) ) ) {
 				$len = strlen( 'wlfmc' );
 				if ( $len > strlen( $action ) ) {
 					return $uid;

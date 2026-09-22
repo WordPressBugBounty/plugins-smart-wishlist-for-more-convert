@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.1
  */
 
 /**
@@ -56,8 +56,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$empty_icon_html    = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $empty_icon ) . '"></i>' : htmlspecialchars_decode( $empty_icon );
-$has_item_icon_html = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $has_item_icon ) . '"></i>' : htmlspecialchars_decode( $has_item_icon );
+$empty_icon_html    = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $empty_icon ) . '"></i>' : '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $empty_icon ) . '</i>';
+$has_item_icon_html = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $has_item_icon ) . '"></i>' : '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $has_item_icon ) . '</i>';
 ?>
 <div <?php echo $hide_counter_if_no_items && ( ! $has_items ) ? 'style="display:none"' : ''; ?>
 	class="wlfmc-counter-wrapper <?php echo 'unique_' . esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.1
  */
 
 /**
@@ -85,7 +85,7 @@ $unique_id = wp_unique_id(); ?>
 					data-product-id="<?php echo esc_attr( $product_id ); ?>"
 					data-product-type="<?php echo esc_attr( $product_type ); ?>"
 					data-parent-product-id="<?php echo esc_attr( $parent_product_id ); ?>">
-					<?php echo $is_svg_icon && strpos( $icon, '<svg' ) !== false ? '<i class="wlfmc-icon-state-default wlfmc-svg">' . wlfmc_sanitize_svg( $icon ) . '</i>' : wp_kses_post( $icon ); ?><?php echo ( '' !== $button_label_add ) ? '<span>' . wp_kses_post( $button_label_add ) . '</span>' : '';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo $is_svg_icon && strpos( $icon, '<svg' ) !== false ? '<i class="wlfmc-icon-state-default wlfmc-svg">' . wlfmc_sanitize_svg( $icon ) . '</i>' : wp_kses_post( $icon ); ?>
 					<?php echo $is_svg_icon && strpos( $added_icon, '<svg' ) !== false ? '<i class="wlfmc-icon-state-added wlfmc-svg">' . wlfmc_sanitize_svg( $added_icon ) . '</i>' : wp_kses_post( $added_icon ); ?><?php echo ( '' !== $button_label_add ) ? '<span>' . wp_kses_post( $button_label_add ) . '</span>' : '';  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 					<?php if ( apply_filters( 'wlfmc_show_multi_list_count', false ) ) : ?>

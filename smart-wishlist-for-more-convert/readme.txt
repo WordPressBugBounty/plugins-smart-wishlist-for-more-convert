@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,13 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 2.0.1 =
+
+* Fixed: Resolved duplicate button labels appearing in the multi-list component(premium).
+* Fixed: Removed the `wlfmc_email` value from the verification request form when the cache option is enabled (fixes bug on cached pages)(premium).
+* Fixed: Corrected SVG icon rendering inside counter elements.
+* Fixed: Fixed the nonce validation for guest users when the page HTML has not been cached.
 
 = 2.0.0 =
 
