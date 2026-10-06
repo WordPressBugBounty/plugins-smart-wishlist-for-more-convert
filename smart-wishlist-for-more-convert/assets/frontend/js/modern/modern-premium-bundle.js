@@ -3325,6 +3325,13 @@ var WLFMC = (() => {
       ];
       this._originalCartRedirectAfterAdd = null;
       this._globalHandlers = {};
+      this._touchedElements = /* @__PURE__ */ new WeakMap();
+      this._criticalTouchSelector = [
+        ".wlfmc_add_to_wishlist",
+        ".wlfmc_delete_item",
+        ".wlfmc-wishlist-table .remove_from_wishlist",
+        ".wlfmc_ajax_add_to_cart:not(.disabled)"
+      ].join(", ");
     }
     registerHandler(selector, eventName, handler, priority = 0, module = "core") {
       if (!this._handlers.has(eventName)) {
@@ -3365,6 +3372,12 @@ var WLFMC = (() => {
       this.registerHandler(".wlfmc-products-counter-wishlist .remove_from_wishlist, .wlfmc-products-counter-waitlist .remove_from_wishlist", "touchend", this._handleCounterRemoveTouch.bind(this), 90);
       this.registerHandler(".wlfmc-list .product-components", "click", this._handleProductComponents.bind(this), 60);
       this.registerHandler(".wlfmc-list .close-components", "click", this._handleCloseComponents.bind(this), 60);
+      this.registerHandler(
+        this._criticalTouchSelector,
+        "touchend",
+        this._handleCriticalTouch.bind(this),
+        100
+      );
       this._initPrepareQtyLinks();
       this._setupVariationHandlers();
       this._setupJQueryEventBridge();
@@ -3381,6 +3394,40 @@ var WLFMC = (() => {
       });
       console.log("[EventManager] Core handlers registered");
     }
+    /**
+     * Dedicated touchend handler for critical wishlist buttons.
+     *
+     * When TooltipHandler intercepts touchstart with preventDefault(),
+     * the browser never generates the subsequent click event.
+     * This handler executes the matching click handler immediately
+     * on touchend, then calls preventDefault() to suppress any
+     * residual synthetic click (belt-and-suspenders safety).
+     */
+    _handleCriticalTouch(event, element) {
+      if (event.touches && event.touches.length > 1) return;
+      if (event.changedTouches && event.changedTouches.length > 1) return;
+      this._touchedElements.set(element, Date.now());
+      const clickHandlers = this._handlers.get("click") || [];
+      let handled = false;
+      for (const h of clickHandlers) {
+        let validSelector = h.selector;
+        if (validSelector.includes(":input")) {
+          validSelector = validSelector.replace(/:input/g, "input, select, textarea");
+        }
+        try {
+          if (element.matches(validSelector)) {
+            h.handler(event, element);
+            handled = true;
+            break;
+          }
+        } catch (err) {
+          console.error(`[EventManager] Touch handler error for ${h.selector}:`, err);
+        }
+      }
+      if (handled && event.cancelable) {
+        event.preventDefault();
+      }
+    }
     _handleCounterRemoveTouch(event, element) {
       event.preventDefault();
       this._handleCounterRemove(event, element);
@@ -3392,13 +3439,24 @@ var WLFMC = (() => {
         const target = useCapture ? window : document;
         const handler = (e) => this._globalHandler(e, eventName);
         this._globalHandlers[eventName] = handler;
-        target.addEventListener(eventName, handler, useCapture);
+        const listenerOptions = eventName === "touchstart" || eventName === "touchend" ? { capture: useCapture, passive: false } : useCapture;
+        target.addEventListener(eventName, handler, listenerOptions);
       });
       this._registered = true;
     }
     _globalHandler(event, eventName) {
       const target = event.target;
       if (!target || !target.closest) return;
+      if (eventName === "click") {
+        const element = target.closest(this._criticalTouchSelector);
+        if (element) {
+          const lastTouch = this._touchedElements.get(element);
+          if (lastTouch && Date.now() - lastTouch < 1e3) {
+            this._touchedElements.delete(element);
+            return;
+          }
+        }
+      }
       const handlers = this._handlers.get(eventName);
       if (!handlers || handlers.length === 0) return;
       const matchedHandlers = [];
@@ -3944,12 +4002,14 @@ var WLFMC = (() => {
         if (handler) {
           const useCapture = captureEvents.includes(eventName);
           const target = useCapture ? window : document;
-          target.removeEventListener(eventName, handler, useCapture);
+          const listenerOptions = eventName === "touchstart" || eventName === "touchend" ? { capture: useCapture, passive: false } : useCapture;
+          target.removeEventListener(eventName, handler, listenerOptions);
         }
       });
       this._handlers.clear();
       this._globalHandlers = {};
       this._registered = false;
+      this._touchedElements = /* @__PURE__ */ new WeakMap();
       const jQuery = window.jQuery;
       if (jQuery) {
         jQuery(document.body).off("adding_to_cart added_to_cart cart_page_refreshed add_to_cart_message");

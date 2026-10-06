@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  *
- * @version 2.0.1
+ * @version 2.0.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '2.0.0';
+		public $rollback_version = '2.0.1';
 
 		/**
 		 * Minimum pro version
@@ -1746,8 +1746,8 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														),
 														'help' => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
 														'desc' => sprintf(
-														// translators: 1: tooltip url, 2: is a placeholder for a link to global settings.
-															__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
+														// translators: %s is a placeholder for a link to global settings.
+														__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
 															sprintf(
 																'<a href="%s" target="_blank">%s</a>',
 																$global_tooltip_url,

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.4.1
- * @version 1.9.6
+ * @version 2.0.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -243,7 +243,7 @@ if ( ! class_exists( 'WLFMC_Analytics' ) ) {
 		 *
 		 * @return boolean
 		 */
-		public static function remove_item_data( string $cart_item_key = null ): bool {
+		public static function remove_item_data( ?string $cart_item_key = null ): bool {
 			$data = (array) WC()->session->get( 'wlfmc_wishlist_data', array() );
 			if ( empty( $cart_item_key ) ) {
 				WC()->session->set( 'wlfmc_wishlist_data', array() );

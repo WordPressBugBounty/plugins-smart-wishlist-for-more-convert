@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,11 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 2.0.2 =
+
+* Fixed: resolve wishlist click events not firing on mobile touch devices
+* Fixed: Fix PHP 8.4 deprecation: use explicit nullable parameter in WLFMC_Analytics::remove_item_data
 
 = 2.0.1 =
 
