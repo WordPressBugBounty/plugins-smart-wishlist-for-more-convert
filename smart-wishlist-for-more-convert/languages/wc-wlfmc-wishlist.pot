@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MoreConvert Wishlist for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: smart-wishlist-for-more-convert 2.0.2\n"
+"Project-Id-Version: smart-wishlist-for-more-convert 2.0.3\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "Last-Translator: MoreConvert\n"
 "Language-Team: MoreConvert\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T13:58:05+00:00\n"
+"POT-Creation-Date: 2026-10-22T20:30:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wc-wlfmc-wishlist\n"
@@ -64,159 +64,159 @@ msgstr ""
 msgid "30% Discount"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:291
+#: includes/class-wlfmc-admin-notice.php:306
 msgid "Spooky Savings Alert: <span class='orange-text'>Halloween Deals</span> on MoreConvert!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:292
+#: includes/class-wlfmc-admin-notice.php:307
 msgid "Unlock premium features with eerie discounts this Halloween. Limited time offer!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:293
+#: includes/class-wlfmc-admin-notice.php:308
 msgid "Grab the Halloween Deal!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:295
+#: includes/class-wlfmc-admin-notice.php:310
 msgid "Don't let these savings vanish into the night!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:300
+#: includes/class-wlfmc-admin-notice.php:315
 msgid "Don't Miss MoreConvert Exclusive <span class='yellow-text'>Black Friday Deals!</span>"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:301
+#: includes/class-wlfmc-admin-notice.php:316
 msgid "Upgrade to Pro and unlock advanced features at unbeatable prices! This is a once-a-year opportunity."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:302
+#: includes/class-wlfmc-admin-notice.php:317
 msgid "Get the Discount Now!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:304
-#: includes/class-wlfmc-admin-notice.php:535
+#: includes/class-wlfmc-admin-notice.php:319
+#: includes/class-wlfmc-admin-notice.php:486
 msgid "Take advantage of this incredible deal right now!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:309
+#: includes/class-wlfmc-admin-notice.php:324
 msgid "Cyber Monday Madness: Exclusive <span class='green-text'>Tech Deals</span> on MoreConvert!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:310
+#: includes/class-wlfmc-admin-notice.php:325
 msgid "Power up your site with cyber savings on premium tools. Act fast!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:311
+#: includes/class-wlfmc-admin-notice.php:326
 msgid "Secure Cyber Savings!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:313
+#: includes/class-wlfmc-admin-notice.php:328
 msgid "Upgrade now before the clock runs out!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:318
+#: includes/class-wlfmc-admin-notice.php:333
 msgid "Festive Cheer: <span class='error-text'>Christmas Specials</span> from MoreConvert!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:319
+#: includes/class-wlfmc-admin-notice.php:334
 msgid "Wrap up the year with holiday discounts on premium features. Merry savings!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:320
+#: includes/class-wlfmc-admin-notice.php:335
 msgid "Unwrap Christmas Deals!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:322
+#: includes/class-wlfmc-admin-notice.php:337
 msgid "Make your holidays brighter with these offers!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:511
+#: includes/class-wlfmc-admin-notice.php:462
 msgid "Need More Power for MC Wishlist?"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:512
+#: includes/class-wlfmc-admin-notice.php:463
 msgid "If you need a stronger lists, you can sync it with more plugins and get more powerful sales tools; I suggest you check out the premium version page"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:513
+#: includes/class-wlfmc-admin-notice.php:464
 msgid "Check it Now"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:520
+#: includes/class-wlfmc-admin-notice.php:471
 msgid "Upgrade your website's potential with a FREE premium tour"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:520
+#: includes/class-wlfmc-admin-notice.php:471
 msgid "Your gift for installing MC Wishlist plugin"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:521
+#: includes/class-wlfmc-admin-notice.php:472
 msgid "Click below to demo the exclusive features, and witness the profitable and stunning transformation. Ready to elevate your website game?"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:522
+#: includes/class-wlfmc-admin-notice.php:473
 msgid "Try It Now"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:531
+#: includes/class-wlfmc-admin-notice.php:482
 msgid "Great News!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:531
+#: includes/class-wlfmc-admin-notice.php:482
 msgid "You've earned a bonus of"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:531
+#: includes/class-wlfmc-admin-notice.php:482
 msgid "$74.50"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:532
+#: includes/class-wlfmc-admin-notice.php:483
 msgid "join our Rewards Club and receive up to $74.50 off the MoreConvert Premium Plugin. With this offer, you'll be able to boost your sales and make your store more beautiful in no time."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:533
+#: includes/class-wlfmc-admin-notice.php:484
 msgid "Lets Go"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:601
+#: includes/class-wlfmc-admin-notice.php:552
 msgid "Changes are not saved in the MoreConvert plugin!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:602
+#: includes/class-wlfmc-admin-notice.php:553
 msgid "To modify settings, campaigns, and automations, we must revert to the website's default language to save the settings without any issues."
 msgstr ""
 
 #. translators: %s version
-#: includes/class-wlfmc-admin-notice.php:687
+#: includes/class-wlfmc-admin-notice.php:638
 msgid "To ensure proper functionality of the MoreConvert Wishlist plugin version %s and above, it is necessary to update the database tables. Please note that both the premium and free versions of MoreConvert are temporarily unavailable at this time."
 msgstr ""
 
 #. translators: %s version
-#: includes/class-wlfmc-admin-notice.php:691
+#: includes/class-wlfmc-admin-notice.php:642
 msgid "In our previous version, certain bilingual websites experienced interference issues. To ensure smooth operation of the MoreConvert (former MC Wishlist) plugin, version %s and above, it's essential to update the database tables."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:698
+#: includes/class-wlfmc-admin-notice.php:649
 msgid "We need to update the WPML String Translation plugin tables. This ensures that the WPML plugin works well with the text in MC WooCommerce Wishlist. Thank you for your cooperation."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:702
+#: includes/class-wlfmc-admin-notice.php:653
 msgid "We need to update the Wishlist Customers table. Thank you for your cooperation."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:707
+#: includes/class-wlfmc-admin-notice.php:658
 msgid "Attention: Important Plugin Update Required!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:710
+#: includes/class-wlfmc-admin-notice.php:661
 msgid "Updated!"
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:710
+#: includes/class-wlfmc-admin-notice.php:661
 msgid "Updating ..."
 msgstr ""
 
-#: includes/class-wlfmc-admin-notice.php:710
-#: includes/class-wlfmc-admin-notice.php:711
+#: includes/class-wlfmc-admin-notice.php:661
+#: includes/class-wlfmc-admin-notice.php:662
 msgid "Update tables"
 msgstr ""
 

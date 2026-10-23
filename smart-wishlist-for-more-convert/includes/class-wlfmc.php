@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.2
+ * @version 2.0.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WLFMC' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '2.0.2';
+		public $version = '2.0.3';
 
 		/**
 		 * Plugin database version

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.2.0
- * @version 2.0.0
+ * @version 2.0.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -231,46 +231,61 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 		 * @param string $event_key Event key like 'black_friday'.
 		 * @param string $type 'start' or 'end' or 'event_date'.
 		 * @return int Timestamp.
-		 * @since 1.9.8
+		 * @since 2.0.3
 		 */
 		private function get_event_date( $event_key, $type = 'event_date' ) {
-			$year = gmdate( 'Y' );
+			$year   = (int) gmdate( 'Y' );
+			$buffer = 12 * HOUR_IN_SECONDS;
+
+			$get_thanksgiving = function( $y ) {
+				$first_day_w = (int) gmdate( 'w', gmmktime( 0, 0, 0, 11, 1, $y ) );
+				$offset      = ( 4 - $first_day_w + 7 ) % 7;
+				$day         = 1 + $offset + ( 3 * 7 );
+				return gmmktime( 0, 0, 0, 11, $day, $y );
+			};
+
+			$start     = 0;
+			$end       = 0;
+			$event_day = 0;
+
 			switch ( $event_key ) {
 				case 'halloween':
-					if ( 'start' === $type ) {
-						return strtotime( "October 24, $year" );
-					} elseif ( 'end' === $type ) {
-						return strtotime( "November 1, $year" );
-					}
-					return $this->get_next_halloween();
+					$start     = gmmktime( 0, 0, 0, 10, 24, $year ) - $buffer;
+					$end       = gmmktime( 0, 0, 0, 11, 1, $year ) + $buffer;
+					$event_day = gmmktime( 0, 0, 0, 10, 31, $year );
+					break;
+
 				case 'black_friday':
-					$november     = strtotime( "November 1 $year" );
-					$black_friday = strtotime( 'fourth Friday', $november );
-					if ( 'start' === $type ) {
-						return strtotime( '-7 days', $black_friday );
-					} elseif ( 'end' === $type ) {
-						return strtotime( '+1 days', $black_friday );
-					}
-					return $this->get_next_black_friday();
+					$thanksgiving = $get_thanksgiving( $year );
+					$black_friday = $thanksgiving + DAY_IN_SECONDS;
+					$start        = ( $black_friday - ( 7 * DAY_IN_SECONDS ) ) - $buffer;
+					$end          = ( $black_friday + DAY_IN_SECONDS ) + $buffer;
+					$event_day    = $black_friday;
+					break;
+
 				case 'cyber_monday':
-					$cyber_monday = $this->get_next_cyber_monday();
-					if ( 'start' === $type ) {
-						return strtotime( 'November 30, ' . $year );
-					} elseif ( 'end' === $type ) {
-						return strtotime( 'December 2, ' . $year );
-					}
-					return $cyber_monday;
+					$thanksgiving = $get_thanksgiving( $year );
+					$black_friday = $thanksgiving + DAY_IN_SECONDS;
+					$cyber_monday = $black_friday + ( 3 * DAY_IN_SECONDS );
+					$start        = ( $black_friday + DAY_IN_SECONDS ) - $buffer;
+					$end          = ( $cyber_monday + ( 2 * DAY_IN_SECONDS ) ) + $buffer;
+					$event_day    = $cyber_monday;
+					break;
+
 				case 'christmas':
-					if ( 'start' === $type ) {
-						return strtotime( "December 10, $year" );
-					} elseif ( 'end' === $type ) {
-						$new_years = $year + 1;
-						return strtotime( "January 1, $new_years" );
-					}
-					return $this->get_next_christmas();
-				default:
-					return 0;
+					$start     = gmmktime( 0, 0, 0, 12, 10, $year ) - $buffer;
+					$end       = gmmktime( 0, 0, 0, 1, 1, $year + 1 ) + $buffer;
+					$event_day = gmmktime( 0, 0, 0, 12, 25, $year );
+					break;
 			}
+
+			if ( 'start' === $type ) {
+				return $start;
+			} elseif ( 'end' === $type ) {
+				return $end;
+			}
+
+			return $event_day;
 		}
 
 		/**
@@ -384,8 +399,8 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						</div>
 					</div>
 				</div>
-				<script>
-					var countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> = new Date("<?php echo esc_attr( gmdate( 'Y-m-d H:i:s', $end_date ) ); ?>").getTime();
+                <script>
+					var countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> = <?php echo (int) $end_date * 1000; ?>;
 					var x<?php echo esc_attr( ucfirst( $event_key ) ); ?> = setInterval(function() {
 						var now = new Date().getTime();
 						var distance = countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> - now;
@@ -403,7 +418,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 							document.getElementById("wlfmc-<?php echo esc_attr( $event_key ); ?>").remove();
 						}
 					}, 1000);
-				</script>
+                </script>
 				<?php
 			}
 		}
@@ -421,70 +436,6 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			}
 		}
 
-		/**
-		 * Get Next black friday
-		 *
-		 * @since 1.8.7
-		 * @version 1.9.8
-		 * @return false|int
-		 */
-		private function get_next_black_friday() {
-			$year         = gmdate( 'Y' );
-			$november     = strtotime( "November 1 $year" );
-			$black_friday = strtotime( 'fourth Friday', $november );
-			// If Black Friday has already passed this year, get it for next year.
-			if ( $black_friday < time() ) {
-				++$year;
-				$november     = strtotime( "November 1 $year" );
-				$black_friday = strtotime( 'fourth Friday', $november );
-			}
-			return $black_friday;
-		}
-
-		/**
-		 * Get next Halloween date (always October 31st of the current or next year).
-		 *
-		 * @since 1.9.8
-		 * @return int Timestamp of the next Halloween.
-		 */
-		private function get_next_halloween() {
-			$year      = gmdate( 'Y' );
-			$halloween = strtotime( "October 31 $year" );
-			// If Halloween has passed, get next year's.
-			if ( $halloween < time() ) {
-				++$year;
-				$halloween = strtotime( "November 1 $year" );
-			}
-			return $halloween;
-		}
-
-		/**
-		 * Get next Cyber Monday (Monday after Black Friday).
-		 *
-		 * @since 1.9.8
-		 * @return int Timestamp of the next Cyber Monday.
-		 */
-		private function get_next_cyber_monday() {
-			$black_friday = $this->get_next_black_friday();
-			return strtotime( '+3 days', $black_friday ); // Monday after Friday.
-		}
-
-		/**
-		 * Get next Christmas (always December 25th of the current or next year).
-		 *
-		 * @since 1.9.8
-		 * @return int Timestamp of the next Christmas.
-		 */
-		private function get_next_christmas() {
-			$year      = gmdate( 'Y' );
-			$christmas = strtotime( "December 25 $year" );
-			// If Christmas has passed, get next year's.
-			if ( $christmas < time() ) {
-				++$year;
-				$christmas = strtotime( "December 25 $year" );
-			}
-			return $christmas;
-		}
 
 		/**
 		 * Add admin delayed notice.

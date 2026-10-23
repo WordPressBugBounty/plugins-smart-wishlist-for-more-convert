@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -271,7 +271,7 @@ If you encounter a 404 error for the wishlist page, try regenerating the wishlis
 Anomalies might arise if your theme overrides plugin templates. If you use a popular theme, inform us to establish new compatibility. Alternatively, test the plugin in the WordPress default theme to rule out potential influences.
 
 = How can I report security bugs? =
-You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/wordpress/plugin/smart-wishlist-for-more-convert/vdp)
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/96ef2d2e-ddd4-4c8a-a5f5-16d4276de00c)
 
 = Where can I find documentation? =
 Comprehensive documentation is available online. Refer to our [online documentation](https://moreconvert.com/smart-wishlist-for-more-convert-documentation/) for assistance with setup and configuration.
@@ -303,6 +303,12 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 2.0.2 =
+
+* Tested: WC 11.2
+* Fixed: Synced admin notice dates with coupon activation and fixed timezone bugs.
+* Updated: an update patchstack vdp link.
 
 = 2.0.2 =
 
