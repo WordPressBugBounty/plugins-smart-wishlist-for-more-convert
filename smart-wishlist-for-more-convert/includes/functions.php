@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -2483,6 +2483,7 @@ if ( ! function_exists( 'wlfmc_add_email_to_unsubscribed' ) ) {
 		return false;
 	}
 }
+
 if ( ! function_exists( 'wlfmc_remove_email_from_unsubscribed' ) ) {
 	/**
 	 * Remove an email from the unsubscribed table.
@@ -2516,6 +2517,127 @@ if ( ! function_exists( 'wlfmc_remove_email_from_unsubscribed' ) ) {
 		}
 
 		return false;
+	}
+}
+
+if ( ! function_exists( 'wlfmc_sanitize_shortcode_icon_value' ) ) {
+	/**
+	 * Sanitize icon value coming from shortcode attributes.
+	 *
+	 * Supports:
+	 * - plain icon slug: heart-regular-2
+	 * - SVG string: <svg>...</svg>
+	 * - single HTML-entity encoded SVG: &lt;svg&gt;...&lt;/svg&gt;
+	 *
+	 * @param string $value         Raw shortcode attribute value.
+	 * @param string $default_class Default icon class slug.
+	 * @param string $default_svg   Default SVG markup.
+	 * @param string $type          Icon type, e.g. wishlist/waitlist/multi_list.
+	 *
+	 * @since 2.0.4
+	 * @return array {
+	 *     @type string $value  Safe class slug or sanitized SVG.
+	 *     @type bool   $is_svg Whether value is SVG.
+	 * }
+	 */
+	function wlfmc_sanitize_shortcode_icon_value( $value, $default_class = '', $default_svg = '', $type = 'wishlist' ) {
+		$value = trim( (string) wp_unslash( $value ) );
+
+		if ( '' === $value ) {
+			return wlfmc_sanitize_shortcode_icon_default( $default_class, $default_svg );
+		}
+
+		/**
+		 * Important:
+		 * Decode only once, and only to detect/normalize possibly escaped SVG.
+		 * Never decode again in template or JS path.
+		 */
+		$decoded = trim( html_entity_decode( $value, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+
+		// If it looks like SVG, sanitize it using the existing SVG sanitizer.
+		if ( false !== stripos( $decoded, '<svg' ) ) {
+			$svg = '';
+
+			if ( function_exists( 'wlfmc_sanitize_svg' ) ) {
+				$svg = wlfmc_sanitize_svg( $decoded );
+			}
+
+			if ( '' !== $svg && false !== stripos( $svg, '<svg' ) ) {
+				return array(
+					'value'  => $svg,
+					'is_svg' => true,
+				);
+			}
+
+			// If SVG sanitization failed, fall back to safe default.
+			return wlfmc_sanitize_shortcode_icon_default( '', $default_svg );
+		}
+
+		// Otherwise, accept only a plain icon slug.
+		if ( preg_match( '/^[a-z0-9_\-]+$/i', $value ) ) {
+			$slug = sanitize_html_class( $value );
+
+			if ( $slug && function_exists( 'wlfmc_get_icon_names' ) ) {
+				$allowed = array_values( (array) wlfmc_get_icon_names( $type, true, true, true ) );
+
+				// Also allow filled/-o variants if your UI uses them.
+				$filled = array_map(
+					static function ( $item ) {
+						return $item . '-o';
+					},
+					$allowed
+				);
+
+				$allowed = array_merge( $allowed, $filled );
+				$allowed = apply_filters( 'wlfmc_allowed_shortcode_icon_slugs', $allowed, $type );
+
+				if ( ! empty( $allowed ) && ! in_array( $slug, $allowed, true ) ) {
+					$slug = '';
+				}
+			}
+
+			if ( '' !== $slug ) {
+				return array(
+					'value'  => $slug,
+					'is_svg' => false,
+				);
+			}
+		}
+
+		// Invalid or unsafe value: use default.
+		return wlfmc_sanitize_shortcode_icon_default( $default_class, $default_svg );
+	}
+}
+
+if ( ! function_exists( 'wlfmc_sanitize_shortcode_icon_default' ) ) {
+	/**
+	 * Prepare default icon value from admin settings.
+	 *
+	 * @param string $default_class Default class slug.
+	 * @param string $default_svg   Default SVG markup.
+	 *
+	 * @since 2.0.4
+	 * @return array
+	 */
+	function wlfmc_sanitize_shortcode_icon_default( $default_class, $default_svg ) {
+		if ( '' !== $default_svg && function_exists( 'wlfmc_sanitize_svg' ) ) {
+			$default_svg_decoded = html_entity_decode( $default_svg, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+			$svg                 = wlfmc_sanitize_svg( $default_svg_decoded );
+
+			if ( '' !== $svg && false !== stripos( $svg, '<svg' ) ) {
+				return array(
+					'value'  => $svg,
+					'is_svg' => true,
+				);
+			}
+		}
+
+		$class = '' !== $default_class ? sanitize_html_class( $default_class ) : '';
+
+		return array(
+			'value'  => $class,
+			'is_svg' => false,
+		);
 	}
 }
 

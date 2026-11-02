@@ -315,7 +315,7 @@ var WLFMC = (() => {
       if (isMerge && listId && listId !== "0" && listId !== 0) {
         return `wishlist::merge::${productId}::${listId}`;
       }
-      return `wishlist::product::${productId}`;
+      return `wishlist::default`;
     },
     /**
      * Multi-list scope

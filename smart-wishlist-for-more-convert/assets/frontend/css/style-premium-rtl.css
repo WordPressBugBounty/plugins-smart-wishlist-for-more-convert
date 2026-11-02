@@ -3451,6 +3451,9 @@ input.wlfmc-dropdown-input {
           box-shadow: none !important;
   outline: none !important;
   height: auto !important;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
   padding: 0;
 }
 .wlfmc-counter-wrapper .wlfmc-counter-dropdown.lists-show {

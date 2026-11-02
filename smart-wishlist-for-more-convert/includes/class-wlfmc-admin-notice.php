@@ -237,7 +237,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 			$year   = (int) gmdate( 'Y' );
 			$buffer = 12 * HOUR_IN_SECONDS;
 
-			$get_thanksgiving = function( $y ) {
+			$get_thanksgiving = function ( $y ) {
 				$first_day_w = (int) gmdate( 'w', gmmktime( 0, 0, 0, 11, 1, $y ) );
 				$offset      = ( 4 - $first_day_w + 7 ) % 7;
 				$day         = 1 + $offset + ( 3 * 7 );
@@ -399,7 +399,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 						</div>
 					</div>
 				</div>
-                <script>
+				<script>
 					var countDownDate<?php echo esc_attr( ucfirst( $event_key ) ); ?> = <?php echo (int) $end_date * 1000; ?>;
 					var x<?php echo esc_attr( ucfirst( $event_key ) ); ?> = setInterval(function() {
 						var now = new Date().getTime();
@@ -418,7 +418,7 @@ if ( ! class_exists( 'WLFMC_Admin_Notice' ) ) {
 							document.getElementById("wlfmc-<?php echo esc_attr( $event_key ); ?>").remove();
 						}
 					}, 1000);
-                </script>
+				</script>
 				<?php
 			}
 		}

@@ -5,7 +5,7 @@
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
  * @since 1.3.3
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -55,10 +55,19 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		 *
 		 * @param WP_REST_Request $request  The request object.
 		 *
-		 * @verison 2.0.0
+		 * @verison 2.0.4
 		 * @return WP_Error|WP_HTTP_Response|WP_REST_Response
 		 */
 		public static function do_action( WP_REST_Request $request ) {
+
+			$nonce = $request->get_header( 'X-WP-Nonce' );
+			if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+				return new WP_Error(
+					'rest_forbidden',
+					__( 'Nonce verification failed.', 'wc-wlfmc-wishlist' ),
+					array( 'status' => 403 )
+				);
+			}
 
 			$data   = $request->get_body_params();
 			$action = sanitize_key( $data['action'] );
@@ -143,6 +152,7 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 		 *
 		 * @param array $data $_POST data.
 		 *
+		 * @version 2.0.4
 		 * @return void
 		 */
 		public static function load_automations( array $data ) {
@@ -151,6 +161,12 @@ if ( ! class_exists( 'WLFMC_Api' ) ) {
 			$list_type   = isset( $data['list_type'] ) ? sanitize_text_field( wp_unslash( $data['list_type'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 			$customer_id = isset( $data['customer_id'] ) ? intval( $data['customer_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			if ( ! $wishlist_id || ! $product_id || ! $customer_id ) {
+				die();
+			}
+
+			$validation = WLFMC_Wishlist::validate_wishlist_ownership( $wishlist_id, $customer_id, $product_id );
+
+			if ( is_wp_error( $validation ) ) {
 				die();
 			}
 

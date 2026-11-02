@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -304,7 +304,22 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 == Changelog ==
 
-= 2.0.2 =
+= 2.0.4 =
+
+* Security: Fixed a stored XSS vulnerability in the `[wlfmc_wishlist_counter]`, `[wlfmc_waitlist_counter]`, and `[wlfmc_multi_list_counter]` shortcodes by properly validating and sanitizing icon-related attributes (`empty_icon`, `has_item_icon`, and `icon`).
+* Security: Removed unsafe repeated decoding of shortcode icon attributes, ensuring icon values are rendered strictly as safe CSS class slugs or sanitized SVG markup.
+* Security: Fixed an unauthenticated cross-wishlist IDOR vulnerability (CVSS 5.3).
+  - The REST endpoint `/wlfmc/v1/call` now requires a valid nonce for state-changing actions.
+  - Automation triggers now verify wishlist ownership and product membership before execution.
+  - Email automation processing now validates the customer-wishlist relationship.
+  - Implemented shared validation logic to prevent inconsistent security checks across REST and AJAX handlers.
+* Fix: Resolved an issue in the free version where adding multiple products simultaneously could create multiple default wishlists due to concurrent request race conditions.
+* Tweak: Updated new database tables to use the `utf8mb4` charset for improved Unicode and emoji support.
+* Tweak: Preserved support for custom SVG icons in shortcode attributes by routing SVG values through the existing SVG sanitizer.
+* Tweak: Maintained the existing frontend data-attribute flow while properly escaping icon HTML output using `esc_attr()`.
+* Fix: resolve Elementor template stripping causing duplicate thumbnails.
+
+= 2.0.3 =
 
 * Tested: WC 11.2
 * Fixed: Synced admin notice dates with coupon activation and fixed timezone bugs.
@@ -335,31 +350,5 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 * Added: new filter "wlfmc_show_multi_list_count" for multi-list count badge visibility.
 * Added: new filter "wlfmc_show_meta_data_by_default" for product components visibility.
 * Added: add dual icon support for add-to-list button
-
-= 1.9.21 =
-
-* Tested: WC 10.9.4
-* Added: Added nonce validation for delete_item and load_fragments AJAX actions to prevent cross‑site request forgery (CSRF).
-* Added: Enforced current_user_can( 'manage_options' ) capability checks on all administrative AJAX endpoints to ensure only authorized users can trigger them.
-* Fixed: Escaped all echo do_shortcode() outputs using wp_kses_post to mitigate potential XSS vulnerabilities.
-
-= 1.9.20 =
-
-* Added: New filter "wlfmc_disable_pagination_on_drag_drop" to control whether Drag & Drop automatically disables pagination.
-* Updated: Pagination now stays active by default when Drag & Drop is enabled, instead of being overridden.
-* Tweak: Refactored conditional logic to apply the new filter, preserving legacy behavior when filter returns true.
-* Fixed: Unauthenticated Stored XSS vulnerability in variation attributes by implementing proper validation and sanitization using WooCommerce core functions before storing data in product_meta.
-* Fixed: Missing CSRF protection by adding mandatory Nonce validation for all AJAX endpoints.
-* Added: Nonce tokens to all frontend AJAX requests for enhanced security.
-* Improved: Output escaping for variation data on the wishlist page (wp_kses_post) as a defense-in-depth measure.
-* Tweak: Updated JavaScript to seamlessly handle new Nonce tokens with every AJAX call.
-
-= 1.9.19 =
-
-* Tested: WC 10.8.1
-* Tweak: Upgraded the internal SVG sanitization dependency (`enshrined/svg-sanitize`) to version ^0.22.0 for improved security auditing and modern PHP 8.x compatibility.
-* Fixed: Enhanced security compliance in email tracking mechanisms to prevent potential open redirection exploits.
-* Tweak: Hardened redirection flow inside email tracking triggers using WordPress native safe redirect functions.
-* Fixed: Added strict capability checks (`install_plugins` and `activate_plugins`) to the core plugin installer handler to prevent unauthorized execution by low-privileged users(premium version).
 
 [See changelog for all versions](https://moreconvert.com/changelog/).

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -236,6 +236,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 *
 		 * @return void
 		 * @access private
+		 * @version 2.0.4
 		 */
 		private function add_wishlists_table() {
 
@@ -254,7 +255,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							expiration timestamp NULL DEFAULT NULL,
 							PRIMARY KEY  ( ID ),
 							KEY wishlist_slug ( wishlist_slug )
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
@@ -265,6 +266,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 *
 		 * @return void
 		 * @access private
+		 * @version 2.0.4
 		 */
 		private function add_items_table() {
 
@@ -291,7 +293,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							low_stock tinyint NOT NULL DEFAULT 0,
 							PRIMARY KEY  ( ID ),
 							KEY prod_id ( prod_id )
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
@@ -304,7 +306,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * @return void
 		 * @access private
 		 *
-		 * @version 1.3.3
+		 * @version 2.0.4
 		 */
 		private function add_automations_table() {
 
@@ -318,7 +320,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							is_special TINYINT( 1 ) NOT NULL DEFAULT 0,
 							is_pro TINYINT( 1 ) NOT NULL DEFAULT 0,
 							PRIMARY KEY  ( ID )
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
@@ -330,7 +332,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * @return void
 		 * @access private
 		 *
-		 * @version 1.0.1
+		 * @version 2.0.4
 		 */
 		private function add_offer_table() {
 
@@ -354,7 +356,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							datesent timestamp,
 							status varchar( 200 ) NOT NULL DEFAULT 'sending' comment 'sending ,not-send , sent ,  opened ,  clicked, coupon-used,unsubscribed',
 							PRIMARY KEY  ( ID )
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );
@@ -367,7 +369,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 		 * @return void
 		 * @access private
 		 *
-		 * @version 1.4.0
+		 * @version 2.0.4
 		 */
 		private function add_analytics_table() {
 
@@ -385,7 +387,7 @@ if ( ! class_exists( 'WLFMC_Install' ) ) {
 							dateadded timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 							datepurchased timestamp NULL DEFAULT NULL,
 							PRIMARY KEY  ( ID )
-						) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+						) DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;";
 
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta( $sql );

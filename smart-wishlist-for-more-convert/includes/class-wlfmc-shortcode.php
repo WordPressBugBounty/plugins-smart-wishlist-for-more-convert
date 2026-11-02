@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -791,7 +791,7 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 		 * @return string  Rendered shortcode
 		 *
 		 * @since 1.4.0
-		 * @version 2.0.0
+		 * @version 2.0.4
 		 */
 		public static function wishlist_counter( $atts ) {
 			if ( defined( 'WLFMC_TEST_MODE' ) && wlfmc_is_true( WLFMC_TEST_MODE ) && ! current_user_can( 'manage_options' ) ) {
@@ -923,13 +923,48 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 			$atts['show_counter']              = wlfmc_is_true( $atts['show_counter'] );
 			$atts['show_products']             = wlfmc_is_true( $atts['show_products'] );
 			$atts['dropdown_products']         = wlfmc_is_true( $atts['dropdown_products'] );
-			$atts['is_svg_icon']               = wlfmc_is_true( $atts['is_svg_icon'] );
 			$atts['is_elementor']              = wlfmc_is_true( $atts['is_elementor'] );
 			$atts['hide_zero_products_number'] = wlfmc_is_true( $atts['hide_zero_products_number'] );
 			$atts['hide_counter_if_no_items']  = defined( 'MC_WLFMC_PREMIUM' ) && wlfmc_is_true( $atts['hide_counter_if_no_items'] );
 			$atts['add_link_title']            = wlfmc_is_true( $atts['add_link_title'] );
-			$atts['has_item_icon']             = str_replace( '"', "'", htmlspecialchars_decode( $atts['has_item_icon'] ) );
-			$atts['empty_icon']                = str_replace( '"', "'", htmlspecialchars_decode( $atts['empty_icon'] ) );
+
+			$default_counter_icon = $options->get_option( 'counter_icon', 'heart-regular-2' );
+
+			$default_counter_svg       = '';
+			$default_counter_svg_added = '';
+
+			if ( 'custom' === $default_counter_icon ) {
+				$default_counter_svg       = $options->get_option( 'counter_icon_svg', '' );
+				$default_counter_svg_added = $options->get_option( 'counter_icon_svg_added', '' );
+			}
+
+			$default_empty_class = ( 'custom' === $default_counter_icon ) ? '' : $default_counter_icon;
+			$default_has_class   = ( 'custom' === $default_counter_icon ) ? '' : $default_counter_icon . '-o';
+
+			$empty_icon_data = wlfmc_sanitize_shortcode_icon_value(
+				isset( $atts['empty_icon'] ) ? $atts['empty_icon'] : '',
+				$default_empty_class,
+				$default_counter_svg,
+				'wishlist'
+			);
+
+			$has_item_icon_data = wlfmc_sanitize_shortcode_icon_value(
+				isset( $atts['has_item_icon'] ) ? $atts['has_item_icon'] : '',
+				$default_has_class,
+				$default_counter_svg_added,
+				'wishlist'
+			);
+
+			$atts['empty_icon']    = $empty_icon_data['value'];
+			$atts['has_item_icon'] = $has_item_icon_data['value'];
+
+			/**
+			 * Backward compatibility flag.
+			 * If both sides are SVG, keep global SVG mode true.
+			 * Template below will also detect per-icon SVG safely.
+			 */
+			$atts['is_svg_icon'] = $empty_icon_data['is_svg'] && $has_item_icon_data['is_svg'];
+
 			// change icon when item exists in wishlist.
 			if ( $atts['count_items'] && 0 < $atts['count_items'] ) {
 				$atts['icon'] = $atts['has_item_icon'];
@@ -937,7 +972,22 @@ if ( ! class_exists( 'WLFMC_Shortcode' ) ) {
 				$atts['icon'] = $atts['empty_icon'];
 			}
 
-			$icon_html = ( ! $atts['is_svg_icon'] ) ? '<i class="' . $atts['icon_prefix_class'] . htmlspecialchars_decode( $atts['icon'] ) . '"></i>' : htmlspecialchars_decode( $atts['icon'] );
+			$icon_data = wlfmc_sanitize_shortcode_icon_value(
+				isset( $atts['icon'] ) ? $atts['icon'] : '',
+				$default_empty_class,
+				$default_counter_svg,
+				'wishlist'
+			);
+
+			$atts['icon'] = $icon_data['value'];
+
+			if ( $icon_data['is_svg'] ) {
+				$icon_html = $atts['icon'];
+			} else {
+				$icon_html = '' !== $atts['icon']
+					? '<i class="' . esc_attr( $atts['icon_prefix_class'] . $atts['icon'] ) . '"></i>'
+					: '';
+			}
 
 			// set fragment options.
 			$atts['fragment_options'] = WLFMC_Frontend()->format_fragment_options( $atts, 'wishlist_counter' );

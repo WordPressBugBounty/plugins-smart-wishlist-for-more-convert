@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.1
+ * @version 2.0.4
  */
 
 /**
@@ -56,8 +56,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$empty_icon_html    = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $empty_icon ) . '"></i>' : '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $empty_icon ) . '</i>';
-$has_item_icon_html = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . htmlspecialchars_decode( $has_item_icon ) . '"></i>' : '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $has_item_icon ) . '</i>';
+
+$empty_is_svg    = ( false !== stripos( (string) $empty_icon, '<svg' ) );
+$has_item_is_svg = ( false !== stripos( (string) $has_item_icon, '<svg' ) );
+
+$empty_icon_html = $empty_is_svg
+	? '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $empty_icon ) . '</i>'
+	: ( '' !== $empty_icon ? '<i class="' . esc_attr( $icon_prefix_class . $empty_icon ) . '"></i>' : '' );
+
+$has_item_icon_html = $has_item_is_svg
+	? '<i class="wlfmc-svg">' . wlfmc_sanitize_svg( $has_item_icon ) . '</i>'
+	: ( '' !== $has_item_icon ? '<i class="' . esc_attr( $icon_prefix_class . $has_item_icon ) . '"></i>' : '' );
 ?>
 <div <?php echo $hide_counter_if_no_items && ( ! $has_items ) ? 'style="display:none"' : ''; ?>
 	class="wlfmc-counter-wrapper <?php echo 'unique_' . esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"
@@ -325,49 +334,63 @@ $has_item_icon_html = ( ! $is_svg_icon ) ? '<i class="' . $icon_prefix_class . h
 		</div>
 	</div>
 <?php endif; ?>
-<!-- Counter Item Template -->
-<script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-item-<?php echo esc_attr( $unique_id ); ?>">
-	<div id="wlfmc-row-{{ data.product_id }}"
-		data-item-id="{{ data.item_id }}"
-		data-row-id="{{ data.product_id }}"
-		data-wishlist-id="{{ data.wishlist_id }}"
-		data-wishlist-token="{{ data.wishlist_token }}"
-		class="d-flex gap-10 wlfmc-counter-item<# if ( data.pending ) { #> wlfmc-pending<# } #>">
-		<a class="product-thumbnail" href="{{ data.url || '#' }}">
-			{{{ data.image }}}
-		</a>
-		<div class="max-100">
-			<a class="product-name" href="{{ data.url || '#' }}">
-				{{ data.name }}
-			</a>
-			<div class="product-price price d-flex space-between">
-				<span>{{{ data.price }}}</span>
-				<a href="{{ data.remove_url || '#' }}"
-					aria-label="<?php echo esc_attr_x( 'Remove from wishlist', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>"
-					class="remove_from_wishlist wlfmc-remove-from-list"
-					data-nonce="{{ data.remove_nonce }}"
-					title="<?php echo esc_attr( apply_filters( 'wlfmc_remove_product_wishlist_message_title', __( 'Remove this product', 'wc-wlfmc-wishlist' ) ) ); ?>"
-					data-e-disable-page-transition>
-					<i class="wlfmc-icon-close"></i>
-				</a>
-			</div>
-			<# if ( data.list_name ) { #>
-			<div class="wlfmc-badge">{{ data.list_name }}</div>
-			<# } #>
-		</div>
-	</div>
-</script>
 
-<!-- Counter Empty State Template -->
-<script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-empty-<?php echo esc_attr( $unique_id ); ?>">
-	<div class="wlfmc-wishlist-empty<?php echo 'waitlist' === $counter_type ? ' wlfmc-' . esc_attr( $counter_type ) . '-empty' : ''; ?>">
-		<?php
-		// Use appropriate empty message filter based on counter type.
-		$empty_filter = 'waitlist' === $counter_type
-			? 'wlfmc_no_product_in_counter_waitlist_message'
-			: 'wlfmc_no_product_in_counter_wishlist_message';
-		echo wp_kses_post( apply_filters( $empty_filter, $empty_wishlist_content, null ) );
-		?>
-	</div>
-</script>
+<?php
+// Defer Underscore.js template rendering to wp_footer.
+// Elementor strips closing tags (</a>, </span>, </div>) from
+// <script type="text/html"> blocks when they are rendered inside
+// widget output. Moving them to the footer bypasses this entirely.
+ob_start();
+?>
+    <!-- Counter Item Template -->
+    <script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-item-<?php echo esc_attr( $unique_id ); ?>">
+        <div id="wlfmc-row-{{ data.product_id }}"
+             data-item-id="{{ data.item_id }}"
+             data-row-id="{{ data.product_id }}"
+             data-wishlist-id="{{ data.wishlist_id }}"
+             data-wishlist-token="{{ data.wishlist_token }}"
+             class="d-flex gap-10 wlfmc-counter-item<# if ( data.pending ) { #> wlfmc-pending<# } #>">
+            <a class="product-thumbnail" href="{{ data.url || '#' }}">
+                {{{ data.image }}}
+            </a>
+            <div class="max-100">
+                <a class="product-name" href="{{ data.url || '#' }}">
+                    {{ data.name }}
+                </a>
+                <div class="product-price price d-flex space-between">
+                    <span>{{{ data.price }}}</span>
+                    <a href="{{ data.remove_url || '#' }}"
+                       aria-label="<?php echo esc_attr_x( 'Remove from wishlist', 'aria-label text', 'wc-wlfmc-wishlist' ); ?>"
+                       class="remove_from_wishlist wlfmc-remove-from-list"
+                       data-nonce="{{ data.remove_nonce }}"
+                       title="<?php echo esc_attr( apply_filters( 'wlfmc_remove_product_wishlist_message_title', __( 'Remove this product', 'wc-wlfmc-wishlist' ) ) ); ?>"
+                       data-e-disable-page-transition>
+                        <i class="wlfmc-icon-close"></i>
+                    </a>
+                </div>
+                <# if ( data.list_name ) { #>
+                <div class="wlfmc-badge">{{ data.list_name }}</div>
+                <# } #>
+            </div>
+        </div>
+    </script>
+
+    <!-- Counter Empty State Template -->
+    <script type="text/html" id="tmpl-wlfmc-mini-<?php echo esc_attr( $counter_type ); ?>-empty-<?php echo esc_attr( $unique_id ); ?>">
+        <div class="wlfmc-wishlist-empty<?php echo 'waitlist' === $counter_type ? ' wlfmc-' . esc_attr( $counter_type ) . '-empty' : ''; ?>">
+			<?php
+			// Use appropriate empty message filter based on counter type.
+			$empty_filter = 'waitlist' === $counter_type
+				? 'wlfmc_no_product_in_counter_waitlist_message'
+				: 'wlfmc_no_product_in_counter_wishlist_message';
+			echo wp_kses_post( apply_filters( $empty_filter, $empty_wishlist_content, null ) );
+			?>
+        </div>
+    </script>
+<?php
+$wlfmc_counter_templates = ob_get_clean();
+
+add_action( 'wp_footer', static function () use ( $wlfmc_counter_templates ) {
+	echo $wlfmc_counter_templates; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}, 25 );
 

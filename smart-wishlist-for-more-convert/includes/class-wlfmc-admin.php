@@ -30,7 +30,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 		 *
 		 * @var string
 		 */
-		public $rollback_version = '2.0.2';
+		public $rollback_version = '2.0.3';
 
 		/**
 		 * Minimum pro version
@@ -1747,7 +1747,7 @@ if ( ! class_exists( 'WLFMC_Admin' ) ) {
 														'help' => __( 'Tooltip gets text from button text', 'wc-wlfmc-wishlist' ),
 														'desc' => sprintf(
 														// translators: %s is a placeholder for a link to global settings.
-														__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
+															__( 'Modify the tooltip style from %s.', 'wc-wlfmc-wishlist' ),
 															sprintf(
 																'<a href="%s" target="_blank">%s</a>',
 																$global_tooltip_url,

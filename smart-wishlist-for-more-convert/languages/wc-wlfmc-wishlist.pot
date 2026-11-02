@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MoreConvert Wishlist for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: smart-wishlist-for-more-convert 2.0.3\n"
+"Project-Id-Version: smart-wishlist-for-more-convert 2.0.4\n"
 "Report-Msgid-Bugs-To: https://moreconvert.com/support/#support-form\n"
 "Last-Translator: MoreConvert\n"
 "Language-Team: MoreConvert\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-22T20:30:53+00:00\n"
+"POT-Creation-Date: 2026-11-02T11:26:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wc-wlfmc-wishlist\n"
@@ -1029,7 +1029,7 @@ msgid "Image Shape"
 msgstr ""
 
 #: includes/class-wlfmc-admin.php:933
-#: includes/class-wlfmc-install.php:869
+#: includes/class-wlfmc-install.php:871
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:784
 #: includes/marketing-toolkits/email-automation/class-wlfmc-automation-admin.php:587
 msgid "Default"
@@ -1340,7 +1340,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:4844
 #: includes/class-wlfmc-ajax-handler.php:824
 #: includes/class-wlfmc-frontend.php:196
-#: includes/class-wlfmc-install.php:1683
+#: includes/class-wlfmc-install.php:1685
 #: includes/integrations/jet-woo-builder.php:65
 #: includes/integrations/neve/components/class-wishlist-counter.php:82
 #: includes/marketing-toolkits/analytics/class-wlfmc-analytics-admin-demo.php:1925
@@ -1369,7 +1369,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:3864
 #: includes/class-wlfmc-admin.php:3965
 #: includes/class-wlfmc-admin.php:3968
-#: includes/class-wlfmc-install.php:782
+#: includes/class-wlfmc-install.php:784
 #: includes/class-wlfmc-shortcode.php:546
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:303
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:304
@@ -2850,7 +2850,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:3852
 #: includes/class-wlfmc-admin.php:3855
 #: includes/class-wlfmc-admin.php:5639
-#: includes/class-wlfmc-install.php:781
+#: includes/class-wlfmc-install.php:783
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:52
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:292
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:293
@@ -2870,7 +2870,7 @@ msgstr ""
 
 #: includes/class-wlfmc-admin.php:3876
 #: includes/class-wlfmc-admin.php:3879
-#: includes/class-wlfmc-install.php:783
+#: includes/class-wlfmc-install.php:785
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:314
 #: includes/elementor/widgets/class-wlfmc-elementor-add-to-wishlist.php:315
 msgid "Remove From Wishlist"
@@ -2908,7 +2908,7 @@ msgstr ""
 #: includes/class-wlfmc-admin.php:3922
 #: includes/class-wlfmc-admin.php:5406
 #: includes/class-wlfmc-shortcode.php:98
-#: includes/class-wlfmc-wishlist.php:384
+#: includes/class-wlfmc-wishlist.php:452
 #: templates/emails/mc-template.php:56
 msgid "My Wishlist"
 msgstr ""
@@ -3676,12 +3676,12 @@ msgstr ""
 #: includes/class-wlfmc-ajax-handler.php:102
 #: includes/class-wlfmc-ajax-handler.php:917
 #: includes/class-wlfmc-ajax-handler.php:1035
-#: includes/class-wlfmc-ajax-handler.php:1181
-#: includes/class-wlfmc-ajax-handler.php:1211
-#: includes/class-wlfmc-ajax-handler.php:1248
-#: includes/class-wlfmc-ajax-handler.php:1303
-#: includes/class-wlfmc-ajax-handler.php:1362
-#: includes/class-wlfmc-ajax-handler.php:1438
+#: includes/class-wlfmc-ajax-handler.php:1187
+#: includes/class-wlfmc-ajax-handler.php:1217
+#: includes/class-wlfmc-ajax-handler.php:1254
+#: includes/class-wlfmc-ajax-handler.php:1309
+#: includes/class-wlfmc-ajax-handler.php:1368
+#: includes/class-wlfmc-ajax-handler.php:1444
 msgid "Security validation failed. Please refresh the page."
 msgstr ""
 
@@ -3723,7 +3723,7 @@ msgid "Wishlist Customer table updated."
 msgstr ""
 
 #: includes/class-wlfmc-ajax-handler.php:822
-#: includes/class-wlfmc-install.php:1681
+#: includes/class-wlfmc-install.php:1683
 msgctxt "page_slug"
 msgid "wishlist"
 msgstr ""
@@ -3734,13 +3734,17 @@ msgstr ""
 msgid "you didn't select a variation for it"
 msgstr ""
 
-#: includes/class-wlfmc-ajax-handler.php:1387
-#: includes/class-wlfmc-ajax-handler.php:1396
+#: includes/class-wlfmc-ajax-handler.php:1393
+#: includes/class-wlfmc-ajax-handler.php:1402
 msgid "Invalid request parameters"
 msgstr ""
 
-#: includes/class-wlfmc-ajax-handler.php:1405
+#: includes/class-wlfmc-ajax-handler.php:1411
 msgid "Item not found"
+msgstr ""
+
+#: includes/class-wlfmc-api.php:67
+msgid "Nonce verification failed."
 msgstr ""
 
 #: includes/class-wlfmc-date-formatter.php:202
@@ -3892,7 +3896,7 @@ msgid "Your lists may not persist in this browsing mode."
 msgstr ""
 
 #. translators: 1 error message
-#: includes/class-wlfmc-install.php:1358
+#: includes/class-wlfmc-install.php:1360
 msgid "An error occurred after update to the version 1.6.3: %s"
 msgstr ""
 
@@ -4104,6 +4108,22 @@ msgstr ""
 #: includes/class-wlfmc-wishlist-item.php:604
 msgctxt "The template that shows price variation since addition to list."
 msgid "Price changed by %1$s%% from %2$s"
+msgstr ""
+
+#: includes/class-wlfmc-wishlist.php:228
+msgid "Required parameters are missing."
+msgstr ""
+
+#: includes/class-wlfmc-wishlist.php:238
+msgid "Wishlist not found."
+msgstr ""
+
+#: includes/class-wlfmc-wishlist.php:251
+msgid "Wishlist does not belong to this customer."
+msgstr ""
+
+#: includes/class-wlfmc-wishlist.php:262
+msgid "Product is not in this wishlist."
 msgstr ""
 
 #: includes/class-wlfmc.php:382
@@ -8960,9 +8980,9 @@ msgid "View My Wishlist"
 msgstr ""
 
 #: templates/mc-add-to-wishlist.php:156
-#: templates/mc-wishlist-counter.php:171
-#: templates/mc-wishlist-counter.php:288
-#: templates/mc-wishlist-counter.php:346
+#: templates/mc-wishlist-counter.php:180
+#: templates/mc-wishlist-counter.php:297
+#: templates/mc-wishlist-counter.php:363
 msgctxt "aria-label text"
 msgid "Remove from wishlist"
 msgstr ""
@@ -8973,14 +8993,14 @@ msgctxt "aria-label text"
 msgid "Close"
 msgstr ""
 
-#: templates/mc-wishlist-counter.php:85
+#: templates/mc-wishlist-counter.php:94
 msgctxt "aria-label text"
 msgid "Wishlist Counter"
 msgstr ""
 
-#: templates/mc-wishlist-counter.php:171
-#: templates/mc-wishlist-counter.php:288
-#: templates/mc-wishlist-counter.php:349
+#: templates/mc-wishlist-counter.php:180
+#: templates/mc-wishlist-counter.php:297
+#: templates/mc-wishlist-counter.php:366
 #: templates/mc-wishlist-view.php:226
 msgid "Remove this product"
 msgstr ""

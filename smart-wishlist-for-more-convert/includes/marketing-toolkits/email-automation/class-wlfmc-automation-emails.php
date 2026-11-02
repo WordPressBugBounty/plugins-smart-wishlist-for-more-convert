@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.04
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -249,7 +249,7 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 		 * @param int    $customer_id customer id.
 		 * @param string $current_list_type list type.
 		 *
-		 * @version 1.9.4
+		 * @version 2.0.4
 		 */
 		public function add_emails( $prod_id, $wishlist_id, $customer_id, $current_list_type ) {
 			global $wpdb;
@@ -274,6 +274,17 @@ if ( ! class_exists( 'WLFMC_Automation_Emails' ) ) {
 			$wishlist  = wlfmc_get_wishlist( $wishlist_id );
 
 			if ( ! $wishlist ) {
+				return;
+			}
+
+			if ( (int) $wishlist->get_customer_id() !== (int) $customer_id ) {
+				return;
+			}
+
+			$prod_id = wlfmc_object_id( $prod_id, 'product', true, 'default' );
+
+			$product_exists = $wishlist->has_product( $prod_id );
+			if ( ! $product_exists ) {
 				return;
 			}
 

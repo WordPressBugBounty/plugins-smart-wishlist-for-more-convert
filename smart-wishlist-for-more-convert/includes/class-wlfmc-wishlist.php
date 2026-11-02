@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -198,6 +198,74 @@ if ( ! class_exists( 'WLFMC_Wishlist' ) ) {
 			}
 
 			return apply_filters( 'wlfmc_current_user_can', $can, $capability, $current_user, $this );
+		}
+
+		/**
+		 * Validate wishlist ownership and product membership.
+		 *
+		 * This method prevents IDOR attacks by ensuring that:
+		 * 1. The wishlist exists.
+		 * 2. The wishlist belongs to the specified customer.
+		 * 3. The product exists in the wishlist.
+		 *
+		 * @since 2.0.4
+		 *
+		 * @param int $wishlist_id Wishlist ID to validate.
+		 * @param int $customer_id Customer ID to verify ownership against.
+		 * @param int $product_id  Product ID to check membership for.
+		 * @return true|WP_Error   True if validation passes, WP_Error on failure.
+		 */
+		public static function validate_wishlist_ownership( $wishlist_id, $customer_id, $product_id ) {
+			// Sanitize input parameters.
+			$wishlist_id = absint( $wishlist_id );
+			$customer_id = absint( $customer_id );
+			$product_id  = absint( $product_id );
+
+			// Early return if any required ID is missing.
+			if ( ! $wishlist_id || ! $customer_id || ! $product_id ) {
+				return new WP_Error(
+					'missing_parameters',
+					__( 'Required parameters are missing.', 'wc-wlfmc-wishlist' ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// Step 1: Load the wishlist and verify it exists.
+			$wishlist = wlfmc_get_wishlist( $wishlist_id );
+			if ( ! $wishlist ) {
+				return new WP_Error(
+					'invalid_wishlist',
+					__( 'Wishlist not found.', 'wc-wlfmc-wishlist' ),
+					array( 'status' => 404 )
+				);
+			}
+
+			// Step 2: Verify ownership - wishlist must belong to the specified customer.
+			$wishlist_owner_id = method_exists( $wishlist, 'get_customer_id' )
+				? $wishlist->get_customer_id()
+				: 0;
+
+			if ( (int) $wishlist_owner_id !== (int) $customer_id ) {
+				return new WP_Error(
+					'wishlist_owner_mismatch',
+					__( 'Wishlist does not belong to this customer.', 'wc-wlfmc-wishlist' ),
+					array( 'status' => 403 )
+				);
+			}
+
+			// Step 3: Verify the product exists in the wishlist.
+			$product_exists = $wishlist->has_product( $product_id );
+
+			if ( ! $product_exists ) {
+				return new WP_Error(
+					'product_not_in_wishlist',
+					__( 'Product is not in this wishlist.', 'wc-wlfmc-wishlist' ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// All validation checks passed.
+			return true;
 		}
 
 		/* === GETTERS === */

@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 1.9.6
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 			try {
 				return new WLFMC_Customer( $customer_id );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $customer_id, $context ) );
 
 				return false;
 			}
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 				WC_Data_Store::load( 'wlfmc-customer' )->delete( $customer );
 				return true;
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $customer_id ) );
 				return false;
 			}
 		}
@@ -122,7 +122,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_current_customer', $current_customer, $id, $context );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $id, $context ) );
 				return false;
 			}
 		}
@@ -156,7 +156,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_customer_query', $results, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 				return false;
 			}
 		}
@@ -204,7 +204,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 			try {
 				return new WLFMC_Wishlist( $wishlist_id );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $wishlist_id, $context ) );
 
 				return false;
 			}
@@ -241,7 +241,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_wishlist_query', $results, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 
 				return false;
 			}
@@ -262,7 +262,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_wishlist_count_query', $result, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 				return 0;
 			}
 		}
@@ -288,7 +288,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_wishlist_user_query', $results, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 				return false;
 			}
 		}
@@ -369,7 +369,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_default_wishlist', $default_wishlist, $id, $context );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $id, $context ) );
 				return false;
 			}
 		}
@@ -394,7 +394,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_' . $slug . '_wishlist', $wishlist, $slug, $context );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $slug, $context ) );
 				return false;
 			}
 		}
@@ -420,7 +420,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_' . $slug . '_wishlist', $wishlist, $id, $context );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $slug, $id, $context ) );
 				return false;
 			}
 		}
@@ -445,7 +445,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 			try {
 				return WC_Data_Store::load( 'wlfmc-wishlist' )->generate_token();
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array() );
 				return false;
 			}
 		}
@@ -523,7 +523,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_wishlist_item_query', $results, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 				return false;
 			}
 		}
@@ -543,7 +543,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return apply_filters( 'wlfmc_wishlist_item_count_query', $result, $args );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, $args );
 				return 0;
 			}
 		}
@@ -562,7 +562,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 				$result = WC_Data_Store::load( 'wlfmc-wishlist-item' )->count_times_parent_added( $parent_product_id, false, $columns, $list_type );
 				return (int) apply_filters( 'wlfmc_wishlist_times_parent_added_count_query', $result, $parent_product_id, $columns, $list_type );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $parent_product_id, $columns, $list_type ) );
 				return 0;
 			}
 		}
@@ -581,7 +581,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return (int) apply_filters( 'wlfmc_wishlist_times_added_count_query', $result, $product_id, $columns );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $product_id, $columns ) );
 				return 0;
 			}
 		}
@@ -599,7 +599,7 @@ if ( ! class_exists( 'WLFMC_Wishlist_Factory' ) ) {
 
 				return (int) apply_filters( 'wlfmc_wishlist_times_current_user_added_count_query', $result, $product_id );
 			} catch ( Exception $e ) {
-				wc_caught_exception( $e, __FUNCTION__, func_get_args() );
+				wc_caught_exception( $e, __FUNCTION__, array( $product_id ) );
 				return 0;
 			}
 		}

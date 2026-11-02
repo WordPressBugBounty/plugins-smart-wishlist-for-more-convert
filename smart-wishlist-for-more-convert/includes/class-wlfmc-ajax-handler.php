@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1146,7 +1146,7 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 		/**
 		 *  Add new hook for work automations after product added to list
 		 *
-		 * @version 1.7.6
+		 * @version 2.0.4
 		 * @return void
 		 */
 		public static function load_automations() {
@@ -1159,6 +1159,12 @@ if ( ! class_exists( 'WLFMC_Ajax_Handler' ) ) {
 			$customer_id = isset( $_POST['customer_id'] ) ? intval( $_POST['customer_id'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification
 			if ( ! $wishlist_id || ! $product_id || ! $customer_id ) {
 				wp_send_json_error();
+			}
+
+			$validation = WLFMC_Wishlist::validate_wishlist_ownership( $wishlist_id, $customer_id, $product_id );
+
+			if ( is_wp_error( $validation ) ) {
+				wp_send_json_error( array( 'message' => $validation->get_error_message() ) );
 			}
 
 			do_action( 'wlfmc_load_automations', $product_id, $wishlist_id, $customer_id, $list_type );
