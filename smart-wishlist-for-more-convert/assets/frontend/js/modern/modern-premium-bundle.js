@@ -4750,7 +4750,7 @@ var WLFMC = (() => {
      */
     _positionAndShowTooltip(target) {
       if (!this._tooltip || !target) return;
-      this._tooltip.innerHTML = this._text;
+      this._tooltip.textContent = this._text;
       this._tooltip.className = `tooltip__expanded wlfmc-tooltip-${this._tType}`;
       this._tooltip.style.visibility = "hidden";
       this._tooltip.style.display = "block";

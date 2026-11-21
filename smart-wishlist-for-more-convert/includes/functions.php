@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.4
+ * @version 2.0.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1570,6 +1570,7 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 	 * @param int    $quantity     The quantity of the product.
 	 *
 	 * @return array An associative array containing 'posted_data' and 'product_meta'.
+	 * @version 2.0.5
 	 */
 	function wlfmc_process_product_data( $product_type, $atts, $prod_id, $quantity ) {
 		$variations = array();
@@ -1606,7 +1607,7 @@ if ( ! function_exists( 'wlfmc_process_product_data' ) ) {
 							if ( $attribute['is_taxonomy'] ) {
 								$sanitized_value = sanitize_title( wp_unslash( $value ) );
 							} else {
-								$sanitized_value = html_entity_decode( wc_clean( wp_unslash( $value ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+								$sanitized_value = wc_clean( wp_unslash( $value ) );
 							}
 
 							if ( ! empty( $sanitized_value ) || '0' === $sanitized_value ) {

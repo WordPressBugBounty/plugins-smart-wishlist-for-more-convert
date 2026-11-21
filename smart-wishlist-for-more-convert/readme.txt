@@ -4,7 +4,7 @@ Contributors: MoreConvert
 Tags: wishlist, woocommerce wishlist, woocommerce Waitlist, out of stock, back-in-stock
 Requires at least: 5.8
 Tested up to: 7.1
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -303,6 +303,14 @@ For support and discussions, visit the [Plugin Forum](https://wordpress.org/supp
 
 
 == Changelog ==
+
+= 2.0.5 =
+
+* Tested: WC 11.3
+* Security: Fixed a mutation XSS in counter shortcodes by escaping icon
+  HTML in data-* attributes with double encoding, ensuring entity-encoded
+  text can no longer be decoded into executable markup on the frontend.
+* Security: Improved security by using textContent instead of innerHTML for user-generated content rendering.
 
 = 2.0.4 =
 

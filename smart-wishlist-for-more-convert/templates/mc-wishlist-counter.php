@@ -4,7 +4,7 @@
  *
  * @author MoreConvert
  * @package Smart Wishlist For More Convert
- * @version 2.0.4
+ * @version 2.0.5
  */
 
 /**
@@ -72,8 +72,8 @@ $has_item_icon_html = $has_item_is_svg
 	class="wlfmc-counter-wrapper <?php echo 'unique_' . esc_attr( $unique_id ); ?> <?php echo esc_attr( $container_class ); ?> <?php echo $is_elementor ? 'is-elementor' : ''; ?> <?php echo $show_list_on_hover ? 'show-list-on-hover' : 'show-list-on-click'; ?> wlfmc-wishlist-fragment on-first-load"
 	data-id="<?php echo esc_attr( $unique_id ); ?>"
 	data-counter-type="<?php echo esc_attr( $counter_type ); ?>"
-	data-empty-icon="<?php echo esc_attr( $empty_icon_html ); ?>"
-	data-has-items-icon="<?php echo esc_attr( $has_item_icon_html ); ?>"
+	data-empty-icon="<?php echo htmlspecialchars( $empty_icon_html, ENT_QUOTES, 'UTF-8', true ); ?>"
+	data-has-items-icon="<?php echo htmlspecialchars( $has_item_icon_html, ENT_QUOTES, 'UTF-8', true ); ?>"
 	data-wishlist-url="<?php echo esc_url( $wishlist_url ); ?>"
 	data-wishlist-token="<?php echo esc_attr( $wishlist_token ); ?>"
 	data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"
@@ -225,9 +225,9 @@ $has_item_icon_html = $has_item_is_svg
 		data-fragment-ref="wishlist_counter"
 		data-id="<?php echo esc_attr( $unique_id ); ?>"
 		data-counter-type="<?php echo esc_attr( $counter_type ); ?>"
-		data-empty-icon="<?php echo esc_attr( $empty_icon_html ); ?>"
-		data-has-items-icon="<?php echo esc_attr( $has_item_icon_html ); ?>"
-		data-wishlist-url="<?php echo esc_url( $wishlist_url ); ?>"
+        data-empty-icon="<?php echo htmlspecialchars( $empty_icon_html, ENT_QUOTES, 'UTF-8', true ); ?>"
+        data-has-items-icon="<?php echo htmlspecialchars( $has_item_icon_html, ENT_QUOTES, 'UTF-8', true ); ?>"
+        data-wishlist-url="<?php echo esc_url( $wishlist_url ); ?>"
 		data-wishlist-token="<?php echo esc_attr( $wishlist_token ); ?>"
 		data-wishlist-id="<?php echo esc_attr( $wishlist_id ); ?>"
 		data-hide-zero="<?php echo $hide_zero_products_number ? '1' : '0'; ?>"
